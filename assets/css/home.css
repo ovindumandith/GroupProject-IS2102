@@ -1,0 +1,361 @@
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  background-color: #e8f1ec;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.hero-text {
+  max-width: 50%;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.hero-text h1 span {
+  color: #fa8128; /* Accent color */
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  color: #333;
+}
+/* Image Slider Wrapper */
+.image-slider {
+  position: relative;
+  max-width: 800px; /* Adjust the width of the slider here */
+  margin: auto;
+  overflow: hidden;
+}
+
+/* Individual Slide */
+.image-slide {
+  display: none;
+  text-align: center;
+}
+
+.image-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  max-height: 400px; /* Adjust the max height of the images */
+  object-fit: cover;
+  border: 4px solid #fa8128;
+}
+
+.image-slide h3 {
+  color: #333;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.image-slide.active {
+  display: block;
+}
+
+/* Slider Buttons */
+.slider-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px; /* Space between images and arrows */
+}
+
+.slider-buttons button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+}
+
+.slider-buttons button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.get-started-btn {
+  background-color: #fa8128;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #e8c817;
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+/* Why Choose Us Section */
+.why-choose-us {
+  text-align: center;
+  padding: 50px 0;
+  background-color: #f4f4f4;
+}
+
+.why-choose-us h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+}
+
+.feature-item {
+  text-align: center;
+  width: 30%;
+}
+
+.feature-item img {
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  color: #48947c;
+}
+
+.feature-item p {
+  color: #333;
+}
+
+.feature-item.highlight {
+  background-color: #83c5b3;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.feature-item.highlight h3,
+.feature-item.highlight p {
+  color: white;
+}
+/* Services Section */
+.services-section {
+  background-color: #f4f4f4;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.services-section h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-item:nth-child(even) {
+  background-color: #e8f1ec;
+}
+
+.service-icon {
+  flex: 0 0 15%;
+  text-align: center;
+}
+
+.service-icon img {
+  width: 80px;
+  height: 80px;
+}
+
+.service-content {
+  flex: 1;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.service-content h3 {
+  font-size: 1.5rem;
+  color: #48947c;
+}
+
+.service-content p {
+  color: #333;
+  margin: 20px 0;
+}
+
+.explore-btn {
+  background-color: #fa8128;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.explore-btn:hover {
+  background-color: #e8c817;
+}
+/* Testimonial Slider Styles */
+.testimonial-slider {
+  position: relative;
+  width: 60%;
+  margin: 50px auto;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial {
+  display: none;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.testimonial.active {
+  display: block;
+  opacity: 1;
+}
+
+.testimonial p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.testimonial h3 {
+  font-size: 1.1rem;
+  color: #48947c; /* Adjust color to fit your theme */
+  font-weight: bold;
+}
+
+.slider-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.slider-controls span {
+  cursor: pointer;
+  font-size: 2rem;
+  margin: 0 10px;
+  color: #48947c; /* Color of slider arrows */
+  transition: color 0.3s ease-in-out;
+}
+
+.slider-controls span:hover {
+  color: #fa8128; /* Hover color */
+}
+.slider-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #fa8128;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-text {
+    max-width: 100%;
+    text-align: center;
+  }
+  .hero-image img {
+    width: 100%;
+    max-width: none;
+  }
+}
+.counter-container {
+  text-align: center;
+  margin-top: 30px;
+  background-color: #fff; /* Add a white background for contrast */
+  padding: 20px 40px; /* Add padding for spacing */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
+  display: inline-block; /* Make the counter fit content */
+  transition: transform 0.3s ease-in-out; /* Smooth scaling effect */
+}
+
+.counter-container:hover {
+  transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+.counter {
+  font-size: 5rem; /* Large font size for the counter */
+  font-weight: bold;
+  color: #fa8128;
+  transition: all 0.5s ease-in-out;
+}
+
+.counter-container p {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.counter-container {
+  animation: fadeIn 1s ease;
+}
+
