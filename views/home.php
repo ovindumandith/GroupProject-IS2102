@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to the login page if not logged in
+    header('Location: login.php');
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,7 +57,9 @@
       </nav>
       <div class="auth-buttons">
         <button class="signup"><b>Profile</b></button>
-        <button class="login"><b>Log Out</b></button>
+        <form action="../util/logout.php" method="post" style="display: inline">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
       </div>
     </header>
 
