@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     header('Location: ../views/home.php');
                     break;
                 case 'admin':
-                    header('Location: ../views/admin_home.html');
+                    header('Location: ../views/admin_home.php');
                     break;
                 case 'super_admin':
                     header('Location: ../views/admin/superadmin_home.html');

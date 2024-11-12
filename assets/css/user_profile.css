@@ -1,0 +1,72 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.content h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 500;
+}
+#updateform {
+  width: 80%; /* Adjust form width */
+  max-width: 500px;
+  background-color: #f3f3f3;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Toast message styling */
+/* Toast message styling */
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  top: 90px; /* Change from bottom to top */
+  right: 30px; /* Position it to the right */
+  font-size: 17px;
+  transform: translateX(0); /* Align it properly at the top-right */
+  transition: visibility 0s, opacity 0.5s linear;
+  opacity: 0;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
