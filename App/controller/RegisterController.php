@@ -25,18 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Registration failed, set an error message
             $_SESSION['signup_error'] = 'Username or Email already exists.';
-            header('Location: ../views/signup.php'); // Redirect to signup page
+            header('Location: ../views/login.php'); // Redirect to signup page
             exit();
         }
     } else {
         // If any field is missing, set an error message
         $_SESSION['signup_error'] = 'All fields are required!';
-        header('Location: ../views/signup.php');
+        header('Location: ../views/login.php');
         exit();
     }
 } else {
     // Handle incorrect request method
     $_SESSION['signup_error'] = 'Invalid request method.';
-    header('Location: ../views/signup.php');
+    header('Location: ../views/login.php');
     exit();
 }

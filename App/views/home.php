@@ -22,20 +22,20 @@ if (!isset($_SESSION['user_id'])) {
     />
     <link
       rel="stylesheet"
-      href="../assets/css/header_footer.css"
+      href="../../assets/css/header_footer.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../assets/css/home.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
 
-    <script src="../assets/js/hero_slider.js" defer></script>
-    <script src="../assets/js/testimonial_slider.js" defer></script>
-    <script src="../assets/js/counter.js" defer></script>
+    <script src="../../assets/js/hero_slider.js" defer></script>
+    <script src="../../assets/js/testimonial_slider.js" defer></script>
+    <script src="../../assets/js/counter.js" defer></script>
   </head>
   <body>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
-        <img src="../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
       <nav class="navbar">
@@ -57,7 +57,7 @@ if (!isset($_SESSION['user_id'])) {
       </nav>
       <div class="auth-buttons">
         <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
-        <form action="../util/logout.php" method="post" style="display: inline">
+        <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
@@ -86,15 +86,15 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="image-slider">
           <div class="image-slide active">
-            <img src="../assets/images/hero_img2.jpg" alt="Image 1" />
+            <img src="../../assets/images/hero_img2.jpg" alt="Image 1" />
             <h3>Image 1 Caption</h3>
           </div>
           <div class="image-slide">
-            <img src="../assets/images/hero_img.jpg" alt="Image 2" />
+            <img src="../../assets/images/hero_img.jpg" alt="Image 2" />
             <h3>Image 2 Caption</h3>
           </div>
           <div class="image-slide">
-            <img src="../assets/images/hero_img3.jpg" alt="Image 3" />
+            <img src="../../assets/images/hero_img3.jpg" alt="Image 3" />
             <h3>Image 3 Caption</h3>
           </div>
           <div class="slider-buttons">
@@ -109,7 +109,7 @@ if (!isset($_SESSION['user_id'])) {
       <h2>Why Our Stress Monitoring App is the Best Choice</h2>
       <div class="features">
         <div class="feature-item">
-          <img src="../assets/images/algo.png" alt="Holistic approach icon" />
+          <img src="../../assets/images/algo.png" alt="Holistic approach icon" />
           <h3>Holistic Approach</h3>
           <p>
             Use of advanced algorithms and techniques to monitor your stress
@@ -117,14 +117,14 @@ if (!isset($_SESSION['user_id'])) {
           </p>
         </div>
         <div class="feature-item highlight">
-          <img src="../assets/images/team.png" alt="Expertise Team icon" />
+          <img src="../../assets/images/team.png" alt="Expertise Team icon" />
           <h3>Expertise Team</h3>
           <p>
             A team consisting of experienced counselors and staff to guide you.
           </p>
         </div>
         <div class="feature-item">
-          <img src="../assets/images/academic.png" alt="Accessibility icon" />
+          <img src="../../assets/images/academic.png" alt="Accessibility icon" />
           <h3>Accessibility</h3>
           <p>
             Advanced academic tools and features for managing a balanced
@@ -139,7 +139,7 @@ if (!isset($_SESSION['user_id'])) {
       <div class="service-item">
         <div class="service-icon">
           <img
-            src="../assets/images/monitoring.png"
+            src="../../assets/images/monitoring.png"
             alt="Real Time Monitoring Icon"
           />
         </div>
@@ -159,7 +159,7 @@ if (!isset($_SESSION['user_id'])) {
       <div class="service-item">
         <div class="service-icon">
           <img
-            src="../assets/images/support.png"
+            src="../../assets/images/support.png"
             alt="Mindfulness Tools Icon"
           />
         </div>
@@ -178,7 +178,7 @@ if (!isset($_SESSION['user_id'])) {
       <div class="service-item">
         <div class="service-icon">
           <img
-            src="../assets/images/community.png"
+            src="../../assets/images/community.png"
             alt="Community Management Icon"
           />
         </div>
@@ -196,7 +196,7 @@ if (!isset($_SESSION['user_id'])) {
       <div class="service-item">
         <div class="service-icon">
           <img
-            src="../assets/images/counsling.png"
+            src="../../assets/images/counsling.png"
             alt="Counseling Services Icon"
           />
         </div>
@@ -214,7 +214,7 @@ if (!isset($_SESSION['user_id'])) {
       <div class="service-item">
         <div class="service-icon">
           <img
-            src="../assets/images/academic-apparel.png"
+            src="../../assets/images/academic-apparel.png"
             alt="Academic Support Icon"
           />
         </div>
@@ -273,7 +273,7 @@ if (!isset($_SESSION['user_id'])) {
           <p>Relax and Refresh while Excelling in your Studies</p>
           <img
             id="footer-logo"
-            src="../assets/images/logo.jpg"
+            src="../../assets/images/logo.jpg"
             alt="RelaxU Logo"
           />
         </div>
@@ -306,22 +306,22 @@ if (!isset($_SESSION['user_id'])) {
         <ul>
           <li>
             <a href="#"
-              ><img src="../assets/images/facebook.png" alt="Facebook"
+              ><img src="../../assets/images/facebook.png" alt="Facebook"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../assets/images/twitter.png" alt="Twitter"
+              ><img src="../../assets/images/twitter.png" alt="Twitter"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../assets/images/instagram.png" alt="Instagram"
+              ><img src="../../assets/images/instagram.png" alt="Instagram"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../assets/images/youtube.png" alt="YouTube"
+              ><img src="../../assets/images/youtube.png" alt="YouTube"
             /></a>
           </li>
         </ul>

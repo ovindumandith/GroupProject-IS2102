@@ -2,5 +2,5 @@
 // Entry point for the application
 
 
-header("Location: views/login.php");
+header("Location: App/views/login.php");
 exit();

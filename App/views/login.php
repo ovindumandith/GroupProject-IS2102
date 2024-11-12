@@ -7,9 +7,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="../assets/css/loginsignup.css" />
+    <link rel="stylesheet" href="../../assets/css/loginsignup.css">
     <title>Login</title>
-    <script src="../assets/js/loginsignupvalidation.js"></script>
+    <script src="../../assets/js/loginsignupvalidation.js"></script>
     
   </head>
   <body>
