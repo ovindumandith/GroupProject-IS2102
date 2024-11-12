@@ -22,20 +22,20 @@ if (!isset($_SESSION['user_id'])) {
     />
     <link
       rel="stylesheet"
-      href="../assets/css/header_footer.css"
+      href="../../assets/css/header_footer.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../assets/css/home.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
 
-    <script src="../assets/js/hero_slider.js" defer></script>
-    <script src="../assets/js/testimonial_slider.js" defer></script>
-    <script src="../assets/js/counter.js" defer></script>
+    <script src="../../assets/js/hero_slider.js" defer></script>
+    <script src="../../assets/js/testimonial_slider.js" defer></script>
+    <script src="../../assets/js/counter.js" defer></script>
   </head>
   <body>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
-        <img src="../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
       <nav class="navbar">
@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_id'])) {
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+        <button class="signup" onclick="location.href='admin_profile.php'"><b>Profile</b></button>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>

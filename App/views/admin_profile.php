@@ -17,7 +17,7 @@ if (!$conn) {
 
 // Fetch user information
 $user_id = $_SESSION['user_id'];
-$query = "SELECT username, email, phone, year, role FROM users WHERE user_id = ?";
+$query = "SELECT username, email, phone, role FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
 $stmt->execute();
@@ -34,15 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    $year = $_POST['year'];
+    
 
-    $update_query = "UPDATE users SET username = ?, email = ?, phone = ?, year = ? WHERE user_id = ?";
+    $update_query = "UPDATE users SET username = ?, email = ?, phone = ? WHERE user_id = ?";
     $update_stmt = $conn->prepare($update_query);
     $update_stmt->bindParam(1, $username);
     $update_stmt->bindParam(2, $email);
     $update_stmt->bindParam(3, $phone);
-    $update_stmt->bindParam(4, $year);
-    $update_stmt->bindParam(5, $user_id, PDO::PARAM_INT);
+    $update_stmt->bindParam(4, $user_id, PDO::PARAM_INT);
     
     if ($update_stmt->execute()) {
         $update_success = true;
@@ -73,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="../views/home.php">Home </a></li>    
+          <li><a href="../views/admin_home.php">Home </a></li>    
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
@@ -89,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+        <button class="signup" onclick="location.href='admin_profile.php'"><b>Profile</b></button>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
@@ -101,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h1> User Profile</h1>
          
     
-    <form method="POST" action="profile.php" id="updateform">
+    <form method="POST" action="admin_profile.php" id="updateform">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
@@ -111,8 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="phone">Phone:</label>
         <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>" required>
 
-        <label for="year">Year:</label>
-        <input type="text" id="year" name="year" value="<?php echo htmlspecialchars($user['year']); ?>" required>
 
         <input type="submit" value="Update Profile">
     </form>
@@ -130,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             setTimeout(() => {
                 toast.classList.remove("show");
                 // Redirect after toast is hidden
-                window.location.href = 'profile.php';
+                window.location.href = 'admin_profile.php';
             }, 3000);
         <?php endif; ?>
     </script>
