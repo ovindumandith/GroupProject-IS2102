@@ -1,66 +1,139 @@
+/* General Form Styling */
+#form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4f4f9;
+}
 
+#stress-form {
+  width: 100%;
+  max-width: 480px; /* Reduced maximum width */
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-/* Questionnaire Form styling */
+/* Questionnaire Styling */
 #questionnaire-container {
   width: 100%;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
 #questionnaire-container h2 {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: bold;
   color: #333;
   margin-bottom: 20px;
 }
 
+/* Question Box */
 .question-box {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   margin-bottom: 20px;
 }
 
 .question-box label {
   font-size: 16px;
-  color: #555;
-  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .question-box input {
+  width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-button#next-question {
+.question-box input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Image Styling */
+#question-image-container {
+  margin: 20px 0; /* Space between input field and progress bar */
+  height: 160px; /* Consistent height for the container */
+  width: 160px; /* Consistent width for the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  overflow: hidden; /* Prevent image overflow */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#question-image {
+  width: 100%; /* Ensures the image fills the container */
+  height: 100%; /* Ensures the image fills the container */
+  object-fit: contain; /* Maintains the aspect ratio without cropping */
+  display: block; /* Prevents inline-block gaps */
+  border-radius: 10px; /* Matches container's border-radius */
+  background-color: #eaeaea; /* Adds a fallback background for missing images */
+}
+
+/* Progress Bar */
+#progress-container {
   width: 100%;
-  padding: 12px;
-  font-size: 16px;
+  background-color: #f0f0f0;
+  height: 6px;
+  border-radius: 5px;
+  margin: 20px 0; /* Even spacing */
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #4a90e2;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+/* Buttons */
+button#next-question,
+button#submit-questionnaire {
+  width: 100%;
+  max-width: 250px; /* Reduced button width */
+  padding: 10px;
+  font-size: 14px;
   color: #fff;
   background-color: #4caf50;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button#next-question:hover {
+button#next-question:hover,
+button#submit-questionnaire:hover {
   background-color: #45a049;
+  transform: scale(1.02);
 }
 
-/* Image styling */
-#question-image-container {
-  margin-top: 20px;
+#submit-questionnaire {
+  display: none; /* Initially hidden */
 }
 
-#question-image {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 10px;
+/* Question Count */
+#question-count {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
 }

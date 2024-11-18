@@ -1,0 +1,56 @@
+#stress-management-options {
+  text-align: center;
+  padding: 20px;
+}
+
+#stress-management-options h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 300px;
+  height: 350px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  color: #4a90e2;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.card p {
+  color: #666;
+  font-size: 14px;
+}
+#stress-management-options img {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

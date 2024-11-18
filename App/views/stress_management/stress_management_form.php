@@ -22,10 +22,9 @@ if (!isset($_SESSION['user_id'])) {
     />
     <link
       rel="stylesheet"
-      href="../../assets/css/header_footer.css"
-      type="text/css"
+      href="../../../assets/css/header_footer.css"
     />
-    <link rel="stylesheet" href="../../assets/css/stress_management_form.css" type="text/css" />
+    <link rel="stylesheet" href="../../../assets/css/stress_management_form.css" />
     
     <style>
         .question-step { display: none; }
@@ -37,16 +36,16 @@ if (!isset($_SESSION['user_id'])) {
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
-        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="../views/home.php">Home</a></li>
+          <li><a href="../../views/home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="../views/stress_managment_form.php">Stress Monitoring</a></li>
+              <li><a href="../../views/stress_managment_form.php">Stress Monitoring</a></li>
               <li><a href="#">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
@@ -59,38 +58,61 @@ if (!isset($_SESSION['user_id'])) {
       </nav>
       <div class="auth-buttons">
         <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
-        <form action="../../util/logout.php" method="post" style="display: inline">
+        <form action="../../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
-
-
       </div>
     </header>
- <div id="questionnaire-container">
-        <h2>Stress Management Questionnaire</h2>
-        <div id="question-flow">
-            <div class="question-box">
-                <label for="sleep">How much sleep did you get in the last 24 hours (in hours)?</label>
-                <input type="number" id="sleep" name="sleep" min="0" max="24" required>
-            </div>
 
-            <div class="question-box" style="display: none;">
-                <label for="exercise">How many hours of physical exercise did you have in the last 24 hours?</label>
-                <input type="number" id="exercise" name="exercise" min="0" max="24" required>
-            </div>
+    <div id="form-container">
+    <form id="stress-form" action="stress_management_controller.php" method="POST">
+        <div id="questionnaire-container">
+            <h2>Stress Management Questionnaire</h2>
+            <div id="question-flow">
+                <div class="question-box">
+                    <label for="sleep">How much sleep did you get in the last 24 hours (in hours)?</label>
+                    <input type="number" id="sleep" name="sleep" min="0" max="24" required>
+                </div>
 
-            <div class="question-box" style="display: none;">
-                <label for="workload">How many hours did you spend on work/study in the last 24 hours?</label>
-                <input type="number" id="workload" name="workload" min="0" max="24" required>
-            </div>
+                <div class="question-box" style="display: none;">
+                    <label for="exercise">How many hours of physical exercise did you have in the last 24 hours?</label>
+                    <input type="number" id="exercise" name="exercise" min="0" max="24" required>
+                </div>
 
-            <button id="next-question">Next</button>
-        </div>
+                <div class="question-box" style="display: none;">
+                    <label for="workload">How many hours did you spend on work/study in the last 24 hours?</label>
+                    <input type="number" id="workload" name="workload" min="0" max="24" required>
+                </div>
+
+                <div class="question-box" style="display: none;">
+                    <label for="mood">How would you rate your mood on a scale of 1 to 10 (1 being very low, 10 being very high)?</label>
+                    <input type="number" id="mood" name="mood" min="1" max="10" required>
+                </div>
+            </div>
+            
         <div id="question-image-container">
-            <img id="question-image" src="../../assets/images/sleep.jpg" alt="Question Image">
+            <img id="question-image" src="../../../assets/images/sleep.jpg" alt="Question Image">
         </div>
-    </div>
-<script src="../../assets/js/stress_management_form.js" type="text/javascript"></script>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <p id="question-count">Question 1 of 4</p>
+            <button type="button" id="next-question">Next</button>
+            <button type="submit" id="submit-questionnaire" style="display: none;">Submit</button>
+
+
+        </div>
+
+
+
+
+    </form>
+</div>
+
+    
+<script src="../../../assets/js/stress_management_form.js" type="text/javascript"></script>
+
+
 
 
 
@@ -102,7 +124,7 @@ if (!isset($_SESSION['user_id'])) {
           <p>Relax and Refresh while Excelling in your Studies</p>
           <img
             id="footer-logo"
-            src="../../assets/images/logo.jpg"
+            src="../../../assets/images/logo.jpg"
             alt="RelaxU Logo"
           />
         </div>
@@ -135,22 +157,22 @@ if (!isset($_SESSION['user_id'])) {
         <ul>
           <li>
             <a href="#"
-              ><img src="../../assets/images/facebook.png" alt="Facebook"
+              ><img src="../../../assets/images/facebook.png" alt="Facebook"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../../assets/images/twitter.png" alt="Twitter"
+              ><img src="../../../assets/images/twitter.png" alt="Twitter"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../../assets/images/instagram.png" alt="Instagram"
+              ><img src="../../../assets/images/instagram.png" alt="Instagram"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../../assets/images/youtube.png" alt="YouTube"
+              ><img src="../../../assets/images/youtube.png" alt="YouTube"
             /></a>
           </li>
         </ul>
