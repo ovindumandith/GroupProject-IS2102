@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
 ?>
 
 
@@ -30,6 +31,8 @@ if (!isset($_SESSION['user_id'])) {
     
   </head>
   <body>
+        <!-- Toast Container -->
+
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
@@ -84,13 +87,6 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 <br/>
 
-
-
-
-
-
-
-    <!-- Footer Section -->
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-logo">
@@ -156,4 +152,5 @@ if (!isset($_SESSION['user_id'])) {
       </div>
     </footer>
   </body>
+  
 </html>

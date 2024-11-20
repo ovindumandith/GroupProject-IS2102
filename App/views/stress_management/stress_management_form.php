@@ -65,7 +65,7 @@ if (!isset($_SESSION['user_id'])) {
     </header>
 
     <div id="form-container">
-    <form id="stress-form" action="stress_management_controller.php" method="POST">
+    <form id="stress-form" action="../../controller/StressManagementController.php" method="POST">
         <div id="questionnaire-container">
             <h2>Stress Management Questionnaire</h2>
             <div id="question-flow">
@@ -99,13 +99,7 @@ if (!isset($_SESSION['user_id'])) {
         <p id="question-count">Question 1 of 4</p>
             <button type="button" id="next-question">Next</button>
             <button type="submit" id="submit-questionnaire" style="display: none;">Submit</button>
-
-
         </div>
-
-
-
-
     </form>
 </div>
 

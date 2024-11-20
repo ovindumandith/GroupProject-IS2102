@@ -14,8 +14,8 @@ class StressManagementModel {
     public function saveStressData($userId, $sleepHours, $exerciseHours, $workHours, $moodStatus) {
         try {
             $query = 'INSERT INTO stress_management_responses 
-                      (user_id, sleep_hours, exercise_hours, work_hours, mood_status, response_date) 
-                      VALUES (:user_id, :sleep_hours, :exercise_hours, :work_hours, :mood_status, NOW())';
+                      (user_id, sleep_hours, exercise_hours, work_hours, mood_status) 
+                      VALUES (:user_id, :sleep_hours, :exercise_hours, :work_hours, :mood_status)';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
             $stmt->bindParam(':sleep_hours', $sleepHours, PDO::PARAM_INT);
@@ -44,26 +44,6 @@ class StressManagementModel {
             $stmt->execute();
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            $this->logError($e->getMessage());
-            return false;
-        }
-    }
-
-    // Generate a report for stress management data
-    public function generateStressReport($userId) {
-        try {
-            $query = 'SELECT AVG(sleep_hours) AS avg_sleep, 
-                             AVG(exercise_hours) AS avg_exercise, 
-                             AVG(work_hours) AS avg_work, 
-                             AVG(mood_status) AS avg_mood 
-                      FROM stress_management_responses 
-                      WHERE user_id = :user_id';
-            $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->execute();
-
-            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->logError($e->getMessage());
             return false;

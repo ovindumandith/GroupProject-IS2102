@@ -7,20 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const questionCountText = document.getElementById("question-count");
 
   const images = [
-    "../../../assets/images/sleep.jpg", // Image for sleep question
-    "../../../assets/images/exercise.jpg", // Image for exercise question
-    "../../../assets/images/workload.jpg", // Image for workload question
-    "../../../assets/images/mood.jpg", // Image for mood question
-    
+    "../../../assets/images/sleep.jpg",
+    "../../../assets/images/exercise.jpg",
+    "../../../assets/images/workload.jpg",
+    "../../../assets/images/mood.jpg",
   ];
-  const thankYouImage = "../../../assets/images/thankyou.jpg"; // Thank you image
 
   let currentQuestionIndex = 0;
-
-  // Show the first question and progress
-  questions[currentQuestionIndex].style.display = "flex";
-  questionImage.src = images[currentQuestionIndex];
-  updateProgress();
 
   nextButton.addEventListener("click", () => {
     const currentQuestion = questions[currentQuestionIndex];
@@ -34,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const value = parseFloat(inputField.value);
+    const value = parseInt(inputField.value, 10);
     if (isNaN(value) || value < minValue || value > maxValue) {
       alert(`Please enter a valid value between ${minValue} and ${maxValue}.`);
       return;
@@ -47,24 +40,19 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentQuestionIndex < questions.length) {
       questions[currentQuestionIndex].style.display = "flex";
       questionImage.src = images[currentQuestionIndex];
-      updateProgress();
+
+      // Update progress
+      const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+      progressBar.style.width = `${progress}%`;
+      questionCountText.textContent = `Question ${
+        currentQuestionIndex + 1
+      } of ${questions.length}`;
     } else {
-      // Show thank you message and image
-      nextButton.style.display = "none"; // Hide the Next button
-      submitButton.style.display = "inline-block"; // Show Submit button
-      questionImage.src = thankYouImage; // Change to thank you image
-      questionCountText.textContent =
-        "Thank you for completing the questionnaire!";
-      progressBar.style.width = "100%"; // Set progress bar to 100%
+      // All questions answered, show submit button
+      nextButton.style.display = "none";
+      submitButton.style.display = "block";
+      questionCountText.textContent = "Ready to submit your answers.";
+      progressBar.style.width = "100%";
     }
   });
-
-  // Update the progress bar and question count
-  function updateProgress() {
-    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-    progressBar.style.width = `${progress}%`;
-    questionCountText.textContent = `Question ${currentQuestionIndex + 1} of ${
-      questions.length
-    }`;
-  }
 });
