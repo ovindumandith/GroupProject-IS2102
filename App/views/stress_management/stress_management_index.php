@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="../../views/stress_managment_form.php">Stress Monitoring</a></li>
-              <li><a href="#">Relaxation Activities</a></li>
+              <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -73,7 +73,7 @@ if (!isset($_SESSION['user_id'])) {
       <p>Complete a self-assessment to monitor your stress.</p>
       <img src="../../../assets/images/stress_monitoring.jpg" alt="Stress History Icon">
     </div>
-    <div class="card" onclick="window.location.href='stress_history.php'">
+    <div class="card" onclick="window.location.href='stress_management_records.php'">
       <h3>Your Past Stress Records</h3>
       <p>View your history of stress management data.</p>
       <img src="../../../assets/images/past_stress_records.jpg" alt="Past Stress History Icon">
@@ -101,8 +101,8 @@ if (!isset($_SESSION['user_id'])) {
         <div class="footer-section">
           <h3>Services</h3>
           <ul>
-            <li><a href="#">Stress Monitoring</a></li>
-            <li><a href="#">Relaxation Activities</a></li>
+            <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+            <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
             <li><a href="#">Academic Help</a></li>
             <li><a href="#">Counseling</a></li>
             <li><a href="#">Community</a></li>

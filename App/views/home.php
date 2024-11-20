@@ -280,8 +280,8 @@ if (!isset($_SESSION['user_id'])) {
         <div class="footer-section">
           <h3>Services</h3>
           <ul>
-            <li><a href="#">Stress Monitoring</a></li>
-            <li><a href="#">Relaxation Activities</a></li>
+            <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+            <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
             <li><a href="#">Academic Help</a></li>
             <li><a href="#">Counseling</a></li>
             <li><a href="#">Community</a></li>

@@ -45,8 +45,8 @@ if (!isset($_SESSION['user_id'])) {
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="../../views/stress_managment_form.php">Stress Monitoring</a></li>
-              <li><a href="#">Relaxation Activities</a></li>
+              <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -106,10 +106,6 @@ if (!isset($_SESSION['user_id'])) {
     
 <script src="../../../assets/js/stress_management_form.js" type="text/javascript"></script>
 
-
-
-
-
     <!-- Footer Section -->
     <footer class="footer">
       <div class="footer-container">
@@ -125,8 +121,8 @@ if (!isset($_SESSION['user_id'])) {
         <div class="footer-section">
           <h3>Services</h3>
           <ul>
-            <li><a href="#">Stress Monitoring</a></li>
-            <li><a href="#">Relaxation Activities</a></li>
+            <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+            <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
             <li><a href="#">Academic Help</a></li>
             <li><a href="#">Counseling</a></li>
             <li><a href="#">Community</a></li>

@@ -3,7 +3,7 @@ session_start(); // Start the session to access user data
 require_once '../../../GroupProject-IS2102/App/models/StressManagementModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    session_start(); // Start session to access user ID
+    // Handling form submission (data insertion)
     $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     $sleepHours = isset($_POST['sleep']) ? (int) $_POST['sleep'] : null;
     $exerciseHours = isset($_POST['exercise']) ? (int) $_POST['exercise'] : null;
@@ -21,15 +21,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $model->saveStressData($userId, $sleepHours, $exerciseHours, $workHours, $moodStatus);
 
         if ($result) {
-            // Redirect to the index page after successful save
-            $_SESSION['toast_message'] = 'Data saved successfully.';
-            header('Location: ../../views/stress_management_index.php');
+            header('Location: ../../../views/stress_management/stress_management_index.php');
             exit();
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to save data.']);
         }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Invalid input. Please ensure all fields are correctly filled.']);
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'view_records') {
+    // Handling record retrieval
+    $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+    if ($userId) {
+        $model = new StressManagementModel();
+        $records = $model->getStressRecords($userId);
+
+        if ($records) {
+            $_SESSION['stress_records'] = $records;
+            header('Location: ../../../views/stress_management/stress_management_index.php');
+            exit();
+        } else {
+            $_SESSION['toast_message'] = 'No records found.';
+            header('Location: ../../../views/stress_management/stress_management_index.php');
+            exit();
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'User not authenticated.']);
     }
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);

@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/config.php';
+require_once 'C:\xampp\htdocs\GroupProject-IS2102\config\config.php';
 
 class StressManagementModel {
     private $db;
@@ -31,24 +31,16 @@ class StressManagementModel {
     }
 
     // Retrieve stress records for a user
-    public function getStressRecords($userId, $limit = 10, $offset = 0) {
-        try {
-            $query = 'SELECT * FROM stress_management_responses 
-                      WHERE user_id = :user_id 
-                      ORDER BY response_date DESC
-                      LIMIT :limit OFFSET :offset';
-            $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-            $stmt->execute();
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            $this->logError($e->getMessage());
-            return false;
-        }
-    }
+public function getStressRecords($userId) {
+    $query = 'SELECT response_id, sleep_hours, exercise_hours, work_hours, mood_status, response_date 
+              FROM stress_management_responses 
+              WHERE user_id = :user_id 
+              ORDER BY response_date DESC';
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     // Log database errors
     private function logError($errorMessage) {
