@@ -50,7 +50,7 @@ if (!isset($_SESSION['user_id'])) {
             </ul>
           </li>
           <li><a href="#">Academic Help</a></li>
-          <li><a href="#">Counseling</a></li>
+          <li><a href="../controller/CounselorController.php">Counseling</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
@@ -283,7 +283,7 @@ if (!isset($_SESSION['user_id'])) {
             <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
             <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
             <li><a href="#">Academic Help</a></li>
-            <li><a href="#">Counseling</a></li>
+            <li><a href="../views/counselling/counsellor_index.php">Counseling</a></li>
             <li><a href="#">Community</a></li>
             <li><a href="#">Workload Managment Tools</a></li>
           </ul>

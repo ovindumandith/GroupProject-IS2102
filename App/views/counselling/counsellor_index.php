@@ -1,22 +1,16 @@
 <?php
 session_start();
-require_once '../../models/StressManagementModel.php';
 
-// Ensure the user is logged in
+// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php'); // Redirect to login page if not logged in
+    // Redirect to the login page if not logged in
+    header('Location: login.php');
     exit();
 }
 
-$userId = $_SESSION['user_id'];
-
-// Create an instance of the model
-$model = new StressManagementModel();
-
-// Fetch stress management records for the logged-in user
-$records = $model->getStressRecords($userId);
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,15 +24,15 @@ $records = $model->getStressRecords($userId);
     <link
       rel="stylesheet"
       href="../../../assets/css/header_footer.css"
-      type="text/css"
     />
-    <link
-      rel="stylesheet"
-      href="../../../assets/css/view_stress_records.css"
-      type="text/css"/>
-
+    <link rel="stylesheet" href="../../../assets/css/counselor_card.css" type="text/css" />
+    
+ 
+    
   </head>
   <body>
+        <!-- Toast Container -->
+
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
@@ -51,7 +45,7 @@ $records = $model->getStressRecords($userId);
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../../views/stress_managment_form.php">Stress Monitoring</a></li>
               <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
@@ -67,29 +61,29 @@ $records = $model->getStressRecords($userId);
         <form action="../../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
+
+
       </div>
     </header>
 <body>
-    <div class="container">
-        <h1>Your Stress Records</h1>
-        <?php if ($records && count($records) > 0): ?>
-            <div class="card-container">
-<?php foreach ($records as $record): ?>
-    <div class="card">
-        <h3>Record ID: <?= htmlspecialchars($record['response_id'] ?? 'N/A'); ?></h3>
-        <p><strong>Sleep Hours:</strong> <?= htmlspecialchars($record['sleep_hours']); ?></p>
-        <p><strong>Exercise Hours:</strong> <?= htmlspecialchars($record['exercise_hours']); ?></p>
-        <p><strong>Work Hours:</strong> <?= htmlspecialchars($record['work_hours']); ?></p>
-        <p><strong>Mood Status:</strong> <?= htmlspecialchars($record['mood_status']); ?></p>
-        <p><strong>Recorded On:</strong> <?= htmlspecialchars($record['response_date']); ?></p>
-    </div>
-<?php endforeach; ?>
-
-            </div>
-        <?php else: ?>
-            <p>No records found.</p>
-        <?php endif; ?>
-    </div>
+        <h1>Counselors</h1>
+        <div class="counselor-list">
+            <?php if (!empty($counselors)): ?>
+                <?php foreach ($counselors as $counselor): ?>
+                    <div class="counselor-card">
+                        <h3><?= htmlspecialchars($counselor['name']) ?></h3>
+                        <p><strong>Type:</strong> <?= htmlspecialchars($counselor['type']) ?></p>
+                        <p>
+                            <strong>Specialization:</strong>
+                            <?= $counselor['specialization'] ? htmlspecialchars($counselor['specialization']) : 'N/A' ?>
+                        </p>
+                        <a href="view_counselor.php?id=<?= $counselor['id'] ?>">Read More</a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No counselors available at the moment.</p>
+            <?php endif; ?>
+        </div>
 
     <footer class="footer">
       <div class="footer-container">
@@ -155,8 +149,7 @@ $records = $model->getStressRecords($userId);
         <p>copyright 2024 @RelaxU all rights reserved</p>
       </div>
     </footer>
-  </body>
-</html>
+
 
 </body>
 </html>

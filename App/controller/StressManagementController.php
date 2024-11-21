@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $model->saveStressData($userId, $sleepHours, $exerciseHours, $workHours, $moodStatus);
 
         if ($result) {
-            header('Location: ../../../views/stress_management/stress_management_index.php');
+            header('Location: ../views/stress_management/stress_management_index.php');
             exit();
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to save data.']);
