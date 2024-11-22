@@ -45,6 +45,8 @@
 
 
     require_once '../controller/ViewRelaxationActivityController.php';
+    $controller = new ViewRelaxationActivityController();
+    $controller->handleRequest();
       
   ?>
 
