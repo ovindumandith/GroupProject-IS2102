@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="../../assets/css/user_profile.css" type="text/css" />
   </head>
   <body>
+  <?php
+
+    require_once "../controller/RelaxationActivityController.php";
+
+    $controller = new RelaxationActivityController();
+    $message = $controller->handleRequest();
+
+?>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
@@ -40,23 +48,22 @@
         <button class="login"><b>Log Out</b></button>
       </div>
     </header>
-
-    <!-- Content Section (for demonstration) -->l
+    <!-- Content Section (for demonstration) -->
     <div class="content">
         <h1>Add Relaxation Activities</h1>
          
     
-    <form method="post" id="updateform">
-        <label for="activity_name">Activity Name:</label>
-        <input type="text" id="activity_name" name="activity_name" value="<?php echo htmlspecialchars($user['desctiption']); ?>" required>
+    <form method="post"  action="./admin_page_relaxation activites.php" id="updateform" enctype="multipart/form-data">
+        <label for="activity_name">Activity Title:</label>
+        <input type="text" id="activity_name" name="activity_name" required>
 
-        <label for="desctiption">Description:</label>
-        <textarea type="textarea" id="desctiption" name="desctiption" value="<?php echo htmlspecialchars($user['desctiption']); ?>" required></textarea>
+        <label for="description">description:</label>
+        <textarea id="description" name="description" required></textarea>
 
         <label for="image">Image:</label>
-        <input type="file" id="image" name="image" class="file-input" value="<?php echo htmlspecialchars($user['image']); ?>" required>
+        <input type="file" id="image" name="image_url" class="file-input" required>
 
-        <input type="submit" value="Add Activity">
+        <input type="submit" name="submit" value="Add Activity">
     </form>
       <p></p>
     </div>
