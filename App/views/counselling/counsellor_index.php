@@ -21,11 +21,8 @@ if (!isset($_SESSION['user_id'])) {
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="../../../assets/css/header_footer.css"
-    />
-    <link rel="stylesheet" href="../../../assets/css/counselor_card.css" type="text/css" />
+<link rel="stylesheet" href="/GroupProject-IS2102/assets/css/header_footer.css">
+<link rel="stylesheet" href="/GroupProject-IS2102/assets/css/counselor_card.css">
     
  
     
@@ -36,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
-        <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <img src="/GroupProject-IS2102/assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
       <nav class="navbar">
@@ -67,23 +64,39 @@ if (!isset($_SESSION['user_id'])) {
     </header>
 <body>
         <h1>Counselors</h1>
-        <div class="counselor-list">
-            <?php if (!empty($counselors)): ?>
-                <?php foreach ($counselors as $counselor): ?>
-                    <div class="counselor-card">
-                        <h3><?= htmlspecialchars($counselor['name']) ?></h3>
-                        <p><strong>Type:</strong> <?= htmlspecialchars($counselor['type']) ?></p>
-                        <p>
-                            <strong>Specialization:</strong>
-                            <?= $counselor['specialization'] ? htmlspecialchars($counselor['specialization']) : 'N/A' ?>
-                        </p>
-                        <a href="view_counselor.php?id=<?= $counselor['id'] ?>">Read More</a>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No counselors available at the moment.</p>
-            <?php endif; ?>
-        </div>
+<div class="counselor-list">
+    <?php if (!empty($counselors)): ?>
+        <?php foreach ($counselors as $counselor): ?>
+            <div class="counselor-card">
+                <!-- Counselor Image -->
+                <div class="card-image">
+                    <img src="<?= htmlspecialchars($counselor['profile_image']) ?>" alt="<?= htmlspecialchars($counselor['name']) ?>">
+                </div>
+                <!-- Counselor Name -->
+                <h3><?= htmlspecialchars($counselor['name']) ?></h3>
+                <!-- Counselor Type -->
+                <p><strong>Type:</strong> <?= htmlspecialchars($counselor['type']) ?></p>
+                <!-- Counselor Specialization -->
+                <p>
+                    <strong>Specialization:</strong>
+                    <?= $counselor['specialization'] ? htmlspecialchars($counselor['specialization']) : 'N/A' ?>
+                </p>
+<form action="/GroupProject-IS2102/App/controller/CounselorController.php" method="GET">
+    <input type="hidden" name="action" value="viewCounselor">
+    <input type="hidden" name="id" value="<?= $counselor['id'] ?>"> <!-- Counselor ID -->
+    <button type="submit" class="button">View Profile</button>
+</form>
+
+
+
+
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No counselors available at the moment.</p>
+    <?php endif; ?>
+</div>
+
 
     <footer class="footer">
       <div class="footer-container">
@@ -92,7 +105,7 @@ if (!isset($_SESSION['user_id'])) {
           <p>Relax and Refresh while Excelling in your Studies</p>
           <img
             id="footer-logo"
-            src="../../../assets/images/logo.jpg"
+            src="/GroupProject-IS2102/assets/images/logo.jpg"
             alt="RelaxU Logo"
           />
         </div>
@@ -125,22 +138,22 @@ if (!isset($_SESSION['user_id'])) {
         <ul>
           <li>
             <a href="#"
-              ><img src="../../../assets/images/facebook.png" alt="Facebook"
+              ><img src="/GroupProject-IS2102/assets/images/facebook.png" alt="Facebook"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../../../assets/images/twitter.png" alt="Twitter"
+              ><img src="/GroupProject-IS2102/assets/images/twitter.png" alt="Twitter"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../../../assets/images/instagram.png" alt="Instagram"
+              ><img src="/GroupProject-IS2102/assets/images/instagram.png" alt="Instagram"
             /></a>
           </li>
           <li>
             <a href="#"
-              ><img src="../../../assets/images/youtube.png" alt="YouTube"
+              ><img src="/GroupProject-IS2102/assets/images/youtube.png" alt="YouTube"
             /></a>
           </li>
         </ul>
