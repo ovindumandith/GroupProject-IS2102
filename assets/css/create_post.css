@@ -1,0 +1,176 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #a5e3c6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.create-whole-container {
+  background-color: #d4f6d4;
+  width: 450px; /* Adjusted width for narrow frame */
+  height: 680px; /* Adjusted height */
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Keeps elements spaced out */
+}
+
+/* Header Section */
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between left and right sections */
+}
+
+.header-left {
+  flex: 1; /* Adjustable space for the image */
+}
+
+.header-image {
+  max-width: 100%; /* Ensure the image scales proportionally */
+  height: auto;
+  border-radius: 10px; /* Add rounded corners for aesthetics */
+}
+
+.header-right {
+  flex: 2; /* More space for the text section */
+  text-align: center;
+}
+
+.header-right h1 {
+  font-size: 40px; /* Keep the original size */
+  color: #4caf50;
+  margin: 0;
+}
+
+.header-right hr {
+  border: none;
+  border-top: 2px solid #4caf50;
+  margin: 5px 0;
+}
+
+.create-post-container {
+  background-color: #e7f7e7; /* Light green background */
+  border: 2px solid #4caf50; /* Green border for container */
+  border-radius: 20px; /* Rounded corners */
+  padding: 20px; /* Spacing inside the container */
+  width: 400px; /* Fixed width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Profile Section */
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-img {
+  width: 40px; /* Smaller profile image */
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #4caf50;
+}
+
+.username-btn {
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  background-color: transparent;
+  font-size: 12px; /* Smaller font size */
+  cursor: pointer;
+}
+
+.icon-btn {
+  background-color: transparent; /* No background since we're using images */
+  border: none; /* Remove borders for a clean look */
+  border-radius: 50%; /* Keep buttons circular */
+  padding: 0; /* Remove extra padding */
+  width: 35px; /* Adjust width for images */
+  height: 35px; /* Adjust height for images */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btn-image {
+  width: 100%; /* Make the image fit within the button */
+  height: 100%;
+  object-fit: cover; /* Ensure the image scales proportionally */
+  border-radius: 50%; /* If you want images to match the circular button */
+}
+.btn-image2 {
+  width: 30%; /* Make the image fit within the button */
+  height: 20%;
+  object-fit: cover; /* Ensure the image scales proportionally */
+  border-radius: 50%; /* If you want images to match the circular button */
+}
+
+
+/* Title Input */
+.title-input {
+  width: 95%;
+  padding: 8px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 12px; /* Adjusted font */
+}
+
+/* Image Upload */
+.image-upload {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.upload-box {
+  background-color: #a6e4a6;
+  border: 2px dashed #4caf50;
+  border-radius: 10px;
+  padding: 30px; /* Adjusted padding for narrow frame */
+  cursor: pointer;
+}
+
+.upload-box .icon {
+  font-size: 20px;
+  color: #4caf50;
+}
+
+/* Description Input */
+.description-input {
+  width: 95%;
+  height: 100px; /* Reduced height to fit */
+  padding: 8px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+/* Add Post Button */
+.add-post-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 10px;
+  font-size: 14px; /* Slightly smaller font */
+  width: 100%;
+  cursor: pointer;
+}
+
+.add-post-btn:hover {
+  background-color: #45a049;
+}
