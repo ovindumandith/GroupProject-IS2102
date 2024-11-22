@@ -9,8 +9,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../assets/css/relaxation_activities.css" />
+    <link rel="stylesheet" href="../../assets/css/user_profile.css" type="text/css" />
   </head>
   <body>
+  <?php
+
+    require_once "../controller/RelaxationActivityController.php";
+
+    $controller = new RelaxationActivityController();
+    $message = $controller->handleRequest();
+
+?>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
@@ -24,7 +33,7 @@
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="../views/admin_page_relaxation activites.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -39,14 +48,26 @@
         <button class="login"><b>Log Out</b></button>
       </div>
     </header>
-
     <!-- Content Section (for demonstration) -->
-    <?php
+    <div class="content">
+        <h1>Add Relaxation Activities</h1>
+         
+    
+    <form method="post"  action="./admin_page_relaxation activites.php" id="updateform" enctype="multipart/form-data">
+        <label for="activity_name">Activity Title:</label>
+        <input type="text" id="activity_name" name="activity_name" required>
 
+        <label for="description">description:</label>
+        <textarea id="description" name="description" required></textarea>
 
-    require_once '../controller/ViewRelaxationActivityController.php';
-      
-  ?>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image_url" class="file-input" required>
+
+        <input type="submit" name="submit" value="Add Activity">
+    </form>
+      <p></p>
+    </div>
+    <div id="toast" class="toast">Profile updated successfully!</div>
 
 
     <!-- Footer Section -->
@@ -70,7 +91,7 @@
         </div>
         <div class="footer-section">
           <h3>Contact</h3>
-          <p><i class="fa fa-phone"></i> +14 5464 8272</p>
+          <p><i class="fa fa-image"></i> +14 5464 8272</p>
           <p><i class="fa fa-envelope"></i> rona@domain.com</p>
           <p><i class="fa fa-map-marker"></i> Lazy Tower 192, Burn Swiss</p>
         </div>
