@@ -1,5 +1,5 @@
 <?php
-require_once "../models/AddRelaxationActivityModel.php";
+require_once "../models/RelaxationActivityModel.php";
 
 class RelaxationActivityController {
     private $model;
