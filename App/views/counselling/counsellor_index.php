@@ -81,8 +81,8 @@ if (!isset($_SESSION['user_id'])) {
                     <strong>Specialization:</strong>
                     <?= $counselor['specialization'] ? htmlspecialchars($counselor['specialization']) : 'N/A' ?>
                 </p>
-<form action="/GroupProject-IS2102/App/controller/CounselorController.php" method="GET">
-    <input type="hidden" name="action" value="viewCounselor">
+<form action="CounselorController.php" method="GET">
+    <input type="hidden" name="action" value="view">
     <input type="hidden" name="id" value="<?= $counselor['id'] ?>"> <!-- Counselor ID -->
     <button type="submit" class="button">View Profile</button>
 </form>

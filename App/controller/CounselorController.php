@@ -12,7 +12,7 @@ class CounselingController {
     public function listCounselors() {
         $counselors = $this->counselorModel->getAllCounselors();
         ob_start();
-        require_once '../../App/views/counselling/counsellor_index.php'; // Display the list of counselors
+        include_once '../../App/views/counselling/counsellor_index.php'; // Display the list of counselors
         $content = ob_get_clean();
         echo $content;
     }

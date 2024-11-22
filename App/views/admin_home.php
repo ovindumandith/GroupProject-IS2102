@@ -40,7 +40,7 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="../views/home.php">Home</a></li>
+          <li><a href="../views/admin_home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
