@@ -12,21 +12,183 @@ if (!isset($_SESSION['user_id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= htmlspecialchars($counselor['name']) ?>'s Profile</title>
-</head>
-<body>
-    <h1><?= htmlspecialchars($counselor['name']) ?>'s Profile</h1>
-    <img src="<?= htmlspecialchars($counselor['profile_image']) ?>" alt="<?= htmlspecialchars($counselor['name']) ?>'s Image">
-    <p><strong>Type:</strong> <?= htmlspecialchars($counselor['type']) ?></p>
-    <p><strong>Specialization:</strong> <?= htmlspecialchars($counselor['specialization']) ?: 'N/A' ?></p>
-    <p><strong>Description:</strong> <?= htmlspecialchars($counselor['description']) ?></p>
-    <p><strong>Email:</strong> <?= htmlspecialchars($counselor['email']) ?></p>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="../../assets/css/header_footer.css"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="../../assets/css/counsellor_profile.css" type="text/css" />
 
-    <!-- Actions -->
-    <a href="message_counselor.php?id=<?= $counselor['id'] ?>">Message Counselor</a>
-    <a href="schedule_appointment.php?id=<?= $counselor['id'] ?>">Schedule Appointment</a>
-</body>
+
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <div class="logo">
+        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <h1>RelaxU</h1>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../views/home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="#">Workload Management Tools</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Academic Help</a></li>
+          <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+        <form action="../../util/logout.php" method="post" style="display: inline">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
+      </div>
+    </header>
+
+
+
+<main class="profile-container">
+    <!-- Profile Content -->
+    <div class="profile-content">
+        <div class="profile-header">
+            <img class="profile-image" src="<?= htmlspecialchars($counselor['profile_image']) ?>" alt="<?= htmlspecialchars($counselor['name']) ?>'s Image">
+            <h1 class="profile-name"><?= htmlspecialchars($counselor['name']) ?></h1>
+            <p class="counselor-type"><strong>Counselor Type : </strong> <?= htmlspecialchars($counselor['type']) ?></p>
+        </div>
+        <div class="profile-details">
+            <h2>About the Counselor</h2>
+            <p><strong>Specialization:</strong> <?= htmlspecialchars($counselor['specialization']) ?: 'N/A' ?></p>
+            <p><?= htmlspecialchars($counselor['description']) ?></p>
+            <p><strong>Email:</strong> <a href="mailto:<?= htmlspecialchars($counselor['email']) ?>"><?= htmlspecialchars($counselor['email']) ?></a></p>
+        </div>
+        <div class="profile-actions">
+            <a href="message_counselor.php?id=<?= $counselor['id'] ?>" class="action-button">📩 Message Counselor</a>
+            <a href="schedule_appointment.php?id=<?= $counselor['id'] ?>" class="action-button">📅 Schedule Appointment</a>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        <h2 class="reviews-heading">Reviews</h2>
+        <?php if (!empty($reviews)): ?>
+            <?php foreach ($reviews as $review): ?>
+                <div class="review-card">
+                    <h3 class="reviewer-name"><?= htmlspecialchars($review['reviewer_name']) ?></h3>
+                    <div class="rating"><?= str_repeat('⭐', $review['rating']) ?></div>
+                    <p class="review-text">"<?= htmlspecialchars($review['review_text']) ?>"</p>
+                    <p class="review-date"><?= date("F j, Y", strtotime($review['created_at'])) ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="no-reviews">No reviews yet. Be the first to share your thoughts!</p>
+        <?php endif; ?>
+
+        <!-- Add Review Section -->
+        <div class="add-review">
+            <h3>Add Your Review</h3>
+<form action="ReviewController.php?action=addReview" method="POST" class="add-review-form">
+    <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
+    <label for="rating">Rating:</label>
+    <select name="rating" id="rating" required>
+        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+        <option value="4">⭐️⭐️⭐️⭐️</option>
+        <option value="3">⭐️⭐️⭐️</option>
+        <option value="2">⭐️⭐️</option>
+        <option value="1">⭐️</option>
+    </select>
+    <label for="review_text">Your Review:</label>
+    <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
+    <button type="submit" class="submit-review-button">Submit Review</button>
+</form>
+
+        </div>
+    </div>
+</main>
+
+
+
+
+
+    
+ <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <h1>RelaxU</h1>
+          <p>Relax and Refresh while Excelling in your Studies</p>
+          <img
+            id="footer-logo"
+            src="../../assets/images/logo.jpg"
+            alt="RelaxU Logo"
+          />
+        </div>
+        <div class="footer-section">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+            <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
+            <li><a href="#">Academic Help</a></li>
+            <li><a href="../views/counselling/counsellor_index.php">Counseling</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Workload Managment Tools</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p><i class="fa fa-phone"></i> +14 5464 8272</p>
+          <p><i class="fa fa-envelope"></i> rona@domain.com</p>
+          <p><i class="fa fa-map-marker"></i> Lazy Tower 192, Burn Swiss</p>
+        </div>
+        <div class="footer-section">
+          <h3>Links</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms Of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="social-media">
+        <ul>
+          <li>
+            <a href="#"
+              ><img src="../../assets/images/facebook.png" alt="Facebook"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img src="../../assets/images/twitter.png" alt="Twitter"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img src="../../assets/images/instagram.png" alt="Instagram"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img src="../../assets/images/youtube.png" alt="YouTube"
+            /></a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>copyright 2024 @RelaxU all rights reserved</p>
+      </div>
+    </footer>
+  </body>
 </html>

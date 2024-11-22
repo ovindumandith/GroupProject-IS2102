@@ -12,33 +12,38 @@ class CounselingController {
     public function listCounselors() {
         $counselors = $this->counselorModel->getAllCounselors();
         ob_start();
-        include_once '../../App/views/counselling/counsellor_index.php'; // Display the list of counselors
+        require_once '../views/counselling/counsellor_index.php'; // Counselor list view
         $content = ob_get_clean();
         echo $content;
     }
 
     // View a single counselor's profile by ID
     public function viewCounselor($id) {
-        $counselor = $this->counselorModel->getCounselorById($id);
-
-        if ($counselor) {
-            ob_start();
-            include_once '../../App/views/counselling/counsellor_profile.php'; // Show the profile of the selected counselor
-            $content = ob_get_clean();
-            echo $content;
+        if ($id > 0) {
+            $counselor = $this->counselorModel->getCounselorById($id); // Fetch counselor data
+            $reviews = $this->counselorModel->getReviewsByCounselorId($id); // Fetch reviews
+            
+            if ($counselor) {
+                ob_start();
+                include_once '../../App/views/counselling/counsellor_profile.php'; // Pass data to the view
+                $content = ob_get_clean();
+                echo $content;
+            } else {
+                echo "Counselor not found.";
+            }
         } else {
-            echo "Counselor not found.";
+            echo "Invalid counselor ID.";
         }
     }
 }
 
-// Handling the request based on the 'action' query parameter
+// Handle the incoming request based on the 'action' and 'id' parameters
 $controller = new CounselingController();
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
-if ($action === 'view' && $id > 0) {
-    $controller->viewCounselor($id); // View a specific counselor's profile
+if ($action === 'viewCounselor' && $id > 0) {
+    $controller->viewCounselor($id); // Show counselor's profile with reviews
 } else {
     $controller->listCounselors(); // List all counselors
 }

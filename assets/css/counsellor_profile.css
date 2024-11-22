@@ -1,0 +1,165 @@
+/* Container Layout */
+.profile-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+}
+
+/* Profile Content */
+.profile-content {
+    flex: 2;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 5px solid #3498db;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.counselor-type {
+    font-size: 18px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.profile-details h2 {
+    margin-top: 20px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.profile-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.action-button {
+    display: inline-block;
+    background: #3498db;
+    color: #fff;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 10px 5px;
+    transition: background 0.3s ease;
+}
+
+.action-button:hover {
+    background: #2c82c9;
+}
+
+/* Reviews Section */
+.reviews-section {
+    flex: 1;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.reviews-heading {
+    font-size: 22px;
+    color: #34495e;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.review-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.review-card .reviewer-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.review-card .rating {
+    color: #f39c12;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.review-card .review-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.review-card .review-date {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.add-review {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.add-review h3 {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+.add-review-form textarea,
+.add-review-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.submit-review-button {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-review-button:hover {
+    background: #27ae60;
+}
