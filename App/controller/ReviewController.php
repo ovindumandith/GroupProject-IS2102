@@ -66,7 +66,7 @@ class ReviewController {
 
             if ($this->reviewModel->isUserReviewOwner($reviewId, $userId)) {
                 if ($this->reviewModel->deleteReview($reviewId, $userId)) {
-                    header("Location: counselor_profile.php?id=" . $_POST['counselor_id']);
+                    header("Location: ../views/counselling/counsellor_profile.php?id=" . $_POST['counselor_id']);
                     exit();
                 } else {
                     echo "Failed to delete review.";
@@ -81,7 +81,14 @@ class ReviewController {
 
 
 // Handle the action
-if (isset($_GET['action']) && $_GET['action'] === 'addReview') {
+if (isset($_GET['action'])) {
     $controller = new ReviewController();
-    $controller->addReview();
+    if ($_GET['action'] === 'addReview') {
+        $controller->addReview();
+    } elseif ($_GET['action'] === 'deleteReview') {
+        $controller->deleteReview();
+    } elseif ($_GET['action'] === 'updateReview') { // Add this case for updating a review
+        $controller->updateReview();
+    }
 }
+

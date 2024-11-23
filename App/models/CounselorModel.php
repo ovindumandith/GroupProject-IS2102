@@ -44,7 +44,7 @@ public function getCounselorById($id) {
 // Fetch reviews for a specific counselor by ID
 public function getReviewsByCounselorId($counselorId) {
     try {
-        $query = 'SELECT r.rating, r.review_text, r.created_at, u.username AS reviewer_name 
+        $query = 'SELECT r.id, r.user_id, r.rating, r.review_text, r.created_at, u.username AS reviewer_name 
                   FROM reviews r
                   JOIN users u ON r.user_id = u.user_id
                   WHERE r.counselor_id = :counselor_id

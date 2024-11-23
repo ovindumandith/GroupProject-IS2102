@@ -1,165 +1,303 @@
-/* Container Layout */
+/* Main Container */
 .profile-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 20px auto;
-    font-family: 'Poppins', sans-serif;
-    padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin: 20px;
 }
 
-/* Profile Content */
+/* Profile Content Section */
 .profile-content {
-    flex: 2;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-header {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .profile-image {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 5px solid #3498db;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
 }
 
 .profile-name {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
 }
 
 .counselor-type {
-    font-size: 18px;
-    color: #666;
-    margin-top: 5px;
+  font-size: 16px;
+  color: #555;
 }
 
 .profile-details h2 {
-    margin-top: 20px;
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.profile-details p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
 }
 
 .profile-actions {
-    margin-top: 30px;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.action-button {
-    display: inline-block;
-    background: #3498db;
-    color: #fff;
-    padding: 12px 30px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin: 10px 5px;
-    transition: background 0.3s ease;
+.profile-actions .action-button {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: #007bff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.action-button:hover {
-    background: #2c82c9;
+.profile-actions .action-button:hover {
+  background-color: #0056b3;
 }
 
 /* Reviews Section */
 .reviews-section {
-    flex: 1;
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    max-height: 600px;
-    overflow-y: auto;
+  flex: 2;
+  max-height: 600px; /* Set maximum height for scrollable content */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .reviews-heading {
-    font-size: 22px;
-    color: #34495e;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 5px;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
 }
 
 .review-card {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative; /* Required to position child elements like .review-actions */
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.review-card .reviewer-name {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 5px;
+.reviewer-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #007bff;
+  margin-bottom: 5px;
 }
 
-.review-card .rating {
-    color: #f39c12;
-    font-size: 16px;
-    margin-bottom: 10px;
+.rating {
+  font-size: 14px;
+  color: #ffd700; /* Gold star color */
+  margin-bottom: 10px;
 }
 
-.review-card .review-text {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
+.review-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 23px;
 }
 
-.review-card .review-date {
-    font-size: 14px;
-    color: #888;
-    margin-top: 10px;
+.review-date {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
 }
 
+.review-actions {
+  display: flex;
+  gap: 10px;
+  position: absolute; /* Make it float inside the review card */
+  bottom: 10px; /* Position it at the bottom */
+  left: 10px; /* Align it to the left */
+}
+
+.review-actions button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit-button {
+  background-color: #28a745; /* Green */
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Add Review Section */
 .add-review {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .add-review h3 {
-    font-size: 20px;
-    color: #34495e;
-    margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
 }
 
+.add-review-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-review-form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.add-review-form select,
 .add-review-form textarea,
-.add-review-form select {
+.add-review-form button {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.add-review-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-review-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Ensure the reviews container doesn't overflow the screen */
+body {
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.reviews-section {
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+/* Edit Review Form Container (Initially Hidden) */
+.edit-review-form {
+    display: none; /* Hidden by default */
+    margin-top: 10px; /* Adjust the space between the buttons and the form */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
+    z-index: 9999; /* Ensure it appears above other content */
+}
+
+.edit-review-form.show {
+    display: block; /* Show the form when it's triggered */
+}
+
+/* Edit Form Styles */
+.edit-review-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-review-form label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.edit-review-form select,
+.edit-review-form textarea,
+.edit-review-form button {
     padding: 10px;
-    border-radius: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
-    margin-bottom: 15px;
-    font-size: 16px;
-    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-.submit-review-button {
-    background: #2ecc71;
+.edit-review-form button.submit-review-button {
+    background-color: #007bff;
     color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-.submit-review-button:hover {
-    background: #27ae60;
+.edit-review-form button.submit-review-button:hover {
+    background-color: #0056b3;
+}
+
+.edit-review-form button.close-button {
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.edit-review-form button.close-button:hover {
+    background-color: #c82333;
+}
+
+/* Button Styling */
+.edit-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #218838;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
 }

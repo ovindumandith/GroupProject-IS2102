@@ -83,62 +83,98 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-    <!-- Reviews Section -->
-    <div class="reviews-section">
-        <h2 class="reviews-heading">Reviews</h2>
-        <?php if (!empty($reviews)): ?>
-            <?php foreach ($reviews as $review): ?>
-                <div class="review-card">
-                    <h3 class="reviewer-name"><?= htmlspecialchars($review['reviewer_name']) ?></h3>
-                    <div class="rating"><?= str_repeat('⭐', $review['rating']) ?></div>
-                    <p class="review-text">"<?= htmlspecialchars($review['review_text']) ?>"</p>
-                    <p class="review-date"><?= date("F j, Y", strtotime($review['created_at'])) ?></p>
-                    <!-- Show Edit/Delete buttons if the logged-in user owns the review -->
-              <?php if (isset($review['user_id'], $_SESSION['user_id']) && $review['user_id'] === $_SESSION['user_id']): ?>
-    <div class="review-actions">
-        <form action="ReviewController.php?action=editReview" method="GET" class="inline-form">
-            <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
-            <button type="submit" class="edit-button">✏️ Edit</button>
-        </form>
-        <form action="ReviewController.php?action=deleteReview" method="POST" class="inline-form">
-            <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
-            <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this review?')">❌ Delete</button>
-        </form>
-    </div>
-<?php endif; ?>
+<!-- Reviews Section -->
+<div class="reviews-section">
+    <h2 class="reviews-heading">Reviews</h2>
+    <?php if (!empty($reviews)): ?>
+        <?php foreach ($reviews as $review): ?>
+            <div class="review-card">
+                <h3 class="reviewer-name"><?= htmlspecialchars($review['reviewer_name']) ?></h3>
+                <div class="rating"><?= str_repeat('⭐', $review['rating']) ?></div>
+
+                <!-- Review Text (Initially Displayed) -->
+                <p class="review-text" id="review-text-<?= $review['id'] ?>"><?= htmlspecialchars($review['review_text']) ?></p>
+                <p class="review-date"><?= date("F j, Y", strtotime($review['created_at'])) ?></p>
+
+                <!-- Edit Form (Initially Hidden) -->
+                <div class="edit-review-form" id="edit-form-<?= $review['id'] ?>" style="display:none;">
+                    <form action="ReviewController.php?action=updateReview" method="POST">
+                        <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
+                        <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
+                        <label for="rating-<?= $review['id'] ?>">Rating:</label>
+                        <select name="rating" id="rating-<?= $review['id'] ?>" required>
+                            <option value="5" <?= $review['rating'] == 5 ? 'selected' : '' ?>>⭐️⭐️⭐️⭐️⭐️</option>
+                            <option value="4" <?= $review['rating'] == 4 ? 'selected' : '' ?>>⭐️⭐️⭐️⭐️</option>
+                            <option value="3" <?= $review['rating'] == 3 ? 'selected' : '' ?>>⭐️⭐️⭐️</option>
+                            <option value="2" <?= $review['rating'] == 2 ? 'selected' : '' ?>>⭐️⭐️</option>
+                            <option value="1" <?= $review['rating'] == 1 ? 'selected' : '' ?>>⭐️</option>
+                        </select>
+                        
+                        <textarea name="review_text" id="review-text-<?= $review['id'] ?>" rows="4" required><?= htmlspecialchars($review['review_text']) ?></textarea>
+                        
+                        <button type="submit" class="submit-review-button">Update Review</button>
+                    </form>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p class="no-reviews">No reviews yet. Be the first to share your thoughts!</p>
-        <?php endif; ?>
 
-        <!-- Add Review Section -->
-        <div class="add-review">
-            <h3>Add Your Review</h3>
-            <form action="ReviewController.php?action=addReview" method="POST" class="add-review-form">
-                <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
-                <label for="rating">Rating:</label>
-                <select name="rating" id="rating" required>
-                    <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-                    <option value="4">⭐️⭐️⭐️⭐️</option>
-                    <option value="3">⭐️⭐️⭐️</option>
-                    <option value="2">⭐️⭐️</option>
-                    <option value="1">⭐️</option>
-                </select>
-                <label for="review_text">Your Review:</label>
-                <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
-                <button type="submit" class="submit-review-button">Submit Review</button>
-            </form>
-        </div>
+                <!-- Edit/Delete Actions -->
+                <?php if (isset($review['user_id'], $_SESSION['user_id']) && $review['user_id'] === $_SESSION['user_id']): ?>
+                    <div class="review-actions">
+                        <!-- Edit Button to Toggle Form Visibility -->
+                        <button type="button" class="edit-button" onclick="toggleEditForm(<?= $review['id'] ?>)">Edit</button>
+
+                        <!-- Delete Button -->
+                        <form action="ReviewController.php?action=deleteReview" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?');">
+                            <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
+                            <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p class="no-reviews">No reviews yet. Be the first to share your thoughts!</p>
+    <?php endif; ?>
+
+    <!-- Add Review Section -->
+    <div class="add-review">
+        <h3>Add Your Review</h3>
+        <form action="ReviewController.php?action=addReview" method="POST" class="add-review-form">
+            <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
+            <label for="rating">Rating:</label>
+            <select name="rating" id="rating" required>
+                <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                <option value="4">⭐️⭐️⭐️⭐️</option>
+                <option value="3">⭐️⭐️⭐️</option>
+                <option value="2">⭐️⭐️</option>
+                <option value="1">⭐️</option>
+            </select>
+            <label for="review_text">Your Review:</label>
+            <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
+            <button type="submit" class="submit-review-button">Submit Review</button>
+        </form>
     </div>
+</div>
+
+
+<script>
+    // Function to toggle the review edit form visibility
+    function toggleEditForm(reviewId) {
+        var reviewText = document.getElementById('review-text-' + reviewId);
+        var editForm = document.getElementById('edit-form-' + reviewId);
+
+        if (editForm.style.display === 'none') {
+            // Show the edit form and hide the review text
+            editForm.style.display = 'block';
+            reviewText.style.display = 'none';
+        } else {
+            // Hide the edit form and show the review text
+            editForm.style.display = 'none';
+            reviewText.style.display = 'block';
+        }
+    }
+</script>
 </main>
-
-
-
-
-
-
-    
  <footer class="footer">
       <div class="footer-container">
         <div class="footer-logo">
