@@ -69,7 +69,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="profile-header">
             <img class="profile-image" src="<?= htmlspecialchars($counselor['profile_image']) ?>" alt="<?= htmlspecialchars($counselor['name']) ?>'s Image">
             <h1 class="profile-name"><?= htmlspecialchars($counselor['name']) ?></h1>
-            <p class="counselor-type"><strong>Counselor Type : </strong> <?= htmlspecialchars($counselor['type']) ?></p>
+            <p class="counselor-type"><strong>Counselor Type:</strong> <?= htmlspecialchars($counselor['type']) ?></p>
         </div>
         <div class="profile-details">
             <h2>About the Counselor</h2>
@@ -93,6 +93,19 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="rating"><?= str_repeat('⭐', $review['rating']) ?></div>
                     <p class="review-text">"<?= htmlspecialchars($review['review_text']) ?>"</p>
                     <p class="review-date"><?= date("F j, Y", strtotime($review['created_at'])) ?></p>
+                    <!-- Show Edit/Delete buttons if the logged-in user owns the review -->
+              <?php if (isset($review['user_id'], $_SESSION['user_id']) && $review['user_id'] === $_SESSION['user_id']): ?>
+    <div class="review-actions">
+        <form action="ReviewController.php?action=editReview" method="GET" class="inline-form">
+            <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
+            <button type="submit" class="edit-button">✏️ Edit</button>
+        </form>
+        <form action="ReviewController.php?action=deleteReview" method="POST" class="inline-form">
+            <input type="hidden" name="review_id" value="<?= htmlspecialchars($review['id']) ?>">
+            <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this review?')">❌ Delete</button>
+        </form>
+    </div>
+<?php endif; ?>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
@@ -102,24 +115,24 @@ if (!isset($_SESSION['user_id'])) {
         <!-- Add Review Section -->
         <div class="add-review">
             <h3>Add Your Review</h3>
-<form action="ReviewController.php?action=addReview" method="POST" class="add-review-form">
-    <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
-    <label for="rating">Rating:</label>
-    <select name="rating" id="rating" required>
-        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-        <option value="4">⭐️⭐️⭐️⭐️</option>
-        <option value="3">⭐️⭐️⭐️</option>
-        <option value="2">⭐️⭐️</option>
-        <option value="1">⭐️</option>
-    </select>
-    <label for="review_text">Your Review:</label>
-    <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
-    <button type="submit" class="submit-review-button">Submit Review</button>
-</form>
-
+            <form action="ReviewController.php?action=addReview" method="POST" class="add-review-form">
+                <input type="hidden" name="counselor_id" value="<?= $counselor['id'] ?>">
+                <label for="rating">Rating:</label>
+                <select name="rating" id="rating" required>
+                    <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                    <option value="4">⭐️⭐️⭐️⭐️</option>
+                    <option value="3">⭐️⭐️⭐️</option>
+                    <option value="2">⭐️⭐️</option>
+                    <option value="1">⭐️</option>
+                </select>
+                <label for="review_text">Your Review:</label>
+                <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
+                <button type="submit" class="submit-review-button">Submit Review</button>
+            </form>
         </div>
     </div>
 </main>
+
 
 
 
