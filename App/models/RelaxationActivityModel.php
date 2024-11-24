@@ -13,13 +13,14 @@ class RelaxationActivityModel {
     }
 
     // Save user's relaxation activity responses
-    public function addRelaxationActivity($name, $description, $file_name) {
+    public function addRelaxationActivity($name, $description, $file_name, $playlist_url) {
         try {
-            $query = 'INSERT INTO relaxation_activities (activity_name, description, image_url) VALUES (?, ?, ?)';
+            $query = 'INSERT INTO relaxation_activities (activity_name, description, image_url, playlist_url) VALUES (?, ?, ?, ?)';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(1, $name);
             $stmt->bindParam(2, $description);
             $stmt->bindParam(3, $file_name);
+            $stmt->bindParam(4, $playlist_url);
 
             return $stmt->execute();
         } catch (PDOException $e) {

@@ -16,12 +16,13 @@ class RelaxationActivityController {
             $fileName = $file['name'];
             $tempName = $file['tmp_name'];
             $folder = './uploads/' . $fileName;
+            $playlist_url = $_POST['playlist_url'];
 
             $errors = $this->validateFile($file);
 
             if (empty($errors)) {
                 if (move_uploaded_file($tempName, $folder)) {
-                    $isAdded = $this->model->addRelaxationActivity($name, $description, $fileName);
+                    $isAdded = $this->model->addRelaxationActivity($name, $description, $fileName, $playlist_url);
                     return $isAdded ? "Activity Added Successfully!" : "Failed to add activity. Please try again.";
                 }
             }

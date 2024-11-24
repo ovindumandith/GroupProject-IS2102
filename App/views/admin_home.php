@@ -40,12 +40,12 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="../views/admin_home.php">Home</a></li>
+          <li><a href="./admin_home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="../views/admin_page_relaxation activites.php">Relaxation Activities</a></li>
+              <li><a href="./relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -81,7 +81,7 @@ if (!isset($_SESSION['user_id'])) {
           <h3>Services</h3>
           <ul>
             <li><a href="#">Stress Monitoring</a></li>
-            <li><a href="relaxation_activities.php">Relaxation Activities</a></li>
+            <li><a href="./relaxation_activities.php">Relaxation Activities</a></li>
             <li><a href="#">Academic Help</a></li>
             <li><a href="#">Counseling</a></li>
             <li><a href="#">Community</a></li>

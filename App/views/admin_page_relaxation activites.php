@@ -60,6 +60,9 @@
         <label for="description">description:</label>
         <textarea id="description" name="description" required></textarea>
 
+        <label for="playlist">Source:</label>
+        <input type="text" id="playlist" name="playlist_url" required></input>
+
         <label for="image">Image:</label>
         <input type="file" id="image" name="image_url" class="file-input" required>
 
