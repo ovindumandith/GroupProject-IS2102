@@ -51,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
           </li>
           <li><a href="#">Academic Help</a></li>
           <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
-          <li><a href="#">Community</a></li>
+          <li><a href="../views/Community/create_post.php">Community</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
       </nav>
