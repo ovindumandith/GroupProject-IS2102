@@ -42,10 +42,10 @@ class ViewRelaxationActivityModel {
         }
     }
 
-    public function updateActivity($activityId){
+    public function updateActivity($activityId, $activityName, $description, $imageUrl, $playlistUrl) {
 
         try {
-            $sql = "UPDATE relaxation_activities SET activity_name = :activity_name, description = :description, image_url = :image_url, playlist_url = :playlist_url WHERE activity_id = :id";
+            $sql = "UPDATE relaxation_activities SET activity_name = :activity_name, description = :description, image_url = :image_url, playlist_url = :playlist_url WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':activity_name', $activityName);
             $stmt->bindParam(':description', $description);
@@ -64,7 +64,7 @@ class ViewRelaxationActivityModel {
     public function deleteActivity($activityId) {
         // Logic to delete an activity from the database
         try {
-            $sql = "DELETE FROM relaxation_activities WHERE activity_id = :id";
+            $sql = "DELETE FROM relaxation_activities WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $activityId);
             $stmt->execute();
