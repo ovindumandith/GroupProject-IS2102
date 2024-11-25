@@ -135,9 +135,10 @@ body {
 /* Content Placeholder */
 .content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
   margin: 40px 0 40px 0;
+  justify-content: center;
 }
 
 .row {
@@ -196,6 +197,14 @@ body {
   width: 100%;
   height: 100%;
   background-color: #009f77;
+  flex-direction: column;
+  gap: 5px;
+}
+.delete-update-button{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 12px;
 }
 
 .card-image {
@@ -226,7 +235,7 @@ body {
   color: #666;
 }
 
-.button{
+.button, .delete-update-button{
   border: none;
   font-size: 16px;
   color: #FFF;
@@ -238,7 +247,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.button:hover {
+.button:hover, .delete-update-button:hover {
   background-color: #009f77;
 }
 
