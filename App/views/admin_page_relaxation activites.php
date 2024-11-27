@@ -33,7 +33,7 @@
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="../views/admin_page_relaxation activites.php">Relaxation Activities</a></li>
+              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>

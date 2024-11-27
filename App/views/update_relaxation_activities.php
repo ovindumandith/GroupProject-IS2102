@@ -1,3 +1,14 @@
+<?php
+require_once "../controller/ViewRelaxationActivityController.php";
+
+$controller = new ViewRelaxationActivityController();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->updateActivity();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,14 +23,6 @@
     <link rel="stylesheet" href="../../assets/css/user_profile.css" type="text/css" />
   </head>
   <body>
-  <?php
-
-    require_once "../controller/ViewRelaxationActivityController.php";
-
-    $controller = new ViewRelaxationActivityController();
-    $message = $controller->handleRequest();
-
-?>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
@@ -50,27 +53,27 @@
     </header>
     <!-- Content Section (for demonstration) -->
     <div class="content">
-        <h1>Update Relaxation Activities</h1>
+        <h1>Add Relaxation Activities</h1>
          
     
-    <form method="post"  action="./update_relaxation_activites.php" id="updateform" enctype="multipart/form-data">
-        <label for="activity_id">Activity Id:</label>
-        <input type="text" id="activity_id" name="id" required>
+        <form method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id'] ?? '') ?>">
+          <input type="hidden" name="existing_image_url" value="<?= htmlspecialchars($_GET['image_url'] ?? '') ?>">
 
-        <label for="activity_name">Activity Title:</label>
-        <input type="text" id="activity_name" name="activity_name" required>
+          <label for="activity_name">Activity Title:</label>
+          <input type="text" id="activity_name" name="activity_name" value="<?= htmlspecialchars($_GET['activity_name'] ?? '') ?>" required>
 
-        <label for="description">description:</label>
-        <textarea id="description" name="description" required></textarea>
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required><?= htmlspecialchars($_GET['description'] ?? '') ?></textarea>
 
-        <label for="playlist">Source:</label>
-        <input type="text" id="playlist" name="playlist_url" required></input>
+          <label for="playlist">Source:</label>
+          <input type="text" id="playlist" name="playlist_url" value="<?= htmlspecialchars($_GET['playlist_url'] ?? '') ?>" required>
 
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image_url" class="file-input" required>
+          <label for="image">Image:</label>
+          <input type="file" id="image" name="image_url">
 
-        <input type="submit" name="submit" value="Add Activity">
-    </form>
+          <button type="submit">Update Activity</button>
+      </form>
       <p></p>
     </div>
     <div id="toast" class="toast">Profile updated successfully!</div>
@@ -131,3 +134,4 @@
     </footer>
   </body>
 </html>
+
