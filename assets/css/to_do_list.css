@@ -1,0 +1,451 @@
+/* General Reset */
+
+.dashboard-container {
+  display: flex;
+  height: 700px;
+  width: 50%; /* Set the width of the container */
+  max-width: 950px; /* Optional: limit maximum width */
+  margin: auto; /* Center the container horizontally */
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border-radius: 20px; /* Round the corners */
+  overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
+  background-color:#f4f2f2; /* Optional: set a background color for the container */
+  position: relative;
+}
+
+
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.to_do_list_header {
+  display: flex;
+  flex-direction: column; /* Stacks child elements vertically */
+  align-items: flex-start; /* Aligns items to the left */
+  gap: 5px; /* Adds spacing between the stacked elements */
+}
+
+.task-planner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  
+}
+.task-planner h3{
+  font-size: 1.75rem;
+  color: #e3a36f;
+  font-family:  'Source Sans Pro';
+  font-weight: 200; /* Light weight */
+  margin-right: 10px;
+}
+
+.todo-icon {
+  margin-left: 2px; /* Optional: adds spacing between the title and the icon */
+  width: 65px; /* Adjust size of the icon */
+  height: 65px; /* Adjust size of the icon */
+}
+
+.search-and-add {
+  display: flex; /* Aligns the search bar and Add Task button horizontally */
+  justify-content: space-between; /* Spreads elements across the container */
+  align-items: center; /* Ensures alignment */
+  width: 100%; /* Takes full width of the header */
+}
+
+.search-bar {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #f1a164;
+  border-radius: 5px;
+  display: flex;
+  overflow: hidden;
+  height: 30px;
+ 
+
+}
+
+.search-task {
+  padding: 5px;
+  font-size: 0.65rem;
+  border: none;
+  outline:none;
+  flex-grow: 1;
+  background-color:#f4f2f2;
+}
+.search-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.search-button img {
+  width: 15px; /* Adjust size as needed */
+  height: 15px;
+}
+.add-event-button {
+  background-color:#ff8033;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 4px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-left: 0.25px; 
+  width:18%;
+  height: 35px;
+}
+
+.add-event-button:hover {
+  background-color:#e45700;
+}
+
+/* Icon inside Add Task Button */
+.add-icon {
+  width: 30px; /* Adjust icon size as needed */
+  height: 35px;
+  margin-right: 0.5px; /* Space between icon and text */
+  
+}
+
+/* Events and Tasks */
+
+.task-filter {
+  display: flex;
+  gap: 10px; /* Space between the buttons */
+  margin: 15px 0; /* Top and bottom spacing */
+  justify-content: flex-start; /* Align buttons to the left */
+}
+
+.filter-button {
+  background-color: #f4efef; /* Light gray background */
+  border: 0 solid #000000 ; /* Subtle border */
+  border-radius: 50px; /* Rounded edges */
+  padding: 15px 15px; /* Add padding for better size */
+  font-size: 0.75rem; /* Adjust font size */
+  color: #333; /* Text color */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between text and count */
+  transition: all 0.3s ease; /* Smooth hover effect */
+  width: 60%; /* Full width */
+  height: 25px;
+}
+
+.filter-button .count {
+  background-color:#f4efef; /* Circle background */
+  color: #333; /* Text color */
+  padding: 5px 5px; /* Circle padding */
+  border-radius: 50%; /* Make it circular */
+  font-size: 0.6rem;
+  font-weight: bold;
+}
+
+.filter-button:hover {
+  background-color:#81ce78; /* Light blue hover effect */
+  color: #000; /* Text color on hover */
+  border-color:#1f8252; /* Change border on hover */
+}
+
+.filter-button.active {
+  background-color: #c1d8bf; /* Blue background for active */
+  color: #000000; /* White text for active */
+  border-color: #141a24; /* Match border color */
+}
+
+.filter-button.active .count {
+  background-color: #ffffff; /* White circle background for active */
+  color:  #141a24; /* Blue text for active */
+}
+
+.my-tasks{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.my-tasks-container {
+  width:100%;
+  background-color: #f0e5e5;
+ /* border: 1px solid  #141a24;*/
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(186, 179, 169, 0.1);
+  margin-top: 0.1px;
+  margin-bottom: 10px;
+  height: 500px;
+  position: relative;
+
+}
+.my-tasks-container-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+ 
+  
+}
+.my-tasks-container-header h3{
+  font-size: 1.75rem;
+  color: #e3a36f;
+  font-family:  'Source Sans Pro';
+  font-weight: 200; /* Light weight */
+  margin-right: 0;
+}
+
+
+.my-tasks-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 20px; /* Space between cards */
+}
+/* Default card design */
+
+.my-tasks-list-card {
+  display: none; /* Hide cards initially */
+  background-color: #f8d8a8;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  color: #000000;
+  position: relative;
+  height: 100px;
+  
+}
+
+/* Today category card styles */
+.my-tasks-list-card[data-category="today"] {
+  background-color: #f8d8a8;
+}
+
+/* Upcoming category card styles */
+.my-tasks-list-card[data-category="upcoming"] {
+  background-color: #9bd680;
+}
+
+/* Overdue category card styles */
+.my-tasks-list-card[data-category="overdue"] {
+  background-color:#ef8177;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px; /* Distance from the top edge of the card */
+  right: 10px; /* Distance from the right edge of the card */
+}
+
+.custom-checkbox {
+  display: none; /* Hide the default checkbox */
+}
+
+.custom-label {
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff; /* Orange color */
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.custom-label::after {
+  content: '✔'; /* Checkmark */
+  font-size: 14px;
+  color: #000000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s;
+}
+
+.custom-checkbox:checked + .custom-label::after {
+  opacity: 1; /* Show checkmark when checked */
+}
+
+.my-task-list-card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.my-task-list-card-content h3 {
+  font-size: 0.65rem;
+  margin: 0;
+  color: #333;
+}
+
+.my-task-list-card-content p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #777;
+}
+.my-task-list-card-content .time-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Adds space between the icon and time text */
+  margin-top: 10px; /* Optional for spacing */
+}
+
+.my-task-list-card-content .time-icon .time-image {
+  width: 25px; /* Adjust the size of the icon */
+  height: 25px;
+  object-fit: contain; /* Ensures the image fits well */
+  
+}
+
+.my-task-list-card-content .time-icon span {
+  font-size: 0.9rem; /* Match the text style */
+  color: #d17930;
+  
+}
+
+.my-task-list-card-content .calendar-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adds space between the icon and time text */
+  margin-top: 10px; /* Optional for spacing */
+}
+
+.my-task-list-card-content .calendar-icon .calendar-image {
+  width: 20px; /* Adjust the size of the icon */
+  height: 20px;
+  object-fit: contain; /* Ensures the image fits well */
+}
+
+.my-task-list-card-content .calendar-icon span {
+  font-size: 0.9rem; /* Match the text style */
+  color: #194203;
+}
+
+.my-task-list-card-content .exclamation-mark-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adds space between the icon and time text */
+  margin-top: 10px; /* Optional for spacing */
+}
+
+.my-task-list-card-content .exclamation-mark-icon .exclamation-mark-image{
+  width: 20px; /* Adjust the size of the icon */
+  height: 20px;
+  object-fit: contain; /* Ensures the image fits well */
+}
+
+.my-task-list-card-content .exclamation-mark-icon span {
+  font-size: 0.9rem; /* Match the text style */
+  color: #3f0f06;
+}
+.my-tasks-list-card h2{
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.my-tasks-list-card h3 {
+  font-size: 1.2rem; /* Adjust title size */
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000; /* Black title */
+}
+
+.my-tasks-list-card p {
+  font-size: 0.75rem; /* Smaller font for description */
+  color: #3b3b3b;
+}
+
+.my-tasks-list-card .start-date {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* Design for "Done" */
+.button-container {
+  display: flex;
+  gap: 7px; /* Space between the buttons */
+  border: none;
+  justify-content: flex-end; 
+}
+button.edit-btn, button.delete-btn  {
+  border: none; /* Removes the border from the buttons */
+  background: none; /* Removes any default button styling */
+  padding: 0; /* Optional: Removes any padding for a cleaner look */
+  cursor: pointer; /* Ensures the button still looks clickable */
+}
+button.edit-btn img, button.delete-btn img {
+  width: 15px;
+  height: 15px;
+}
+.task-card button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.see-all-button {
+  position: absolute;
+  bottom: 10px; /* 10px from the bottom */
+  right: 10px; /* 10px from the left */
+  padding: 5px 5px;
+  background-color: #ecdad1; /* Green button */
+  color: rgb(210, 94, 11);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.see-all-button:hover {
+  background-color: #cf9b71; /* Darker green when hovered */
+}
+
+.back-button {
+  position: absolute;
+  bottom: 130px; /* Adjust the distance from the bottom */
+  left: 30px;   /* Adjust the distance from the left */
+  background-color: #bddeb9; /* Use the accent color */
+  color: rgb(14, 121, 7);
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.back-button img {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+}
+
+.back-button:hover {
+  background-color: #98dc90 ; /* Slightly darker color on hover */
+}
+.edit-icon{
+  color: green;
+}
+.delete-icon{
+  color: red;
+}
+.bell-icon{
+  color: yellow;
+}

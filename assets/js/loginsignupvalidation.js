@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Login form validation and submission
   document.getElementById("loginForm").addEventListener("submit", (event) => {
+   
     event.preventDefault();
 
     const username = document.getElementById("username").value.trim();
