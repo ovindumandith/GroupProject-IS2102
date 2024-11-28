@@ -53,12 +53,24 @@ class ViewRelaxationActivityModel {
             $stmt->bindParam(':playlist_url', $playlistUrl);
             $stmt->bindParam(':id', $activityId);
             $stmt->execute();
-            return true;
-        } catch (Exception $e) {
-            // Handle exception
-            echo "Error: " . $e->getMessage();
-            return false;
-        }
+            
+            error_log("Executing SQL: $sql");
+            error_log("With Params: ID=$activityId, Name=$activityName, Description=$description, Image=$imageUrl, Playlist=$playlistUrl");
+
+            if ($stmt->execute()) {
+                // Debugging log for success
+                error_log("Activity updated successfully for ID: $activityId");
+                return true;
+            } else {
+                // Debugging log for failure
+                error_log("Failed to update activity for ID: $activityId");
+                return false;
+            }
+            } catch (Exception $e) {
+                // Handle exception
+                echo "Error: " . $e->getMessage();
+                return false;
+            }
     }
 
     public function deleteActivity($activityId) {
