@@ -1,0 +1,105 @@
+/* Hero Section */
+.hero-section {
+  position: relative;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  overflow: hidden;
+  margin: 0; /* Remove unwanted margins */
+  padding: 0; /* Remove unwanted padding */
+}
+
+/* Ensure Hero Container Occupies Full Width */
+#hero {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Logo at Top-Left */
+.hero-header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.hero-logo {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Carousel */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0; /* Ensure no extra space */
+  padding: 0; /* Reset padding */
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Carousel Items */
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-item.active {
+  opacity: 1; /* Show active item */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Image covers entire area */
+  margin: 0; /* Remove extra spacing */
+  padding: 0;
+}
+
+/* Caption in the Center */
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-caption h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Navigation Buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--white);
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.carousel-btn.prev {
+  left: 1rem;
+}
+
+.carousel-btn.next {
+  right: 1rem;
+}
