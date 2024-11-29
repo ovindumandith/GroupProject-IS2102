@@ -10,7 +10,7 @@ class CommunityController {
 
     // Add a new post
     public function addPost($title, $description, $image, $userId) {
-        if ($this->postsModel->createPost($title, $description, $image, $userId)) {
+        if ($this->postsModel->addPost($title, $description, $image, $userId)) {
             header('Location: ../views/community/index.php?message=Post added successfully'); // Redirect after success
             exit();
         } else {

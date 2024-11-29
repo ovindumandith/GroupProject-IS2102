@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Roboto", sans-serif;
   line-height: 1.6;
   color: var(--text-dark);
 }
@@ -169,35 +169,108 @@ html {
 
 /* Footer Styling */
 .main-footer {
-    background: linear-gradient(90deg, #2196f3, #4caf50);
-    color: var(--white);
-    padding: 0.5rem;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+  background: linear-gradient(90deg, #2196f3, #4caf50);
+  color: var(--white);
+  padding: 0.5rem;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .footer-logo img {
-    width: 30px;
-    height: auto;
-    border-radius: 50%;
+  width: 30px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .footer-title {
-    font-size: 1rem;
-    font-weight: bold;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .footer-bottom {
-    margin: 0;
+  margin: 0;
+}
+/* Contact Us Section */
+.contact-section {
+  background: var(--white);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.contact-section h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.contact-section p {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--light-gray);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: var(--secondary-color);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+}
+
+.submit-btn {
+  display: inline-block;
+  background: #fa8128;
+  color: var(--white);
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #fa8128;
+  transform: scale(1.05);
 }

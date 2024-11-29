@@ -27,7 +27,8 @@
           <li><a href="#hero">Home</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#meetourteam">Contact</a></li>
+          <li><a href="#meetourteam">Team</a></li>
+          <li><a href="#contact">Contact Us</a></li>
         </ul>
       </nav>
     </header>
@@ -156,6 +157,19 @@
           <h2>Meet Our Team</h2>
           <div class="team-grid">
             <div class="team-member">
+              <img
+                src="../assets/images/main_supervisor.jpg"
+                alt="Supervisor"
+              />
+              <h3>Dr. Kasun Karunanayake</h3>
+              <p>Project Supervisor</p>
+            </div>
+            <div class="team-member">
+              <img src="../assets/images/supervisor.jpg" alt="Co Supervisor" />
+              <h3>Mr. M.V.T.I.Priyantha</h3>
+              <p>Project Co-Supervisor</p>
+            </div>
+            <div class="team-member">
               <img src="../assets/images/profile_man.jpg" alt="Team Member 1" />
               <h3>Lochana Thilakarathne</h3>
               <p>2nd Year UCSC Undergraduate</p>
@@ -185,6 +199,47 @@
         </div>
       </div>
     </section>
+    <section id="contact" class="contact-section">
+      <h2>Contact Us</h2>
+      <p>
+        We value your feedback! Share your suggestions, problems, or compliments
+        with us.
+      </p>
+      <form class="contact-form" action="submit_feedback.php" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your Name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Share your feedback here..."
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Feedback</button>
+      </form>
+    </section>
+
     <footer class="main-footer">
       <div class="footer-content">
         <div class="footer-logo">
