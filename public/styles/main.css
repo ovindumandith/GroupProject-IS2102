@@ -157,3 +157,47 @@ section {
 html {
   scroll-behavior: smooth;
 }
+/* Footer Styling */
+.main-footer {
+  background: linear-gradient(90deg, #2196f3, #4caf50);
+  color: var(--white);
+  padding: 2rem 1rem;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  border-top: 5px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Footer Styling */
+.main-footer {
+    background: linear-gradient(90deg, #2196f3, #4caf50);
+    color: var(--white);
+    padding: 0.5rem;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-logo img {
+    width: 30px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.footer-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    margin: 0;
+}
