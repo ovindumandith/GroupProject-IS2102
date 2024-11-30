@@ -72,8 +72,8 @@ if (!isset($_SESSION['user_id'])) {
             <p class="subtitle" id="subtitle" ></p>
         </div>
     </div>
-    <img src="../../assets/images/91.jpg" alt="Header Image 1" class="header-image" id="headerImage">
-</div>
+    <img src="../../assets/images/workload/93.png" alt="Header Image 1" class="header-image" id="headerImage">
+   </div>
 
     
     <!-- Content Section (for demonstration) -->
@@ -82,39 +82,38 @@ if (!isset($_SESSION['user_id'])) {
 <div class="content">
   <div class="split left">
     <h2>
-    <span class="highlight">Streamline your day, reduce procrastination, and create a sense of control—all in one place.</span>
+    <span class="highlight">Stay organized and in control!</span>
     </h2>
     <div class="description">
     <p>
-      Our To-Do List feature is designed to simplify your workload, helping you organize, prioritize, and accomplish tasks with ease. 
-      Whether you're balancing work, studies, or personal responsibilities, this tool ensures you stay on top of your commitments without feeling overwhelmed.
+    Our To-Do List helps you break down your tasks, prioritize with ease, 
+    and keep track of everything that matters. 
+    Conquer your day, one checkbox at a time!
     </p>
     </div>
     <button class="arrow-btn" onclick="location.href='to_do_list.php'">
       <img src="../../assets/images/workload/forward.png" alt="Arrow Icon" class="arrow-icon">
     </button>
   </div>
-  
   <div class="split right">
     <div class="graphic-section">
-      <h3>To-do-List</h3>
+      <h3>To-Do-List</h3>
       <div class="illustration">
-      <img src="../../assets/images/workload/to-do-list.png" alt="Illustration">
+      <img src="../../assets/images/workload/calendar.png" alt="Illustration">
+      </div>
     </div>
   </div>
-</div>
 
 </div>
 
 <div class="content">
   <div class="split left">
     <h4>
-    <span class="highlight">Streamline your day, reduce procrastination, and create a sense of control—all in one place.</span>
+    <span class="highlight">Plan ahead, stay at ease</span>
     </h4>
     <div class="description">
-      <p>Our To-Do List feature is designed to simplify your workload, helping you organize, prioritize, and accomplish tasks with ease. 
-        Whether you're balancing work, studies, or personal responsibilities, this tool ensures you stay on top of your commitments without feeling overwhelmed.
-        Start planning your way to a stress-free and productive life today!
+      <p>The Event Scheduler lets you map out your commitments, set reminders, and manage deadlines seamlessly. 
+        Never miss a moment of success!
       </p>
     </div>
     <button class="arrow-btn" onclick="location.href='schedule_event.php'">
@@ -136,13 +135,12 @@ if (!isset($_SESSION['user_id'])) {
   <div class="content">
     <div class="split left">
       <h4>
-      <span class="highlight">Streamline your day, reduce procrastination, and create a sense of control—all in one place.</span>
+      <span class="highlight">Master your time, master your life</span>
       </h4>
     
       <div class="description">
-      <p>Our To-Do List feature is designed to simplify your workload, helping you organize, prioritize, and accomplish tasks with ease. 
-        Whether you're balancing work, studies, or personal responsibilities, this tool ensures you stay on top of your commitments without feeling overwhelmed.
-        Start planning your way to a stress-free and productive life today!
+      <p>Use our Time Tracking feature to monitor how you spend your hours, stay productive, and balance work with well-deserved breaks. 
+        Your time, your rules!
       </p>
       </div>
       <button class="arrow-btn" onclick="location.href='time_tracking.php'">

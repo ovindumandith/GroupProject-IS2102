@@ -2,75 +2,55 @@
 
 require_once '../models/ScheduleEvent.php';
 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ensure proper JSON header
+    header('Content-Type: application/json');
+    error_reporting(E_ERROR | E_PARSE); // Suppress PHP warnings
+
     // Fetch input values
     $title = $_POST['title'] ?? '';
     $description = $_POST['description'] ?? '';
     $date = $_POST['date'] ?? '';
     $startTime = $_POST['startTime'] ?? '';
     $endTime = $_POST['endTime'] ?? '';
-    $eventId = $_POST['id'] ?? null;  // Check if we are updating an existing event
+    $eventId = $_POST['id'] ?? null;
 
     // Validate inputs
     $errors = [];
 
-    // Check if title, date, startTime, and endTime are not empty
-    if (empty($title)) {
-        $errors[] = 'Title is required.';
+    if (empty($title)) $errors[] = 'Title is required.';
+    if (empty($date)) $errors[] = 'Date is required.';
+    if (empty($startTime)) $errors[] = 'Start time is required.';
+    if (empty($endTime)) $errors[] = 'End time is required.';
+    if (!empty($startTime) && !empty($endTime) && $startTime >= $endTime) {
+        $errors[] = 'Start time must be less than end time.';
     }
-
-    if (empty($date)) {
-        $errors[] = 'Date is required.';
+    $event = new ScheduleEvent();
+    if ($event->checkEventOverlap($date, $startTime, $endTime, $title, $eventId)) {
+        echo json_encode(['errors' => ['An event with the same title already exists at this date and time.']]);
+        exit();
     }
-
-    if (empty($startTime)) {
-        $errors[] = 'Start time is required.';
-    }
-
-    if (empty($endTime)) {
-        $errors[] = 'End time is required.';
-    }
-
-    // Validate start time is less than end time
-    if (!empty($startTime) && !empty($endTime)) {
-        if ($startTime >= $endTime) {
-            $errors[] = 'Start time must be less than end time.';
-        }
-    }
-
-    // If there are validation errors, set an error message and return
+    // Handle validation errors
     if (!empty($errors)) {
-        // Join errors into a single string, or you could keep them in an array
-        $_SESSION['error_message'] = implode('<br>', $errors);
-        // header('Location: ../views/schedule_event.php');
+        echo json_encode(['errors' => $errors]);
         exit();
     }
 
-    // If there are no validation errors, proceed with saving or updating the event
     $event = new ScheduleEvent();
 
+    // Save or update event
     if ($eventId) {
-        // If the eventId is present, it's an update
-        if ($event->updateEvent($eventId, $title, $description, $date, $startTime, $endTime)) {
-            $_SESSION['success_message'] = 'Event updated successfully!';
-        } else {
-            $_SESSION['error_message'] = 'Failed to update the event.';
-        }
+        $success = $event->updateEvent($eventId, $title, $description, $date, $startTime, $endTime);
+        $message = $success ? 'Event updated successfully!' : 'Failed to update the event.';
     } else {
-        // Otherwise, it's a new event
-        if ($event->saveEvent($title, $description, $date, $startTime, $endTime)) {
-            $_SESSION['success_message'] = 'Event saved successfully!';
-        } else {
-            $_SESSION['error_message'] = 'Failed to save the event.';
-        }
+        $success = $event->saveEvent($title, $description, $date, $startTime, $endTime);
+        $message = $success ? 'Event saved successfully!' : 'Failed to save the event.';
     }
 
-    // Redirect back to the events page
-    header('Location: ../views/schedule_event.php');
+    echo json_encode(['message' => $message]);
     exit();
 }
+
 
 // In ScheduleEventController.php
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
@@ -141,4 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         echo json_encode(['status' => 'error', 'message' => 'Invalid request: event ID is required.']);
     }
     exit();
+}
+function formatTime($time) {
+    $dateTime = new DateTime($time);
+    return $dateTime->format('H:i'); // Format to "HH:MM"
 }

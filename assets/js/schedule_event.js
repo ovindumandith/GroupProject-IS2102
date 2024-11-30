@@ -9,7 +9,7 @@ window.onload = async function () {
 function setToday() {
 
     const today = new Date();
-    
+
     const dayOfMonth = today.getDate();
     const month = today.getMonth(); // January is 0, December is 11
     const year = today.getFullYear();
@@ -32,7 +32,7 @@ function setToday() {
     const currentDayIndex = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
     days[currentDayIndex].classList.add('active');
-   
+
     fetchEventsForDay(today);
 }
 function fetchEventsForDay(date) {
@@ -46,7 +46,7 @@ function fetchEventsForDay(date) {
     fetch(`../controller/ScheduleEventController.php?date=${formattedDate}`)
         .then(response => response.text()) // Read response as text first
         .then(data => {
-             // Log raw response to see if it's HTML or an error message
+            // Log raw response to see if it's HTML or an error message
             try {
                 const jsonData = JSON.parse(data); // Parse the response as JSON
                 events = jsonData;
@@ -136,7 +136,7 @@ function generateCalendar(events) {
 
         // Format the date as YYYY-MM-DD to compare with the events
         const formattedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-       
+
         // Check if this day has any events
         const dayEvents = events.filter(event => event.date === formattedDate);
 
@@ -223,20 +223,27 @@ function displayEvents(events) {
         eventCard.classList.add('course-card', 'math'); // Add appropriate classes
 
         eventCard.innerHTML = `
-            <div class="time">${event.start_time} - ${event.end_time}</div>
-            <div class="course-info">
-                <h4>${event.title}</h4>
-                <div class="details">${event.description || 'No details available.'}</div>
-                <div class="button-container">
-                    <button class="edit-btn" onclick="openEditPopup(${event.id})">
-                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                    </button>
-                    <button class="delete-btn" onclick="deleteEvent(${event.id})">
-                        <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
-                    </button>
-                </div>
+        <div class="time">${formatTime(event.start_time)} - ${formatTime(event.end_time)}</div>
+        <div class="course-info">
+            <h4>${event.title}</h4>
+            <div class="details">${event.description}</div>
+            <div class="button-container">
+                <button class="edit-btn" onclick="openEditPopup(${event.id})">
+                    <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
+                </button>
+                <button class="delete-btn" onclick="deleteEvent(${event.id})">
+                    <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
+                </button>
             </div>
-        `;
+        </div>
+    `;
+    
+    // Function to format time to HH:MM
+    function formatTime(time) {
+        // If time is a string in HH:MM:SS format (e.g., "12:12:00")
+        return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
+    }
+    
 
         scheduleContainer.appendChild(eventCard);
     });
@@ -321,11 +328,11 @@ function deleteEvent(eventId) {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                alert(data.message);
+                showAlert(data.message);
                 // Refresh or update the UI to reflect the deletion
                 fetchEventsForDay(new Date()); // Reload events for the current day
             } else {
-                alert(data.message || 'Failed to delete the event.');
+                showAlert(data.message || 'Failed to delete the event.');
             }
         })
         .catch(error => {
@@ -386,4 +393,81 @@ function syncWeekNavigationWithDate(date) {
     document.getElementById('current-day').innerText = date.getDate();
     document.getElementById('current-day-name').innerText = dayName;
     document.getElementById('current-month-year').innerText = formattedDate;
+}
+document.getElementById("eventForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.innerHTML = ""; // Clear previous errors
+
+    const eventData = {
+        id: document.getElementById("eventId").value,
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        date: document.getElementById("date").value,
+        startTime: document.getElementById("startTime").value,
+        endTime: document.getElementById("endTime").value,
+    };
+
+    const url = `../controller/ScheduleEventController.php`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(eventData), // Format data for POST
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            // Handle errors if present
+            if (data.errors) {
+                displayErrors(data.errors);
+            } else if (data.message) {
+                // Only show success alert if there are no errors
+                showAlert(data.message);
+                document.getElementById("eventForm").reset(); // Reset form on success
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+});
+
+function displayErrors(errors) {
+    const errorContainer = document.getElementById("errorContainer");
+
+    errors.forEach((error) => {
+        const errorMessage = `<p>${error}</p>`;
+        errorContainer.innerHTML += errorMessage; // Display errors
+    });
+}
+
+
+// Function to format time to HH:MM
+function formatTime(time) {
+    // If time is a string in HH:MM:SS format (e.g., "12:12:00")
+    return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
+}
+function displayErrors(errors) {
+    const errorContainer = document.getElementById("errorContainer");
+
+    // Loop through each error and display them
+    for (const [field, message] of Object.entries(errors)) {
+        const errorMessage = `<p><strong>${message}</p>`;
+        errorContainer.innerHTML += errorMessage; // Append error messages to container
+    }
+}
+function showAlert(message, isSuccess = true) {
+    const popup = document.getElementById("popupMessage");
+    const popupText = document.getElementById("popupText");
+
+    popupText.textContent = message;
+    popup.style.background = isSuccess ? "#4caf50" : "#f44336"; // Green for success, Red for error
+    popup.style.display = "block";
+
+    // Hide after 3 seconds
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 3000);
 }

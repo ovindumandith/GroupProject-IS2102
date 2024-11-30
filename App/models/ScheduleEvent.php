@@ -28,6 +28,7 @@ class ScheduleEvent
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     public function saveEvent($title, $description, $date, $startTime, $endTime)
     {
         try {
@@ -41,10 +42,10 @@ class ScheduleEvent
             $stmt->bindParam(':end_time', $endTime);
 
             if ($stmt->execute()) {
-                echo "Query executed successfully.<br>";
+               
                 return true;
             } else {
-                echo "Query execution failed.<br>";
+                
             }
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());
@@ -109,4 +110,37 @@ class ScheduleEvent
         // Fetch all matching events
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-}
+    public function checkEventOverlap($date, $startTime, $endTime, $title, $eventId = null) {
+        // Assuming you have a database connection in $this->db
+        $query = "SELECT * FROM schedule_events WHERE title = ? AND date = ? AND start_time = ? AND end_time = ?";
+    
+        // If we're updating, exclude the current event from the check
+        if ($eventId) {
+            $query .= " AND id != ?";
+        }
+    
+        // Prepare and execute the query
+        $stmt = $this->db->prepare($query);
+        
+        if ($eventId) {
+            // Binding parameters with proper types
+            $stmt->bindParam(1, $title, PDO::PARAM_STR);
+            $stmt->bindParam(2, $date, PDO::PARAM_STR);
+            $stmt->bindParam(3, $startTime, PDO::PARAM_STR);
+            $stmt->bindParam(4, $endTime, PDO::PARAM_STR);
+            $stmt->bindParam(5, $eventId, PDO::PARAM_INT); // eventId should be an integer
+        } else {
+            // Binding parameters with proper types
+            $stmt->bindParam(1, $title, PDO::PARAM_STR);
+            $stmt->bindParam(2, $date, PDO::PARAM_STR);
+            $stmt->bindParam(3, $startTime, PDO::PARAM_STR);
+            $stmt->bindParam(4, $endTime, PDO::PARAM_STR);
+        }
+    
+        $stmt->execute();
+        
+        // Check if any rows were returned, meaning the event already exists
+        return $stmt->rowCount() > 0;
+    }
+    
+}    

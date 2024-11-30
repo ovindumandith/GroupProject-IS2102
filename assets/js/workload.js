@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const images = [
     {
-      src: "../../assets/images/91.jpg", // Image 1
+      src: "../../assets/images/workload/93.png", // Image 1
       title: "Trust in your ability to manage – you’ve got this!",
       subtitle: "Every challenge is an opportunity to grow."
     },
     {
-      src: "../../assets/images/92.jpg", // Image 2
+      src: "../../assets/images/workload/93.png", // Image 2
       title: "Believe in yourself – you can achieve greatness!",
       subtitle: "Consistency is the key to success."
     }
@@ -47,5 +47,5 @@ document.addEventListener("DOMContentLoaded", () => {
   changeContent();
 
   // Change the content every 5 seconds
-  setInterval(changeContent, 6000);
+  setInterval(changeContent, 5000);
 });

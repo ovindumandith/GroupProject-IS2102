@@ -1,6 +1,4 @@
 /* General Reset */
-
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -21,15 +19,15 @@ body {
 
 .dashboard-container {
   display: flex;
-  height: 800px;
+  height: 850px;
   width: 95%;/* Set the width of the container */
   /*max-width: 1000px;  Optional: limit maximum width */
   margin: auto; /* Center the container horizontally */
-  margin-top: 25px;
+  margin-top: 15px;
   margin-bottom: 25px;
   border-radius: 20px; /* Round the corners */
   overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
-  background-color:#d2e1ca; /* Optional: set a background color for the container */
+  background-color:#dbe6d5; /* Optional: set a background color for the container */
   position: relative;
 }
 
@@ -43,9 +41,10 @@ body {
 
 .header-task-planner {
   display: flex;
-  flex-direction: column; /* Stacks child elements vertically */
+  flex-direction: row; /* Stacks child elements vertically */
   align-items: flex-start; /* Aligns items to the left */
   gap: 5px; /* Adds spacing between the stacked elements */
+  margin-top: 30px;
 }
 
 .task-planner{
@@ -56,19 +55,14 @@ body {
   gap: 10px;
   
 }
-.task-planner h3{
-  font-size: 1rem;
-  color: #b2611e;
+.task-planner h2{
+  font-size: 3.2rem;
+  color: #df843a;
   font-family:  'Source Sans Pro';
+  margin-left: 60px;
   
 }
-.task-planner h3{
-  font-size: 1.75rem;
-  color: #70411b;
-  font-family:  'Source Sans Pro';
-  font-weight: 200; /* Light weight */
-  margin-right: 10px;
-}z
+
 
 .todo-icon {
   margin-left: 2px; /* Optional: adds spacing between the title and the icon */
@@ -80,28 +74,29 @@ body {
   display: flex; /* Aligns the search bar and Add Task button horizontally */
   justify-content: space-between; /* Spreads elements across the container */
   align-items: center; /* Ensures alignment */
-  width: 80%; /* Takes full width of the header */
+  width: 65%; /* Takes full width of the header */
+  margin-left: 150px;
 }
 
 .search-bar {
-  width: 80%;
+  width: 85%;
   padding: 10px;
-  border: 1px solid #f1a164;
-  border-radius: 5px;
+  border: 2.5px solid #f1a164;
+  border-radius: 10px;
   display: flex;
   overflow: hidden;
-  height: 30px;
+  height: 50px;
  
 
 }
 
 .search-task {
   padding: 5px;
-  font-size: 0.65rem;
+  font-size: 0.95rem;
   border: none;
   outline:none;
   flex-grow: 1;
-  background-color:#f4f2f2;
+  background-color:transparent;
 }
 .search-button {
   background: none;
@@ -110,25 +105,26 @@ body {
   cursor: pointer;
 }
 
-.search-button img {
-  width: 15px; /* Adjust size as needed */
-  height: 15px;
+.search-button  {
+  font-size: 15px;
+  color:#d06c1f; ;
+
 }
 .add-event-button {
   background-color:#ff8033;
-  color: white;
+  color: rgb(28, 24, 24);
   border: none;
   border-radius: 15px;
   padding: 5px 4px;
-  font-size: 0.7rem;
+  font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  
   margin-left: 0.25px; 
-  width:18%;
-  height: 35px;
+  width:12%;
+  height: 40px;
 }
 
 .add-event-button:hover {
@@ -137,9 +133,10 @@ body {
 
 /* Icon inside Add Task Button */
 .add-icon {
-  width: 30px; /* Adjust icon size as needed */
-  height: 35px;
-  margin-right: 0.5px; /* Space between icon and text */
+ color: #000000;
+  margin-right: 10px; /* Space between icon and text */
+  margin-top: 5px;
+  font-size: 35px;
   
 }
 
@@ -150,21 +147,23 @@ body {
   gap: 10px; /* Space between the buttons */
   margin: 15px 0; /* Top and bottom spacing */
   justify-content: flex-start; /* Align buttons to the left */
+  margin-left: 10px;
+  margin-bottom: 25px;
 }
 
 .filter-button {
   background-color: #f4efef; /* Light gray background */
-  border: 0 solid #000000 ; /* Subtle border */
+  border: 0 solid #2f2e2e ; /* Subtle border */
   border-radius: 50px; /* Rounded edges */
   padding: 15px 15px; /* Add padding for better size */
-  font-size: 0.75rem; /* Adjust font size */
+  font-size: 0.95rem; /* Adjust font size */
   color: #333; /* Text color */
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px; /* Space between text and count */
+  gap: 8px; /* Space between text and count */
   transition: all 0.3s ease; /* Smooth hover effect */
-  width: 60%; /* Full width */
+  width: 70%; /* Full width */
   height: 25px;
 }
 
@@ -173,12 +172,12 @@ body {
   color: #333; /* Text color */
   padding: 5px 5px; /* Circle padding */
   border-radius: 50%; /* Make it circular */
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
 .filter-button:hover {
-  background-color:#81ce78; /* Light blue hover effect */
+  background-color:#93c78d; /* Light blue hover effect */
   color: #000; /* Text color on hover */
   border-color:#1f8252; /* Change border on hover */
 }
@@ -201,16 +200,17 @@ body {
 }
 
 .my-tasks-container {
-  width:100%;
-  background-color: #a6d190;
+  width:95%;
+  background-color: #e7ede4;
  /* border: 1px solid  #141a24;*/
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(186, 179, 169, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 20px 20px rgba(186, 179, 169, 0.1);
   margin-top: 0.1px;
   margin-bottom: 10px;
-  height: 600px;
+  height: 650px;
   position: relative;
+  margin-left: 40px;
 
 }
 .my-tasks-container-header{
@@ -232,8 +232,9 @@ body {
 
 .my-tasks-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-template-columns: repeat(3, 1fr); /* Two columns */
   gap: 20px; /* Space between cards */
+  margin-left: 20px;
 }
 /* Default card design */
 
@@ -244,10 +245,10 @@ body {
   margin: 20px 0;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  width: 80%;
   color: #000000;
   position: relative;
-  height: 100px;
+  height: 120px;
   
 }
 
@@ -263,7 +264,7 @@ body {
 
 /* Overdue category card styles */
 .my-tasks-list-card[data-category="overdue"] {
-  background-color:#ef8177;
+  background-color:#e2a49f;
 }
 
 .checkbox-container {
@@ -311,73 +312,70 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: 1.3rem;
 }
 
-.my-task-list-card-content h3 {
-  font-size: 0.65rem;
+.my-task-list-card-content h3{
+  font-size: 0.55rem;
   margin: 0;
   color: #333;
+  margin-left: 8px;
+  
 }
 
 .my-task-list-card-content p {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   margin: 0;
   color: #777;
 }
-.my-task-list-card-content .time-icon {
+ .time-icon {
   display: flex;
   align-items: center;
   gap: 12px; /* Adds space between the icon and time text */
   margin-top: 10px; /* Optional for spacing */
+  font-size: 22px;
+  color: rgb(222, 134, 52);
 }
 
-.my-task-list-card-content .time-icon .time-image {
-  width: 25px; /* Adjust the size of the icon */
-  height: 25px;
-  object-fit: contain; /* Ensures the image fits well */
+
+ .time-icon span {
+  font-size: 1.1rem; /* Match the text style */
+  color: #2a2828;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
 }
 
-.my-task-list-card-content .time-icon span {
-  font-size: 0.9rem; /* Match the text style */
-  color: #d17930;
+ .calendar-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Adds space between the icon and time text */
+  margin-top: 10px; /* Optional for spacing */
+  font-size: 22px;
+  color: rgb(86, 169, 38);
+}
+
+
+ .calendar-icon span {
+  font-size: 1.1rem; /* Match the text style */
+  color: #2a2828;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+ .exclamation-mark-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Adds space between the icon and time text */
+  margin-top: 10px; /* Optional for spacing */
+  font-size: 22px;
+  color: rgb(211, 101, 71);
+}
+
+
+
+ .exclamation-mark-icon span {
+  font-size: 1.1rem; /* Match the text style */
+  color: #2a2828;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
-}
-
-.my-task-list-card-content .calendar-icon {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Adds space between the icon and time text */
-  margin-top: 10px; /* Optional for spacing */
-}
-
-.my-task-list-card-content .calendar-icon .calendar-image {
-  width: 20px; /* Adjust the size of the icon */
-  height: 20px;
-  object-fit: contain; /* Ensures the image fits well */
-}
-
-.my-task-list-card-content .calendar-icon span {
-  font-size: 0.9rem; /* Match the text style */
-  color: #194203;
-}
-
-.my-task-list-card-content .exclamation-mark-icon {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Adds space between the icon and time text */
-  margin-top: 10px; /* Optional for spacing */
-}
-
-.my-task-list-card-content .exclamation-mark-icon .exclamation-mark-image{
-  width: 20px; /* Adjust the size of the icon */
-  height: 20px;
-  object-fit: contain; /* Ensures the image fits well */
-}
-
-.my-task-list-card-content .exclamation-mark-icon span {
-  font-size: 0.9rem; /* Match the text style */
-  color: #3f0f06;
 }
 .my-tasks-list-card h2{
   font-size: 2rem;
@@ -425,52 +423,34 @@ button.edit-btn img, button.delete-btn img {
   padding: 10px;
 }
 
-.see-all-button {
-  position: absolute;
-  bottom: 10px; /* 10px from the bottom */
-  right: 10px; /* 10px from the left */
-  padding: 5px 5px;
-  background-color: #ecdad1; /* Green button */
-  color: rgb(210, 94, 11);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px;
-}
 
-.see-all-button:hover {
-  background-color: #cf9b71; /* Darker green when hovered */
-}
 
 .back-button {
   position: absolute;
   bottom: 20px; /* Adjust the distance from the bottom */
-  left: 30px;   /* Adjust the distance from the left */
+  left: 20px;   /* Adjust the distance from the left */
   background-color: #bddeb9; /* Use the accent color */
-  color: rgb(14, 121, 7);
+  color: rgb(206, 83, 16);
   border: none;
   padding: 5px 5px;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 30px;
 }
 
-.back-button img {
-  width: 15px;
-  height: 15px;
-  margin-right: 8px;
-}
 
 .back-button:hover {
-  background-color: #98dc90 ; /* Slightly darker color on hover */
+  background-color: #a0d79a ; /* Slightly darker color on hover */
 }
 .edit-icon{
-  color: rgb(128, 111, 0);
+  color: red;
+  font-size: 18px;
+  margin-top: 10px;
 }
 .delete-icon{
   color: red;
-}
-.bell-icon{
-  color: yellow;
+  font-size: 18px;
+  margin-top: 10px;
 }

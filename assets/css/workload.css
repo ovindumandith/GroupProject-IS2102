@@ -1,195 +1,201 @@
 /* workload css */
 /* Content Placeholder */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #dfe5de; /* Add a background color for contrast */
-    
-  }
-  .main-content {
-    display: flex;
-    flex-direction: column; /* Stack sections in a column */
-    justify-content: center; /* Center the column vertically */
-    align-items: center; /* Center the column horizontally */
-    gap: 30px; /* Space between sections */
-    padding: 30px; /* Add padding around the main content */
-    height: 1500px; /* Adjust height to fit within the page excluding header/footer */
-    overflow-y: auto; /* Enable scrolling if the sections exceed viewport height */
-  }
-  .content {
-    display: flex;
-    flex-direction: row;
-    width: 1200px; /* Adjust width for smaller sections */
-    height: 800px; /* Adjust height */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add a shadow for better focus */
-    border-radius: 10px; /* Smooth edges */
-    overflow: hidden;
-    background-color: white; /* Ensure a clear background */
-  }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e2eae0; /* Add a background color for contrast */
   
-  .header-container {
-    width: 100%;
-    
-    height: 600px; /* Adjust height as needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e0e0e0; /* Optional background color for contrast */
-    overflow: hidden; /* Ensures no overflow from images */
-    position: relative; /* Allows positioning of child elements */
-    border-radius: 10px; /* Rounded corners */
-  }
+}
+.main-content {
+  display: flex;
+  flex-direction: column; /* Stack sections in a column */
+  justify-content: center; /* Center the column vertically */
+  align-items: center; /* Center the column horizontally */
+  gap: 30px; /* Space between sections */
+  padding: 30px; /* Add padding around the main content */
+  height: 1500px; /* Adjust height to fit within the page excluding header/footer */
+  overflow-y: auto; /* Enable scrolling if the sections exceed viewport height */
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  width: 1200px; /* Adjust width for smaller sections */
+  height: 800px; /* Adjust height */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add a shadow for better focus */
+  border-radius: 10px; /* Smooth edges */
+  overflow: hidden;
+  background-color: rgb(252, 252, 252); /* Ensure a clear background */
+}
+
+.header-container {
+  width: 100%;
   
-  .header-image {
+  height: 700px; /* Adjust height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e0e0; /* Optional background color for contrast */
+  overflow: hidden; /* Ensures no overflow from images */
+  position: relative; /* Allows positioning of child elements */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.header-image {
+width: 100%;
+height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+  
+  position: absolute; /* Stacks images within the container */
+  opacity: 0;
+  transition: opacity 1s ease-in-out; /* Smooth transition for image */
+  top: 0;
+left: 0;
+opacity: 0;
+}
+
+.header_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-    object-fit: cover; /* Ensures the image covers the container without distortion */
-    
-    position: absolute; /* Stacks images within the container */
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* Smooth transition for image */
-    top: 0;
-  left: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 2; /* Ensures overlay is above the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.header-image.active {
+  opacity: 1; /* Make image visible when active */
+}
+.overlay-text {
+  color: #948e8e; /* White text for better contrast */
+  font-family: 'Arial', sans-serif; /* Default font style, can be replaced with any font */
+  max-width: 80%; /* Optional: Limits text width for better readability */
+}
+
+.main-title {
+  font-size: 3.9rem; /* Large font size for the main title */
+  font-weight: bold; /* Make the title bold */
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Text shadow for a glowing effect */
   opacity: 0;
-  }
-  
-  .header_overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-    z-index: 2; /* Ensures overlay is above the image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .header-image.active {
-    opacity: 1; /* Make image visible when active */
-  }
-  .overlay-text {
-    color: #ffffff; /* White text for better contrast */
-    font-family: 'Arial', sans-serif; /* Default font style, can be replaced with any font */
-    max-width: 80%; /* Optional: Limits text width for better readability */
-  }
-  
-  .main-title {
-    font-size: 3rem; /* Large font size for the main title */
-    font-weight: bold; /* Make the title bold */
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Text shadow for a glowing effect */
-    opacity: 0;
-  transform: translateY(10px); /* Subtle move effect */
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-  }
-  
-  .subtitle {
-    font-size: 1.5rem; /* Smaller font size for subtitle */
-    font-weight: 300; /* Light font weight */
-    margin-top: 0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Subtle shadow for the subtitle */
-    opacity: 0;
-  transform: translateY(10px); /* Subtle move effect */
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-  }
-  
-  .main-title.active, .subtitle.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .split {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-  }
-  
-  .left {
-    background-color: #ffffff;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .right {
-    background-color: #29ad57;
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .highlight {
-    color: #ff8c00;
-    margin-top: 0px;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-  
-  /* Arrow button styling */
-  .arrow-btn {
-    background-color: transparent; /* Transparent background */
-    border: none; /* Remove border */
-    cursor: pointer; /* Pointer cursor on hover */
-    padding: 10px; /* Add padding around the icon */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Styling for the arrow icon */
-  .arrow-icon {
-    width: 40px; /* Adjust the size of the arrow icon */
-    height: 40px;
-  }
-  
-  /* Optional hover effect */
-  .arrow-btn:hover .arrow-icon {
-    transform: scale(1.1); /* Slightly enlarge the icon on hover */
-    transition: transform 0.3s ease-in-out; /* Smooth transition */
-  }
-  
-  
-  
-  .description {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: gray;
-  }
-  
-  .graphic-section h3 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .illustration img {
-    max-width: 90%;
-    height: 300px;
-    border-radius: 8px;
-  }
-  
+transform: translateY(10px); /* Subtle move effect */
+transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+color: #948e8e;
+}
+
+.subtitle {
+  font-size: 3.1rem; /* Smaller font size for subtitle */
+  font-weight: 300; /* Light font weight */
+  margin-top: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Subtle shadow for the subtitle */
+  opacity: 0;
+transform: translateY(10px); /* Subtle move effect */
+transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+color: #959090;
+}
+
+.main-title.active, .subtitle.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.split {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.left {
+  background-color: #ffffff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.right {
+  background-color: #5db57c;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #ff8c00;
+  margin-top: 0px;
+  font-size: 1.8rem;
+
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.17rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #67625a;
+}
+
+/* Arrow button styling */
+.arrow-btn {
+  background-color: transparent; /* Transparent background */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 10px; /* Add padding around the icon */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for the arrow icon */
+.arrow-icon {
+  width: 40px; /* Adjust the size of the arrow icon */
+  height: 40px;
+}
+
+/* Optional hover effect */
+.arrow-btn:hover .arrow-icon {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+
+
+.description {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.graphic-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.illustration img {
+  max-width: 85%;
+  height: 280px;
+  border-radius: 8px;
+}

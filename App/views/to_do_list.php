@@ -117,6 +117,30 @@ if (!isset($_SESSION['user_id'])) {
                   </button> 
                 </div>
               </div>
+
+              <div class="my-tasks-list-card" data-category="today">
+                <div class="checkbox-container">
+                  <input type="checkbox" id="task-done-1" class="custom-checkbox" />
+                  <label for="task-done-1" class="custom-label"></label>
+                </div>
+                
+                <div class="my-task-list-card-content">
+                  Learn Javascript
+                  <div class="time-icon">
+                  <i class="fa-solid fa-bell"></i>
+                    <span>7:30 PM</span>
+                  </div>
+                </div>
+                
+                <div class="button-container">
+                  <button class="edit-btn">
+                  <i class="fas fa-edit edit-icon" aria-hidden="true"></i>
+                  </button>
+                  <button class="delete-btn">
+                  <i class="fas fa-trash delete-icon" aria-hidden="true"></i>
+                  </button>                  
+                </div>
+              </div>
               
                 <!-- Upcoming Event Card -->
               <div class="my-tasks-list-card" data-category="upcoming">
