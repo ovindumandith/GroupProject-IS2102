@@ -1,0 +1,105 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #a5e3c6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure full screen height */
+}
+
+/* Adjust container dimensions */
+.create-whole-container {
+  background-color: #d4f6d4;
+  width: 80%; /* Adjust for responsive width */
+  max-width: 600px; /* Limit max width for larger screens */
+  height: auto; /* Allow height to adjust based on content */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add consistent spacing between sections */
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.header-image {
+  max-width: 100px; /* Set a reasonable size for the image */
+  height: auto;
+  border-radius: 10px;
+}
+
+.header-right {
+  flex: 2;
+  text-align: left;
+}
+
+.header-right h1 {
+  font-size: 24px; /* Scale down for smaller devices */
+  color: #4caf50;
+  margin: 0;
+}
+
+.header-right hr {
+  border: none;
+  border-top: 2px solid #4caf50;
+  margin: 10px 0;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post {
+  background-color: #a8eb97;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post h2 {
+  font-size: 1.5em;
+  color: #256029;
+}
+
+.post p {
+  margin: 5px 0;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.icon-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.btn-image {
+  width: 24px;
+  height: 24px;
+}
+
+.post-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 10px 0;
+}

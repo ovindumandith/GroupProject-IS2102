@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stress Management - Find Your Inner Peace</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/hero.css" />
     <link rel="stylesheet" href="styles/features.css" />
@@ -27,7 +32,8 @@
           <li><a href="#hero">Home</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#meetourteam">Team</a></li>
+          <li><a href="#contact">Contact Us</a></li>
         </ul>
       </nav>
     </header>
@@ -53,8 +59,10 @@
           <div class="carousel-item">
             <img src="../assets/images/carousel-happy.jpg" alt="Nature" />
             <div class="carousel-caption">
-              <h1>Natural Harmony</h1>
-              <p>Connect with yourself and nature</p>
+              <h1>Excel in University Life</h1>
+              <p>
+                Manage your problems efectively to excel in your academic life
+              </p>
             </div>
           </div>
         </div>
@@ -71,7 +79,11 @@
       >
         Join as Student
       </button>
-      <button class="join-btn counselor-btn" id="joinCounselor">
+      <button
+        class="join-btn counselor-btn"
+        id="joinCounselor"
+        onclick="location.href='../App/views/counselor_login.php';"
+      >
         Join as Counselor
       </button>
     </div>
@@ -81,19 +93,52 @@
       <h2>Our Features</h2>
       <div class="features-grid">
         <div class="feature-card">
-          <img src="images/meditation-icon.svg" alt="Meditation" />
-          <h3>Guided Meditation</h3>
-          <p>Expert-led sessions to help you find peace and clarity</p>
+          <img src="../assets//images/stress_icon_index.png" alt="Meditation" />
+          <h3>Stress Monitoring</h3>
+          <p>
+            Monitor your Stress relatime with us by answering a few simple
+            questions.
+          </p>
         </div>
         <div class="feature-card">
-          <img src="images/breathing-icon.svg" alt="Breathing" />
-          <h3>Breathing Exercises</h3>
-          <p>Simple yet powerful techniques for instant calm</p>
+          <img
+            src="../assets/images/relaxation_icon_index.png"
+            alt="Breathing"
+          />
+          <h3>Relaxation Activities</h3>
+          <p>
+            Simple yet powerful techniques for instant relief, personalized with
+            your stress level
+          </p>
         </div>
         <div class="feature-card">
-          <img src="images/tracking-icon.svg" alt="Tracking" />
-          <h3>Stress Tracking</h3>
-          <p>Monitor your progress and identify triggers</p>
+          <img src="../assets/images/workin_progress.png" alt="Tracking" />
+          <h3>Workload Management</h3>
+          <p>
+            Schedule your upcomming tasks efficently with our workload
+            management tools
+          </p>
+        </div>
+        <div class="feature-card">
+          <img src="../assets/images/partners.png" alt="Breathing" />
+          <h3>Interactive Community</h3>
+          <p>See how others face stress and share your experience with them</p>
+        </div>
+        <div class="feature-card">
+          <img src="../assets/images/conversation.png" alt="Breathing" />
+          <h3>Confidential Counseling</h3>
+          <p>
+            Get personalized counseling from our experts to manage your stress
+            effectively
+          </p>
+        </div>
+        <div class="feature-card">
+          <img src="../assets/images/graduate.png" alt="Breathing" />
+          <h3>Academic Solutions</h3>
+          <p>
+            Tell us your academic problems asnd we will provide you with the
+            most effective solution effectively
+          </p>
         </div>
       </div>
     </section>
@@ -103,40 +148,118 @@
       <div class="about-content">
         <div class="vision-mission">
           <h2>Our Vision</h2>
-          <p>
-            To create a world where everyone has the tools and knowledge to
-            manage stress effectively.
+          <p class="vision-text">
+            We aim to create a nurturing space where students can seamlessly
+            monitor and manage stress while excelling academically and thriving
+            in their university journey.
           </p>
 
           <h2>Our Mission</h2>
-          <p>
-            Providing accessible, science-based stress management techniques to
-            improve mental well-being globally.
+          <p class="mission-text">
+            Delivering innovative, science-driven stress management solutions to
+            promote mental well-being and academic success globally.
           </p>
         </div>
+        <br />
 
-        <div class="team-section">
-          <h2>Our Team</h2>
+        <div class="team-section" id="meetourteam">
+          <h2>Meet Our Team</h2>
           <div class="team-grid">
             <div class="team-member">
-              <img src="images/team1.jpg" alt="Team Member 1" />
-              <h3>Sarah Johnson</h3>
-              <p>Mindfulness Expert</p>
+              <img
+                src="../assets/images/main_supervisor.jpg"
+                alt="Supervisor"
+              />
+              <h3>Dr. Kasun Karunanayake</h3>
+              <p>Project Supervisor</p>
             </div>
             <div class="team-member">
-              <img src="images/team2.jpg" alt="Team Member 2" />
-              <h3>David Chen</h3>
-              <p>Wellness Coach</p>
+              <img src="../assets/images/supervisor.jpg" alt="Co Supervisor" />
+              <h3>Mr. M.V.T.I.Priyantha</h3>
+              <p>Project Co-Supervisor</p>
             </div>
             <div class="team-member">
-              <img src="images/team3.jpg" alt="Team Member 3" />
-              <h3>Emma Wilson</h3>
-              <p>Mental Health Advocate</p>
+              <img src="../assets/images/profile_man.jpg" alt="Team Member 1" />
+              <h3>Lochana Thilakarathne</h3>
+              <p>2nd Year UCSC Undergraduate</p>
+            </div>
+            <div class="team-member">
+              <img
+                src="../assets/images/profile_women.jpg"
+                alt="Team Member 2"
+              />
+              <h3>Sadewni Vihidula</h3>
+              <p>2nd Year UCSC Undergraduate</p>
+            </div>
+            <div class="team-member">
+              <img
+                src="../assets/images/profile_women2.jpg"
+                alt="Team Member 3"
+              />
+              <h3>Nijani Thavosaty</h3>
+              <p>2nd Year UCSC Undergraduate</p>
+            </div>
+            <div class="team-member">
+              <img src="../assets/images/profie_man2.jpg" alt="Team Member 3" />
+              <h3>Ovindu Gunatunga</h3>
+              <p>2nd Year UCSC Undergraduate</p>
             </div>
           </div>
         </div>
       </div>
     </section>
+    <section id="contact" class="contact-section">
+      <h2>Contact Us</h2>
+      <p>
+        We value your feedback! Share your suggestions, problems, or compliments
+        with us.
+      </p>
+      <form class="contact-form" action="submit_feedback.php" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your Name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Share your feedback here..."
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Feedback</button>
+      </form>
+    </section>
+
+    <footer class="main-footer">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="../assets/images/logo.jpg" alt="RelaxU Logo" />
+          <span class="footer-title"><strong>RelaxU</strong></span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
+      </div>
+    </footer>
 
     <script src="js/carousel.js"></script>
     <script src="js/modal.js"></script>

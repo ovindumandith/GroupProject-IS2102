@@ -1,64 +1,112 @@
 /* About Section Styles */
 .about-section {
-    background-color: #f9f9f9;
-    padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  padding: 4rem 2rem;
 }
 
 .about-content {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Vision and Mission Section */
 .vision-mission {
-    text-align: center;
-    margin-bottom: 4rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(240, 245, 255, 0.9)
+  );
+  padding: 3rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 800px;
+  text-align: center;
 }
 
 .vision-mission h2 {
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  font-family: "Georgia", serif;
+}
+
+.vision-mission h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--secondary-color);
+  border-radius: 2px;
 }
 
 .vision-mission p {
-    max-width: 800px;
-    margin: 0 auto 2rem;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  line-height: 1.8;
+  font-family: "Arial", sans-serif;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.vision-text {
+  margin-bottom: 2rem; /* Add space between vision and mission sections */
+}
+
+.mission-text {
+  color: var(--secondary-color);
 }
 
 .team-section {
-    text-align: center;
+  text-align: center;
 }
 
 .team-section h2 {
-    color: var(--secondary-color);
-    margin-bottom: 3rem;
+  color: var(--secondary-color);
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  position: relative;
 }
-
+.team-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: var(--primary-color);
+}
 .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 .team-member {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .team-member img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    object-fit: cover;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
 }
 
 .team-member h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
 }
 
 .team-member p {
-    color: var(--text-dark);
+  color: var(--text-dark);
 }

@@ -25,16 +25,15 @@
 }
 
 .features-grid {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
+    display: grid; /* Change to CSS Grid */
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 2rem; /* Add spacing between rows and columns */
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
 .feature-card {
-    flex: 1;
     background: var(--white);
     padding: 2.5rem;
     border-radius: 15px;
@@ -42,7 +41,6 @@
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    max-width: 400px;
 }
 
 .feature-card::before {
@@ -96,12 +94,12 @@
 /* Responsive Design */
 @media (max-width: 1024px) {
     .features-grid {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
     }
+}
 
-    .feature-card {
-        width: 100%;
-        max-width: 500px;
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* 1 card per row */
     }
 }
