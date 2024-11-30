@@ -28,11 +28,12 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
     
+    
     <div class="dashboard">
         <!-- Sidebar -->
         <div class="sidebar">
             <button class="back-button">
-                <img src="back-icon.png" alt="Back Icon" />
+            <i class="fa-solid fa-arrow-left"></i>
             </button>
         </div>
 
@@ -44,9 +45,9 @@ if (!isset($_SESSION['user_id'])) {
                     <h1>Event Scheduler</h1>
                     <div class="search-and-add">
                         <div class="search-bar">
-                            <input type="text" id="searchInput" class="search-task" placeholder="Search your task here !" oninput="searchEvents()">
+                            <input type="text" id="searchInput" class="search-task" placeholder="Search your event here !" oninput="searchEvents()">
                             <button class="search-button">
-                                <img src="../../assets/images/workload/search_icon.png" alt="Search" />
+                             <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
                         <button class="add-event-button" onclick="showPopup()">
@@ -88,13 +89,14 @@ if (!isset($_SESSION['user_id'])) {
             </header>
 
             <!-- Calendar and Event Details -->
-            <div class="calendar-section">
+            <div class="content-section">
                 <!-- Left Panel -->
                 <div class="calendar-panel">
                     <div class="calendar-navigation">
-                        <button id="prevMonth">&lt;</button>
-                        <h2 id="monthYear"></h2>
-                        <button id="nextMonth">&gt;</button>
+                       
+                    <button id="prevMonth">&lt;</button>
+                    <h2 id="monthYear"></h2> 
+                    <button id="nextMonth">&gt;</button>
                     </div>
                     <!-- Calendar Table -->
                     <table id="calendar"></table>
@@ -128,27 +130,13 @@ if (!isset($_SESSION['user_id'])) {
                     <!-- Schedule Cards -->
                     <div class="schedule">
                         <!-- Mathematics -->
+                      
                         <div class="course-card math">
-                            <div class="time">11:35 - 13:05</div>
-                            <div class="course-info">
-                                <h4>Mathematics</h4>
-
-                                <div class="details"></div>
-
-                                <div class="button-container">
-                                    <button class="edit-btn">
-                                        <img src="../../assets/images/workload/edit-icon.png" alt="Edit" />
-                                    </button>
-
-                                    <button class="delete-btn">
-                                        <img src="../../assets/images/workload/delete-icon.png" alt="Delete" />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                            
+                        
                     </div>
                 </div>
-
+            
             </div>
         </div>
     </div>

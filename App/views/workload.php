@@ -72,7 +72,7 @@ if (!isset($_SESSION['user_id'])) {
             <p class="subtitle" id="subtitle" ></p>
         </div>
     </div>
-    <img src="../../assets/images/70.png" alt="Header Image 1" class="header-image" id="headerImage">
+    <img src="../../assets/images/91.jpg" alt="Header Image 1" class="header-image" id="headerImage">
 </div>
 
     

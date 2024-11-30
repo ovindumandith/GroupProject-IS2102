@@ -1,16 +1,35 @@
 /* General Reset */
 
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #eff5eb;
+  background-image: url(); /* Replace with your image path */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: fixed; /* Keeps the image fixed during scrolling */
+}
+
 .dashboard-container {
   display: flex;
-  height: 700px;
-  width: 50%; /* Set the width of the container */
-  max-width: 950px; /* Optional: limit maximum width */
+  height: 800px;
+  width: 95%;/* Set the width of the container */
+  /*max-width: 1000px;  Optional: limit maximum width */
   margin: auto; /* Center the container horizontally */
   margin-top: 25px;
   margin-bottom: 25px;
   border-radius: 20px; /* Round the corners */
   overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
-  background-color:#f4f2f2; /* Optional: set a background color for the container */
+  background-color:#d2e1ca; /* Optional: set a background color for the container */
   position: relative;
 }
 
@@ -22,7 +41,7 @@
   padding: 20px;
 }
 
-.to_do_list_header {
+.header-task-planner {
   display: flex;
   flex-direction: column; /* Stacks child elements vertically */
   align-items: flex-start; /* Aligns items to the left */
@@ -38,12 +57,18 @@
   
 }
 .task-planner h3{
+  font-size: 1rem;
+  color: #b2611e;
+  font-family:  'Source Sans Pro';
+  
+}
+.task-planner h3{
   font-size: 1.75rem;
-  color: #e3a36f;
+  color: #70411b;
   font-family:  'Source Sans Pro';
   font-weight: 200; /* Light weight */
   margin-right: 10px;
-}
+}z
 
 .todo-icon {
   margin-left: 2px; /* Optional: adds spacing between the title and the icon */
@@ -55,7 +80,7 @@
   display: flex; /* Aligns the search bar and Add Task button horizontally */
   justify-content: space-between; /* Spreads elements across the container */
   align-items: center; /* Ensures alignment */
-  width: 100%; /* Takes full width of the header */
+  width: 80%; /* Takes full width of the header */
 }
 
 .search-bar {
@@ -177,14 +202,14 @@
 
 .my-tasks-container {
   width:100%;
-  background-color: #f0e5e5;
+  background-color: #a6d190;
  /* border: 1px solid  #141a24;*/
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(186, 179, 169, 0.1);
   margin-top: 0.1px;
   margin-bottom: 10px;
-  height: 500px;
+  height: 600px;
   position: relative;
 
 }
@@ -228,7 +253,7 @@
 
 /* Today category card styles */
 .my-tasks-list-card[data-category="today"] {
-  background-color: #f8d8a8;
+  background-color: #e4cca9;
 }
 
 /* Upcoming category card styles */
@@ -419,12 +444,12 @@ button.edit-btn img, button.delete-btn img {
 
 .back-button {
   position: absolute;
-  bottom: 130px; /* Adjust the distance from the bottom */
+  bottom: 20px; /* Adjust the distance from the bottom */
   left: 30px;   /* Adjust the distance from the left */
   background-color: #bddeb9; /* Use the accent color */
   color: rgb(14, 121, 7);
   border: none;
-  padding: 10px 10px;
+  padding: 5px 5px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -441,7 +466,7 @@ button.edit-btn img, button.delete-btn img {
   background-color: #98dc90 ; /* Slightly darker color on hover */
 }
 .edit-icon{
-  color: green;
+  color: rgb(128, 111, 0);
 }
 .delete-icon{
   color: red;

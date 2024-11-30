@@ -29,6 +29,7 @@ body {
   
   .header-container {
     width: 100%;
+    
     height: 600px; /* Adjust height as needed */
     display: flex;
     justify-content: center;
@@ -36,16 +37,20 @@ body {
     background-color: #e0e0e0; /* Optional background color for contrast */
     overflow: hidden; /* Ensures no overflow from images */
     position: relative; /* Allows positioning of child elements */
+    border-radius: 10px; /* Rounded corners */
   }
   
   .header-image {
   width: 100%;
   height: 100%;
     object-fit: cover; /* Ensures the image covers the container without distortion */
-    object-fit: cover; /* Ensures the image covers the container without distortion */
+    
     position: absolute; /* Stacks images within the container */
     opacity: 0;
     transition: opacity 1s ease-in-out; /* Smooth transition for image */
+    top: 0;
+  left: 0;
+  opacity: 0;
   }
   
   .header_overlay {
@@ -76,6 +81,9 @@ body {
     font-weight: bold; /* Make the title bold */
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Text shadow for a glowing effect */
+    opacity: 0;
+  transform: translateY(10px); /* Subtle move effect */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
   }
   
   .subtitle {
@@ -83,9 +91,15 @@ body {
     font-weight: 300; /* Light font weight */
     margin-top: 0;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Subtle shadow for the subtitle */
+    opacity: 0;
+  transform: translateY(10px); /* Subtle move effect */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
   }
   
-  
+  .main-title.active, .subtitle.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
   .split {
     flex: 1;
     padding: 20px;

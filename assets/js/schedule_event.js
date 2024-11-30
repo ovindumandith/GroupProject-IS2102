@@ -9,6 +9,7 @@ window.onload = async function () {
 function setToday() {
 
     const today = new Date();
+    
     const dayOfMonth = today.getDate();
     const month = today.getMonth(); // January is 0, December is 11
     const year = today.getFullYear();
@@ -31,6 +32,7 @@ function setToday() {
     const currentDayIndex = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
     days[currentDayIndex].classList.add('active');
+   
     fetchEventsForDay(today);
 }
 function fetchEventsForDay(date) {
@@ -44,7 +46,7 @@ function fetchEventsForDay(date) {
     fetch(`../controller/ScheduleEventController.php?date=${formattedDate}`)
         .then(response => response.text()) // Read response as text first
         .then(data => {
-            console.log('Raw response:', data); // Log raw response to see if it's HTML or an error message
+             // Log raw response to see if it's HTML or an error message
             try {
                 const jsonData = JSON.parse(data); // Parse the response as JSON
                 events = jsonData;
@@ -89,11 +91,11 @@ async function fetchEvents() {
 function generateCalendar(events) {
     const calendar = document.getElementById('calendar');
     const monthYear = document.getElementById('monthYear');
-    let date = new Date();  // Initialize a new Date object
+    let date = new Date(); // Initialize a new Date object
 
     // Ensure `date` is a valid Date object (just a sanity check)
     if (!(date instanceof Date) || isNaN(date)) {
-        date = new Date();  // Fallback to the current date if invalid
+        date = new Date(); // Fallback to the current date if invalid
     }
 
     // Set the current month and year
@@ -107,6 +109,16 @@ function generateCalendar(events) {
 
     // Clear the previous calendar
     calendar.innerHTML = '';
+
+    // Add the week day names
+    const weekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    const headerRow = document.createElement('tr');
+    weekDays.forEach(day => {
+        const headerCell = document.createElement('th');
+        headerCell.innerText = day;
+        headerRow.appendChild(headerCell);
+    });
+    calendar.appendChild(headerRow);
 
     // Create table rows for the calendar
     let row = document.createElement('tr');
@@ -124,7 +136,7 @@ function generateCalendar(events) {
 
         // Format the date as YYYY-MM-DD to compare with the events
         const formattedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-
+       
         // Check if this day has any events
         const dayEvents = events.filter(event => event.date === formattedDate);
 
@@ -157,73 +169,8 @@ function generateCalendar(events) {
 
 
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     let currentDate = new Date();
-//     const monthYearElement = document.getElementById('monthYear');
-//     const calendarTable = document.getElementById('calendar');
 
-//     const renderCalendar = (date) => {
-//         calendarTable.innerHTML = ''; // Clear previous calendar
-//         const month = date.getMonth();
-//         const year = date.getFullYear();
 
-//         monthYearElement.innerText = `${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)} ${year}`;
-
-//         const firstDay = new Date(year, month, 1).getDay();
-//         const daysInMonth = new Date(year, month + 1, 0).getDate();
-//         const prevDays = new Date(year, month, 0).getDate();
-
-//         let html = '<tr>';
-//         const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-//         // Header row for day names
-//         daysOfWeek.forEach(day => {
-//             html += `<th>${day}</th>`;
-//         });
-//         html += '</tr><tr>';
-
-//         // Add previous month's days
-//         for (let i = firstDay; i > 0; i--) {
-//             html += `<td class="outside">${prevDays - i + 1}</td>`;
-//         }
-
-//         // Add current month's days
-//         for (let day = 1; day <= daysInMonth; day++) {
-//             const isToday =
-//                 day === new Date().getDate() &&
-//                 month === new Date().getMonth() &&
-//                 year === new Date().getFullYear();
-//             html += `<td class="${isToday ? 'today' : ''}">${day}</td>`;
-
-//             if ((day + firstDay) % 7 === 0) {
-//                 html += '</tr><tr>';
-//             }
-//         }
-
-//         // Add next month's days
-//         const remainingCells = (7 - (daysInMonth + firstDay) % 7) % 7;
-//         for (let i = 1; i <= remainingCells; i++) {
-//             html += `<td class="outside">${i}</td>`;
-//         }
-
-//         html += '</tr>';
-//         calendarTable.innerHTML = html;
-//     };
-
-//     // Event listeners for navigation
-//     document.getElementById('prevMonth').addEventListener('click', () => {
-//         currentDate.setMonth(currentDate.getMonth() - 1);
-//         renderCalendar(currentDate);
-//     });
-
-//     document.getElementById('nextMonth').addEventListener('click', () => {
-//         currentDate.setMonth(currentDate.getMonth() + 1);
-//         renderCalendar(currentDate);
-//     });
-
-//     // Initial render
-//     renderCalendar(currentDate);
-// });
 
 // Function to show the popup for adding a new event
 function showPopup() {
