@@ -49,17 +49,10 @@ if (!isset($_SESSION['user_id'])) {
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
-<<<<<<< HEAD
-          <li><a href="../views/academic_help.php">Academic Help</a></li>
-          <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
-          <li><a href="../views/Community/create_post.php">Community</a></li>
-          <li><a href="../views/aboutUS.php">About Us</a></li>
-=======
           <li><a href="../views/Academic_Help.php">Academic Help</a></li>
           <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
           <li><a href="../controller/CommunityController.php?action=list">Community</a></li>
           <li><a href="../views/About_Us.php">About Us</a></li>
->>>>>>> 7853f98 (Complete Crud and Academic Help)
         </ul>
       </nav>
       <div class="auth-buttons">
