@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RelaxU</title>
+  <title>to-do-list</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/header_footer.css" type="text/css" />
   <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
@@ -195,7 +195,7 @@ if (!isset($_SESSION['user_id'])) {
             
             
           </div><!-- End of .my-tasks-container -->
-          <button class="back-button">
+          <button class="back-button" onclick="location.href='workload.php'">
             <i class="fa-solid fa-arrow-left"></i>
             </button>
   

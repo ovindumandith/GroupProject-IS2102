@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time tracker</title>
     <link rel="stylesheet" href="../../assets/css/time_tracking.css">
-  <script src="../../assets/js/time_tracking.js"></script>
+    <script src="../../assets/js/time_tracking.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,10 +23,9 @@ if (!isset($_SESSION['user_id'])) {
             <h1>Time Tracker</h1>
         </header>
         <div class="main">
-        <div class="pomodoro-timer"> 
-        <div class="pomodoro-header">
-            
-                <h2>Pomodoro Timer</h2>
+            <div class="pomodoro-timer"> 
+            <div class="pomodoro-header">
+            <h2>Pomodoro Timer</h2>
                 <button type="button" onclick="addTask()">Add Task</button>
             </div>
             
@@ -43,14 +42,10 @@ if (!isset($_SESSION['user_id'])) {
                     <button onclick="resetTimer()">Reset</button>
                 </div>
                 </div>
-                
-               
                 <div class="session-tracking">
                     <p>Completed Sessions: <span id="sessions-completed">0</span></p>
-                    
                 </div>
-                
-            </div>
+             </div>
             <div class="goal-setting">
                 <h2>Create Your Milestones</h2>
                 <form id="goal-form">
