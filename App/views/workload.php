@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
     <!-- Font Awesome CDN link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <script src="../../assets/js/workload.js" defer></script>
+    <!--<script src="../../assets/js/workload.js" defer></script>-->
   </head>
   <body>
     <!-- Header Section -->
@@ -68,12 +68,14 @@ if (!isset($_SESSION['user_id'])) {
     <div class="header-container">
     <div class="header_overlay">
     <div class="overlay-text">
-            <h1 class="main-title" id="mainTitle" >Trust in your ability to manage – you’ve got this!</h1>
-            <p class="subtitle" id="subtitle" ></p>
-        </div>
+      Trust in your ability to manage – you’ve got this!
+      
     </div>
-    <img src="../../assets/images/workload/93.png" alt="Header Image 1" class="header-image" id="headerImage">
-   </div>
+  </div>
+  <img src="../../assets/images/workload/93.png" alt="Header Image" class="header-image active" id="headerImage1">
+</div>      
+    
+  
 
     
     <!-- Content Section (for demonstration) -->
