@@ -3,7 +3,7 @@ session_start();
 
 // Redirect to login if not authenticated
 if (!isset($_SESSION['counselor'])) {
-    header('Location: counselor_login.php');
+    header('Location: counselor_login.php'); // Ensure counselor_login.php exists
     exit();
 }
 
@@ -27,7 +27,6 @@ $counselor = $_SESSION['counselor'];
       type="text/css"
     />
     <link rel="stylesheet" href="../../../assets/css/counselor_dashboard.css" type="text/css" />
-    
   </head>
   <body>
     <!-- Header Section -->
@@ -42,11 +41,17 @@ $counselor = $_SESSION['counselor'];
           <li><a href="../views/manage_appointments.php">Appointments</a></li>
           <li><a href="../views/messages.php">Messages</a></li>
           <li><a href="../views/reviews.php">Reviews</a></li>
-          <li><a href="../views/profile_edit.php">Profile</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <form action="../../../util/counselor_logout.php" method="post" style="display: inline">
+        <!-- Profile button form -->
+<form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
+    <button type="submit" class="login"><b>Profile</b></button>
+</form>
+
+    
+        <!-- Logout button form -->
+        <form action="../../../util/counselor_logout.php" method="POST" style="display: inline;">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
@@ -66,7 +71,6 @@ $counselor = $_SESSION['counselor'];
           </p>
           <button class="get-started-btn">Get Started</button>
         </div>
-
       </div>
     </section>
 

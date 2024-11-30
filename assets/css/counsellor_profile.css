@@ -146,6 +146,9 @@
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
+.edit-review-form #rating {
+  margin-left: 160px;
+}
 
 .edit-button {
   background-color: #28a745; /* Green */
@@ -226,78 +229,78 @@ body {
 
 /* Edit Review Form Container (Initially Hidden) */
 .edit-review-form {
-    display: none; /* Hidden by default */
-    margin-top: 10px; /* Adjust the space between the buttons and the form */
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    z-index: 9999; /* Ensure it appears above other content */
+  display: none; /* Hidden by default */
+  margin-top: 10px; /* Adjust the space between the buttons and the form */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  z-index: 9999; /* Ensure it appears above other content */
 }
 
 .edit-review-form.show {
-    display: block; /* Show the form when it's triggered */
+  display: block; /* Show the form when it's triggered */
 }
 
 /* Edit Form Styles */
 .edit-review-form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .edit-review-form label {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
 }
 
 .edit-review-form select,
 .edit-review-form textarea,
 .edit-review-form button {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .edit-review-form button.submit-review-button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
 }
 
 .edit-review-form button.submit-review-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .edit-review-form button.close-button {
-    background-color: #dc3545;
-    color: white;
-    cursor: pointer;
-    border: none;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+  border: none;
 }
 
 .edit-review-form button.close-button:hover {
-    background-color: #c82333;
+  background-color: #c82333;
 }
 
 /* Button Styling */
 .edit-button {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: white;
 }
 
 .edit-button:hover {
-    background-color: #218838;
+  background-color: #218838;
 }
 
 .delete-button {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: white;
 }
 
 .delete-button:hover {
-    background-color: #c82333;
+  background-color: #c82333;
 }

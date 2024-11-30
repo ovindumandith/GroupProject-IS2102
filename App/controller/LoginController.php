@@ -33,8 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 case 'super_admin':
                     header('Location: ../views/admin/superadmin_home.html');
                     break;
+                case 'hous':
+                    header('Location: ../views/houg/houg_home.html');
+                    break;  
+                case 'lecturer':
+                    header('Location: ../views/lecturer/lecturer_home.html');
+                    break;
                 default:
-                    header('Location: ../views/general/home.html');
+                    header('Location: ../../../../index.php');
                     break;
             }
             exit();

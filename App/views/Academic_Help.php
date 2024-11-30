@@ -19,8 +19,11 @@ if (!isset($_SESSION['user_id'])) {
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../assets/css/AcademicH.css" />
-    <script src="../../assets/js/AcademicH.js"></script>
+    <link rel="stylesheet" href="../../assets/css/header_footer.css" />
+    <link rel="stylesheet" href="../../assets/css/academic_help.css" />
+    <script src="../../assets/js/academic_help.js" defer></script>
+    
+    
   </head>
   <body>
     <!-- Header Section -->
@@ -52,157 +55,119 @@ if (!isset($_SESSION['user_id'])) {
       </div>
     </header>
 
-    <!-- Content Section (for demonstration) -->
-    <div class="container">
-    <!-- Header Section -->
-    <header class="aheader">
-      <h1>ACADEMIC HELP</h1>
-      <p>Unlock Your Academic Potential with Confidence! ✨</p>
-      <p>📚 From Stress to Success – We've Got Your Back! 📖</p>
-    </header>
-
-    <!-- Image Section -->
-    <section class="banner">
-      <img src="../../assets/images/AH1.png" alt="Student in Library">
+ <section class="hero">
+        <div class="hero-content">
+            <h1>Academic Support Center</h1>
+            <p>Get the help you need to succeed in your academic journey</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Questions Answered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+            </div>
+            <a href="#help-form" class="cta-button">Get Help Now</a>
+        </div>
+        <div class="wave-shape"></div>
     </section>
 
-    <!-- Form Section -->
-    <section class="form-section">
-  <div class="form-container">
-    <!-- Left Side: Image -->
-    <div class="form-image">
-      <img src="../../assets/images/AH2.png" alt="Academic Help" />
-    </div>
+    <!-- Help Form Section -->
+    <section id="help-form" class="help-form">
+        <h2>Submit Your Academic Query</h2>
+        <form id="academicForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="indexNo">Index Number</label>
+                    <input type="text" id="indexNo" placeholder="Enter your index number" required>
+                </div>
+                <div class="form-group">
+                    <label for="regNo">Registration Number</label>
+                    <input type="text" id="regNo" placeholder="Enter your registration number" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="faculty">Faculty</label>
+                <select id="faculty" required>
+                    <option value="">Select your faculty</option>
+                    <option value="engineering">Faculty of Engineering</option>
+                    <option value="science">Faculty of Science</option>
+                    <option value="arts">Faculty of Arts</option>
+                    <option value="medicine">Faculty of Medicine</option>
+                    <option value="business">Faculty of Business</option>
+                    <option value="law">Faculty of Law</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telephone">Telephone Number</label>
+                    <input type="tel" id="telephone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="question">Your Question</label>
+                <textarea id="question" rows="4" placeholder="Type your question here..." required></textarea>
+            </div>
+            <button type="submit">Submit Question</button>
+        </form>
+    </section>
 
-    <!-- Right Side: Form -->
-    <div class="form-content">
-      <h2>ARE THERE ANY QUESTIONS?</h2>
-      <form id="academic-help-form">
-        <div class="form-row">
-          <input type="text" placeholder="Index No" name="indexNo" required>
-          <input type="text" placeholder="Registration No" name="registrationNo" required>
-        </div>
-        <div class="form-row">
-          <input type="text" placeholder="Name" name="name" required>
-          <input type="text" placeholder="Faculty" name="faculty" required>
-        </div>
-        <div class="form-row">
-          <input type="email" placeholder="Email" name="email" required>
-          <input type="tel" placeholder="Phone" name="phone" required>
-        </div>
-        <textarea placeholder="Define Your Question" name="problem" required></textarea>
-        <button type="submit">Send Your Question</button>
-      </form>
+    <!-- FAQ Section -->
+<section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="search-box">
+        <input type="text" id="faqSearch" placeholder="Search FAQs...">
     </div>
-  </div>
+    <div class="faq-container">
+        <div class="faq-card">
+            <div class="faq-question">
+                How do I register for courses?
+            </div>
+            <div class="faq-answer">
+                Visit the student portal, log in with your credentials, and navigate to course registration. Select your desired courses within the registration period.
+            </div>
+        </div>
+        <div class="faq-card">
+            <div class="faq-question">
+                What is the deadline for assignment submissions?
+            </div>
+            <div class="faq-answer">
+                Assignment deadlines vary by course. Check your course outline or contact your professor for specific submission dates.
+            </div>
+        </div>
+        <div class="faq-card">
+            <div class="faq-question">
+                How can I access the library resources?
+            </div>
+            <div class="faq-answer">
+                Use your student ID to access physical library resources. For digital resources, log in to the library portal using your university credentials.
+            </div>
+        </div>
+        <div class="faq-card">
+            <div class="faq-question">
+                What support services are available for students?
+            </div>
+            <div class="faq-answer">
+                We offer tutoring, counseling, career guidance, and academic advising. Visit the Student Services Center.
+        </div>
+    </div>
 </section>
 
-<div class="faq-container">
-    <div class="faq-header">FREQUENTLY ASKED QUESTIONS</div>
-    <div class="faq-item">
-      <div class="faq-question">
-      Where can I find credible resources for my assignments?
-        <span class="faq-toggle">▼</span>
-      </div>
-      <div class="faq-answer">
-        Credible resources for academic assignments can be found in your university library’s online databases, such as JSTOR or PubMed. Peer-reviewed journals, research papers, and textbooks recommended by your instructor are excellent sources. Reputable websites with domains like .gov, .edu, or .org can also provide reliable information. Avoid using unverified blogs or Wikipedia as primary references for your work.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-      How do I manage my time effectively for academic success?
-        <span class="faq-toggle">▼</span>
-      </div>
-      <div class="faq-answer">
-      Effective time management involves organizing tasks and maintaining a balance. Create a daily or weekly schedule prioritizing important tasks and break larger projects into smaller steps. Use productivity tools like Google Calendar or Trello to track deadlines. Set realistic goals, avoid procrastination, and ensure you allocate time for breaks and self-care to maintain focus and avoid burnout.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-      How can I improve my academic writing skills?
-        <span class="faq-toggle">▼</span>
-      </div>
-      <div class="faq-answer">
-      Improving academic writing requires consistent practice and attention to detail. Start by reading academic papers to understand their structure and style. Practice writing essays or reports regularly and use tools like Grammarly to polish grammar and style. Attend writing workshops or seek support from your university’s writing center. Receiving feedback from peers or instructors can also help you refine your skills.</div>
-    </div>
-  </div>
-  <script>
-    document.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const faqItem = question.parentElement;
-        faqItem.classList.toggle('active');
-      });
-    });
-  </script>
-  
-<div class="container">
-    <h1>View Your Previous Questions with Answers</h1>
-    <div class="questions-section">
-      <div class="question-card">
-      <h3>What are the best tools for managing time as a student?</h3><br>
-        <div class="auth-buttonss">
-        <button>View Answer</button>
-      </div>
-        <p>20/09/2024</p>
-      </div>
-      <div class="question-card">
-      <h3>How do I prepare effectively for final exams?</h3><br>
-        <div class="auth-buttonss">
-        <button>View Answer</button>
-      </div>
-        <p>20/09/2024</p>
-      </div>
-      <div class="question-card">
-      <h3>What resources are available for finding scholarships?</h3><br>
-        <div class="auth-buttonss">
-        <button>View Answer</button>
-      </div>
-        <p>20/09/2024</p>
-      </div>
-      <div class="question-card">
-      <h3> What are effective ways to deal with academic stress?</h3><br>
-        <div class="auth-buttonss">
-        <button>View Answer</button>
-      </div>
-        <p>20/09/2024</p>
-      </div>
-    </div>
-    <h2>Explore Student Resources</h2>
-    <div class="resources-container">
-    <!-- Resource Card 1 -->
-    <div class="resource-card">
-      <img src="../../assets/images/mental3.png" alt="STUDY TECHNIQUES" class="resource-image">
-      <div class="resource-content">
-        <p class="resource-category">STUDY TECHNIQUES</p>
-        <h3 class="resource-title">Effective Study Strategies for College Students</h3>
-        <p class="resource-description">Learn proven study techniques like active recall, spaced repetition, and time-blocking to enhance your learning process and achieve better academic results.
-          </p>
-          <a href=#>Explore Study Techniques</a>
-      </div>
-    </div>
 
-    <!-- Resource Card 2 -->
-    <div class="resource-card">
-      <img src="../../assets/images/mental2.png" alt="CAREER GUIDANCE" class="resource-image">
-      <div class="resource-content">
-        <p class="resource-category">CAREER GUIDANCE</p>
-        <h3 class="resource-title">How to Build a Strong Academic Resume</h3>
-        <p class="resource-description">Discover tips and templates to create a professional academic resume that highlights your achievements and skills to stand out in applications for internships, scholarships, and jobs.</p>
-        <a href=#>Build Your Resume</a></div>
-    </div>
-
-    <!-- Resource Card 3 -->
-    <div class="resource-card">
-      <img src="../../assets/images/mental1.png" alt="MENTAL HEALTH" class="resource-image">
-      <div class="resource-content">
-        <p class="resource-category">MENTAL HEALTH SUPPORT</p>
-        <h3 class="resource-title">Managing Stress During Exams</h3>
-        <p class="resource-description">Explore practical ways to cope with stress and maintain mental well-being during exam periods, including mindfulness exercises, time management tips, and relaxation techniques.</p>
-        <a href=#>Manage Exam Stress</a></div>
-    </div>
-  </div>>
-  </div>
-    
 
     <!-- Footer Section -->
     <footer class="footer">
