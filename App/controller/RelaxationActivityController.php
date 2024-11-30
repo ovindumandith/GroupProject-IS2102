@@ -18,19 +18,30 @@ class RelaxationActivityController {
             $folder = './uploads/' . $fileName;
             $playlist_url = $_POST['playlist_url'];
 
+            // Validate the file
             $errors = $this->validateFile($file);
 
             if (empty($errors)) {
+                // Move uploaded file
                 if (move_uploaded_file($tempName, $folder)) {
+                    // Add activity to the database
                     $isAdded = $this->model->addRelaxationActivity($name, $description, $fileName, $playlist_url);
-                    return $isAdded ? "Activity Added Successfully!" : "Failed to add activity. Please try again.";
+
+                    if ($isAdded) {
+                        // Redirect to relaxation activities page
+                        header("Location: /GroupProject-IS2102/App/views/relaxation_activities.php");
+                        exit;
+                    } else {
+                        echo "Failed to add activity. Please try again.";
+                    }
+                } else {
+                    echo "Failed to upload file. Please try again.";
                 }
+            } else {
+                // Display validation errors
+                echo implode("<br>", $errors);
             }
-
-            return implode("<br>", $errors); // Display errors
         }
-
-        return null;
     }
 
     private function validateFile($file) {

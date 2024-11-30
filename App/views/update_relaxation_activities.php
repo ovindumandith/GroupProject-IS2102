@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
     <!-- Content Section (for demonstration) -->
     <div class="content">
-        <h1>Add Relaxation Activities</h1>
+        <h1>Update Relaxation Activities</h1>
          
     
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" id="updateform" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id'] ?? '') ?>">
           <input type="hidden" name="existing_image_url" value="<?= htmlspecialchars($_GET['image_url'] ?? '') ?>">
 
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label for="image">Image:</label>
           <input type="file" id="image" name="image_url">
 
-          <button type="submit">Update Activity</button>
+          <input type="submit" name="submit" value="Update Activity">
       </form>
       <p></p>
     </div>

@@ -40,19 +40,19 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="./admin_home.php">Home</a></li>
+          <li><a href="../views/home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="./relaxation_activities.php">Relaxation Activities</a></li>
-              <li><a href="./workload.php">Workload Management Tools</a></li>
+              <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="../views/workload.php">Workload Management Tools</a></li>
             </ul>
           </li>
-          <li><a href="#">Academic Help</a></li>
-          <li><a href="#">Counseling</a></li>
-          <li><a href="#">Community</a></li>
-          <li><a href="#">About Us</a></li>
+          <li><a href="../views/Academic_Help.php">Academic Help</a></li>
+          <li><a href="../controller/CounselorController.php">Counseling</a></li>
+          <li><a href="../controller/CommunityController.php">Community</a></li>
+          <li><a href="../views/About_Us.php">About Us</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
