@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>event scheduler</title>
+    <title>My Calendar</title>
     <link rel="stylesheet" href="../../assets/css/schedule_event.css">
     <!-- Font Awesome CDN link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -27,13 +27,13 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    
-    
+
+
     <div class="dashboard">
         <!-- Sidebar -->
         <div class="sidebar">
-            <button class="back-button" onclick="location.href='workload.php'">
-            <i class="fa-solid fa-arrow-left"></i>
+            <button class="back-button">
+                <i class="fa-solid fa-arrow-left"></i>
             </button>
         </div>
 
@@ -47,7 +47,7 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="search-bar">
                             <input type="text" id="searchInput" class="search-task" placeholder="Search your event here !" oninput="searchEvents()">
                             <button class="search-button">
-                             <i class="fa-solid fa-magnifying-glass"></i>
+                                <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
                         <button class="add-event-button" onclick="showPopup()">
@@ -60,14 +60,15 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="popup-content">
                                 <span class="close-btn" onclick="closePopup()">&times;</span>
                                 <h2 id="popupTitle">Add Event</h2>
-                                <form id="eventForm" method="POST" action="../controller/ScheduleEventController.php">
+                                <form id="eventForm" method="POST">
                                     <input type="hidden" id="eventId" name="id"> <!-- Hidden field for event ID -->
-
+                                    <!-- Error container (for displaying error messages) -->
+                                    <div id="errorContainer" style="color: red; margin-bottom: 10px;"></div>
                                     <label for="title">Title:</label>
                                     <input type="text" id="title" name="title" required>
 
                                     <label for="description">Description:</label>
-                                    <textarea id="description" name="description" ></textarea>
+                                    <textarea id="description" name="description"></textarea>
 
                                     <label for="date">Date:</label>
                                     <input type="date" id="date" name="date" required>
@@ -93,10 +94,10 @@ if (!isset($_SESSION['user_id'])) {
                 <!-- Left Panel -->
                 <div class="calendar-panel">
                     <div class="calendar-navigation">
-                       
-                    <button id="prevMonth">&lt;</button>
-                    <h2 id="monthYear"></h2> 
-                    <button id="nextMonth">&gt;</button>
+
+                        <button id="prevMonth">&lt;</button>
+                        <h2 id="monthYear"></h2>
+                        <button id="nextMonth">&gt;</button>
                     </div>
                     <!-- Calendar Table -->
                     <table id="calendar"></table>
@@ -130,18 +131,23 @@ if (!isset($_SESSION['user_id'])) {
                     <!-- Schedule Cards -->
                     <div class="schedule">
                         <!-- Mathematics -->
-                      
+
                         <div class="course-card math">
-                            
-                        
+
+
+                        </div>
                     </div>
+
                 </div>
-            
             </div>
         </div>
-    </div>
-    <script src="../../assets/js/schedule_event.js"></script>
-    <!-- Call the function after the script is loaded -->
+        <div id="popupMessage" style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
+            <span id="popupText"></span>
+        </div>
+
+        <script src="../../assets/js/schedule_event.js">
+        </script>
+        <!-- Call the function after the script is loaded -->
 
 </body>
 

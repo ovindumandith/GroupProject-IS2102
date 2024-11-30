@@ -2,6 +2,8 @@
 
 require_once '../models/ScheduleEvent.php';
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ensure proper JSON header
     header('Content-Type: application/json');
@@ -25,11 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($startTime) && !empty($endTime) && $startTime >= $endTime) {
         $errors[] = 'Start time must be less than end time.';
     }
+
+    if (!empty($date) && strtotime($date) < time()) {
+        $errors[] = 'The event date must be in the future.';
+    }
+    
     $event = new ScheduleEvent();
     if ($event->checkEventOverlap($date, $startTime, $endTime, $title, $eventId)) {
         echo json_encode(['errors' => ['An event with the same title already exists at this date and time.']]);
         exit();
     }
+    
+    
     // Handle validation errors
     if (!empty($errors)) {
         echo json_encode(['errors' => $errors]);
@@ -121,8 +130,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         echo json_encode(['status' => 'error', 'message' => 'Invalid request: event ID is required.']);
     }
     exit();
-}
-function formatTime($time) {
-    $dateTime = new DateTime($time);
-    return $dateTime->format('H:i'); // Format to "HH:MM"
 }
