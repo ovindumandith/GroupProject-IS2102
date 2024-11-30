@@ -1,14 +1,3 @@
-<?php
-require_once "../controller/ViewRelaxationActivityController.php";
-
-$controller = new ViewRelaxationActivityController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controller->updateActivity();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,8 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../assets/css/relaxation_activities.css" />
-    <link rel="stylesheet" href="../../assets/css/user_profile.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/admin_activites_portal.css" />
+    <link rel="stylesheet" href="../../assets/css/header_footer.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   </head>
   <body>
     <!-- Header Section -->
@@ -31,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="home.php">Home</a></li>
+          <li><a href="./admin_home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -47,37 +37,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup"><b>Profile</b></button>
-        <button class="login"><b>Log Out</b></button>
+        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+        <form action="../../util/logout.php" method="post" style="display: inline">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
       </div>
     </header>
+
     <!-- Content Section (for demonstration) -->
-    <div class="content">
-        <h1>Update Relaxation Activities</h1>
-         
-    
-        <form method="post" id="updateform" enctype="multipart/form-data">
-          <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id'] ?? '') ?>">
-          <input type="hidden" name="existing_image_url" value="<?= htmlspecialchars($_GET['image_url'] ?? '') ?>">
-
-          <label for="activity_name">Activity Title:</label>
-          <input type="text" id="activity_name" name="activity_name" value="<?= htmlspecialchars($_GET['activity_name'] ?? '') ?>" required>
-
-          <label for="description">Description:</label>
-          <textarea id="description" name="description" required><?= htmlspecialchars($_GET['description'] ?? '') ?></textarea>
-
-          <label for="playlist">Source:</label>
-          <input type="text" id="playlist" name="playlist_url" value="<?= htmlspecialchars($_GET['playlist_url'] ?? '') ?>" required>
-
-          <label for="image">Image:</label>
-          <input type="file" id="image" name="image_url">
-
-          <input type="submit" name="submit" value="Update Activity">
-      </form>
-      <p></p>
+    <div id="content">
+        <div class="card-container">
+            <div class="card" onclick="window.location.href='relaxation_activities.php'">
+                <h3>View Current Relaxation Activities</h3>
+                <img src="../../assets/images/relaxed-woman-enjoying-sea_1098-1441.avif" alt="View Current Acitivities">
+            </div>
+            <div class="card" onclick="window.location.href='admin_page_relaxation activites.php'">
+                <h3>Add New Relaxation Acitivities</h3>
+                <img src="../../assets/images/young-adult-enjoying-yoga-nature_23-2149573166.jpg" alt="Past Stress History Icon">
+            </div>
+        </div>
     </div>
-    <div id="toast" class="toast">Profile updated successfully!</div>
-
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -100,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="footer-section">
           <h3>Contact</h3>
-          <p><i class="fa fa-image"></i> +14 5464 8272</p>
+          <p><i class="fa fa-phone"></i> +14 5464 8272</p>
           <p><i class="fa fa-envelope"></i> rona@domain.com</p>
           <p><i class="fa fa-map-marker"></i> Lazy Tower 192, Burn Swiss</p>
         </div>
@@ -134,4 +113,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
   </body>
 </html>
-

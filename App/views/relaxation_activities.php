@@ -20,12 +20,12 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="home.php">Home</a></li>
+          <li><a href="./admin_home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="./stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -36,8 +36,10 @@
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup"><b>Profile</b></button>
-        <button class="login"><b>Log Out</b></button>
+        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+        <form action="../../util/logout.php" method="post" style="display: inline">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
       </div>
     </header>
 
