@@ -74,6 +74,22 @@ class ViewRelaxationActivityController {
                             <button class="button"><a href="' . $playlist_url . '" target="_blank">View More</a></button>
                         </div>
                     </div>';
+                } else {
+                    echo 
+                        '<div class="card">
+                        <div class="image-content">
+                            <span class="overlay">
+                            </span>
+                            <div class="card-image">
+                                <img src="./uploads/' . $file_name . '" alt="' . $name . '" class="card-img">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h2 class="activity">' . $name . '</h2>
+                            <p class="description">' . $description . '</p>
+                            <button class="button"><a href="' . $playlist_url . '" target="_blank">View More</a></button>
+                        </div>
+                    </div>';
                 }
             }
         } else {
@@ -84,7 +100,7 @@ class ViewRelaxationActivityController {
 
     public function deleteActivity($activityId) {
         if ($this->model->deleteActivity($activityId)) {
-            echo "Activity deleted successfully.";
+            header("Location: /GroupProject-IS2102/App/views/relaxation_activities.php");
         } else {
             echo "Failed to delete activity.";
         }
