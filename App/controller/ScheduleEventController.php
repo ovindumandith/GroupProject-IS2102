@@ -27,10 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $event = new ScheduleEvent();
     if ($event->checkEventOverlap($date, $startTime, $endTime, $title, $eventId)) {
-        echo json_encode(['errors' => ['you already have an event  at this date and time.']]);
+        echo json_encode(['errors' => ['An event with the same title already exists at this date and time.']]);
         exit();
     }
-    
     // Handle validation errors
     if (!empty($errors)) {
         echo json_encode(['errors' => $errors]);
