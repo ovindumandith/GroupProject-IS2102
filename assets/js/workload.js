@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
       subtitle: "Every challenge is an opportunity to grow."
     },
     {
-      src: "../../assets/images/workload/93.png", // Image 2
+      src: "../../assets/images/workload/92.png", // Image 2
       title: "Believe in yourself – you can achieve greatness!",
       subtitle: "Consistency is the key to success."
     }
