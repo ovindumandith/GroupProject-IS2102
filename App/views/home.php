@@ -87,15 +87,18 @@ if (!isset($_SESSION['user_id'])) {
         <div class="image-slider">
           <div class="image-slide active">
             <img src="../../assets/images/hero_img2.jpg" alt="Image 1" />
-            <h3>Image 1 Caption</h3>
+            <h3>“Success is not final; failure is not fatal: It is the courage to continue that counts.”<br>
+                –  Winston S. Churchill  –</h3>
           </div>
           <div class="image-slide">
             <img src="../../assets/images/hero_img.jpg" alt="Image 2" />
-            <h3>Image 2 Caption</h3>
+            <h3>“You are never too old to set another goal or to dream a new dream.” <br>
+             –  C.S. Lewis  – </h3>
           </div>
           <div class="image-slide">
             <img src="../../assets/images/hero_img3.jpg" alt="Image 3" />
-            <h3>Image 3 Caption</h3>
+            <h3>“The greatest weapon against stress is our ability to choose one thought over another.”<br>
+             –  William James  –</h3>
           </div>
           <div class="slider-buttons">
             <button class="prev">&#10094;</button>
@@ -152,7 +155,7 @@ if (!isset($_SESSION['user_id'])) {
             can receive personalized insights into your stress levels and track
             your progress over time.
           </p>
-          <button class="explore-btn">Explore</button>
+          <button class="explore-btn" onclick="location.href='../views/stress_management/stress_management_index.php';">Explore</button>
         </div>
       </div>
 
@@ -171,7 +174,7 @@ if (!isset($_SESSION['user_id'])) {
             activities and stay organized and manage your academic workload with
             our productivity tools.
           </p>
-          <button class="explore-btn">Explore</button>
+          <button class="explore-btn" onclick="location.href='../views/workload.php'">Explore</button>
         </div>
       </div>
 
@@ -189,7 +192,7 @@ if (!isset($_SESSION['user_id'])) {
             support groups. Connect with fellow students, share experiences, and
             access valuable resources.
           </p>
-          <button class="explore-btn">Explore</button>
+          <button class="explore-btn" onclick="location.href='../controller/CommunityController.php?action=list'">Explore</button>
         </div>
       </div>
 
@@ -208,7 +211,7 @@ if (!isset($_SESSION['user_id'])) {
             personalized support and guidance to address your mental health
             needs, ensuring your privacy and comfort at all times.
           </p>
-          <button class="explore-btn">Explore</button>
+          <button class="explore-btn" onclick="location.href='../controller/CounselorController.php?action=list'">Explore</button>
         </div>
       </div>
       <div class="service-item">
@@ -225,7 +228,7 @@ if (!isset($_SESSION['user_id'])) {
             solutions. We offer a variety of academic support services,
             including tutoring, study groups, and academic advising.
           </p>
-          <button class="explore-btn">Explore</button>
+          <button class="explore-btn" onclick="location.href='../views/About_Us.php'">Explore</button>
         </div>
       </div>
     </section>

@@ -35,6 +35,32 @@ class CounselingController {
             echo "Invalid counselor ID.";
         }
     }
+public function viewLoggedInCounselorProfile() {
+    // Check if the counselor is logged in
+    if (!isset($_SESSION['counselor']['id'])) {
+        header('Location: /GroupProject-IS2102/App/views/counselor_login.php');
+        exit();
+    }
+
+    // Get counselor ID from session
+    $counselorId = $_SESSION['counselor']['id'];
+
+    // Fetch the logged-in counselor's profile
+    $counselorProfile = $this->counselorModel->getLoggedInCounselorProfile($counselorId);
+
+    // Check if profile was found
+    if ($counselorProfile) {
+        ob_start();
+        require_once '../views/counselling/counselor_dashboard_profile.php'; // Pass data to the profile view
+        $content = ob_get_clean();
+        echo $content;
+    } else {
+        echo "Profile not found.";
+    }
+}
+
+
+    
 }
 
 // Handle the incoming request based on the 'action' and 'id' parameters
@@ -44,6 +70,8 @@ $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($action === 'viewCounselor' && $id > 0) {
     $controller->viewCounselor($id); // Show counselor's profile with reviews
+} elseif ($action === 'viewLoggedInCounselorProfile') {
+    $controller->viewLoggedInCounselorProfile(); // Show logged-in counselor's profile
 } else {
     $controller->listCounselors(); // List all counselors
 }

@@ -73,6 +73,25 @@ public function addReview($counselorId, $userId, $rating, $reviewText) {
         return false;
     }
 }
+    // Fetch the counselor profile when logged in
+    public function getLoggedInCounselorProfile($counselorId) {
+        try {
+            $query = 'SELECT name, type, specialization, profile_image, description, email FROM counselors WHERE id = :id';
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $counselorId, PDO::PARAM_INT);
+            $stmt->execute();
+            $counselor = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($counselor) {
+                return $counselor;
+            } else {
+                return null; // If no counselor profile found
+            }
+        } catch (PDOException $e) {
+            $this->logError($e->getMessage());
+            return null;
+        }
+    }
 
 
 

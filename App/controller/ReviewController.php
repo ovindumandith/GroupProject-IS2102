@@ -32,7 +32,7 @@ class ReviewController {
 
             if ($success) {
                 // Redirect to the counselor's profile page
-                header("Location: ../../App/views/counselling/counsellor_profile.php?id=$counselorId");
+                header("Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewCounselor&id=" . $_POST['counselor_id']);
                 exit();
             } else {
                 // Handle error case
@@ -49,7 +49,7 @@ class ReviewController {
 
             if ($this->reviewModel->isUserReviewOwner($reviewId, $userId)) {
                 if ($this->reviewModel->updateReview($reviewId, $userId, $rating, $reviewText)) {
-                    header("Location: counselor_profile.php?id=" . $_POST['counselor_id']);
+                    header("Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewCounselor&id=" . $_POST['counselor_id']);
                     exit();
                 } else {
                     echo "Failed to update review.";
@@ -66,7 +66,7 @@ class ReviewController {
 
             if ($this->reviewModel->isUserReviewOwner($reviewId, $userId)) {
                 if ($this->reviewModel->deleteReview($reviewId, $userId)) {
-                    header("Location: ../views/counselling/counsellor_profile.php?id=" . $_POST['counselor_id']);
+                    header("Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewCounselor&id=" . $_POST['counselor_id']);
                     exit();
                 } else {
                     echo "Failed to delete review.";

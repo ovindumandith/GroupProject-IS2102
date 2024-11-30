@@ -45,15 +45,15 @@ if (!isset($_SESSION['user_id'])) {
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="../../views/stress_managment_form.php">Stress Monitoring</a></li>
+              <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
               <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
-          <li><a href="#">Academic Help</a></li>
-          <li><a href="#">Counseling</a></li>
-          <li><a href="#">Community</a></li>
-          <li><a href="#">About Us</a></li>
+          <li><a href="../../views/Academic_Help.php">Academic Help</a></li>
+          <li><a href="../../controller/CounselorController.php?action=list">Counseling</a></li>
+          <li><a href="../../controller/CommunityController.php?action=list">Community</a></li>
+          <li><a href="../../views/About_Us.php">About Us</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
@@ -61,8 +61,6 @@ if (!isset($_SESSION['user_id'])) {
         <form action="../../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
-
-
       </div>
     </header>
 <div id="stress-management-options">
@@ -103,9 +101,9 @@ if (!isset($_SESSION['user_id'])) {
           <ul>
             <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
             <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
-            <li><a href="#">Academic Help</a></li>
-            <li><a href="#">Counseling</a></li>
-            <li><a href="#">Community</a></li>
+            <li><a href="../../views/Academic_Help.php">Academic Help</a></li>
+            <li><a href="../../controller/CounselorController.php?action=list">Counseling</a></li>
+            <li><a href="../../controller/CommunityController.php?action=list">Community</a></li>
             <li><a href="#">Workload Managment Tools</a></li>
           </ul>
         </div>
