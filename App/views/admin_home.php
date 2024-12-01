@@ -40,13 +40,13 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="./admin_home.php">Home</a></li>
+          <li><a href="./home.php">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
               <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
-              <li><a href="#">Workload Management Tools</a></li>
+              <li><a href="./workload.php">Workload Management Tools</a></li>
             </ul>
           </li>
           <li><a href="#">Academic Help</a></li>

@@ -1,0 +1,198 @@
+/* workload css */
+/* Content Placeholder */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e2eae0; /* Add a background color for contrast */
+  
+}
+.main-content {
+  display: flex;
+  flex-direction: column; /* Stack sections in a column */
+  justify-content: center; /* Center the column vertically */
+  align-items: center; /* Center the column horizontally */
+  gap: 30px; /* Space between sections */
+  padding: 30px; /* Add padding around the main content */
+  height: 1500px; /* Adjust height to fit within the page excluding header/footer */
+  overflow-y: auto; /* Enable scrolling if the sections exceed viewport height */
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  width: 1200px; /* Adjust width for smaller sections */
+  height: 800px; /* Adjust height */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add a shadow for better focus */
+  border-radius: 10px; /* Smooth edges */
+  overflow: hidden;
+  background-color: rgb(252, 252, 252); /* Ensure a clear background */
+}
+
+.header-container {
+  width: 100%;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000; /* Fallback background to avoid any flashes */
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 2s ease-in-out;
+}
+
+.header-image.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.header_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.5); /* Ensures overlay consistency */
+}
+
+.overlay-text {
+  color: #a9a5a5;
+  font-family: 'Arial', sans-serif;
+  max-width: 80%;
+  position: relative;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 5rem;
+  transition: opacity 2s ease-in-out;
+  text-align: center;
+  margin-top: -50px;
+}
+
+
+.overlay-text.active {
+  opacity: 1;
+}
+
+.main-title {
+  font-size: 3.9rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle {
+  font-size: 3.1rem;
+  font-weight: 300;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+.split {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.left {
+  background-color: #ffffff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.right {
+  background-color: #5db57c;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #ff8c00;
+  margin-top: 0px;
+  font-size: 1.8rem;
+
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.17rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #67625a;
+}
+
+/* Arrow button styling */
+.arrow-btn {
+  background-color: transparent; /* Transparent background */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 10px; /* Add padding around the icon */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for the arrow icon */
+.arrow-icon {
+  width: 40px; /* Adjust the size of the arrow icon */
+  height: 40px;
+}
+
+/* Optional hover effect */
+.arrow-btn:hover .arrow-icon {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+
+
+.description {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.graphic-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.illustration img {
+  max-width: 85%;
+  height: 280px;
+  border-radius: 8px;
+}
