@@ -1,6 +1,6 @@
 <?php
 class Database {
-    private $host = '127.0.0.1';
+    private $host = 'localhost';
     private $db_name = 'stress_management'; // Ensure this matches the actual database name
     private $username = 'root'; // Default for local servers like WAMP/XAMPP
     private $password = '';     // Default is empty for local servers
