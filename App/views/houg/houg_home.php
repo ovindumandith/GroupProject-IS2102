@@ -16,7 +16,7 @@ $pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_q
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RelaxU - Counselor Dashboard</title>
+    <title>RelaxU - Head of Undergraduate Studies Dashboard</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -40,13 +40,13 @@ $pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_q
         <ul>
           <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
           <li><a href="#">Academic Requests</a></li>
-          <li><a href="#">List of Lecturers</a></li>
+           <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
 
         </ul>
       </nav>
       <div class="auth-buttons">
         <!-- Profile button form -->
-<form action="#" method="GET">
+<form action="hous_profile.php" method="GET">
     <button type="submit" class="login"><b>Profile</b></button>
 </form>
 
@@ -133,6 +133,7 @@ $pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_q
           <ul>
           <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
           <li><a href="#">Academic Requests</a></li>
+          <li><a href="#">List of Lecturers</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -148,5 +149,4 @@ $pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_q
   </body>
 </html>
 
-</body>
-</html>
+

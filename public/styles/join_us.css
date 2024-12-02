@@ -1,0 +1,95 @@
+.join_us {
+  background: var(--white); /* Set white background */
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.join_us h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color); /* Primary color for the heading */
+  margin-bottom: 1.5rem;
+}
+
+.join_us p {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--light-gray); /* Light gray background for the form */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern look */
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: var(--secondary-color); /* Secondary color for label text */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color); /* Highlight border on focus */
+}
+
+.submit-btn {
+  display: inline-block;
+  background: #fa8128; /* Orange background for the button */
+  color: var(--white); /* White text for the button */
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.submit-btn:hover {
+  background: #f57c00; /* Darker shade of orange on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.dynamic-fields {
+  display: none;
+}
+
+.dynamic-fields.active {
+  display: block;
+}
+
+/* Custom select field design */
+.form-group select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  transition: border 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: var(--primary-color); /* Highlight border on focus */
+}

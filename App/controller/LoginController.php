@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     header('Location: ../views/houg/houg_home.php');
                     break;
                 case 'lecturer':
-                    header('Location: ../views/lecturer/lecturer_home.html');
+                    header('Location: ../views/lecturer/lecturer_home.php');
                     break;
                 default:
                     header('Location: ../../../../index.php');

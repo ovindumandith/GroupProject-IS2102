@@ -1,0 +1,87 @@
+/* Table container */
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Table headers */
+th {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-size: 16px;
+}
+
+/* Table data cells */
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Hover effect for table rows */
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* Alternate row colors for better readability */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Table caption */
+caption {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Style for action buttons */
+td a {
+  color: #4caf50;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #4caf50;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  margin-right: 5px; /* Space between buttons */
+}
+
+td a:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Style for header */
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Optional: Add responsive design for smaller screens */
+@media (max-width: 768px) {
+  table {
+    font-size: 12px;
+  }
+
+  td,
+  th {
+    padding: 10px;
+  }
+}
