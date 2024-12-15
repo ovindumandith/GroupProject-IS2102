@@ -74,6 +74,51 @@
   background-color: #0056b3;
 }
 
+/* Form Styling */
+.profile-actions form {
+  display: inline-block;
+  margin-top: 10px;
+  text-align: left; /* Ensures form fields align nicely */
+}
+
+.profile-actions form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.profile-actions form input[type="datetime-local"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s;
+}
+
+.profile-actions form input[type="datetime-local"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.profile-actions form button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-actions form button:hover {
+  background-color: #218838;
+}
 /* Reviews Section */
 .reviews-section {
   flex: 2;
