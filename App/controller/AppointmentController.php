@@ -18,9 +18,11 @@ class AppointmentController {
         $phone = $_POST['phone'];
 
         if ($this->model->createAppointment($studentId, $counselorId, $appointmentDate, $topic, $email, $phone)) {
-            header('Location: appointment_success.php'); // Redirect on success
+            header('Location: ../views/counselling/appointment_success.php?success=1'); // Redirect on success with success flag
+            exit();
         } else {
             header('Location: appointment_error.php'); // Redirect on error
+            exit();
         }
     }
 }
