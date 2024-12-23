@@ -46,5 +46,23 @@ class AppointmentModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getPendingAppointmentsByCounselorId($counselorId) {
+    $query = "SELECT id, student_id, appointment_date, topic, email, phone, created_at, updated_at, status 
+              FROM appointments 
+              WHERE counselor_id = :counselor_id AND status = 'Pending'";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':counselor_id', $counselorId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateAppointmentStatus($appointmentId, $status) {
+    $query = "UPDATE appointments SET status = :status WHERE id = :appointment_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+    $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+    return $stmt->execute();
+    }   
+
 }
 ?>
