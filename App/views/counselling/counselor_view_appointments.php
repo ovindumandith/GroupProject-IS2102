@@ -28,15 +28,13 @@ if (isset($_SESSION['status_update_error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pending Appointments</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        table {
-            width: 100%;
+
+         table {
+            width: 90%; /* Adjust width as needed */
             border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+            margin: 20px auto; /* Center the table horizontally and add vertical spacing */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visuals */
+}
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
@@ -45,6 +43,10 @@ if (isset($_SESSION['status_update_error'])) {
         th {
             background-color: #009f77;
             color: white;
+        }
+        #appointment-heading {
+            text-align: center;
+            margin-top: 20px;
         }
         .action-btn {
             padding: 6px 12px;
@@ -73,11 +75,49 @@ if (isset($_SESSION['status_update_error'])) {
             border-radius: 4px;
         }
     </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="../../assets/css/header_footer.css"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="../../assets/css/counselor_dashboard.css" type="text/css" />
 </head>
 <body>
+        <!-- Header Section -->
+    <header class="header">
+      <div class="logo">
+        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <h1>RelaxU</h1>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
+          <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Appointments</a></li>
+
+          <li><a href="../views/messages.php">Messages</a></li>
+          <li><a href="../views/reviews.php">Reviews</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+
+        <!-- Profile button form -->
+        <form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
+            <button type="submit" class="login"><b>Profile</b></button>
+        </form>
+        <!-- Logout button form -->
+        <form action="../../util/counselor_logout.php" method="POST" style="display: inline;">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
+      </div>
+    </header>
 
 
-    <h1>Pending Appointments</h1>
+
+    <h1 id="appointment-heading">Pending Appointments</h1>
 
     <?php if (!empty($appointments)): ?>
         <table>
@@ -126,8 +166,40 @@ if (isset($_SESSION['status_update_error'])) {
     <?php else: ?>
         <p>No pending appointments at the moment.</p>
     <?php endif; ?>
-   
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <h1>RelaxU</h1>
+          <p>Your mental health, your priority.</p>
+          <img
+            id="footer-logo"
+            src="../../../assets/images/logo.jpg"
+            alt="RelaxU Logo"
+          />
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
+            <li><a href="../views/manage_appointments.php">Appointments</a></li>
+            <li><a href="../views/messages.php">Messages</a></li>
+            <li><a href="../views/reviews.php">Reviews</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Support</h3>
+          <p>Email: support@relaxu.com</p>
+          <p>Phone: +1 800-RELAXU</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>
+
+
 
 
