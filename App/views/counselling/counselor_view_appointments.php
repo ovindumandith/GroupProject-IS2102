@@ -1,11 +1,14 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Start session if not already started
+}
 
 // Redirect to login if not logged in as a counselor
 if (!isset($_SESSION['counselor'])) {
     header('Location: counselor_login.php');
     exit();
 }
+
 
 // Display success or error messages
 if (isset($_SESSION['status_update_success'])) {
@@ -72,6 +75,8 @@ if (isset($_SESSION['status_update_error'])) {
     </style>
 </head>
 <body>
+
+
     <h1>Pending Appointments</h1>
 
     <?php if (!empty($appointments)): ?>
@@ -121,5 +126,8 @@ if (isset($_SESSION['status_update_error'])) {
     <?php else: ?>
         <p>No pending appointments at the moment.</p>
     <?php endif; ?>
-</body>
+   
+  </body>
 </html>
+
+

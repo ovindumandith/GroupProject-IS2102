@@ -28,18 +28,23 @@ class AppointmentController {
     }
 
     // Method to fetch pending appointments for a counselor
-    public function showPendingAppointments() {
-        session_start();
-        if (!isset($_SESSION['counselor']['id'])) {
-            header('Location: ../views/counselling/counselor_login.php');
-            exit();
-        }
-
-        $counselorId = $_SESSION['counselor']['id'];
-        $appointments = $this->model->getPendingAppointmentsByCounselorId($counselorId);
-
-        include '../views/counselling/counselor_view_appointments.php'; // Pass data to the view
+public function showPendingAppointments() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start(); // Start session if not already started
     }
+
+    // Ensure the user is logged in as a counselor
+    if (!isset($_SESSION['counselor']['id'])) {
+        header('Location: ../views/counselling/counselor_login.php');
+        exit();
+    }
+
+    $counselorId = $_SESSION['counselor']['id'];
+    $appointments = $this->model->getPendingAppointmentsByCounselorId($counselorId);
+
+    include '../views/counselling/counselor_view_appointments.php'; // Pass data to the view
+}
+
 
     // Method to update appointment status
     public function updateAppointmentStatus() {

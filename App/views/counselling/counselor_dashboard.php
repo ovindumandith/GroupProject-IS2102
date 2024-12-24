@@ -38,7 +38,7 @@ $counselor = $_SESSION['counselor'];
       <nav class="navbar">
         <ul>
           <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
-          <a href="../../controller/AppointmentController.php?action=showPendingAppointments">Appointments</a>
+          <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Appointments</a></li>
 
           <li><a href="../views/messages.php">Messages</a></li>
           <li><a href="../views/reviews.php">Reviews</a></li>
