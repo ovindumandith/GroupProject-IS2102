@@ -22,29 +22,28 @@ class AppointmentController {
             header('Location: ../views/counselling/appointment_success.php?success=1'); // Redirect on success with success flag
             exit();
         } else {
-            header('Location: appointment_error.php'); // Redirect on error
+            header('Location: ../views/counselling/appointment_error.php'); // Redirect on error
             exit();
         }
     }
 
     // Method to fetch pending appointments for a counselor
-public function showPendingAppointments() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start(); // Start session if not already started
+    public function showPendingAppointments() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start(); // Start session if not already started
+        }
+
+        // Ensure the user is logged in as a counselor
+        if (!isset($_SESSION['counselor']['id'])) {
+            header('Location: ../views/counselling/counselor_login.php');
+            exit();
+        }
+
+        $counselorId = $_SESSION['counselor']['id'];
+        $appointments = $this->model->getPendingAppointmentsByCounselorId($counselorId);
+
+        include '../views/counselling/counselor_view_appointments.php'; // Pass data to the view
     }
-
-    // Ensure the user is logged in as a counselor
-    if (!isset($_SESSION['counselor']['id'])) {
-        header('Location: ../views/counselling/counselor_login.php');
-        exit();
-    }
-
-    $counselorId = $_SESSION['counselor']['id'];
-    $appointments = $this->model->getPendingAppointmentsByCounselorId($counselorId);
-
-    include '../views/counselling/counselor_view_appointments.php'; // Pass data to the view
-}
-
 
     // Method to update appointment status
     public function updateAppointmentStatus() {
@@ -58,7 +57,7 @@ public function showPendingAppointments() {
             } else {
                 $_SESSION['status_update_error'] = 'Failed to update appointment status.';
             }
-            header('Location: ../controllers/AppointmentController.php?action=showPendingAppointments');
+            header('Location: AppointmentController.php?action=showPendingAppointments');
             exit();
         }
     }

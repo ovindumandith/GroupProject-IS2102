@@ -56,13 +56,14 @@ class AppointmentModel {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //update status of the appointment by counselor
     public function updateAppointmentStatus($appointmentId, $status) {
-    $query = "UPDATE appointments SET status = :status WHERE id = :appointment_id";
-    $stmt = $this->db->prepare($query);
-    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-    $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
-    return $stmt->execute();
-    }   
+        $query = "UPDATE appointments SET status = :status WHERE id = :appointment_id ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 
 }
 ?>

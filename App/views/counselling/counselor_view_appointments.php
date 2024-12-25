@@ -5,10 +5,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Redirect to login if not logged in as a counselor
 if (!isset($_SESSION['counselor'])) {
-    header('Location: counselor_login.php');
+    header('Location: ../../views/counselor_login.php');
     exit();
 }
-
 
 // Display success or error messages
 if (isset($_SESSION['status_update_success'])) {
@@ -28,13 +27,12 @@ if (isset($_SESSION['status_update_error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pending Appointments</title>
     <style>
-
-         table {
-            width: 90%; /* Adjust width as needed */
+        table {
+            width: 90%;
             border-collapse: collapse;
-            margin: 20px auto; /* Center the table horizontally and add vertical spacing */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visuals */
-}
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
@@ -66,6 +64,7 @@ if (isset($_SESSION['status_update_error'])) {
             padding: 10px;
             margin-bottom: 15px;
             border-radius: 4px;
+            text-align: center;
         }
         .toast-error {
             background-color: #f44336;
@@ -73,21 +72,22 @@ if (isset($_SESSION['status_update_error'])) {
             padding: 10px;
             margin-bottom: 15px;
             border-radius: 4px;
+            text-align: center;
         }
     </style>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet"
     />
     <link
-      rel="stylesheet"
-      href="../../assets/css/header_footer.css"
-      type="text/css"
+        rel="stylesheet"
+        href="../../assets/css/header_footer.css"
+        type="text/css"
     />
     <link rel="stylesheet" href="../../assets/css/counselor_dashboard.css" type="text/css" />
 </head>
 <body>
-        <!-- Header Section -->
+<!-- Header Section -->
     <header class="header">
       <div class="logo">
         <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
@@ -103,19 +103,18 @@ if (isset($_SESSION['status_update_error'])) {
         </ul>
       </nav>
       <div class="auth-buttons">
-
         <!-- Profile button form -->
-        <form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
-            <button type="submit" class="login"><b>Profile</b></button>
-        </form>
+<form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
+    <button type="submit" class="login"><b>Profile</b></button>
+</form>
+
+    
         <!-- Logout button form -->
         <form action="../../util/counselor_logout.php" method="POST" style="display: inline;">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
     </header>
-
-
 
     <h1 id="appointment-heading">Pending Appointments</h1>
 
@@ -131,32 +130,28 @@ if (isset($_SESSION['status_update_error'])) {
                     <th>Phone</th>
                     <th>Created At</th>
                     <th>Updated At</th>
-                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($appointments as $appointment): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($appointment['id']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['student_id']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['appointment_date']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['topic']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['email']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['phone']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['created_at']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['updated_at']); ?></td>
-                        <td><?php echo htmlspecialchars($appointment['status']); ?></td>
+                        <td><?= htmlspecialchars($appointment['id']) ?></td>
+                        <td><?= htmlspecialchars($appointment['student_id']) ?></td>
+                        <td><?= htmlspecialchars($appointment['appointment_date']) ?></td>
+                        <td><?= htmlspecialchars($appointment['topic']) ?></td>
+                        <td><?= htmlspecialchars($appointment['email']) ?></td>
+                        <td><?= htmlspecialchars($appointment['phone']) ?></td>
+                        <td><?= htmlspecialchars($appointment['created_at']) ?></td>
+                        <td><?= htmlspecialchars($appointment['updated_at']) ?></td>
                         <td>
-                            <form method="POST" action="../controllers/AppointmentController.php?action=updateAppointmentStatus" style="display: inline;">
-                                <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                <input type="hidden" name="status" value="Accepted">
-                                <button type="submit" class="action-btn accept-btn">Accept</button>
+                            <form method="POST" action="../../App/controller/AppointmentController.php?action=updateAppointmentStatus" style="display:inline;">
+                                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
+                                <button type="submit" name="status" value="accepted" class="action-btn accept-btn">Accept</button>
                             </form>
-                            <form method="POST" action="../controllers/AppointmentController.php?action=updateAppointmentStatus" style="display: inline;">
-                                <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-                                <input type="hidden" name="status" value="Rejected">
-                                <button type="submit" class="action-btn reject-btn">Reject</button>
+                            <form method="POST" action="../../App/controller/AppointmentController.php?action=updateAppointmentStatus" style="display:inline;">
+                                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
+                                <button type="submit" name="status" value="rejected" class="action-btn reject-btn">Reject</button>
                             </form>
                         </td>
                     </tr>
@@ -164,9 +159,9 @@ if (isset($_SESSION['status_update_error'])) {
             </tbody>
         </table>
     <?php else: ?>
-        <p>No pending appointments at the moment.</p>
+        <p style="text-align: center;">No pending appointments at the moment.</p>
     <?php endif; ?>
-    <!-- Footer Section -->
+
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-logo">
@@ -174,7 +169,7 @@ if (isset($_SESSION['status_update_error'])) {
           <p>Your mental health, your priority.</p>
           <img
             id="footer-logo"
-            src="../../../assets/images/logo.jpg"
+            src="../../assets/images/logo.jpg"
             alt="RelaxU Logo"
           />
         </div>
@@ -199,7 +194,3 @@ if (isset($_SESSION['status_update_error'])) {
     </footer>
   </body>
 </html>
-
-
-
-
