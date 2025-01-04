@@ -143,7 +143,7 @@ if (!isset($_SESSION['counselor'])) {
                         <td><?= htmlspecialchars($appointment['phone']) ?></td>
                         <td><?= htmlspecialchars($appointment['created_at']) ?></td>
                         <td><?= htmlspecialchars($appointment['updated_at']) ?></td>
-                        <td><?= htmlspecialchars($status['status']) ?></td>
+                        <td><?= htmlspecialchars($appointment['status']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

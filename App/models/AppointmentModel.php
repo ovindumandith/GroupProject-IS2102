@@ -69,7 +69,7 @@ class AppointmentModel {
     public function getDeniedAppointmentsByCounselorId($counselorId) {
     $query = "SELECT id, student_id, appointment_date, topic, email, phone, created_at, updated_at, status 
               FROM appointments 
-              WHERE counselor_id = :counselor_id AND status = 'Rejected'";
+              WHERE counselor_id = :counselor_id AND status = 'Denied'";
     $stmt = $this->db->prepare($query);
     $stmt->bindParam(':counselor_id', $counselorId, PDO::PARAM_INT);
     $stmt->execute();
