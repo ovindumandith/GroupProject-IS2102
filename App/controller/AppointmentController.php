@@ -58,9 +58,9 @@ class AppointmentController {
         }
 
         $counselorId = $_SESSION['counselor']['id'];
-        $appointments = $this->model->getPendingAppointmentsByCounselorId($counselorId);
+        $appointments = $this->model->getApprovedAppointmentsByCounselorId($counselorId);
 
-        include '../views/counselling/counselor_view_appointments.php'; // Pass data to the view
+        include '../views/counselling/counselor_view_appointments_approved.php'; // Pass data to the view
     }
 
     // Method to fetch denied appointments for a counselor
@@ -76,9 +76,9 @@ class AppointmentController {
         }
 
         $counselorId = $_SESSION['counselor']['id'];
-        $appointments = $this->model->getPendingAppointmentsByCounselorId($counselorId);
+        $appointments = $this->model->getDeniedAppointmentsByCounselorId($counselorId);
 
-        include '../views/counselling/counselor_view_appointments.php'; // Pass data to the view
+        include '../views/counselling/counselor_view_appointments_rejected.php'; // Pass data to the view
     }
 
     // Method to update appointment status
@@ -114,6 +114,12 @@ if (isset($_GET['action'])) {
         case 'updateAppointmentStatus':
             $controller->updateAppointmentStatus();
             break;
+        case 'showApprovedAppointments':
+            $controller->showApprovedAppointments();
+            break;
+        case 'showDeniedAppointments':
+            $controller->showDeniedAppointments();
+            break;        
         default:
             echo 'Invalid action';
     }

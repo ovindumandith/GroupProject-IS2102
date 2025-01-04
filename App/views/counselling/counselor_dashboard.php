@@ -43,7 +43,7 @@ $counselor = $_SESSION['counselor'];
             <ul class="dropdown">
               <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Appointments</a></li>
               <li><a href="../../controller/AppointmentController.php?action=showApprovedAppointments">Approved</a></li>
-              <li><a href="../../controller/AppointmentController.php?action=showRescheduledAppointments">Denied</a></li>
+              <li><a href="../../controller/AppointmentController.php?action=showDeniedAppointments">Denied</a></li>
               
             </ul>
           </li>
