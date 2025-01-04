@@ -55,6 +55,26 @@ class AppointmentModel {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    // Get approved appointments by counselor ID
+    public function getApprovedAppointmentsByCounselorId($counselorId) {
+    $query = "SELECT id, student_id, appointment_date, topic, email, phone, created_at, updated_at, status 
+              FROM appointments 
+              WHERE counselor_id = :counselor_id AND status = 'Pending'";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':counselor_id', $counselorId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // Get denied appointments by counselor ID
+    public function getDeniedAppointmentsByCounselorId($counselorId) {
+    $query = "SELECT id, student_id, appointment_date, topic, email, phone, created_at, updated_at, status 
+              FROM appointments 
+              WHERE counselor_id = :counselor_id AND status = 'Pending'";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':counselor_id', $counselorId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     //update status of the appointment by counselor
     public function updateAppointmentStatus($appointmentId, $status) {
