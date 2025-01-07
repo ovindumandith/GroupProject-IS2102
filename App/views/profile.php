@@ -99,13 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <!-- Content Section (for demonstration) -->
-    <div class="content">
-        <h1> User Profile</h1>
-         
-    
-    <form method="POST" action="profile.php" id="updateform">
+<div class="content">
+  <h1>User Profile</h1>
+  
+  <div class="profile-container">
+    <div class="profile-details">
+      <form method="POST" action="profile.php" id="updateform">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+
         <label for="password">Password:</label>
         <input type="text" id="password" name="password" value="<?php echo htmlspecialchars($user['password']); ?>" required>
 
@@ -119,9 +121,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="text" id="year" name="year" value="<?php echo htmlspecialchars($user['year']); ?>" required>
 
         <input type="submit" value="Update Profile">
-    </form>
-      <p></p>
+      </form>
     </div>
+
+    <div class="appointments-link-container">
+      <a href="../controller/AppointmentController.php?action=showStudentAppointments" class="appointments-link">My Appointments</a>
+    </div>
+  </div>
+</div>
+
     <div id="toast" class="toast">Profile updated successfully!</div>
 
   <script>

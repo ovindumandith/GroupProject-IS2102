@@ -26,6 +26,21 @@ class AppointmentController {
             exit();
         }
     }
+    public function showStudentAppointments() {
+    session_start();
+
+    // Ensure the student is logged in
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: login.php'); // Redirect to login page if not logged in
+        exit();
+    }
+
+    $studentId = $_SESSION['user_id'];
+    $appointments = $this->model->getByStudentId($studentId); // Fetch the student's appointments
+
+    // Include the view to display the appointments
+    include '../views/showStudentAppointments.php'; // Pass the appointments data to the view
+}
 
     // Method to fetch pending appointments for a counselor
     public function showPendingAppointments() {
@@ -120,6 +135,9 @@ if (isset($_GET['action'])) {
         case 'showDeniedAppointments':
             $controller->showDeniedAppointments();
             break;        
+        case 'showStudentAppointments':
+            $controller->showStudentAppointments();
+            break;    
         default:
             echo 'Invalid action';
     }

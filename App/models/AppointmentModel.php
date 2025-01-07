@@ -27,7 +27,7 @@ class AppointmentModel {
     public function getByStudentId($studentId) {
         $query = "SELECT a.*, c.name AS counselor_name 
                   FROM appointments a
-                  JOIN counselor c ON a.counselor_id = c.id
+                  JOIN counselors c ON a.counselor_id = c.id
                   WHERE a.student_id = :student_id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':student_id', $studentId, PDO::PARAM_INT);
