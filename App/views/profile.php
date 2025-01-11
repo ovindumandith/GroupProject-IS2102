@@ -99,17 +99,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <!-- Content Section (for demonstration) -->
+
 <div class="content">
   <h1>User Profile</h1>
-  
+
   <div class="profile-container">
-    <div class="profile-details">
+    <!-- Profile Form Card -->
+    <div class="card profile-form-card">
+      <h2>Profile Details</h2>
       <form method="POST" action="profile.php" id="updateform">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
         <label for="password">Password:</label>
-        <input type="text" id="password" name="password" value="<?php echo htmlspecialchars($user['password']); ?>" required>
+        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($user['password']); ?>" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
@@ -124,13 +127,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </form>
     </div>
 
-    <div class="appointments-link-container">
-      <a href="../controller/AppointmentController.php?action=showStudentAppointments" class="appointments-link">My Appointments</a>
+    <!-- Appointments Button Card -->
+    <div class="card appointments-card">
+      <h2>Appointments</h2>
+      <img src="../../assets/images/stu_appointment.jpg" alt="Appointments Icon" class="card-image" height="600px" width="600px"><br><br>
+      <a href="../controller/AppointmentController.php?action=showStudentAppointments" class="appointments-link">View My Appointments</a>
+    </div>
+
+    <!-- Academic Requests Button Card -->
+    <div class="card academic-requests-card">
+      <h2>Academic Requests</h2>
+      <img src="../../assets/images/stu_acareq.jpg" alt="Academic Requests Icon" class="card-image" height="600px" width="600px"><br><br>
+      <a href="../controller/AcademicRequestController.php?action=viewRequests" class="academic-link">My Academic Requests</a>
     </div>
   </div>
 </div>
 
-    <div id="toast" class="toast">Profile updated successfully!</div>
+
+
+
+    <!--<div id="toast" class="toast">Profile updated successfully!</div>-->
 
   <script>
         <?php if ($update_success): ?>
