@@ -78,8 +78,10 @@ if (!isset($_SESSION['user_id'])) {
             <p><strong>Email:</strong> <a href="mailto:<?= htmlspecialchars($counselor['email']) ?>"><?= htmlspecialchars($counselor['email']) ?></a></p>
         </div>
         <div class="profile-actions">
-            <a href="message_counselor.php?id=<?= $counselor['id'] ?>" class="action-button">📩 Message Counselor</a>
-            <a href="schedule_appointment.php?id=<?= $counselor['id'] ?>" class="action-button">📅 Schedule Appointment</a>
+          <a href="schedule_appointments.php?counselor_id=<?= $counselor['id'] ?>" class="action-button">📅 Schedule Appointment</a>
+
+
+            
         </div>
     </div>
 

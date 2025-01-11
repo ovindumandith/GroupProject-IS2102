@@ -37,9 +37,8 @@ if (!isset($_SESSION['user_id'])) {
             <form action="../controller/CreateController.php?action=addPost" method="POST" enctype="multipart/form-data">
                 <div class="profile-section">
                     <img src="../../assets/images/Account.png" alt="Profile" class="profile-img">   
-                    <!-- Automatically populate user_id from session -->
-            <input type="text" class="username-btn" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" readonly>
-       </div>
+                    <input type="text" class="username-btn" name="user_id" placeholder="User ID" required>
+                </div>
                 <br/><br/>
                 <input type="text" class="title-input" name="title" placeholder="Title" required><br/>
                 <div class="upload-box">
