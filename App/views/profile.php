@@ -130,14 +130,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Appointments Button Card -->
     <div class="card appointments-card">
       <h2>Appointments</h2>
-      <img src="../../assets/images/stu_appointment.jpg" alt="Appointments Icon" class="card-image" height="600px" width="600px"><br><br>
+      <img src="../../assets/images/stu_appointment.jpg" alt="Appointments Icon" class="card-image" ><br><br>
       <a href="../controller/AppointmentController.php?action=showStudentAppointments" class="appointments-link">View My Appointments</a>
     </div>
 
     <!-- Academic Requests Button Card -->
     <div class="card academic-requests-card">
       <h2>Academic Requests</h2>
-      <img src="../../assets/images/stu_acareq.jpg" alt="Academic Requests Icon" class="card-image" height="600px" width="600px"><br><br>
+      <img src="../../assets/images/stu_acareq.jpg" alt="Academic Requests Icon" class="card-image" ><br><br>
       <a href="../controller/AcademicRequestController.php?action=viewRequests" class="academic-link">My Academic Requests</a>
     </div>
   </div>

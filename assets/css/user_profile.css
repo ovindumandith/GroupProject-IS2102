@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column; /* Header remains at the top */
   align-items: center; /* Center-align content */
-  padding: 20px;
+  padding: 10px;
 }
 
 .content h1 {
@@ -23,8 +23,8 @@
 
 .card {
   flex: 1; /* Equal width for all cards */
-  max-width: 40%; /* Ensure all cards take up equal space (3 cards in a row) */
-  min-height: 450px; /* Ensure consistent height for all cards */
+  max-width: 30%; /* Ensure all cards take up equal space (3 cards in a row) */
+  min-height: 650px; /* Ensure consistent height for all cards */
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -44,8 +44,8 @@
 }
 
 .card img {
-  width: 120px; /* Adjusted image size for better visibility */
-  height: 120px; /* Maintain aspect ratio */
+  width: 220px; /* Adjusted image size for better visibility */
+  height: 220px; /* Maintain aspect ratio */
   margin-bottom: 20px;
   border-radius: 50%; /* Circular images for a modern design */
   object-fit: cover; /* Ensure images fit nicely within the size */
