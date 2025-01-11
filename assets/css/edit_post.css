@@ -172,6 +172,18 @@ body {
   cursor: pointer;
 }
 
+/* Add Post Button */
+.c-post-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 10px;
+  font-size: 14px; /* Slightly smaller font */
+  width: 60%;
+  cursor: pointer;
+}
+
 .add-post-btn:hover {
   background-color: #45a049;
 }

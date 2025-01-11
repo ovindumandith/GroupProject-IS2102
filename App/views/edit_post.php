@@ -35,7 +35,8 @@ if (!$post) {
                 <img src="../../assets/images/editpost.png" alt="Header Image" class="header-image">
             </div>
             <div class="header-right">
-                <h1>Edit Your Post</h1>
+            <button class="c-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+                <br><br><h1>Edit Your Post</h1>
                 <hr>
             </div>
         </div>

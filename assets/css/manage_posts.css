@@ -10,6 +10,18 @@ body {
   min-height: 100vh; /* Ensure full screen height */
 }
 
+/* Add Post Button */
+.c-post-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 10px;
+  font-size: 14px; /* Slightly smaller font */
+  width: 60%;
+  cursor: pointer;
+}
+
 /* Adjust container dimensions */
 .create-whole-container {
   background-color: #d4f6d4;
