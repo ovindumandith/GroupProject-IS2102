@@ -76,10 +76,28 @@
                     <td><?php echo htmlspecialchars($appointment['topic']); ?></td>
                     <td><?php echo htmlspecialchars($appointment['status']); ?></td>
                     <td>
-                        <div class="button-group">
-                            <a href="update_appointment.php?id=<?php echo $appointment['id']; ?>" class="btn update-btn">Update</a>
-                            <a href="delete_appointment.php?id=<?php echo $appointment['id']; ?>" class="btn delete-btn">Delete</a>
-                        </div>
+                      <div class="button-group">
+    <!-- Update button -->
+    <a href="../controllers/AppointmentController.php?action=updateAppointmentForm&appointment_id=<?php echo $appointment['id']; ?>" 
+       class="btn update-btn">Update</a>
+
+    <!-- Delete button -->
+    <form method="POST" action="../controller/AppointmentController.php?action=deleteAppointment" style="display: inline;">
+        <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+        <?php if ($appointment['status'] === 'Accepted'): ?>
+            <button type="submit" class="btn delete-btn" 
+                    onclick="return confirm('This appointment is already scheduled. Are you sure you want to cancel it?');">
+                Cancel
+            </button>
+        <?php else: ?>
+            <button type="submit" class="btn delete-btn" 
+                    onclick="return confirm('Are you sure you want to delete this appointment?');">
+                Delete
+            </button>
+        <?php endif; ?>
+    </form>
+</div>
+
                     </td>
                 </tr>
             <?php endforeach; ?>

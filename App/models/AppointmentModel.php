@@ -85,5 +85,14 @@ class AppointmentModel {
         return $stmt->execute();
     }
 
+    public function deleteAppointment($appointmentId) {
+        $query = "DELETE FROM appointments WHERE id = :appointment_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
 }
+
+
 ?>

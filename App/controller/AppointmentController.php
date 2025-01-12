@@ -112,6 +112,36 @@ class AppointmentController {
             exit();
         }
     }
+    public function deleteAppointment() {
+    session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id'])) {
+        $appointmentId = $_POST['appointment_id'];
+        
+        // Fetch the appointment to check its status
+        $appointment = $this->model->getByStudentId($appointmentId);
+
+        if ($appointment['status'] === 'Accepted') {
+            // Optional: Log the cancellation or notify the counselor
+            $_SESSION['appointment_message'] = 'The appointment was scheduled. You have canceled it.';
+        } else {
+            $_SESSION['appointment_message'] = 'The appointment has been successfully deleted.';
+        }
+
+        // Perform the deletion
+        if ($this->model->deleteAppointment($appointmentId)) {
+            header('Location: ../views/student_appointments.php?success=1');
+            exit();
+        } else {
+            $_SESSION['appointment_message'] = 'Failed to delete the appointment.';
+            header('Location: ../views/student_appointments.php?error=1');
+            exit();
+        }
+    }
+}
+
+
+
 }
 
 // Check if an action is set in the query string
@@ -137,7 +167,10 @@ if (isset($_GET['action'])) {
             break;        
         case 'showStudentAppointments':
             $controller->showStudentAppointments();
-            break;    
+            break;
+        case 'deleteAppointment':
+            $controller->deleteAppointment();
+            break;        
         default:
             echo 'Invalid action';
     }
