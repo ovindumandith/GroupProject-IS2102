@@ -130,7 +130,7 @@ class AppointmentController {
 
         // Perform the deletion
         if ($this->model->deleteAppointment($appointmentId)) {
-            header('Location: ../views/student_appointments.php?success=1');
+            header('Location: AppointmentController.php?action=showStudentAppointments');
             exit();
         } else {
             $_SESSION['appointment_message'] = 'Failed to delete the appointment.';
