@@ -49,6 +49,7 @@
   margin-bottom: 20px;
   border-radius: 50%; /* Circular images for a modern design */
   object-fit: cover; /* Ensure images fit nicely within the size */
+  border: 2px solid #fa8128; /* Add a border around the image */
 }
 
 .card a {
@@ -92,6 +93,12 @@
   color: #333;
 }
 
+.card appointments-card p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+}
 #updateform {
   display: flex;
   flex-direction: column;

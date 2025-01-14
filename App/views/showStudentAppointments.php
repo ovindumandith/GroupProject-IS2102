@@ -23,6 +23,45 @@
     <script src="../../assets/js/hero_slider.js" defer></script>
     <script src="../../assets/js/testimonial_slider.js" defer></script>
     <script src="../../assets/js/counter.js" defer></script>
+    <script src="../../assets/js/appointment_search_student.js" defer></script>
+
+    <style>
+      /* Search Bar Container */
+.search-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: 20px 0;
+}
+
+/* Search Input Styling */
+.search-input {
+  width: 300px; /* Default width */
+  height: 40px; /* Default height */
+  padding: 10px 20px; /* Add padding */
+  font-size: 1.1rem; /* Larger font size */
+  border: 2px solid #006d58; /* Match the green theme */
+  border-radius: 25px; /* Rounded edges */
+  outline: none;
+  transition: all 0.3s ease; /* Smooth transition for animations */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Interaction: Focus Effects */
+.search-input:focus {
+  width: 400px; /* Expand width */
+  height: 50px; /* Expand height */
+  border-color: #009f77; /* Highlight border */
+  box-shadow: 0 6px 10px rgba(0, 159, 119, 0.4); /* Stronger shadow */
+  background-color: #f9f9f9; /* Slight background color change */
+}
+
+/* Search Button Styling (Optional) */
+.search-btn {
+  display: none; /* Hide the button as search is dynamic */
+}
+
+    </style>
   </head>
   <body>
     <!-- Header Section -->
@@ -57,55 +96,62 @@
     </header>
     <h1 class="student-appointments">Your Pending Appointments</h1>
 
-<?php if (!empty($appointments)): ?>
-    <table>
-        <thead>
-            <tr>
-                <th>Appointment Date</th>
-                <th>Counselor</th>
-                <th>Topic</th>
-                <th>Status</th>
-                <th>Actions</th> <!-- New column for actions -->
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($appointments as $appointment): ?>
+<div class="search-container">
+    <input 
+        type="text" 
+        id="search-bar" 
+        placeholder="🔍 Search... " 
+        class="search-input"
+    >
+</div>
+<div id="appointment-results">
+    <?php if (!empty($appointments)): ?>
+        <table>
+            <thead>
                 <tr>
-                    <td><?php echo htmlspecialchars($appointment['appointment_date']); ?></td>
-                    <td><?php echo htmlspecialchars($appointment['counselor_name']); ?></td>
-                    <td><?php echo htmlspecialchars($appointment['topic']); ?></td>
-                    <td><?php echo htmlspecialchars($appointment['status']); ?></td>
-                    <td>
-                      <div class="button-group">
-    <!-- Update button -->
-    <a href="../controllers/AppointmentController.php?action=updateAppointmentForm&appointment_id=<?php echo $appointment['id']; ?>" 
-       class="btn update-btn">Update</a>
-
-    <!-- Delete button -->
-    <form method="POST" action="../controller/AppointmentController.php?action=deleteAppointment" style="display: inline;">
-        <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-        <?php if ($appointment['status'] === 'Accepted'): ?>
-            <button type="submit" class="btn delete-btn" 
-                    onclick="return confirm('This appointment is already scheduled. Are you sure you want to cancel it?');">
-                Cancel
-            </button>
-        <?php else: ?>
-            <button type="submit" class="btn delete-btn" 
-                    onclick="return confirm('Are you sure you want to delete this appointment?');">
-                Delete
-            </button>
-        <?php endif; ?>
-    </form>
+                    <th>Appointment Date</th>
+                    <th>Counselor</th>
+                    <th>Topic</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($appointments as $appointment): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($appointment['appointment_date']); ?></td>
+                        <td><?php echo htmlspecialchars($appointment['counselor_name']); ?></td>
+                        <td><?php echo htmlspecialchars($appointment['topic']); ?></td>
+                        <td><?php echo htmlspecialchars($appointment['status']); ?></td>
+                        <td>
+                            <div class="button-group">
+                                <a href="../controllers/AppointmentController.php?action=updateAppointmentForm&appointment_id=<?php echo $appointment['id']; ?>" 
+                                   class="btn update-btn">Update</a>
+                                <form method="POST" action="../controller/AppointmentController.php?action=deleteAppointment" style="display: inline;">
+                                    <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+                                    <?php if ($appointment['status'] === 'Accepted'): ?>
+                                        <button type="submit" class="btn delete-btn" 
+                                                onclick="return confirm('This appointment is already scheduled. Are you sure you want to cancel it?');">
+                                            Cancel
+                                        </button>
+                                    <?php else: ?>
+                                        <button type="submit" class="btn delete-btn" 
+                                                onclick="return confirm('Are you sure you want to delete this appointment?');">
+                                            Delete
+                                        </button>
+                                    <?php endif; ?>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="student-appointments">You have no pending appointments.</p>
+    <?php endif; ?>
 </div>
 
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p class="student-appointments">You have no pending appointments.</p>
-<?php endif; ?>
 
 
 

@@ -131,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="card appointments-card">
       <h2>Appointments</h2>
       <img src="../../assets/images/stu_appointment.jpg" alt="Appointments Icon" class="card-image" ><br><br>
+      <p<>View your Scheduled Appointments here</p>
       <a href="../controller/AppointmentController.php?action=showStudentAppointments" class="appointments-link">View My Appointments</a>
     </div>
 
@@ -138,7 +139,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="card academic-requests-card">
       <h2>Academic Requests</h2>
       <img src="../../assets/images/stu_acareq.jpg" alt="Academic Requests Icon" class="card-image" ><br><br>
+      <p>View your Academic Requests here</p>
       <a href="../controller/AcademicRequestController.php?action=viewRequests" class="academic-link">My Academic Requests</a>
+      
     </div>
   </div>
 </div>
