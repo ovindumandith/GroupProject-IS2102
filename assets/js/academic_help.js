@@ -1,66 +1,33 @@
-// Form Handling
+// Form handling
 const academicForm = document.getElementById("academicForm");
-const formInputs = document.querySelectorAll("input, select, textarea");
 
-// Add floating label effect
-formInputs.forEach((input) => {
-  input.addEventListener("focus", () => {
-    input.parentElement.classList.add("focused");
-  });
-
-  input.addEventListener("blur", () => {
-    if (!input.value) {
-      input.parentElement.classList.remove("focused");
-    }
-  });
-});
-
-// Form validation and submission
 academicForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-
   // Get form values
   const formData = {
-    indexNo: document.getElementById("indexNo").value,
-    regNo: document.getElementById("regNo").value,
-    fullName: document.getElementById("fullName").value,
-    faculty: document.getElementById("faculty").value,
-    telephone: document.getElementById("telephone").value,
-    email: document.getElementById("email").value,
-    question: document.getElementById("question").value,
+    telephone: document.getElementById("telephone").value.trim(),
+    email: document.getElementById("email").value.trim(),
   };
 
-  // Validate phone number
-  const phoneRegex = /^\+?[\d\s-]{10,}$/;
+  // Validation regex patterns
+  const phoneRegex = /^\+?[\d\s-]{10,}$/; // Validates phone numbers (e.g., international or standard)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation pattern
+
+  // Phone number validation
   if (!phoneRegex.test(formData.telephone)) {
-    alert("Please enter a valid phone number");
+    alert("Please enter a valid phone number (at least 10 digits).");
+    e.preventDefault(); // Prevent form submission if validation fails
     return;
   }
 
-  // Validate email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Email validation
   if (!emailRegex.test(formData.email)) {
-    alert("Please enter a valid email address");
+    alert("Please enter a valid email address.");
+    e.preventDefault(); // Prevent form submission if validation fails
     return;
   }
 
-  // Show success message with animation
-  const successMessage = document.createElement("div");
-  successMessage.className = "success-message";
-  successMessage.textContent = "Your question has been submitted successfully!";
-  academicForm.appendChild(successMessage);
-
-  // Add fade-in animation
-  successMessage.style.animation = "fadeIn 0.5s ease-out";
-
-  // Reset form with animation
-  setTimeout(() => {
-    academicForm.reset();
-    successMessage.style.animation = "fadeOut 0.5s ease-out";
-    successMessage.addEventListener("animationend", () =>
-      successMessage.remove()
-    );
-  }, 3000);
+  // If validation passes, allow form submission
+  // The form will submit to the action URL specified in the form tag
 });
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -12,26 +12,21 @@ class AcademicQuestionModel {
 
     // Submit a new academic question
     public function submitQuestion($userId, $indexNo, $regNo, $fullName, $faculty, $telephone, $email, $question) {
-        try {
             $query = 'INSERT INTO academic_questions 
                       (user_id, index_no, reg_no, full_name, faculty, telephone, email, question, status, created_at) 
                       VALUES 
                       (:user_id, :index_no, :reg_no, :full_name, :faculty, :telephone, :email, :question, "pending", NOW())';
             $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':user_id', $userId);
-            $stmt->bindParam(':index_no', $indexNo);
-            $stmt->bindParam(':reg_no', $regNo);
-            $stmt->bindParam(':full_name', $fullName);
-            $stmt->bindParam(':faculty', $faculty);
-            $stmt->bindParam(':telephone', $telephone);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':question', $question);
-
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':index_no', $indexNo, PDO::PARAM_STR);
+            $stmt->bindParam(':reg_no', $regNo, PDO::PARAM_STR);
+            $stmt->bindParam(':full_name', $fullName, PDO::PARAM_STR); ;
+            $stmt->bindParam(':faculty', $faculty, PDO::PARAM_STR);
+            $stmt->bindParam(':telephone', $telephone, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':question', $question, PDO::PARAM_STR);
             return $stmt->execute();
-        } catch (PDOException $e) {
-            $this->logError($e->getMessage());
-            return false;
-        }
+       
     }
 
     // Fetch all questions (for administrators or head of undergraduate studies)

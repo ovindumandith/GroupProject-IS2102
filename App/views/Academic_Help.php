@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
     />
     <link rel="stylesheet" href="../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="../../assets/css/academic_help.css" />
-    <script src="../../assets/js/academic_help.js" defer></script>
+    <!--<script src="../../assets/js/academic_help.js" defer></script>-->
     
     
   </head>
@@ -78,53 +78,58 @@ if (!isset($_SESSION['user_id'])) {
         <div class="wave-shape"></div>
     </section>
 
-    <!-- Help Form Section -->
-    <section id="help-form" class="help-form">
-        <h2>Submit Your Academic Query</h2>
-        <form id="academicForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="indexNo">Index Number</label>
-                    <input type="text" id="indexNo" placeholder="Enter your index number" required>
-                </div>
-                <div class="form-group">
-                    <label for="regNo">Registration Number</label>
-                    <input type="text" id="regNo" placeholder="Enter your registration number" required>
-                </div>
+<!-- Help Form Section -->
+<section id="help-form" class="help-form">
+    <h2>Submit Your Academic Query</h2>
+    <form 
+        id="academicForm" 
+        action="../controller/Academic_QuestionsController.php?action=submitQuestion"
+        method="POST"
+    >
+        <div class="form-row">
+            <div class="form-group">
+                <label for="indexNo">Index Number</label>
+                <input type="text" id="indexNo" name="index_no" placeholder="Enter your index number" required>
             </div>
             <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" placeholder="Enter your full name" required>
+                <label for="regNo">Registration Number</label>
+                <input type="text" id="regNo" name="reg_no" placeholder="Enter your registration number" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="full_name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+            <label for="faculty">Faculty</label>
+            <select id="faculty" name="faculty" required>
+                <option value="">Select your faculty</option>
+                <option value="engineering">Faculty of Engineering</option>
+                <option value="science">Faculty of Science</option>
+                <option value="arts">Faculty of Arts</option>
+                <option value="medicine">Faculty of Medicine</option>
+                <option value="business">Faculty of Business</option>
+                <option value="law">Faculty of Law</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="telephone">Telephone Number</label>
+                <input type="tel" id="telephone" name="telephone" placeholder="Enter your phone number" required>
             </div>
             <div class="form-group">
-                <label for="faculty">Faculty</label>
-                <select id="faculty" required>
-                    <option value="">Select your faculty</option>
-                    <option value="engineering">Faculty of Engineering</option>
-                    <option value="science">Faculty of Science</option>
-                    <option value="arts">Faculty of Arts</option>
-                    <option value="medicine">Faculty of Medicine</option>
-                    <option value="business">Faculty of Business</option>
-                    <option value="law">Faculty of Law</option>
-                </select>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="telephone">Telephone Number</label>
-                    <input type="tel" id="telephone" placeholder="Enter your phone number" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="question">Your Question</label>
-                <textarea id="question" rows="4" placeholder="Type your question here..." required></textarea>
-            </div>
-            <button type="submit">Submit Question</button>
-        </form>
-    </section>
+        </div>
+        <div class="form-group">
+            <label for="question">Your Question</label>
+            <textarea id="question" name="question" rows="4" placeholder="Type your question here..." required></textarea>
+        </div>
+        <button type="submit">Submit Question</button>
+    </form>
+</section>
+
 
     <!-- FAQ Section -->
 <section class="faq">
