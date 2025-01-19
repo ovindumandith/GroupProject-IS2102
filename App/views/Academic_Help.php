@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
     />
     <link rel="stylesheet" href="../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="../../assets/css/academic_help.css" />
-    <!--<script src="../../assets/js/academic_help.js" defer></script>-->
+    <script src="../../assets/js/academic_help.js" ></script>
     
     
   </head>
