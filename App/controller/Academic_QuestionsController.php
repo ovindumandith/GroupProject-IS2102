@@ -55,6 +55,7 @@ class Academic_QuestionsController {
 
         include '../views/showStudentAcademicRequest.php'; // Pass data to the view
     }
+    
 
     // Method to update an academic question
     public function updateQuestion() {

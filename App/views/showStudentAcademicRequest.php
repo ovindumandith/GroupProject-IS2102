@@ -17,12 +17,8 @@
     <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
     <link
       rel="stylesheet"
-      href="../../assets/css/showstudentappointments.css"
+      href="../../assets/css/showstudentacademicrequest.css"
       type="text/css" />
-
-    <script src="../../assets/js/hero_slider.js" defer></script>
-    <script src="../../assets/js/testimonial_slider.js" defer></script>
-    <script src="../../assets/js/counter.js" defer></script>
     <script src="../../assets/js/appointment_search_student.js" defer></script>
 
     <style>
@@ -94,68 +90,77 @@
         </form>
       </div>
     </header>
-    <h1 class="student-appointments">Your Pending Academic Requests</h1>
+    <!-- Main Section -->
+     <h1 class="student-questions">Your Pending Questions</h1>
 
 <div class="search-container">
     <input 
         type="text" 
         id="search-bar" 
-        placeholder="🔍 Search... " 
+        placeholder="🔍 Search..." 
         class="search-input"
+        aria-label="Search Questions"
     >
 </div>
 
-
-
-<div id="academic-requests-results">
-    <?php if (!empty($academicRequests)): ?>
+<div class="container">
+    <?php if (!empty($questions)): ?>
         <table>
             <thead>
                 <tr>
-                    <th>Request Date</th>
                     <th>Index No</th>
                     <th>Reg No</th>
-                    <th>Student Name</th>
+                    <th>Full Name</th>
                     <th>Faculty</th>
                     <th>Question</th>
                     <th>Status</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($academicRequests as $request): ?>
+                <?php foreach ($questions as $question): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($request['created_at']); ?></td>
-                        <td><?php echo htmlspecialchars($request['index_no']); ?></td>
-                        <td><?php echo htmlspecialchars($request['reg_no']); ?></td>
-                        <td><?php echo htmlspecialchars($request['full_name']); ?></td>
-                        <td><?php echo htmlspecialchars($request['faculty']); ?></td>
-                        <td><?php echo htmlspecialchars(substr($request['question'], 0, 50)); ?>...</td>
-                        <td><?php echo htmlspecialchars($request['status']); ?></td>
+                        <td><?php echo htmlspecialchars($question['index_no']); ?></td>
+                        <td><?php echo htmlspecialchars($question['reg_no']); ?></td>
+                        <td><?php echo htmlspecialchars($question['full_name']); ?></td>
+                        <td><?php echo htmlspecialchars($question['faculty']); ?></td>
+                        <td><?php echo htmlspecialchars($question['question']); ?></td>
+                        <td><?php echo htmlspecialchars($question['status']); ?></td>
+                        <td><?php echo htmlspecialchars($question['created_at']); ?></td>
                         <td>
                             <div class="button-group">
-                                <!-- View Details -->
-                                <a href="../controllers/AcademicRequestController.php?action=viewRequest&request_id=<?php echo $request['id']; ?>" 
-                                   class="btn view-btn">View</a>
+                                <!-- View Button -->
+                                <form action="../controller/QuestionController.php?action=viewQuestion" method="POST" class="inline-form">
+                                    <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
+                                    <button 
+                                        type="submit" 
+                                        name="action" 
+                                        value="view" 
+                                        class="action-btn view-btn" 
+                                        title="View Question">View</button>
+                                </form>
 
-                                <!-- Update Request -->
-                                <a href="../controllers/AcademicRequestController.php?action=updateRequestForm&request_id=<?php echo $request['id']; ?>" 
-                                   class="btn update-btn">Update</a>
+                                <!-- Update Button -->
+                                <form action="../controller/QuestionController.php?action=updateQuestion" method="POST" class="inline-form">
+                                    <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
+                                    <button 
+                                        type="submit" 
+                                        name="action" 
+                                        value="update" 
+                                        class="action-btn update-btn" 
+                                        title="Update Question">Update</button>
+                                </form>
 
-                                <!-- Delete Request -->
-                                <form method="POST" action="../controllers/AcademicRequestController.php?action=deleteRequest" style="display: inline;">
-                                    <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                                    <?php if ($request['status'] === 'Pending'): ?>
-                                        <button type="submit" class="btn delete-btn" 
-                                                onclick="return confirm('Are you sure you want to delete this request?');">
-                                            Delete
-                                        </button>
-                                    <?php else: ?>
-                                        <button type="submit" class="btn delete-btn" 
-                                                onclick="return confirm('This request is already processed. Are you sure you want to delete it?');">
-                                            Delete
-                                        </button>
-                                    <?php endif; ?>
+                                <!-- Delete Button -->
+                                <form action="../controller/QuestionController.php?action=deleteQuestion" method="POST" class="inline-form">
+                                    <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
+                                    <button 
+                                        type="submit" 
+                                        name="action" 
+                                        value="delete" 
+                                        class="action-btn delete-btn" 
+                                        title="Delete Question">Delete</button>
                                 </form>
                             </div>
                         </td>
@@ -164,12 +169,9 @@
             </tbody>
         </table>
     <?php else: ?>
-        <p class="academic-requests">You have no academic requests at the moment.</p>
+        <p>No pending academic questions at the moment.</p>
     <?php endif; ?>
 </div>
-
-
-
 
 
 

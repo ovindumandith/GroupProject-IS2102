@@ -125,7 +125,7 @@
                         <td><?php echo htmlspecialchars($appointment['status']); ?></td>
                         <td>
                             <div class="button-group">
-                                <a href="../controllers/AppointmentController.php?action=updateAppointmentForm&appointment_id=<?php echo $appointment['id']; ?>" 
+                                <a href="../controller/AppointmentController.php?action=updateAppointmentForm&appointment_id=<?php echo $appointment['id']; ?>" 
                                    class="btn update-btn">Update</a>
                                 <form method="POST" action="../controller/AppointmentController.php?action=deleteAppointment" style="display: inline;">
                                     <input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
