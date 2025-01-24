@@ -44,7 +44,8 @@ class AcademicQuestionModel {
     // Fetch questions submitted by a specific user
     public function getUserQuestions($userId) {
         try {
-            $query = 'SELECT * FROM academic_questions WHERE user_id = :user_id ORDER BY created_at DESC';
+            $query = 'SELECT created_at, index_no, reg_no, full_name, faculty, question, status FROM
+            academic_questions WHERE user_id = :user_id ORDER BY created_at DESC';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();

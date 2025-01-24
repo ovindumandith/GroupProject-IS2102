@@ -53,7 +53,7 @@ class Academic_QuestionsController {
         $userId = $_SESSION['user_id'];
         $questions = $this->model->getUserQuestions($userId); // Fetch questions submitted by the logged-in user
 
-        include '../views/user_questions_view.php'; // Pass data to the view
+        include '../views/showStudentAcademicRequest.php'; // Pass data to the view
     }
 
     // Method to update an academic question

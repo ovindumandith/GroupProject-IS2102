@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <h2>Academic Requests</h2>
       <img src="../../assets/images/stu_acareq.jpg" alt="Academic Requests Icon" class="card-image" ><br><br>
       <p>View your Academic Requests here</p>
-      <a href="../controller/AcademicRequestController.php?action=viewRequests" class="academic-link">My Academic Requests</a>
+      <a href="../controller/Academic_QuestionsController.php?action=viewUserQuestions" class="academic-link">My Academic Requests</a>
       
     </div>
   </div>
