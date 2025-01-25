@@ -128,6 +128,33 @@ class AcademicQuestionModel {
         return [];
     }
 }
+    // Fetch a question along with its responses
+public function getQuestionWithResponses($questionId) {
+    $sql = "SELECT 
+                q.id AS question_id,
+                q.question,
+                q.status AS question_status,
+                q.created_at AS question_created_at,
+                q.updated_at AS question_updated_at,
+                r.response_id AS response_id,
+                r.response,
+                r.admin_id,
+                r.created_at AS response_created_at,
+                r.updated_at AS response_updated_at
+            FROM academic_questions q
+            LEFT JOIN academic_question_response r ON q.id = r.question_id
+            WHERE q.id = :question_id";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        return false;
+    }
+}
+
 
     // Log errors
     private function logError($errorMessage) {

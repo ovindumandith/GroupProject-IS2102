@@ -117,6 +117,29 @@ class Academic_QuestionsController {
             exit();
         }
     }
+    // Method to fetch a specific question and its responses
+    public function getQuestion() {
+        session_start();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['question_id'])) {
+            $questionId = $_POST['question_id'];
+
+            // Fetch question details and responses from the model
+            $data = $this->model->getQuestionWithResponses($questionId);
+
+            if ($data) {
+                include '../views/viewQuestion.php'; // Redirect to the view page with question details
+            } else {
+                $_SESSION['error'] = 'Error fetching question details.';
+                header('Location: AcademicQuestionController.php?action=viewAllQuestions');
+                exit();
+            }
+        } else {
+            $_SESSION['error'] = 'Invalid request.';
+            header('Location: AcademicQuestionController.php?action=viewAllQuestions');
+            exit();
+        }
+    }
+    
 }
 
 // Check if an action is set in the query string
@@ -143,6 +166,9 @@ if (isset($_GET['action'])) {
         case 'updateQuestionStatus':
             $controller->updateQuestionStatus();
             break;
+        case 'getQuestion':
+            $controller->getQuestion();
+            break;    
         default:
             echo 'Invalid action';
     }

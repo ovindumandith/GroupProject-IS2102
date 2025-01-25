@@ -131,7 +131,7 @@
                         <td>
                             <div class="button-group">
                                 <!-- View Button -->
-                                <form action="../controller/QuestionController.php?action=viewQuestion" method="POST" class="inline-form">
+                                <form action="../controller/Academic_QuestionsController.php?action=getQuestion" method="POST" class="inline-form">
                                     <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
                                     <button 
                                         type="submit" 
