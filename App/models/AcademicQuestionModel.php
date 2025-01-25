@@ -154,6 +154,25 @@ public function getQuestionWithResponses($questionId) {
         return false;
     }
 }
+public function updateQuestionStatusByStudent($questionId, $status) {
+    try {
+
+        // SQL query to update the status
+        $sql = "UPDATE academic_questions SET status = :status, updated_at = NOW() WHERE id = :question_id";
+        $stmt = $this->db->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+
+        // Execute query
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        // Handle database error
+        error_log("Database Error: " . $e->getMessage());
+        return false;
+    }
+}
 
 
     // Log errors

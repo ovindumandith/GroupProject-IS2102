@@ -139,6 +139,25 @@ class Academic_QuestionsController {
             exit();
         }
     }
+    // Method to mark a question as resolved by Student
+    public function markAsResolved() {
+    session_start();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['question_id'])) {
+        $questionId = $_POST['question_id'];
+
+        // Update the question status to 'Resolved' using the model
+        if ($this->model->updateQuestionStatusByStudent($questionId, 'Resolved')) {
+            $_SESSION['success'] = 'The question has been marked as resolved.';
+            header('Location: Academic_QuestionsController.php?action=viewUserQuestions');
+            exit();
+        } else {
+            $_SESSION['error'] = 'Failed to mark the question as resolved.';
+            header('Location: Academic_QuestionsController.php?action=viewUserQuestions');
+            exit();
+        }
+    }
+}
+
     
 }
 
@@ -168,7 +187,10 @@ if (isset($_GET['action'])) {
             break;
         case 'getQuestion':
             $controller->getQuestion();
-            break;    
+            break; 
+        case 'markAsResolved':
+            $controller->markAsResolved();
+            break;       
         default:
             echo 'Invalid action';
     }
