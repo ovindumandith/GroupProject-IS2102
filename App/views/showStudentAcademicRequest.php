@@ -153,7 +153,7 @@
                                 </form>
 
                                 <!-- Delete Button -->
-                                <form action="../controller/QuestionController.php?action=deleteQuestion" method="POST" class="inline-form">
+                                <form action="../controller/Academic_QuestionsController.php?action=deleteQuestion" method="POST" class="inline-form">
                                     <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
                                     <button 
                                         type="submit" 

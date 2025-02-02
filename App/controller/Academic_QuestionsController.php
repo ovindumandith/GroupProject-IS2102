@@ -90,11 +90,11 @@ class Academic_QuestionsController {
 
             if ($this->model->deleteQuestion($questionId)) {
                 $_SESSION['success'] = 'Your question has been deleted successfully.';
-                header('Location: AcademicQuestionController.php?action=viewUserQuestions');
+                header('Location: Academic_QuestionsController.php?action=viewUserQuestions');
                 exit();
             } else {
                 $_SESSION['error'] = 'Failed to delete the question.';
-                header('Location: AcademicQuestionController.php?action=viewUserQuestions');
+                header('Location: Academic_QuestionsController.php?action=viewUserQuestions');
                 exit();
             }
         }
