@@ -173,6 +173,16 @@ public function updateQuestionStatusByStudent($questionId, $status) {
         return false;
     }
 }
+public function updateQuestionModal($questionId, $updatedQuestion) {
+        $query = 'UPDATE academic_questions 
+                  SET question = :question, updated_at = NOW() 
+                  WHERE id = :id';
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':question', $updatedQuestion, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $questionId, PDO::PARAM_INT);
+        return $stmt->execute();
+}
+
 
 
     // Log errors

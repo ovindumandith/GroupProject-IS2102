@@ -20,6 +20,25 @@
       href="../../assets/css/showstudentacademicrequest.css"
       type="text/css" />
     <script src="../../assets/js/appointment_search_student.js" defer></script>
+        <script>
+      function openModal(questionId, questionText) {
+    document.getElementById('question_id').value = questionId;
+    document.getElementById('updated_question').value = questionText;
+    document.getElementById('updateModal').style.display = 'flex'; // Show modal
+}
+
+function closeModal() {
+    document.getElementById('updateModal').style.display = 'none'; // Hide modal
+}
+
+// Ensure modal is hidden on page load (only needed if there's an issue)
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('updateModal').style.display = 'none';
+});
+
+
+    </script>
+   
 
     <style>
       /* Search Bar Container */
@@ -58,6 +77,10 @@
 }
 
     </style>
+
+
+      
+
   </head>
   <body>
     <!-- Header Section -->
@@ -140,18 +163,15 @@
                                         class="action-btn view-btn" 
                                         title="View Question">View</button>
                                 </form>
-
-                                <!-- Update Button -->
-                                <form action="../controller/QuestionController.php?action=updateQuestion" method="POST" class="inline-form">
-                                    <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
-                                    <button 
-                                        type="submit" 
-                                        name="action" 
-                                        value="update" 
-                                        class="action-btn update-btn" 
-                                        title="Update Question">Update</button>
-                                </form>
-
+                              <?php if (strtolower($question['status']) !== 'resolved'): ?>
+                               <button 
+                               type="button" 
+                               class="action-btn update-btn" 
+                               onclick="openModal('<?php echo htmlspecialchars($question['id']); ?>', '<?php echo htmlspecialchars($question['question'], ENT_QUOTES, 'UTF-8'); ?>')">
+                               Update
+                              </button>
+                               <?php endif; ?>
+                               
                                 <!-- Delete Button -->
                                 <form action="../controller/Academic_QuestionsController.php?action=deleteQuestion" method="POST" class="inline-form">
                                     <input type="hidden" name="question_id" value="<?php echo htmlspecialchars($question['id']); ?>">
@@ -172,6 +192,21 @@
         <p>No pending academic questions at the moment.</p>
     <?php endif; ?>
 </div>
+
+<!-- Update Question Modal (Place this after the table) -->
+<div id="updateModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Update Question</h2>
+        <form id="updateForm" action="../controller/Academic_QuestionsController.php?action=updateQuestionModalOpen" method="POST">
+            <input type="hidden" name="question_id" id="question_id">
+            <label for="updated_question">Question:</label>
+            <textarea name="updated_question" id="updated_question" rows="4" required></textarea>
+            <button type="submit" class="action-btn update-btn">Save Changes</button>
+        </form>
+    </div>
+</div>
+
 
 
 

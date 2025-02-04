@@ -104,12 +104,13 @@ if (!isset($_SESSION['user_id'])) {
             <label for="faculty">Faculty</label>
             <select id="faculty" name="faculty" required>
                 <option value="">Select your faculty</option>
-                <option value="engineering">Faculty of Engineering</option>
-                <option value="science">Faculty of Science</option>
-                <option value="arts">Faculty of Arts</option>
-                <option value="medicine">Faculty of Medicine</option>
-                <option value="business">Faculty of Business</option>
-                <option value="law">Faculty of Law</option>
+                <option value="Computing">UCSC</option>
+                <option value="Engineering">Faculty of Engineering</option>
+                <option value="Science">Faculty of Science</option>
+                <option value="Arts">Faculty of Arts</option>
+                <option value="Medicine">Faculty of Medicine</option>
+                <option value="Business">Faculty of Business</option>
+                <option value="Law">Faculty of Law</option>
             </select>
         </div>
         <div class="form-row">

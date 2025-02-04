@@ -113,3 +113,93 @@ table td .action-btn {
   background-color: #d32f2f;
   transform: translateY(0);
 }
+/* Modal Styling */
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Modal Content */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(0.8);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Modal Heading */
+.modal-content h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #777;
+}
+
+.close:hover {
+  color: #f44336;
+}
+
+/* Textarea */
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  resize: vertical;
+  margin-top: 10px;
+}
+
+/* Save Changes Button */
+.modal-content .action-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.modal-content .action-btn:hover {
+  background-color: #43a047;
+}
+
+/* Fade-in effect */
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content.show {
+  transform: scale(1);
+}

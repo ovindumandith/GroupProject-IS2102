@@ -157,6 +157,25 @@ class Academic_QuestionsController {
         }
     }
 }
+public function updateQuestionModalOpen() {
+    session_start();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['question_id'], $_POST['updated_question'])) {
+        $questionId = $_POST['question_id'];
+        $updatedQuestion = $_POST['updated_question'];
+
+        if ($this->model->updateQuestionModal($questionId, $updatedQuestion)) {
+            $_SESSION['success'] = 'Question updated successfully.';
+        } else {
+            $_SESSION['error'] = 'Failed to update the question.';
+        }
+
+        // Redirect back to the academic questions page
+        header('Location: Academic_QuestionsController.php?action=viewUserQuestions');
+        exit();
+    }
+}
+
+
 
     
 }
@@ -190,7 +209,10 @@ if (isset($_GET['action'])) {
             break; 
         case 'markAsResolved':
             $controller->markAsResolved();
-            break;       
+            break;   
+        case 'updateQuestionModalOpen':
+            $controller->updateQuestionModalOpen();
+            break;    
         default:
             echo 'Invalid action';
     }
