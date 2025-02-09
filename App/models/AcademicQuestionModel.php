@@ -182,6 +182,21 @@ public function updateQuestionModal($questionId, $updatedQuestion) {
         $stmt->bindParam(':id', $questionId, PDO::PARAM_INT);
         return $stmt->execute();
 }
+    public function saveReply($questionId, $adminId, $response) {
+        // Prepare the SQL query
+        $query = "INSERT INTO academic_question_response (question_id, admin_id, response, created_at, updated_at) 
+                  VALUES (:question_id, :user_id, :response, NOW(), NOW())";
+        $stmt = $this->db->prepare($query);
+
+        // Bind parameters
+        $stmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $adminId, PDO::PARAM_INT);
+        $stmt->bindParam(':response', $response, PDO::PARAM_STR);
+
+        // Execute the query
+        return $stmt->execute();
+    }
+
 
     // Log errors
     private function logError($errorMessage) {

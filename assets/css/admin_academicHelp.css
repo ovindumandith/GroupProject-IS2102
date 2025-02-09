@@ -212,3 +212,27 @@ h2::after {
 .modal-content .action-btn:hover {
   background-color: #43a047;
 }
+/* Toast Message Styling */
+.toast {
+  visibility: hidden; /* Hidden by default */
+  min-width: 250px;
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed; /* Fixed position */
+  z-index: 1000; /* Above other elements */
+  right: 20px; /* 20px from the right */
+  bottom: 30px; /* 30px from the bottom */
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+/* Show the toast */
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}

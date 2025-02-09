@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,9 +20,6 @@
       href="../../assets/css/admin_home.css"
       type="text/css">
       <link href="../../assets/css/admin_academicHelp.css" rel="stylesheet" type="text/css" />
-      
-
-
   </head>
   <body>
     <!-- Header Section -->
@@ -81,7 +79,12 @@
                     <td><?php echo htmlspecialchars($question['updated_at']); ?></td>
                     <td>
                         <div class="button-group">
-                            <a href="../controller/Academic_QuestionsController.php?action=replyQuestion&id=<?php echo $question['id']; ?>" class="action-btn reply-btn">Reply</a>
+                            <button class="action-btn reply-btn" 
+                                    data-question-id="<?php echo $question['id']; ?>" 
+                                    data-student-name="<?php echo htmlspecialchars($question['full_name']); ?>" 
+                                    data-question-text="<?php echo htmlspecialchars($question['question']); ?>">
+                                Reply
+                            </button>
                             <form action="../controller/Academic_QuestionsController.php?action=deleteQuestion_admin" method="POST" style="display:inline;">
                                 <input type="hidden" name="question_id" value="<?php echo $question['id']; ?>">
                                 <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this question?');">Delete</button>
@@ -97,6 +100,65 @@
         <?php endif; ?>
     </tbody>
 </table>
+
+<!-- Modal Structure -->
+<div id="replyModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Reply to Question</h2>
+        <p><strong>Student:</strong> <span id="modal-student-name"></span></p>
+        <p><strong>Question:</strong> <span id="modal-question-text"></span></p>
+        <form id="replyForm" action="../controller/Academic_QuestionsController.php?action=replyQuestion" method="POST">
+            <input type="hidden" id="modal-question-id" name="question_id">
+            <textarea id="replyText" name="reply_text" placeholder="Type your reply here..." required></textarea>
+            <button type="submit" class="action-btn">Send Reply</button>
+        </form>
+    </div>
+</div>
+<script>
+  // Get the modal and its elements
+const modal = document.getElementById("replyModal");
+const closeBtn = document.querySelector(".close");
+const replyButtons = document.querySelectorAll(".reply-btn");
+const modalStudentName = document.getElementById("modal-student-name");
+const modalQuestionText = document.getElementById("modal-question-text");
+const modalQuestionId = document.getElementById("modal-question-id");
+
+// Function to open the modal and populate data
+function openModal(studentName, questionText, questionId) {
+    modalStudentName.textContent = studentName;
+    modalQuestionText.textContent = questionText;
+    modalQuestionId.value = questionId;
+    modal.classList.add("show");
+    modal.querySelector(".modal-content").classList.add("show");
+}
+
+// Function to close the modal
+function closeModal() {
+    modal.classList.remove("show");
+    modal.querySelector(".modal-content").classList.remove("show");
+}
+
+// Event listeners for reply buttons
+replyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const studentName = button.getAttribute("data-student-name");
+        const questionText = button.getAttribute("data-question-text");
+        const questionId = button.getAttribute("data-question-id");
+        openModal(studentName, questionText, questionId);
+    });
+});
+
+// Close modal when the close button is clicked
+closeBtn.addEventListener("click", closeModal);
+
+// Close modal when clicking outside the modal
+window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        closeModal();
+    }
+});
+</script>
 
  <!-- Footer Section -->
     <footer class="footer">
@@ -163,6 +225,55 @@
         <p>copyright 2024 @RelaxU all rights reserved</p>
       </div>
     </footer>
+    <div id="toast" class="toast">
+    <span id="toast-message"></span>
+    </div>
+    <script>
+      // Function to show toast message
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast-message");
+
+    // Set the toast message
+    toastMessage.textContent = message;
+
+    // Show the toast
+    toast.classList.add("show");
+
+    // Hide the toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+// Handle form submission
+document.getElementById("replyForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+        method: "POST",
+        body: formData,
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                // Show success toast message
+                showToast("Reply added successfully!");
+                closeModal(); // Close the modal
+                window.location.reload(); // Reload the page to reflect changes
+            } else {
+                // Show error toast message
+                showToast("Failed to add reply. Please try again.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            showToast("An error occurred. Please try again.");
+        });
+});
+    </script>
   </body>
 </html>
 

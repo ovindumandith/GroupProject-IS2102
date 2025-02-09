@@ -190,6 +190,33 @@ public function updateQuestionModalOpen() {
         exit();
     }
 }
+    public function replyQuestion() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get form data
+            $questionId = $_POST['question_id'];
+            $response = $_POST['reply_text'];
+
+            // Get the logged-in admin's ID (assuming it's stored in the session)
+            session_start();
+            if (!isset($_SESSION['user_id'])) {
+                echo json_encode(["success" => false, "message" => "Admin not logged in."]);
+                exit();
+            }
+            $adminId = $_SESSION['user_id'];
+
+            // Save the reply
+            if ($this->model->saveReply($questionId, $adminId, $response)) {
+                // Return success response
+                echo json_encode(["success" => true, "message" => "Reply added successfully!"]);
+            } else {
+                // Return error response
+                echo json_encode(["success" => false, "message" => "Failed to add reply. Please try again."]);
+            }
+            exit();
+        }
+    }
+
+
 
 
 
@@ -231,7 +258,10 @@ if (isset($_GET['action'])) {
             break;  
         case 'deleteQuestion_admin':
             $controller->deleteQuestion_admin();
-            break;      
+            break;   
+        case 'replyQuestion':
+            $controller->replyQuestion();
+            break;         
         default:
             echo 'Invalid action';
     }
