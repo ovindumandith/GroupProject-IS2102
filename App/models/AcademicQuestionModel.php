@@ -183,8 +183,6 @@ public function updateQuestionModal($questionId, $updatedQuestion) {
         return $stmt->execute();
 }
 
-
-
     // Log errors
     private function logError($errorMessage) {
         $logFile = 'error_log.txt'; // Path to your error log file

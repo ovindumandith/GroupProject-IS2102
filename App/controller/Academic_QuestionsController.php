@@ -39,7 +39,7 @@ class Academic_QuestionsController {
 
         $questions = $this->model->getAllQuestions(); // Fetch all questions from the model
 
-        include '../views/academic_questions_view.php'; // Pass the questions data to the view
+        include '../views/admin/admin_academicHelp/admin_academicHelpView.php'; // Pass the questions data to the view
     }
 
     // Method to view questions submitted by a specific user

@@ -52,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
               <li><a href="./workload.php">Workload Management Tools</a></li>
             </ul>
           </li>
-          <li><a href="#">Academic Help</a></li>
+          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
           <li><a href="#">Counseling</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
