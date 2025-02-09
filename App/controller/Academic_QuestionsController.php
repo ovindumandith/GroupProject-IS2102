@@ -99,6 +99,22 @@ class Academic_QuestionsController {
             }
         }
     }
+        public function deleteQuestion_admin() {
+        session_start();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['question_id'])) {
+            $questionId = $_POST['question_id'];
+
+            if ($this->model->deleteQuestion($questionId)) {
+                $_SESSION['success'] = 'Your question has been deleted successfully.';
+                header('Location: Academic_QuestionsController.php?action=viewAllQuestions');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Failed to delete the question.';
+                header('Location: Academic_QuestionsController.php?action=viewAllQuestions');
+                exit();
+            }
+        }
+    }
 
     // Method to update the status of an academic question
     public function updateQuestionStatus() {
@@ -212,7 +228,10 @@ if (isset($_GET['action'])) {
             break;   
         case 'updateQuestionModalOpen':
             $controller->updateQuestionModalOpen();
-            break;    
+            break;  
+        case 'deleteQuestion_admin':
+            $controller->deleteQuestion_admin();
+            break;      
         default:
             echo 'Invalid action';
     }

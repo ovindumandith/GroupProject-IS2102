@@ -1,26 +1,26 @@
-.student-questions {
-  font-size: 2.5rem; /* Increase font size for emphasis */
-  font-weight: 700; /* Make it bold */
-  color: #006d58; /* Darker green tone for better contrast */
-  text-align: center; /* Center align the text */
-  margin: 20px 0; /* Add spacing around */
-  letter-spacing: 2px; /* Add spacing between letters for elegance */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  position: relative; /* Position for decorative elements */
+/* Heading Styling */
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-/* Decorative line below the heading */
-.student-questions::after {
+/* Decorative underline */
+h2::after {
   content: "";
   display: block;
-  width: 50px; /* Length of the line */
-  height: 4px; /* Thickness of the line */
-  background-color: #004d40; /* Even darker green for contrast */
-  margin: 10px auto 0; /* Center line below the heading */
-  border-radius: 2px; /* Slightly rounded edges */
+  width: 50px;
+  height: 4px;
+  background-color: #004d40;
+  margin: 10px auto 0;
+  border-radius: 2px;
 }
 
-/* General Table Styling */
 /* General table styling */
 .questions-table {
   width: 100%;
@@ -37,7 +37,6 @@
 /* Table header styling */
 .questions-table thead {
   background-color: #009f77;
-  color: white;
 }
 
 .questions-table th,
