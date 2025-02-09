@@ -3,7 +3,6 @@
 require_once '../models/ScheduleEvent.php';
 
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ensure proper JSON header
     header('Content-Type: application/json');
