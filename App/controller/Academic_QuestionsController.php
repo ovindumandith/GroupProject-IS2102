@@ -42,6 +42,16 @@ class Academic_QuestionsController {
         include '../views/admin/admin_academicHelp/admin_academicHelpView.php'; // Pass the questions data to the view
     }
 
+        public function viewAllQuestions_hous() {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: login.php'); // Redirect if not logged in
+            exit();
+        }
+        $questions = $this->model->getAllQuestions(); // Fetch all questions from the model
+        include '../views/houg/view_academicQuestions.php'; // Pass the questions data to the view
+    }
+
     // Method to view questions submitted by a specific user
     public function viewUserQuestions() {
         session_start();
@@ -261,7 +271,10 @@ if (isset($_GET['action'])) {
             break;   
         case 'replyQuestion':
             $controller->replyQuestion();
-            break;         
+            break;  
+        case 'viewAllQuestions_hous':
+            $controller->viewAllQuestions_hous();
+            break;           
         default:
             echo 'Invalid action';
     }

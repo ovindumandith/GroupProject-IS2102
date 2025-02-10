@@ -7,8 +7,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
     exit();
 }
 
-// Retrieve academic requests from the session
-$pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_questions'] : [];
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +38,7 @@ $pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_q
       <nav class="navbar">
         <ul>
           <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
-          <li><a href="#">Academic Requests</a></li>
+          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
            <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
 
         </ul>
@@ -57,66 +56,6 @@ $pendingQuestions = isset($_SESSION['pending_questions']) ? $_SESSION['pending_q
         </form>
       </div>
     </header>
-
-    <?php if (count($pendingQuestions) > 0): ?>
-        <script src="../../../assets/js/search_academic_requests.js" defer></script>
-        <div class="search-container">
-    <input type="text" id="searchInput" class="search-bar" placeholder="Search requests..." onkeyup="searchTable()">
-</div>
-       <div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Index</th>
-                <th>Reg_No</th>
-                <th>Full Name</th>
-                <th>Faculty</th>
-                <th>Email</th>
-                <th>Telephone</th>
-                <th>Question</th>
-                <th>Submitted At</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($pendingQuestions as $question): ?>
-                <tr>
-                    <td><?= htmlspecialchars($question['id']); ?></td>
-                    <td><?= htmlspecialchars($question['index_no']); ?></td>
-                    <td><?= htmlspecialchars($question['reg_no']); ?></td>
-                    <td><?= htmlspecialchars($question['full_name']); ?></td>
-                    <td><?= htmlspecialchars($question['faculty']); ?></td>
-                    <td><?= htmlspecialchars($question['email']); ?></td>
-                    <td><?= htmlspecialchars($question['telephone']); ?></td>
-                    <td><?= htmlspecialchars($question['question']); ?></td>
-                    <td><?= htmlspecialchars($question['created_at']); ?></td>
-                    <td><?= htmlspecialchars($question['status']); ?></td>
-                    <td>
-                        <form action="reply.php" method="post" style="display:inline;">
-                            <input type="hidden" name="question_id" value="<?= htmlspecialchars($question['id']); ?>">
-                            <button type="submit" class="btn btn-primary">Reply</button>
-                        </form><br>
-                        <form action="delete.php" method="post" style="display:inline;">
-                            <input type="hidden" name="question_id" value="<?= htmlspecialchars($question['id']); ?>">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                        </form>
-                        <form action="forward.php" method="post" style="display:inline;">
-                            <input type="hidden" name="question_id" value="<?= htmlspecialchars($question['id']); ?>">
-                            <button type="submit" class="btn btn-warning">Forward</button>
-                        </form>
-            </td>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
-
-    <?php else: ?>
-        <p>No pending academic requests at the moment.</p>
-    <?php endif; ?>
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-logo">
