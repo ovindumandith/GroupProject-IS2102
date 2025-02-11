@@ -126,6 +126,23 @@ class Academic_QuestionsController {
         }
     }
 
+        public function deleteQuestion_hous() {
+        session_start();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['question_id'])) {
+            $questionId = $_POST['question_id'];
+
+            if ($this->model->deleteQuestion($questionId)) {
+                $_SESSION['success'] = 'Your question has been deleted successfully.';
+                header('Location: Academic_QuestionsController.php?action=viewAllQuestions_hous');
+                exit();
+            } else {
+                $_SESSION['error'] = 'Failed to delete the question.';
+                header('Location: Academic_QuestionsController.php?action=viewAllQuestions_hous');
+                exit();
+            }
+        }
+    }
+
     // Method to update the status of an academic question
     public function updateQuestionStatus() {
         session_start();
@@ -222,6 +239,35 @@ public function updateQuestionModalOpen() {
                 // Return error response
                 echo json_encode(["success" => false, "message" => "Failed to add reply. Please try again."]);
             }
+            header('Location: Academic_QuestionsController.php?action=viewAllQuestions_hous');
+            exit();
+        }
+    }
+        public function replyQuestion_hous() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get form data
+            $questionId = $_POST['question_id'];
+            $response = $_POST['reply_text'];
+
+            // Get the logged-in admin's ID (assuming it's stored in the session)
+            session_start();
+            if (!isset($_SESSION['user_id'])) {
+                echo json_encode(["success" => false, "message" => "Head of Undergraduate Studies not logged in."]);
+                exit();
+            }
+            $adminId = $_SESSION['user_id'];
+
+            // Save the reply
+            if ($this->model->saveReply($questionId, $adminId, $response)) {
+                // Set success message
+                $_SESSION['message'] = "Reply added successfully!";
+            } else {
+                // Set error message
+                $_SESSION['message'] = "Failed to add reply. Please try again.";
+            }
+
+            // Redirect back to the admin view
+            header('Location: Academic_QuestionsController.php?action=viewAllQuestions_hous');
             exit();
         }
     }
@@ -274,7 +320,13 @@ if (isset($_GET['action'])) {
             break;  
         case 'viewAllQuestions_hous':
             $controller->viewAllQuestions_hous();
-            break;           
+            break;  
+        case 'deleteQuestion_hous': 
+            $controller->deleteQuestion_hous();
+            break;  
+        case 'replyQuestion_hous':  
+            $controller->replyQuestion_hous();
+            break;                   
         default:
             echo 'Invalid action';
     }

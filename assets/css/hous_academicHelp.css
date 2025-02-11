@@ -236,3 +236,22 @@ h2::after {
   visibility: visible;
   opacity: 1;
 }
+/* Search Bar Styling */
+.search-container {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+#searchBar {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+}
+
+#searchBar:focus {
+  border-color: #009f77;
+  box-shadow: 0 0 5px rgba(0, 159, 119, 0.5);
+}

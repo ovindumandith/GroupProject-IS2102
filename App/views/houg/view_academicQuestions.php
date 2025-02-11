@@ -10,19 +10,19 @@
     />
     <link
       rel="stylesheet"
-      href="../../../assets/css/header_footer.css"
+      href="../../assets/css/header_footer.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../../../assets/css/houg_home.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/houg_home.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/hous_academicHelp.css" type="text/css" />
 
-    <script src="../../../assets/js/search_academic_requests.js" defer></script>
+    <script src="../../assets/js/searchacademic_requestsHOUS.js" defer></script>
   </head>
   <body>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
-        <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
       <nav class="navbar">
@@ -41,7 +41,7 @@
 
     
         <!-- Logout button form -->
-        <form action="../../../util/logout.php" method="POST" style="display: inline;">
+        <form action="../../util/logout.php" method="POST" style="display: inline;">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
@@ -49,6 +49,11 @@
     <body>
 
 <h2>Academic Help Questions</h2>
+
+<!-- Search Bar -->
+<div class="search-container">
+    <input type="text" id="searchBar" placeholder="Search by student name..." />
+</div
 
 
 <table class="questions-table">
@@ -81,10 +86,6 @@
                                     data-question-text="<?php echo htmlspecialchars($question['question']); ?>">
                                 Reply
                             </button>
-                            <form action="../controller/Academic_QuestionsController.php?action=deleteQuestion_admin" method="POST" style="display:inline;">
-                                <input type="hidden" name="question_id" value="<?php echo $question['id']; ?>">
-                                <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this question?');">Delete</button>
-                            </form>
                         </div>
                     </td>
                 </tr>
@@ -104,7 +105,7 @@
         <h2>Reply to Question</h2>
         <p><strong>Student:</strong> <span id="modal-student-name"></span></p>
         <p><strong>Question:</strong> <span id="modal-question-text"></span></p>
-        <form id="replyForm" action="../controller/Academic_QuestionsController.php?action=replyQuestion" method="POST">
+        <form id="replyForm" action="../controller/Academic_QuestionsController.php?action=replyQuestion_hous" method="POST">
             <input type="hidden" id="modal-question-id" name="question_id">
             <textarea id="replyText" name="reply_text" placeholder="Type your reply here..." required></textarea>
             <button type="submit" class="action-btn">Send Reply</button>
@@ -162,7 +163,7 @@ window.addEventListener("click", (event) => {
           <p>Your mental health, your priority.</p>
           <img
             id="footer-logo"
-            src="../../../assets/images/logo.jpg"
+            src="../../assets/images/logo.jpg"
             alt="RelaxU Logo"
           />
         </div>
