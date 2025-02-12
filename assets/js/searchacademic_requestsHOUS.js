@@ -18,3 +18,8 @@ function filterTable() {
 
 // Add event listener to the search bar
 document.getElementById("searchBar").addEventListener("input", filterTable);
+
+// Add event listener to the search icon
+document.querySelector(".search-icon").addEventListener("click", () => {
+  filterTable(); // Trigger search when the icon is clicked
+});

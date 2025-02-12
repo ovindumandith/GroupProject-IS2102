@@ -2,7 +2,6 @@
 require_once '../models/LecturerModel.php';
 
 class LecturerController {
-
     private $lecturerModel;
 
     public function __construct() {
@@ -10,30 +9,39 @@ class LecturerController {
     }
 
     public function showLecturers() {
-        // Fetch all lecturers from the model
+        session_start();
+        
+        // Redirect if not logged in
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ../views/auth/login.php'); 
+            exit();
+        }
+
+        // Fetch lecturers
         $lecturers = $this->lecturerModel->getAllLecturers();
 
-        // Check if any lecturers were found
-        if ($lecturers) {
-            // Pass the lecturers data to the view
-            include '../views/houg/view_lecturers.php';
-        } else {
-            // If no lecturers found, display a message
-            echo "<p>No lecturers found.</p>";
+        // Ensure $lecturers is always an array
+        if (!$lecturers) {
+            $lecturers = []; 
         }
-    }
-    public function viewLecturer($id){
-        
-    }
 
-    
+        // Load the view
+        require_once '../views/houg/view_lecturers.php'; 
+    }
 }
-$controller = new LecturerController();
-$action = isset($_GET['action']) ? $_GET['action'] : 'list';
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
-if ($action === 'viewCounselor' && $id > 0) {
-    $controller->viewLecturer($id); // Show counselor's profile with reviews
-}else {
-    $controller->showLecturers(); // List all counselors
+// Instantiate the controller
+$controller = new LecturerController();
+
+// Check if an action is provided
+$action = isset($_GET['action']) ? $_GET['action'] : 'showLecturers';
+
+// Execute the requested action
+switch ($action) {
+    case 'showLecturers':
+        $controller->showLecturers();
+        break;
+    default:
+        echo '<p style="color: red;">Invalid action</p>';
+        break;
 }

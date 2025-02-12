@@ -15,6 +15,8 @@
     />
     <link rel="stylesheet" href="../../assets/css/houg_home.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/hous_academicHelp.css" type="text/css" />
+    <!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="../../assets/js/searchacademic_requestsHOUS.js" defer></script>
   </head>
@@ -27,8 +29,8 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
-          <li><a href="#">Academic Requests</a></li>
+          <li><a href="../views/houg/houg_home.php">Dashboard</a></li>
+          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
            <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
 
         </ul>
@@ -47,15 +49,18 @@
       </div>
     </header>
     <body>
-
+      <br>
 <h2>Academic Help Questions</h2>
 
 <!-- Search Bar -->
 <div class="search-container">
-    <input type="text" id="searchBar" placeholder="Search by student name..." />
-</div
+    <div class="search-box">
+        <input type="text" id="searchBar" placeholder="Search by student name..." />
+        <i class="fas fa-search search-icon"></i>
+    </div>
+</div>
 
-
+<!-- Questions Table -->
 <table class="questions-table">
     <thead>
         <tr>
@@ -73,7 +78,7 @@
             <?php foreach ($questions as $question): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($question['id']); ?></td>
-                    <td><?php echo htmlspecialchars($question['full_name']); ?></td>
+                    <td class="student-name"><?php echo htmlspecialchars($question['full_name']); ?></td>
                     <td><?php echo htmlspecialchars($question['question']); ?></td>
                     <td><?php echo htmlspecialchars($question['status']); ?></td>
                     <td><?php echo htmlspecialchars($question['created_at']); ?></td>

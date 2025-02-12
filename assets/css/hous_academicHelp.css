@@ -236,22 +236,66 @@ h2::after {
   visibility: visible;
   opacity: 1;
 }
-/* Search Bar Styling */
+/*Search Bar */
+
 .search-container {
-  margin-bottom: 20px;
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: 80px;
+  margin-top: 20px; /* Adjust as needed */
 }
 
-#searchBar {
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ddd;
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 8px;
   border-radius: 5px;
+  background: #fff;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.search-icon {
+  margin-left: 8px;
+  color: #555;
+}
+
+/* Search Input Styling */
+#searchBar {
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* Add padding for the icon */
+  border: 2px solid #009f77;
+  border-radius: 25px; /* Rounded corners */
   font-size: 1rem;
   outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #searchBar:focus {
-  border-color: #009f77;
-  box-shadow: 0 0 5px rgba(0, 159, 119, 0.5);
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Add a glow effect */
+}
+
+/* Search Icon Styling */
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #009f77;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.search-icon:hover {
+  color: #007bff; /* Change icon color on hover */
 }
