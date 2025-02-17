@@ -398,6 +398,16 @@ body {
   font-size: 1em;
 }
 
+<<<<<<< Updated upstream
+=======
+.cmnt-img {
+  width: 5%;
+  height: auto;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+>>>>>>> Stashed changes
 /* Pagination */
 .pagination {
   text-align: center;

@@ -100,9 +100,14 @@ if (!isset($_SESSION['user_id'])) {
           We all face challenges, and sometimes, those challenges feel insurmountable. In this heartfelt post, I share my personal experience with mental health struggles, how they impacted my life, and the steps I took to regain control. From practicing mindfulness to embracing self-care routines, this journey was filled with ups and downs, but it ultimately led to a stronger, healthier version of myself. I hope my story inspires you to take that first step toward prioritizing your mental well-being. Join the conversation, share your story, or simply know that you’re not alone in this.
           </p>
           <div class="post-footer">
+<<<<<<< Updated upstream
             <button class="like-btn"><img src="../../assets/images/React.png" alt="Share" class="cmt-img"> ❤️ 50 Likes</button>
             <button class="comment-btn"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"> 2 Comments</button>
             <button class="share-btn"><img src="../../assets/images/Share.png" alt="Share" class="share-img"></button>
+=======
+            <button class="like-btn"> ❤️ 50 Likes</button>
+            <button class="cmt-btn"> <img src="../../assets/images/Comment.png" alt="Cmt" class="cmt-img"> 3 Comments</button>
+>>>>>>> Stashed changes
           </div>
           <small>Posted on: 2024-12-02 17:57:46 </small>
         </article>
@@ -119,9 +124,14 @@ if (!isset($_SESSION['user_id'])) {
           Life can be overwhelming, and sometimes finding time to relax feels impossible. But even a short break can make a difference! This post introduces quick and practical relaxation methods, like focused deep breathing, mindful stretching, or even a five-minute guided meditation. These techniques are designed to fit into your busiest days, helping you recharge your mind and body. Whether you’re at work, studying, or managing multiple responsibilities, take a moment to explore these simple ways to restore balance to your life.
           </p>
           <div class="post-footer">
+<<<<<<< Updated upstream
             <button class="like-btn"><img src="../../assets/images/React.png" alt="Share" class="cmt-img"> ❤️ 50 Likes</button>
             <button class="comment-btn"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"> 2 Comments</button>
             <button class="share-btn"><img src="../../assets/images/Share.png" alt="Share" class="share-img"></button>       
+=======
+            <button class="like-btn"> ❤️ 50 Likes</button>
+            <button class="cmt-btn"> <img src="../../assets/images/Comment.png" alt="Cmt" class="cmt-img"> 3 Comments</button>
+>>>>>>> Stashed changes
           </div>
           <small>Posted on: 2024-12-01 01:57:30 </small>
         </article>
@@ -138,9 +148,14 @@ if (!isset($_SESSION['user_id'])) {
           Feeling tense or overwhelmed? Moving your body might be the solution! This post delves into how physical activity not only strengthens your body but also calms your mind. Whether it’s a quick walk, a yoga session, or an intense workout, exercise releases endorphins—your body’s natural stress relievers. We’ll explore the best types of exercises for stress reduction and how you can fit them into your daily routine, no matter how busy life gets. Start small, and let movement transform your mood and energy levels!
           </p>
           <div class="post-footer">
+<<<<<<< Updated upstream
             <button class="like-btn"><img src="../../assets/images/React.png" alt="Share" class="cmt-img"> ❤️ 50 Likes</button>
             <button class="share-btn"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"> 2 Comments</button>
             <button class="share-btn"><img src="../../assets/images/Share.png" alt="Share" class="share-img"></button>
+=======
+            <button class="like-btn"> ❤️ 50 Likes</button>
+            <a href="a href="../../views/comment.php"><button class="cmt-btn"> <img src="../../assets/images/Comment.png" alt="Cmt" class="cmt-img"> 3 Comments</button></a>
+>>>>>>> Stashed changes
           </div>
             <small>Posted on: 2024-11-30 15:57:49 </small>
         </article>
@@ -157,6 +172,14 @@ if (!isset($_SESSION['user_id'])) {
                     <img src="<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
                 <?php endif; ?>
                 <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
+<<<<<<< Updated upstream
+=======
+                <br><hr>
+          <div class="post-footer">
+            <button class="like-btn"> ❤️ 50 Likes</button>
+            <button class="cmt-btn"> <img src="../../assets/images/Comment.png" alt="Cmt" class="cmt-img"> 3 Comments</button>
+          </div>
+>>>>>>> Stashed changes
                 <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
             </div>
         <?php endforeach; ?>
