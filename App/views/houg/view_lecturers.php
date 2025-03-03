@@ -14,7 +14,7 @@
         <div class="lecturer-grid">
             <?php foreach ($lecturers as $lecturer): ?>
                 <div class="lecturer-card">
-                    <img src="../public/uploads/<?php echo !empty($lecturer['profile_img']) ? htmlspecialchars($lecturer['profile_img']) : 'default.png'; ?>" 
+                    <img src="../../public/uploads/<?php echo !empty($lecturer['profile_img']) ? htmlspecialchars($lecturer['profile_img']) : 'default.png'; ?>" 
                          alt="Profile Image" class="lecturer-img">
                     
                     <h3><?php echo htmlspecialchars($lecturer['name']); ?></h3>
