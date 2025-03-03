@@ -24,7 +24,10 @@ if (!isset($_SESSION['user_id'])) {
             <div class="header-left">
                 <img src="../../assets/images/STRESS.png" alt="Header Image" class="header-image">
             </div>
+            
             <div class="header-right">
+            <button class="c-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+            <br><br>
                 <h1>Create Your Post</h1>
                 <hr>
             </div>
@@ -35,8 +38,8 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="profile-section">
                     <img src="../../assets/images/Account.png" alt="Profile" class="profile-img">   
                     <!-- Automatically populate user_id from session -->
-            <input type="text" class="username-btn" name="user_id" value="<?php echo $_SESSION['user_id'];?>" readonly>
-                </div>
+            <input type="text" class="username-btn" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" readonly>
+       </div>
                 <br/><br/>
                 <input type="text" class="title-input" name="title" placeholder="Title" required><br/>
                 <div class="upload-box">
