@@ -15,8 +15,12 @@ if (!isset($_SESSION['user_id'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Community Blog</title>
+  <link rel="stylesheet" href="../../assets/css/header_footer.css" />
   <link rel="stylesheet" href="../../assets/css/Community.css">
   <script defer src="../../assets/js/Community1.js"></script>
+  <script src="../../assets/js/hero_slider.js" defer></script>
+  <script src="../../assets/js/testimonial_slider.js" defer></script>
+  <script src="../../assets/js/counter.js" defer></script>
 </head>
   <body>
     <!-- Header Section -->
@@ -50,20 +54,37 @@ if (!isset($_SESSION['user_id'])) {
       </div>
     </header>
 
-    <!-- Content Section (for demonstration) -->
-    <header class="community-header">
-      <h1>Community</h1>
-      <p>
-        Welcome to our Community Hub: Connect, Share, and Inspire! <br>
-        Discover stories, share ideas, and be part of meaningful conversations. Let's build a supportive space where everyone's voice matters.
-      </p>
-      <!-- Added Image -->
-      <div class="header-image">
-        <img src="../../assets/images/Commu.png" alt="Community Banner">
-      </div>
-    </header>
+    <section class="hero">
+    <h1>JOIN OUR COMMUNITY</h1>
+        <div class="hero-content">
+            <p>Create authentic relationships for your audience.</p>
+            <button class="btn">Get Started</button><br>
+        </div>
+
+          <div class="image-slider">
+          <h2>How its work<h2><br>
+          <div class="image-slide active">
+            <img src="../../assets/images/comm1.png" alt="Image 1" />
+            <h3>“Success is not final; failure is not fatal: It is the courage to continue that counts.”<br>
+                –  Discover stories  –</h3>
+          </div>
+          <div class="image-slide">
+            <img src="../../assets/images/comm2.png" alt="Image 2" />
+            <h3>“You are never too old to set another goal or to dream a new dream.” <br>
+             –  Share ideas  – </h3>
+          </div>
+          <div class="image-slide">
+            <img src="../../assets/images/comm3.png" alt="Image 3" />
+            <h3>“The greatest weapon against stress is our ability to choose one thought over another.”<br>
+             –  Build a supportive space  –</h3>
+          </div>
+          <div class="slider-buttons">
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+          </div>
+          </div>
+    </section>
     
-  
     <section class="blog-section">
       <div class="search-bar">
         <input type="text" placeholder="Search posts..." id="search-input">
@@ -72,17 +93,12 @@ if (!isset($_SESSION['user_id'])) {
   
       <br>
       
-  
         <section class="blog-section">
           <div class="search-bar">
-            <a id="manage-post-btn" href="/GroupProject-IS2102/App/views/create_post.php" class="styled-button">Create your post</a>
+            <a href="/GroupProject-IS2102/App/views/create_post.php" class="styled-button">Create your post</a>       
+            <a href="/GroupProject-IS2102/App/views/manage_post.php" class="styled-button">Your Personal Posts</a>
           </div>
-  
-          <section class="blog-section">
-          <div class="search-bar">
-            <a id="manage-post-btn" href="/GroupProject-IS2102/App/views/manage_post.php" class="styled-button">Your Previous Posts</a>
-          </div>
-  
+          <br>
           <div class="blog-section">
               <h2>Our Blog For You</h2>
           </div>
@@ -95,15 +111,17 @@ if (!isset($_SESSION['user_id'])) {
             <h4>Camy</h4>
           </div>
           <h3>My Journey to Better Mental Health</h3>
-          <img src="../../assets/images/Post1.png" alt="Post Image" class="post-img">
+          <br>
+          <img src="../../assets/images/Post1.png" alt="Post Image" class="post-img"><br>
           <p>
           We all face challenges, and sometimes, those challenges feel insurmountable. In this heartfelt post, I share my personal experience with mental health struggles, how they impacted my life, and the steps I took to regain control. From practicing mindfulness to embracing self-care routines, this journey was filled with ups and downs, but it ultimately led to a stronger, healthier version of myself. I hope my story inspires you to take that first step toward prioritizing your mental well-being. Join the conversation, share your story, or simply know that you’re not alone in this.
-          </p>
+          </p><br><hr>
           <div class="post-footer">
-            <button class="like-btn"><img src="../../assets/images/React.png" alt="Share" class="cmt-img"> ❤️ 50 Likes</button>
-            <button class="comment-btn"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"> 2 Comments</button>
-            <button class="share-btn"><img src="../../assets/images/Share.png" alt="Share" class="share-img"></button>
-          </div>
+              <button class="like-btn"> ❤️ 30 Likes</button>
+              <a href="/GroupProject-IS2102/App/views/comment_post.php">
+                <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+              </a>
+            </div>
           <small>Posted on: 2024-12-02 17:57:46 </small>
         </article>
   
@@ -113,15 +131,16 @@ if (!isset($_SESSION['user_id'])) {
             <img src="../../assets/images/Account.png" alt="Profile" class="profile-pic">
             <h4>Julian</h4>
           </div>
-          <h3>5-Minute Relaxation Techniques for Busy Days</h3>
-          <img src="../../assets/images/Post2.png" alt="Post Image" class="post-img">
+          <h3>5-Minute Relaxation Techniques for Busy Days</h3><br>
+          <img src="../../assets/images/Post2.png" alt="Post Image" class="post-img"><br>
           <p>
           Life can be overwhelming, and sometimes finding time to relax feels impossible. But even a short break can make a difference! This post introduces quick and practical relaxation methods, like focused deep breathing, mindful stretching, or even a five-minute guided meditation. These techniques are designed to fit into your busiest days, helping you recharge your mind and body. Whether you’re at work, studying, or managing multiple responsibilities, take a moment to explore these simple ways to restore balance to your life.
-          </p>
+          </p><br><hr>
           <div class="post-footer">
-            <button class="like-btn"><img src="../../assets/images/React.png" alt="Share" class="cmt-img"> ❤️ 50 Likes</button>
-            <button class="comment-btn"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"> 2 Comments</button>
-            <button class="share-btn"><img src="../../assets/images/Share.png" alt="Share" class="share-img"></button>       
+              <button class="like-btn"> ❤️ 30 Likes</button>
+              <a href="/GroupProject-IS2102/App/views/comment_post.php">
+                <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+              </a>
           </div>
           <small>Posted on: 2024-12-01 01:57:30 </small>
         </article>
@@ -132,15 +151,16 @@ if (!isset($_SESSION['user_id'])) {
             <img src="../../assets/images/Account.png" alt="Profile" class="profile-pic">
             <h4>Stefan</h4>
           </div>
-          <h3>How Exercise Can Help You Beat Stress</h3>
-          <img src="../../assets/images/Post3.png" alt="Post Image" class="post-img">
+          <h3>How Exercise Can Help You Beat Stress</h3><br>
+          <img src="../../assets/images/Post3.png" alt="Post Image" class="post-img"><br>
           <p>
           Feeling tense or overwhelmed? Moving your body might be the solution! This post delves into how physical activity not only strengthens your body but also calms your mind. Whether it’s a quick walk, a yoga session, or an intense workout, exercise releases endorphins—your body’s natural stress relievers. We’ll explore the best types of exercises for stress reduction and how you can fit them into your daily routine, no matter how busy life gets. Start small, and let movement transform your mood and energy levels!
-          </p>
+          </p><br><hr>
           <div class="post-footer">
-            <button class="like-btn"><img src="../../assets/images/React.png" alt="Share" class="cmt-img"> ❤️ 50 Likes</button>
-            <button class="share-btn"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"> 2 Comments</button>
-            <button class="share-btn"><img src="../../assets/images/Share.png" alt="Share" class="share-img"></button>
+              <button class="like-btn"> ❤️ 30 Likes</button>
+              <a href="/GroupProject-IS2102/App/views/comment_post.php">
+                <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+              </a>
           </div>
             <small>Posted on: 2024-11-30 15:57:49 </small>
         </article>
@@ -151,12 +171,21 @@ if (!isset($_SESSION['user_id'])) {
     <?php if (!empty($posts)): ?>
         <?php foreach ($posts as $post): ?>
             <div class="post">
+            <div class="post-header">
                 <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <?= htmlspecialchars($post['username']) ?></h4>
-                <h3><?= htmlspecialchars($post['title']) ?></h3>
+            </div>
+                <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
                 <?php if ($post['image']): ?>
                     <img src="<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
                 <?php endif; ?>
                 <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
+                <br><hr>
+                <div class="post-footer">
+                  <button class="like-btn"> ❤️ 30 Likes</button>
+                  <a href="/GroupProject-IS2102/App/views/comment_post.php">
+                      <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+                  </a>
+                </div>
                 <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
             </div>
         <?php endforeach; ?>
