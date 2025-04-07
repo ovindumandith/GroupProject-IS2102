@@ -1,208 +1,234 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styling */
 .student-questions {
-  font-size: 2.5rem; /* Increase font size for emphasis */
-  font-weight: 700; /* Make it bold */
-  color: #006d58; /* Darker green tone for better contrast */
-  text-align: center; /* Center align the text */
-  margin: 20px 0; /* Add spacing around */
-  letter-spacing: 2px; /* Add spacing between letters for elegance */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  position: relative; /* Position for decorative elements */
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #006d58;
+    text-align: center;
+    margin: 20px 0;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-/* Decorative line below the heading */
 .student-questions::after {
-  content: "";
-  display: block;
-  width: 50px; /* Length of the line */
-  height: 4px; /* Thickness of the line */
-  background-color: #004d40; /* Even darker green for contrast */
-  margin: 10px auto 0; /* Center line below the heading */
-  border-radius: 2px; /* Slightly rounded edges */
+    content: "";
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: #004d40;
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
-/* General Table Styling */
-/* General table styling */
+/* Table Styling */
 .questions-table {
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px auto;
-  border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  background-color: #fff;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    background-color: #fff;
 }
 
-/* Table header styling */
 .questions-table thead {
-  background-color: #009f77;
-  color: white;
+    background-color: #009f77;
+    color: white;
 }
 
 .questions-table th,
 .questions-table td {
-  padding: 15px;
-  font-size: 1rem;
-  border-bottom: 1px solid #ddd;
+    padding: 15px;
+    font-size: 1rem;
+    border-bottom: 1px solid #ddd;
 }
 
 .questions-table th {
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* Table row styling */
 .questions-table tbody tr {
-  transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .questions-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+    background-color: #f9f9f9;
 }
 
 .questions-table tbody tr:hover {
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 /* Actions Column Styling */
-.questions-table td .action-btn {
-  display: inline-block;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  margin: 2px;
-}
-
-/* Button Group Styling */
 .button-group {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
 }
 
-/* Reply Button */
-.action-btn.reply-btn {
-  background-color: #2196f3;
+.action-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    margin: 2px;
 }
 
-.action-btn.reply-btn:hover {
-  background-color: #1e88e5;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+/* View Button */
+.view-btn {
+    background-color: #2196f3;
+}
+
+.view-btn:hover {
+    background-color: #1e88e5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+}
+
+/* Update Button */
+.update-btn {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.update-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
 }
 
 /* Delete Button */
-.action-btn.delete-btn {
-  background-color: #f44336;
+.delete-btn {
+    background-color: #f44336;
 }
 
-.action-btn.delete-btn:hover {
-  background-color: #e53935;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+.delete-btn:hover {
+    background-color: #e53935;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
 }
 
-.action-btn.delete-btn:active {
-  background-color: #d32f2f;
-  transform: translateY(0);
+.delete-btn:active {
+    background-color: #d32f2f;
+    transform: translateY(0);
 }
 
 /* No Questions Found Message */
-.questions-table tbody tr td[colspan="7"] {
-  text-align: center;
-  padding: 20px;
-  color: #6c757d;
-  font-style: italic;
-  font-size: 1.1rem;
+.questions-table tbody tr td[colspan="8"] {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 1.1rem;
 }
 
 /* Modal Styling */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .modal.show {
-  display: flex; /* Show modal when 'show' class is added */
-  opacity: 1;
+    display: flex;
+    opacity: 1;
 }
 
 /* Modal Content */
 .modal-content {
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  width: 500px;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(0.8);
-  transition: transform 0.3s ease-in-out;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 500px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(0.8);
+    transition: transform 0.3s ease-in-out;
 }
 
 .modal-content.show {
-  transform: scale(1); /* Scale up when 'show' class is added */
+    transform: scale(1);
 }
 
 /* Close Button */
 .close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #777;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #777;
 }
 
 .close:hover {
-  color: #f44336;
+    color: #f44336;
 }
 
 /* Textarea */
 .modal-content textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  resize: vertical;
-  margin-top: 10px;
-  min-height: 150px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    resize: vertical;
+    margin-top: 10px;
+    min-height: 150px;
 }
 
-/* Send Reply Button */
+/* Save Changes Button */
 .modal-content .action-btn {
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  background-color: #4caf50;
-  color: white;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
 }
 
 .modal-content .action-btn:hover {
-  background-color: #43a047;
+    background-color: #43a047;
 }
