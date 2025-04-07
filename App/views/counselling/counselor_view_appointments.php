@@ -154,7 +154,7 @@ if (isset($_SESSION['status_update_error'])) {
                 <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
                 <button type="submit" name="status" value="Denied" class="action-btn reject-btn">Reject</button>
             </form>
-            <a href="../../controller/AppointmentController.php?action=viewStudentStressTrend&student_id=<?= htmlspecialchars($appointment['student_id']) ?>&appointment_id=<?= htmlspecialchars($appointment['id']) ?>" class="action-btn" style="background-color: #2196F3; display: inline-block; margin-top: 5px; text-decoration: none; color: white;">View Stress Trend</a>
+            <a href="/GroupProject-IS2102/App/controller/AppointmentController.php?action=viewStudentStressTrend&student_id=<?= htmlspecialchars($appointment['student_id']) ?>&appointment_id=<?= htmlspecialchars($appointment['id']) ?>" class="action-btn" style="background-color: #2196F3; display: inline-block; margin-top: 5px; text-decoration: none; color: white;">View Stress Trend</a>
         </td>
     </tr>
 <?php endforeach; ?>

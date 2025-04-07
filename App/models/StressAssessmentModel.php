@@ -105,6 +105,28 @@ class StressAssessmentModel {
             return 'Low';
         }
     }
+    /**
+ * Get all stress assessments for admin view
+ * 
+ * @return array All assessment records
+ */
+public function getAllStressAssessments() {
+    try {
+        $query = 'SELECT sa.*, u.name as student_name, u.user_id 
+                  FROM stress_assessment sa
+                  JOIN users u ON sa.user_id = u.user_id
+                  WHERE u.role = "student"
+                  ORDER BY sa.assessment_date DESC';
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        $this->logError($e->getMessage());
+        return false;
+    }
+}
+
+
 
     /**
      * Retrieve all stress assessment records for a user
@@ -115,9 +137,9 @@ class StressAssessmentModel {
     public function getStressAssessmentRecords($userId) {
         try {
             $query = 'SELECT assessment_id, section1_score, section2_score, stress_level, assessment_date 
-                    FROM stress_assessment 
-                    WHERE user_id = :user_id 
-                    ORDER BY assessment_date DESC';
+                      FROM stress_assessment 
+                      WHERE user_id = :user_id 
+                      ORDER BY assessment_date DESC';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
             $stmt->execute();
@@ -147,52 +169,52 @@ class StressAssessmentModel {
         }
     }
 
-/**
- * Get student's stress trend over time - modified to work for counselor view
- * 
- * @param int $userId Student ID 
- * @param int $limit Number of records to retrieve (default 10)
- * @return array Assessment records with stress levels
- */
-public function getStressTrend($userId, $limit = 10) {
-    try {
-        $query = 'SELECT assessment_id, section1_score, section2_score, stress_level, assessment_date 
-                FROM stress_assessment 
-                WHERE user_id = :user_id 
-                ORDER BY assessment_date ASC 
-                LIMIT :limit';
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        $this->logError($e->getMessage());
-        return false;
+    /**
+     * Get student's stress trend over time - modified to work for counselor view
+     * 
+     * @param int $userId Student ID 
+     * @param int $limit Number of records to retrieve (default 10)
+     * @return array Assessment records with stress levels
+     */
+    public function getStressTrend($userId, $limit = 10) {
+        try {
+            $query = 'SELECT assessment_id, section1_score, section2_score, stress_level, assessment_date 
+                      FROM stress_assessment 
+                      WHERE user_id = :user_id 
+                      ORDER BY assessment_date ASC 
+                      LIMIT :limit';
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e->getMessage());
+            return false;
+        }
     }
-}
 
-/**
- * Get the latest stress assessment for a specific student
- * 
- * @param int $userId Student ID
- * @return array|bool The latest assessment or false if none found
- */
-public function getLatestStressAssessment($userId) {
-    try {
-        $query = 'SELECT * FROM stress_assessment 
-                 WHERE user_id = :user_id 
-                 ORDER BY assessment_date DESC 
-                 LIMIT 1';
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        $this->logError($e->getMessage());
-        return false;
+    /**
+     * Get the latest stress assessment for a specific student
+     * 
+     * @param int $userId Student ID
+     * @return array|bool The latest assessment or false if none found
+     */
+    public function getLatestStressAssessment($userId) {
+        try {
+            $query = 'SELECT * FROM stress_assessment 
+                      WHERE user_id = :user_id 
+                      ORDER BY assessment_date DESC 
+                      LIMIT 1';
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e->getMessage());
+            return false;
+        }
     }
-}
 
     /**
      * Get relaxation techniques based on stress level

@@ -34,6 +34,9 @@ class StressAssessmentController {
             case 'view_trend':
                 $this->viewStressTrend();
                 break;
+            case 'view_all_assessments':
+                $this->viewAllAssessments();
+                break;
             default:
                 // If no action specified, show the assessment form
                 header('Location: ../views/stress_management/stress_management_form.php');
@@ -168,6 +171,30 @@ class StressAssessmentController {
         header('Location: ../views/stress_management/stress_trend.php');
         exit();
     }
+    
+    /**
+     * View all stress assessments (Admin function)
+     */
+    public function viewAllAssessments() {
+        session_start();
+        
+        // Check if user is logged in as admin
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ../views/admin/admin_login.php');
+            exit();
+        }
+        
+        // Get all stress assessment records
+        $allAssessments=$this->model->getAllStressAssessments();
+        
+        // Store in session for use in view
+        $_SESSION['all_assessments'] = $allAssessments;
+        
+        // Redirect to admin view
+        include '../views/admin/admin_stress_monitoring.php';
+    }
+
+    
 }
 
 // Instantiate and run the controller
