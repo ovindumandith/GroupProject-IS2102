@@ -26,21 +26,22 @@ class AppointmentController {
             exit();
         }
     }
+
     public function showStudentAppointments() {
-    session_start();
+        session_start();
 
-    // Ensure the student is logged in
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php'); // Redirect to login page if not logged in
-        exit();
+        // Ensure the student is logged in
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: login.php'); // Redirect to login page if not logged in
+            exit();
+        }
+
+        $studentId = $_SESSION['user_id'];
+        $appointments = $this->model->getByStudentId($studentId); // Fetch the student's appointments
+
+        // Include the view to display the appointments
+        include '../views/showStudentAppointments.php'; // Pass the appointments data to the view
     }
-
-    $studentId = $_SESSION['user_id'];
-    $appointments = $this->model->getByStudentId($studentId); // Fetch the student's appointments
-
-    // Include the view to display the appointments
-    include '../views/showStudentAppointments.php'; // Pass the appointments data to the view
-}
 
     // Method to fetch pending appointments for a counselor
     public function showPendingAppointments() {
@@ -61,7 +62,7 @@ class AppointmentController {
     }
 
     // Method to fetch approved appointments for a counselor
-        public function showApprovedAppointments() {
+    public function showApprovedAppointments() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start(); // Start session if not already started
         }
@@ -79,7 +80,7 @@ class AppointmentController {
     }
 
     // Method to fetch denied appointments for a counselor
-        public function showDeniedAppointments() {
+    public function showDeniedAppointments() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start(); // Start session if not already started
         }
@@ -108,40 +109,105 @@ class AppointmentController {
             } else {
                 $_SESSION['status_update_error'] = 'Failed to update appointment status.';
             }
-            header('Location: AppointmentController.php?action=showPendingAppointments');
+            header('Location: /GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments');
             exit();
         }
     }
-    public function deleteAppointment() {
+
+/**
+ * View a student's stress trend data
+*/
+
+public function viewStudentStressTrend() {
     session_start();
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id'])) {
-        $appointmentId = $_POST['appointment_id'];
-        
-        // Fetch the appointment to check its status
-        $appointment = $this->model->getByStudentId($appointmentId);
-
-        if ($appointment['status'] === 'Accepted') {
-            // Optional: Log the cancellation or notify the counselor
-            $_SESSION['appointment_message'] = 'The appointment was scheduled. You have canceled it.';
-        } else {
-            $_SESSION['appointment_message'] = 'The appointment has been successfully deleted.';
-        }
-
-        // Perform the deletion
-        if ($this->model->deleteAppointment($appointmentId)) {
-            header('Location: AppointmentController.php?action=showStudentAppointments');
-            exit();
-        } else {
-            $_SESSION['appointment_message'] = 'Failed to delete the appointment.';
-            header('Location: ../views/student_appointments.php?error=1');
-            exit();
-        }
+    
+    // Check if counselor is logged in
+    if (!isset($_SESSION['counselor']['id'])) {
+        header('Location: ../views/counselling/counselor_login.php');
+        exit();
     }
+    
+    // Validate the student ID parameter
+    if (!isset($_GET['student_id']) || !is_numeric($_GET['student_id'])) {
+        $_SESSION['error_message'] = "Invalid student ID.";
+        header('Location: /GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments');
+        exit();
+    }
+    
+    $studentId = (int)$_GET['student_id'];
+    $appointmentId = isset($_GET['appointment_id']) ? (int)$_GET['appointment_id'] : null;
+    
+    // Get comprehensive student details
+    $studentDetails = $this->model->getStudentDetails($studentId);
+    
+    if (!$studentDetails) {
+        $_SESSION['error_message'] = "Student not found.";
+        header('Location: /GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments');
+        exit();
+    }
+    
+    // Include the StressAssessmentModel to get stress trend data
+    require_once '../models/StressAssessmentModel.php';
+    $stressModel = new StressAssessmentModel();
+    
+    // Get the student's stress trend data
+    $trendData = $stressModel->getStressTrend($studentId, 10); // Get the last 10 records
+    
+    // If no trend data is available
+    if (!$trendData || count($trendData) < 1) {
+        $_SESSION['info_message'] = "No stress assessment data available for this student.";
+        header('Location: /GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments');
+        exit();
+    }
+    
+    // Get the latest assessment for current status
+    $latestAssessment = $stressModel->getLatestStressAssessment($studentId);
+    
+    // Get appointment details if appointment ID is provided
+    $appointmentDetails = null;
+    if ($appointmentId) {
+        $appointmentDetails = $this->model->getAppointmentById($appointmentId);
+    }
+    
+    // Store the data in session for use in the view
+    $_SESSION['student_details'] = $studentDetails;
+    $_SESSION['stress_trend'] = $trendData;
+    $_SESSION['latest_assessment'] = $latestAssessment;
+    $_SESSION['appointment_id'] = $appointmentId;
+    $_SESSION['appointment_details'] = $appointmentDetails;
+    
+    // Redirect to the view
+    include '../views/counselling/counselor_view_student_stress.php';
 }
 
+    // Method to delete an appointment
+    public function deleteAppointment() {
+        session_start();
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id'])) {
+            $appointmentId = $_POST['appointment_id'];
+            
+            // Fetch the appointment to check its status
+            $appointment = $this->model->getByStudentId($appointmentId);
 
+            if ($appointment['status'] === 'Accepted') {
+                // Optional: Log the cancellation or notify the counselor
+                $_SESSION['appointment_message'] = 'The appointment was scheduled. You have canceled it.';
+            } else {
+                $_SESSION['appointment_message'] = 'The appointment has been successfully deleted.';
+            }
+
+            // Perform the deletion
+            if ($this->model->deleteAppointment($appointmentId)) {
+                header('Location: AppointmentController.php?action=showStudentAppointments');
+                exit();
+            } else {
+                $_SESSION['appointment_message'] = 'Failed to delete the appointment.';
+                header('Location: ../views/student_appointments.php?error=1');
+                exit();
+            }
+        }
+    }
 }
 
 // Check if an action is set in the query string
@@ -170,7 +236,10 @@ if (isset($_GET['action'])) {
             break;
         case 'deleteAppointment':
             $controller->deleteAppointment();
-            break;        
+            break;
+        case 'viewStudentStressTrend':
+            $controller->viewStudentStressTrend();
+            break; 
         default:
             echo 'Invalid action';
     }

@@ -134,28 +134,30 @@ if (isset($_SESSION['status_update_error'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($appointments as $appointment): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($appointment['id']) ?></td>
-                        <td><?= htmlspecialchars($appointment['student_id']) ?></td>
-                        <td><?= htmlspecialchars($appointment['appointment_date']) ?></td>
-                        <td><?= htmlspecialchars($appointment['topic']) ?></td>
-                        <td><?= htmlspecialchars($appointment['email']) ?></td>
-                        <td><?= htmlspecialchars($appointment['phone']) ?></td>
-                        <td><?= htmlspecialchars($appointment['created_at']) ?></td>
-                        <td><?= htmlspecialchars($appointment['updated_at']) ?></td>
-                        <td>
-                            <form method="POST" action="../../App/controller/AppointmentController.php?action=updateAppointmentStatus" style="display:inline;">
-                                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
-                                <button type="submit" name="status" value="accepted" class="action-btn accept-btn">Accept</button>
-                            </form>
-                            <form method="POST" action="../../App/controller/AppointmentController.php?action=updateAppointmentStatus" style="display:inline;">
-                                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
-                                <button type="submit" name="status" value="rejected" class="action-btn reject-btn">Reject</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+<!-- Place this within the <tbody> tags in the counselor_view_appointments.php file -->
+<?php foreach ($appointments as $appointment): ?>
+    <tr>
+        <td><?= htmlspecialchars($appointment['id']) ?></td>
+        <td><?= htmlspecialchars($appointment['student_id']) ?></td>
+        <td><?= htmlspecialchars($appointment['appointment_date']) ?></td>
+        <td><?= htmlspecialchars($appointment['topic']) ?></td>
+        <td><?= htmlspecialchars($appointment['email']) ?></td>
+        <td><?= htmlspecialchars($appointment['phone']) ?></td>
+        <td><?= htmlspecialchars($appointment['created_at']) ?></td>
+        <td><?= htmlspecialchars($appointment['updated_at']) ?></td>
+        <td>
+            <form method="POST" action="../../App/controller/AppointmentController.php?action=updateAppointmentStatus" style="display:inline;">
+                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
+                <button type="submit" name="status" value="Accepted" class="action-btn accept-btn">Accept</button>
+            </form>
+            <form method="POST" action="../../App/controller/AppointmentController.php?action=updateAppointmentStatus" style="display:inline;">
+                <input type="hidden" name="appointment_id" value="<?= htmlspecialchars($appointment['id']) ?>">
+                <button type="submit" name="status" value="Denied" class="action-btn reject-btn">Reject</button>
+            </form>
+            <a href="../../controller/AppointmentController.php?action=viewStudentStressTrend&student_id=<?= htmlspecialchars($appointment['student_id']) ?>&appointment_id=<?= htmlspecialchars($appointment['id']) ?>" class="action-btn" style="background-color: #2196F3; display: inline-block; margin-top: 5px; text-decoration: none; color: white;">View Stress Trend</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>

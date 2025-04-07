@@ -92,6 +92,49 @@ class AppointmentModel {
         return $stmt->execute();
     }
 
+    // In AppointmentModel.php
+    public function getStudentNameById($studentId) {
+        $query = "SELECT username FROM users WHERE user_id = :student_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':student_id', $studentId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['username'] : 'Unknown Student';
+}
+
+/**
+ * Get student details by ID
+ *
+ * @param int $studentId The student ID
+ * @return array|bool Student details or false if not found
+ */
+public function getStudentDetails($studentId) {
+    $query = "SELECT user_id, username, email, phone, year 
+              FROM users 
+              WHERE user_id = :student_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':student_id', $studentId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Get appointment details by ID
+ *
+ * @param int $appointmentId The appointment ID
+ * @return array|bool Appointment details or false if not found
+ */
+public function getAppointmentById($appointmentId) {
+    $query = "SELECT * FROM appointments WHERE id = :appointment_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+    
+
 }
 
 
