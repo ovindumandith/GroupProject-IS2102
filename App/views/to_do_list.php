@@ -29,179 +29,77 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-  
-<!-- Content Section (for demonstration) -->
-<div class="dashboard-container">
-  
-  <!-- Main Content -->
+
+  <!-- Content Section (for demonstration) -->
+  <div class="dashboard-container">
+
+    <!-- Main Content -->
     <main class="main-content">
       <header class="header-task-planner">
-          <div class="task-planner">
-          
+        <div class="task-planner">
+
           <h2>Task Planner</h2>
-          </div>
-          <div class="search-and-add">
+        </div>
+        <div class="search-and-add">
           <div class="search-bar">
-          <input type="text" class="search-task" placeholder="Search your task here !">
-          
-          <button class="search-button">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+            <input type="text" class="search-task" placeholder="Search your task here !">
+
+            <button class="search-button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
           </div>
-          <button class="add-event-button" onclick="window.location.href='add-task.html';" >
+          <button class="add-event-button" onclick="showPopup()">
             <span class="add-icon"><i class="fa-solid fa-plus"></i></span>
-               Add task
-         </button>
-        </div> 
-         
+            Add Task
+          </button>
+          <!-- Popup Form (Initially Hidden) -->
+          <div class="popup" id="eventPopup">
+            <div class="popup-content">
+              <span class="close-btn" onclick="closePopup()">&times;</span>
+              <h2 id="popupTitle">Add Task</h2>
+              <form id="eventForm" method="POST">
+                <input type="hidden" id="taskId" name="id"> <!-- Hidden field for event ID -->
+                <!-- Error container (for displaying error messages) -->
+                <div id="errorContainer" style="color: red; margin-bottom: 10px;"></div>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+
+                <button type="submit" id="formSubmitButton">Save Task</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
       </header>
 
       <!-- Events Section -->
-      
-    <section class="my-tasks">
-        <div class="my-tasks-container">
-            <div class="my-tasks-container-header">
-              <div class="task-filter">
-                <button class="filter-button active" data-filter="today">Today <span class="count">35</span></button>
-                <button class="filter-button" data-filter="upcoming">Upcoming <span class="count">14</span></button>
-                <button class="filter-button" data-filter="overdue">Overdue<span class="count">19</span></button>
-              </div>
-            </div>
-        
-          <div class="my-tasks-list">
-              <!-- Today Event Cards -->
-              <div class="my-tasks-list-card" data-category="today">
-                <div class="checkbox-container">
-                  <input type="checkbox" id="task-done-1" class="custom-checkbox" />
-                  <label for="task-done-1" class="custom-label"></label>
-                </div>
-                
-                <div class="my-task-list-card-content">
-                  Learn Javascript
-                  <div class="time-icon">
-                  <i class="fa-solid fa-bell"></i>
-                    <span>7:30 PM</span>
-                  </div>
-                </div>
-                
-                <div class="button-container">
-                  <button class="edit-btn">
-                  <i class="fas fa-edit edit-icon" aria-hidden="true"></i>
-                  </button>
-                  <button class="delete-btn">
-                  <i class="fas fa-trash delete-icon" aria-hidden="true"></i>
-                  </button>                  
-                </div>
-              </div>
-        
-              <div class="my-tasks-list-card" data-category="today">
-                <div class="checkbox-container">
-                  <input type="checkbox" id="task-done-1" class="custom-checkbox" />
-                  <label for="task-done-1" class="custom-label"></label>
-                </div>
-                
-                <div class="my-task-list-card-content">
-                  Learn Javascript
-                  <div class="time-icon">
-                  <i class="fa-solid fa-bell"></i>
-                    <span>7:30 PM</span>
-                  </div>
-                </div>
-                
-                <div class="button-container">
-                <button class="edit-btn">
-                  <i class="fas fa-edit edit-icon" aria-hidden="true"></i>
-                  </button>
-                  <button class="delete-btn">
-                  <i class="fas fa-trash delete-icon" aria-hidden="true"></i>
-                  </button> 
-                </div>
-              </div>
 
-              <div class="my-tasks-list-card" data-category="today">
-                <div class="checkbox-container">
-                  <input type="checkbox" id="task-done-1" class="custom-checkbox" />
-                  <label for="task-done-1" class="custom-label"></label>
-                </div>
-                
-                <div class="my-task-list-card-content">
-                  Learn Javascript
-                  <div class="time-icon">
-                  <i class="fa-solid fa-bell"></i>
-                    <span>7:30 PM</span>
-                  </div>
-                </div>
-                
-                <div class="button-container">
-                  <button class="edit-btn">
-                  <i class="fas fa-edit edit-icon" aria-hidden="true"></i>
-                  </button>
-                  <button class="delete-btn">
-                  <i class="fas fa-trash delete-icon" aria-hidden="true"></i>
-                  </button>                  
-                </div>
-              </div>
-              
-                <!-- Upcoming Event Card -->
-              <div class="my-tasks-list-card" data-category="upcoming">
-                <div class="checkbox-container">
-                  <input type="checkbox" id="task-done-2" class="custom-checkbox" />
-                  <label for="task-done-2" class="custom-label"></label>
-                </div>
-                
-                <div class="my-task-list-card-content">
-                  <h4>UI/UX Workshop</h4>
-                  <div class="calendar-icon">
-                  <i class="fa-solid fa-calendar"></i>
-                    <span> Nov 23, 2024  </span>
-                  </div>
-                </div>
-                
-                <div class="button-container">
-                <button class="edit-btn">
-                  <i class="fas fa-edit edit-icon" aria-hidden="true"></i>
-                  </button>
-                  <button class="delete-btn">
-                  <i class="fas fa-trash delete-icon" aria-hidden="true"></i>
-                  </button> 
-                </div>
-              </div>
-        
-              <!-- Overdue Event Card -->
-              <div class="my-tasks-list-card" data-category="overdue">
-                <div class="checkbox-container">
-                  <input type="checkbox" id="task-done-3" class="custom-checkbox" />
-                  <label for="task-done-3" class="custom-label"></label>
-                </div>
-                
-                <div class="my-task-list-card-content">
-                  <h4>Finalize Project Report</h4>
-                  <div class="exclamation-mark-icon">
-                  <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span>  Nov 23, 2024  </span>
-                  </div>
-                </div>
-                
-                <div class="button-container">
-                <button class="edit-btn">
-                  <i class="fas fa-edit edit-icon" aria-hidden="true"></i>
-                  </button>
-                  <button class="delete-btn">
-                  <i class="fas fa-trash delete-icon" aria-hidden="true"></i>
-                  </button> 
-                </div>
-              </div>
-            </div><!-- End of .my-tasks-list -->
-            
-            
-          </div><!-- End of .my-tasks-container -->
-          <button class="back-button" onclick="location.href='workload.php'">
-            <i class="fa-solid fa-arrow-left"></i>
-            </button>
-  
-  </section>
-   
-  <script src="../../assets/js/to_do_list.js" defer></script>
+      <section class="my-tasks">
+    <div class="my-tasks-container">
+        <div class="my-tasks-container-header">
+            <div class="task-filter">
+                <button class="filter-button active" data-filter="today">Today <span class="count">0</span></button>
+                <button class="filter-button" data-filter="upcoming">Upcoming <span class="count">0</span></button>
+                <button class="filter-button" data-filter="overdue">Overdue <span class="count">0</span></button>
+            </div>
+        </div>
+
+        <div class="my-tasks-list"></div> <!-- Task list will be inserted here -->
+    </div>
+
+    <button class="back-button" onclick="location.href='workload.php'">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+</section>
+      <div id="popupMessage" style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
+        <span id="popupText"></span>
+      </div>
+
+      <script src="../../assets/js/to_do_list.js" defer></script>
 </body>
 
 </html>
