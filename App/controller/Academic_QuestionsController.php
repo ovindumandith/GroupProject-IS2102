@@ -16,11 +16,12 @@ class Academic_QuestionsController {
         $regNo = $_POST['reg_no'];
         $fullName = $_POST['full_name'];
         $faculty = $_POST['faculty'];
+        $category = $_POST['category'];
         $telephone = $_POST['telephone'];
         $email = $_POST['email'];
         $question = $_POST['question'];
 
-        if ($this->model->submitQuestion($userId, $indexNo, $regNo, $fullName, $faculty, $telephone, $email, $question)) {
+        if ($this->model->submitQuestion($userId, $indexNo, $regNo, $fullName, $faculty, $category, $telephone, $email, $question)) {
             header('Location: ../views/Academic_Help.php?success=1'); // Redirect on success
             exit();
         } else {
@@ -76,11 +77,12 @@ class Academic_QuestionsController {
             $regNo = $_POST['reg_no'];
             $fullName = $_POST['full_name'];
             $faculty = $_POST['faculty'];
+            $category = $_POST['category'];
             $telephone = $_POST['telephone'];
             $email = $_POST['email'];
             $question = $_POST['question'];
 
-            if ($this->model->updateQuestion($questionId, $indexNo, $regNo, $fullName, $faculty, $telephone, $email, $question)) {
+            if ($this->model->updateQuestion($questionId, $indexNo, $regNo, $fullName, $faculty, $category, $telephone, $email, $question)) {
                 $_SESSION['success'] = 'Your question has been updated successfully.';
                 header('Location: AcademicQuestionController.php?action=viewUserQuestions');
                 exit();

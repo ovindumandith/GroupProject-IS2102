@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td><?php echo htmlspecialchars($question['reg_no']); ?></td>
                         <td><?php echo htmlspecialchars($question['full_name']); ?></td>
                         <td><?php echo htmlspecialchars($question['faculty']); ?></td>
-                        <td><?php echo htmlspecialchars($question['question']); ?></td>
+                        <td class="truncate"><?php echo htmlspecialchars($question['question']); ?></td>
                         <td><?php echo htmlspecialchars($question['status']); ?></td>
                         <td><?php echo htmlspecialchars($question['created_at']); ?></td>
                         <td>

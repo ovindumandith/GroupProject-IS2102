@@ -11,17 +11,18 @@ class AcademicQuestionModel {
     }
 
     // Submit a new academic question
-    public function submitQuestion($userId, $indexNo, $regNo, $fullName, $faculty, $telephone, $email, $question) {
+    public function submitQuestion($userId, $indexNo, $regNo, $fullName, $faculty, $category, $telephone, $email, $question) {
             $query = 'INSERT INTO academic_questions 
-                      (user_id, index_no, reg_no, full_name, faculty, telephone, email, question, status, created_at) 
+                      (user_id, index_no, reg_no, full_name, faculty, category, telephone, email, question, status, created_at) 
                       VALUES 
-                      (:user_id, :index_no, :reg_no, :full_name, :faculty, :telephone, :email, :question, "pending", NOW())';
+                      (:user_id, :index_no, :reg_no, :full_name, :faculty, :category, :telephone, :email, :question, "pending", NOW())';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
             $stmt->bindParam(':index_no', $indexNo, PDO::PARAM_STR);
             $stmt->bindParam(':reg_no', $regNo, PDO::PARAM_STR);
             $stmt->bindParam(':full_name', $fullName, PDO::PARAM_STR); ;
             $stmt->bindParam(':faculty', $faculty, PDO::PARAM_STR);
+            $stmt->bindParam(':category', $category, PDO::PARAM_STR);
             $stmt->bindParam(':telephone', $telephone, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':question', $question, PDO::PARAM_STR);
@@ -43,7 +44,7 @@ class AcademicQuestionModel {
 
     // Fetch questions submitted by a specific user
     public function getUserQuestions($userId) {
-            $query = 'SELECT id, index_no, reg_no, full_name, faculty, question, status, created_at FROM
+            $query = 'SELECT id, index_no, reg_no, full_name, faculty, category, question, status, created_at FROM
             academic_questions WHERE user_id = :user_id ORDER BY created_at DESC';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
@@ -71,7 +72,7 @@ class AcademicQuestionModel {
     public function updateQuestion($questionId, $indexNo, $regNo, $fullName, $faculty, $telephone, $email, $question) {
         try {
             $query = 'UPDATE academic_questions 
-                      SET index_no = :index_no, reg_no = :reg_no, full_name = :full_name, faculty = :faculty, 
+                      SET index_no = :index_no, reg_no = :reg_no, full_name = :full_name, faculty = :faculty, category = :category, 
                           telephone = :telephone, email = :email, question = :question
                       WHERE id = :id';
             $stmt = $this->db->prepare($query);
@@ -80,6 +81,7 @@ class AcademicQuestionModel {
             $stmt->bindParam(':reg_no', $regNo);
             $stmt->bindParam(':full_name', $fullName);
             $stmt->bindParam(':faculty', $faculty);
+            $stmt->bindParam(':category', $category);
             $stmt->bindParam(':telephone', $telephone);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':question', $question);
