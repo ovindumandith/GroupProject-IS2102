@@ -109,6 +109,8 @@ if (!isset($_SESSION['user_id'])) {
           <label for="category">Question Category</label>
           <select id="category" name="category" required>
             <option value="">Select a category</option>
+            <option value="Coursework">Coursework Issues</option>
+            <option value="Assignment">Assignment Issues</option> 
             <option value="Examination">Examination Issues</option>
             <option value="Financial">Financial Aid</option>
             <option value="Mahapola">Mahapola Scholarship or Bursary</option>

@@ -47,7 +47,7 @@ h2::after {
 }
 
 /* Search container */
-/* Search container */
+
 .search-container {
   display: flex;
   justify-content: center;
@@ -194,7 +194,16 @@ h2::after {
 .reply-btn:hover {
   background-color: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 159, 119, 0.3);
+  box-shadow: 0 4px 8px #004f98;
+}
+.forward-btn {
+  background-color: var(--info);
+}
+
+.forward-btn:hover {
+  background-color: #0b7dda;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
 }
 
 /* Modal styles */

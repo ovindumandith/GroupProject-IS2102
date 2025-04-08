@@ -39,8 +39,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
         <ul>
           <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
           <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
-           <li><a href="../../controller/LecturerController.php?action=showLecturers">List of Lecturers</a></li>
-
+           <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">

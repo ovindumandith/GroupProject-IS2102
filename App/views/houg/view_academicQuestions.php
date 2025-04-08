@@ -81,16 +81,21 @@
                   <?php echo htmlspecialchars($question['status']); ?>
                 </td>
                 <td><?php echo date('M d, Y g:i A', strtotime($question['created_at'])); ?></td>
-                <td>
-                  <div class="button-group">
-                    <button class="action-btn reply-btn" 
-                            data-question-id="<?php echo $question['id']; ?>" 
-                            data-student-name="<?php echo htmlspecialchars($question['full_name']); ?>" 
-                            data-question-text="<?php echo htmlspecialchars($question['question']); ?>">
-                      <i class="fas fa-reply"></i> Reply
-                    </button>
-                  </div>
-                </td>
+<td>
+  <div class="button-group">
+    <button class="action-btn reply-btn" 
+            data-question-id="<?php echo $question['id']; ?>" 
+            data-student-name="<?php echo htmlspecialchars($question['full_name']); ?>" 
+            data-question-text="<?php echo htmlspecialchars($question['question']); ?>">
+      <i class="fas fa-reply"></i> Reply
+    </button>
+    <button class="action-btn forward-btn" 
+            data-question-id="<?php echo $question['id']; ?>"
+            data-category="<?php echo htmlspecialchars($question['category']); ?>">
+      <i class="fas fa-share"></i> Forward
+    </button>
+  </div>
+</td>
               </tr>
             <?php endforeach; ?>
           <?php else: ?>
@@ -214,6 +219,59 @@
           }, 5000);
         }
       });
+    </script>
+    <script>
+      // Handle forward button clicks
+const forwardButtons = document.querySelectorAll('.forward-btn');
+
+forwardButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const questionId = button.getAttribute('data-question-id');
+    const category = button.getAttribute('data-category');
+    
+    if (confirm(`Are you sure you want to forward this question to all lecturers in the ${category} category?`)) {
+      // Create form data
+      const formData = new FormData();
+      formData.append('question_id', questionId);
+      
+      // Send AJAX request
+      fetch('../controller/ForwardedQuestionController.php?action=forwardQuestion', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Show success message
+          const toast = document.createElement('div');
+          toast.className = 'toast-notification';
+          toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
+          document.body.appendChild(toast);
+          
+          // Show and then hide the toast
+          setTimeout(() => {
+            toast.classList.add('show');
+          }, 100);
+          
+          setTimeout(() => {
+            toast.classList.remove('show');
+          }, 5000);
+          
+          // Disable the button
+          button.disabled = true;
+          button.textContent = 'Forwarded';
+          button.style.backgroundColor = '#999';
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      });
+    }
+  });
+});
     </script>
   </body>
 </html>
