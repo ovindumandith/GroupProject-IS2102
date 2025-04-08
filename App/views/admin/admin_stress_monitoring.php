@@ -170,7 +170,7 @@ $assessments = $_SESSION['all_assessments'] ?? [];
         </nav>
         <div class="auth-buttons">
             <button class="signup" onclick="location.href='admin_profile.php'"><b>Profile</b></button>
-            <form action="../../util/admin_logout.php" method="post" style="display: inline">
+            <form action="../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="login"><b>Log Out</b></button>
             </form>
         </div>

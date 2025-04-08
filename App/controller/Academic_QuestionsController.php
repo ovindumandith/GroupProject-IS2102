@@ -32,7 +32,7 @@ class Academic_QuestionsController {
     // Method to view all academic questions (for admin or authorized users)
     public function viewAllQuestions() {
         session_start();
-        if (!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             header('Location: login.php'); // Redirect if not logged in
             exit();
         }
@@ -44,7 +44,7 @@ class Academic_QuestionsController {
 
         public function viewAllQuestions_hous() {
         session_start();
-        if (!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
             header('Location: login.php'); // Redirect if not logged in
             exit();
         }
