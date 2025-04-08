@@ -20,6 +20,8 @@ if (!isset($_SESSION['user_id'])) {
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../assets/css/header_footer.css" />
+    <link rel="stylesheet" href="../../assets/css/about_us.css" />
+    <script src="../../assets/js/about_us.js"></script>
   </head>
   <body>
     <!-- Header Section -->
@@ -51,7 +53,101 @@ if (!isset($_SESSION['user_id'])) {
       </div>
     </header>
 
-    <!-- Content Section (for demonstration) -->
+    <div class="about-hero">
+        <h1>About Our Stress Management Project</h1>
+        <div class="hero-wave"></div>
+    </div>
+
+    <section class="about-content">
+        <div class="about-card">
+            <h2>Who We Are</h2>
+            <p>The Stress Management and Monitoring system is a dedicated support system designed to empower students throughout their academic journey. We understand the challenges that students face and are committed to providing comprehensive assistance to ensure their success.
+              This is done based in the modules IS-2102 as 2nd Year Undegraduates of the University of Colombo School of Computing.</p>
+            </p>
+        </div>
+
+        <div class="vision-mission">
+            <div class="vision">
+                <div class="icon">👁️</div>
+                <h2>Our Vision</h2>
+                <p>We aim to create a nurturing space where students can seamlessly monitor and manage stress while excelling academically and thriving in their university journey.</p>
+            </div>
+            <div class="mission">
+                <div class="icon">🎯</div>
+                <h2>Our Mission</h2>
+                <p>Delivering innovative, science-driven stress management solutions to promote mental well-being and academic success globally.</p>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" data-target="5000">0</span>
+                <span class="stat-label">Students Helped</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="100">0</span>
+                <span class="stat-label">Expert Advisors</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="95">0</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+        </div>
+
+        <div class="team-section">
+            <h2>Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=John" alt="John Smith">
+                    </div>
+                    <h3>John Smith</h3>
+                    <p class="role">Academic Director</p>
+                    <p class="bio">Ph.D. in Education with 15+ years of experience in academic counseling.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Sarah" alt="Sarah Johnson">
+                    </div>
+                    <h3>Sarah Johnson</h3>
+                    <p class="role">Student Support Lead</p>
+                    <p class="bio">Specialized in student mentoring and academic guidance.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Michael" alt="Michael Chen">
+                    </div>
+                    <h3>Michael Chen</h3>
+                    <p class="role">Technical Advisor</p>
+                    <p class="bio">Expert in educational technology and digital learning solutions.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Emma" alt="Emma Davis">
+                    </div>
+                    <h3>Emma Davis</h3>
+                    <p class="role">Resource Coordinator</p>
+                    <p class="bio">Manages academic resources and support materials.</p>
+                </div>
+                                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Emma" alt="Emma Davis">
+                    </div>
+                    <h3>Emma Davis</h3>
+                    <p class="role">Resource Coordinator</p>
+                    <p class="bio">Manages academic resources and support materials.</p>
+                </div>
+                                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Barry" alt="Emma Davis">
+                    </div>
+                    <h3>Emma Davis</h3>
+                    <p class="role">Resource Coordinator</p>
+                    <p class="bio">Manages academic resources and support materials.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     
 
     <!-- Footer Section -->
