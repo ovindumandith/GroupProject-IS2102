@@ -98,6 +98,48 @@ class ForwardedQuestionController {
         exit();
     }
     
+    // View a specific forwarded question
+    public function viewQuestion() {
+        session_start();
+        
+        // Check if user is logged in as lecturer
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
+            header('Location: ../views/login.php?error=unauthorized');
+            exit();
+        }
+        
+        $forwardedId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $lecturerId = $_SESSION['user_id'];
+        
+        if (!$forwardedId) {
+            header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions&error=invalid_id');
+            exit();
+        }
+        
+        // Get the forwarded question details
+        $forwardedQuestion = $this->model->getForwardedQuestionById($forwardedId, $lecturerId);
+        
+        if (!$forwardedQuestion) {
+            header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions&error=not_found');
+            exit();
+        }
+        
+        // Mark as read if currently unread
+        if ($forwardedQuestion['status'] === 'Unread') {
+            $this->model->markAsRead($forwardedId, $lecturerId);
+        }
+        
+        // Get the academic question details
+        $academicQuestion = $this->academicQuestionModel->getQuestionById($forwardedQuestion['question_id']);
+        
+        // Store in session for view
+        $_SESSION['forwarded_question'] = $forwardedQuestion;
+        $_SESSION['academic_question'] = $academicQuestion;
+        
+        // Redirect to detailed view
+        include '../views/lecturer/forwarded_question_detail.php';
+    }
+    
     // Respond to a forwarded question
     public function respondToQuestion() {
         session_start();
@@ -157,6 +199,9 @@ if (isset($_GET['action'])) {
         case 'respondToQuestion':
             $controller->respondToQuestion();
             break;
+        case 'viewQuestion':
+            $controller->viewQuestion();
+            break;      
         default:
             echo 'Invalid action';
             break;

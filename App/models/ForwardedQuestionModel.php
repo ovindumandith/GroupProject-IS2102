@@ -126,5 +126,25 @@ class ForwardedQuestionModel {
             return 0;
         }
     }
+    
+    // Get forwarded question by ID
+    public function getForwardedQuestionById($forwardedId, $lecturerId) {
+        try {
+            $query = "SELECT fq.*, aq.question, aq.full_name AS student_name, aq.category, 
+                      aq.created_at AS question_date, u.username AS forwarded_by_name
+                      FROM forwarded_questions fq
+                      JOIN academic_questions aq ON fq.question_id = aq.id
+                      JOIN users u ON fq.forwarded_by = u.user_id
+                      WHERE fq.id = :id AND fq.lecturer_id = :lecturer_id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $forwardedId, PDO::PARAM_INT);
+            $stmt->bindParam(':lecturer_id', $lecturerId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
 }
 ?>
