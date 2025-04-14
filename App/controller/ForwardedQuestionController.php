@@ -1,212 +1,175 @@
 <?php
+session_start();
 require_once '../models/ForwardedQuestionModel.php';
-require_once '../models/AcademicQuestionModel.php';
+require_once '../models/RepliedQuestionsModel.php';
 
 class ForwardedQuestionController {
     private $model;
-    private $academicQuestionModel;
+    private $repliedModel;
     
     public function __construct() {
         $this->model = new ForwardedQuestionModel();
-        $this->academicQuestionModel = new AcademicQuestionModel();
+        $this->repliedModel = new RepliedQuestionsModel();
     }
     
-    // Forward a question to lecturers by category
-    public function forwardQuestion() {
-        session_start();
-        
-        // Check if user is logged in as HOUS
-        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
-            echo json_encode(['success' => false, 'message' => 'Unauthorized access']);
-            exit();
-        }
-        
-        // Get parameters
-        $questionId = isset($_POST['question_id']) ? (int)$_POST['question_id'] : 0;
-        $housId = $_SESSION['user_id'];
-        
-        if (!$questionId) {
-            echo json_encode(['success' => false, 'message' => 'Invalid question ID']);
-            exit();
-        }
-        
-        // Get question details to get the category
-        $question = $this->academicQuestionModel->getQuestionById($questionId);
-        if (!$question) {
-            echo json_encode(['success' => false, 'message' => 'Question not found']);
-            exit();
-        }
-        
-        // Forward the question
-        $result = $this->model->forwardQuestionToLecturers($questionId, $question['category'], $housId);
-        
-        // Update question status to "Forwarded"
-        if ($result) {
-            $this->academicQuestionModel->updateQuestionStatus($questionId, 'Forwarded');
-            echo json_encode(['success' => true, 'message' => 'Question forwarded successfully']);
+    /**
+     * Main controller function to handle different actions
+     */
+    public function handleRequest() {
+        // Check if action parameter exists
+        if (isset($_GET['action'])) {
+            $action = $_GET['action'];
+            
+            // Handle different actions
+            switch ($action) {
+                case 'viewForwardedQuestions':
+                    $this->viewForwardedQuestions();
+                    break;
+                case 'viewQuestion':
+                    $this->viewQuestion();
+                    break;
+                case 'markAsRead':
+                    $this->markAsRead();
+                    break;
+                case 'respondToQuestion':
+                    $this->respondToQuestion();
+                    break;
+                default:
+                    // Redirect to dashboard if action is not recognized
+                    header('Location: ../views/lecturer/lecturer_home.php');
+                    exit();
+            }
         } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to forward question or no lecturers found for this category']);
+            // Default action is to view forwarded questions
+            $this->viewForwardedQuestions();
         }
-        exit();
     }
     
-    // View forwarded questions for a lecturer
-    public function viewForwardedQuestions() {
-        session_start();
-        
+    /**
+     * View all forwarded questions for the logged-in lecturer
+     */
+    private function viewForwardedQuestions() {
         // Check if user is logged in as lecturer
         if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
-            header('Location: ../views/login.php?error=unauthorized');
+            header('Location: ../login.php?error=unauthorized');
             exit();
         }
         
         $lecturerId = $_SESSION['user_id'];
         $forwardedQuestions = $this->model->getForwardedQuestionsForLecturer($lecturerId);
         
-        // Store in session for view
+        // Store questions in session for view to access
         $_SESSION['forwarded_questions'] = $forwardedQuestions;
         
-        // Include view
-        include '../views/lecturer/forwarded_questions.php';
+        // Redirect to the view
+        header('Location: ../views/lecturer/forwarded_questions.php');
+        exit();
     }
     
-    // Mark a forwarded question as read
-    public function markAsRead() {
-        session_start();
+    /**
+     * View details of a specific forwarded question
+     */
+    private function viewQuestion() {
+        // Check if user is logged in as lecturer
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
+            header('Location: ../login.php?error=unauthorized');
+            exit();
+        }
         
+        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+            $_SESSION['error_message'] = "Invalid question ID.";
+            header('Location: ../views/lecturer/lecturer_home.php');
+            exit();
+        }
+        
+        $forwardedId = $_GET['id'];
+        $lecturerId = $_SESSION['user_id'];
+        $question = $this->model->getForwardedQuestionById($forwardedId, $lecturerId);
+        
+        if (!$question) {
+            $_SESSION['error_message'] = "Question not found.";
+            header('Location: ../views/lecturer/lecturer_home.php');
+            exit();
+        }
+        
+        // Mark as read if it's unread
+        if ($question['status'] === 'Unread') {
+            $this->model->markAsRead($forwardedId, $lecturerId);
+            $question['status'] = 'Read';
+        }
+        
+        // Store question in session for view to access
+        $_SESSION['question_details'] = $question;
+        
+        // Redirect to question detail view
+        header('Location: ../views/lecturer/question_detail.php');
+        exit();
+    }
+    
+    /**
+     * Mark a forwarded question as read via AJAX
+     */
+    private function markAsRead() {
         // Check if user is logged in as lecturer
         if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
             echo json_encode(['success' => false, 'message' => 'Unauthorized access']);
             exit();
         }
         
-        $forwardedQuestionId = isset($_POST['forwarded_id']) ? (int)$_POST['forwarded_id'] : 0;
-        $lecturerId = $_SESSION['user_id'];
-        
-        if (!$forwardedQuestionId) {
-            echo json_encode(['success' => false, 'message' => 'Invalid forwarded question ID']);
+        if (!isset($_POST['forwarded_id']) || !is_numeric($_POST['forwarded_id'])) {
+            echo json_encode(['success' => false, 'message' => 'Invalid question ID']);
             exit();
         }
         
-        $result = $this->model->markAsRead($forwardedQuestionId, $lecturerId);
+        $forwardedId = $_POST['forwarded_id'];
+        $lecturerId = $_SESSION['user_id'];
         
-        if ($result) {
-            echo json_encode(['success' => true, 'message' => 'Marked as read']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to mark as read']);
-        }
+        $result = $this->model->markAsRead($forwardedId, $lecturerId);
+        
+        // Return JSON response
+        header('Content-Type: application/json');
+        echo json_encode(['success' => $result]);
         exit();
     }
     
-    // View a specific forwarded question
-    public function viewQuestion() {
-        session_start();
-        
+    /**
+     * Respond to a forwarded question
+     */
+    private function respondToQuestion() {
         // Check if user is logged in as lecturer
         if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
-            header('Location: ../views/login.php?error=unauthorized');
+            header('Location: ../login.php?error=unauthorized');
             exit();
         }
         
-        $forwardedId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        // Check if all required parameters are set
+        if (!isset($_POST['forwarded_id']) || !isset($_POST['question_id']) || !isset($_POST['reply_text'])) {
+            $_SESSION['error_message'] = "Missing required information.";
+            header('Location: ../views/lecturer/forwardedQuestion.php');
+            exit();
+        }
+        
+        $forwardedId = $_POST['forwarded_id'];
+        $questionId = $_POST['question_id'];
+        $replyText = $_POST['reply_text'];
         $lecturerId = $_SESSION['user_id'];
         
-        if (!$forwardedId) {
-            header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions&error=invalid_id');
-            exit();
-        }
+        // Add the reply using the RepliedQuestionsModel
+        $result = $this->repliedModel->addReply($questionId, $forwardedId, $lecturerId, $replyText);
         
-        // Get the forwarded question details
-        $forwardedQuestion = $this->model->getForwardedQuestionById($forwardedId, $lecturerId);
-        
-        if (!$forwardedQuestion) {
-            header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions&error=not_found');
-            exit();
-        }
-        
-        // Mark as read if currently unread
-        if ($forwardedQuestion['status'] === 'Unread') {
-            $this->model->markAsRead($forwardedId, $lecturerId);
-        }
-        
-        // Get the academic question details
-        $academicQuestion = $this->academicQuestionModel->getQuestionById($forwardedQuestion['question_id']);
-        
-        // Store in session for view
-        $_SESSION['forwarded_question'] = $forwardedQuestion;
-        $_SESSION['academic_question'] = $academicQuestion;
-        
-        // Redirect to detailed view
-        include '../views/lecturer/forwarded_question_detail.php';
-    }
-    
-    // Respond to a forwarded question
-    public function respondToQuestion() {
-        session_start();
-        
-        // Check if user is logged in as lecturer
-        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
-            header('Location: ../views/login.php?error=unauthorized');
-            exit();
-        }
-        
-        $forwardedQuestionId = isset($_POST['forwarded_id']) ? (int)$_POST['forwarded_id'] : 0;
-        $questionId = isset($_POST['question_id']) ? (int)$_POST['question_id'] : 0;
-        $replyText = isset($_POST['reply_text']) ? trim($_POST['reply_text']) : '';
-        $lecturerId = $_SESSION['user_id'];
-        
-        if (!$forwardedQuestionId || !$questionId || empty($replyText)) {
-            $_SESSION['error_message'] = 'All fields are required';
-            header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions');
-            exit();
-        }
-        
-        // Add reply to the question using saveReply method from AcademicQuestionModel
-        $replyResult = $this->academicQuestionModel->saveReply($questionId, $lecturerId, $replyText);
-        
-        if ($replyResult) {
-            // Mark as responded
-            $this->model->markAsResponded($forwardedQuestionId, $lecturerId);
-            
-            // Update question status to "Resolved"
-            $this->academicQuestionModel->updateQuestionStatus($questionId, 'Resolved');
-            
-            $_SESSION['success_message'] = 'Reply sent successfully';
+        if ($result) {
+            $_SESSION['success_message'] = "Your response has been sent successfully.";
         } else {
-            $_SESSION['error_message'] = 'Failed to send reply';
+            $_SESSION['error_message'] = "Failed to send response. Please try again.";
         }
         
+        // Redirect back to forwarded questions
         header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions');
         exit();
     }
-    
-    
 }
 
-// Handle actions
-if (isset($_GET['action'])) {
-    $controller = new ForwardedQuestionController();
-    $action = $_GET['action'];
-    
-    switch ($action) {
-        case 'forwardQuestion':
-            $controller->forwardQuestion();
-            break;
-        case 'viewForwardedQuestions':
-            $controller->viewForwardedQuestions();
-            break;
-        case 'markAsRead':
-            $controller->markAsRead();
-            break;
-        case 'respondToQuestion':
-            $controller->respondToQuestion();
-            break;
-        case 'viewQuestion':
-            $controller->viewQuestion();
-            break;      
-        default:
-            echo 'Invalid action';
-            break;
-    }
-}
+// Create controller instance and handle request
+$controller = new ForwardedQuestionController();
+$controller->handleRequest();
 ?>

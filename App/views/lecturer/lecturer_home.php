@@ -20,12 +20,26 @@ $unreadCount = $forwardedModel->getUnreadCount($lecturerId);
 $recentForwardedQuestions = $forwardedModel->getForwardedQuestionsForLecturer($lecturerId);
 // Limit to 5 most recent questions
 $recentForwardedQuestions = array_slice($recentForwardedQuestions, 0, 5);
+
+// Require the RepliedQuestionsModel
+require_once '../../models/RepliedQuestionsModel.php';
+$repliedModel = new RepliedQuestionsModel();
+
+// Get recent replies by the lecturer
+$recentReplies = $repliedModel->getRepliedQuestionsByLecturer($lecturerId);
+// Limit to 5 most recent replies
+$recentReplies = array_slice($recentReplies, 0, 5);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Your existing head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Dashboard | RelaxU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/header_footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Add these styles for the forwarded questions section */
         .dashboard-section {
@@ -139,48 +153,215 @@ $recentForwardedQuestions = array_slice($recentForwardedQuestions, 0, 5);
             font-weight: 500;
             text-decoration: none;
         }
+        
+        /* Add these styles for the replied questions list */
+        .replied-questions-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .replied-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+        
+        .replied-item:last-child {
+            border-bottom: none;
+        }
+        
+        .replied-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .replied-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .replied-question {
+            margin: 8px 0 4px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .replied-answer {
+            margin: 4px 0 8px;
+            line-height: 1.4;
+            color: #009f77;
+            font-style: italic;
+        }
+        
+        /* Dashboard layout */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .dashboard-greeting {
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-greeting h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-greeting p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .no-questions {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
     </style>
 </head>
 <body>
-    <!-- Your existing header -->
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            <h1>RelaxU</h1>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="lecturer_home.php" class="active">Dashboard</a></li>
+                <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
+                <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
+                <li><a href="scheduler.php">Class Schedule</a></li>
+                <li><a href="grading.php">Grading</a></li>
+                <li><a href="resources.php">Resources</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="lecturer_profile.php" class="profile-btn"><b>Profile</b></a>
+            <form action="../../util/logout.php" method="post" style="display: inline">
+                <button type="submit" class="logout-btn"><b>Log Out</b></button>
+            </form>
+        </div>
+    </header>
     
     <main>
-        <!-- Add this section to display forwarded questions -->
-        <div class="dashboard-section">
-            <div class="section-title">
-                <h3>Forwarded Academic Questions</h3>
-                <?php if ($unreadCount > 0): ?>
-                    <span class="notification-badge"><?= $unreadCount ?></span>
+        <div class="dashboard-greeting">
+            <h2>Welcome, <?= isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Lecturer' ?></h2>
+            <p>Here's an overview of your academic questions and activities</p>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- Forwarded Questions Section -->
+            <div class="dashboard-section">
+                <div class="section-title">
+                    <h3>Forwarded Academic Questions</h3>
+                    <?php if ($unreadCount > 0): ?>
+                        <span class="notification-badge"><?= $unreadCount ?></span>
+                    <?php endif; ?>
+                </div>
+                
+                <?php if (!empty($recentForwardedQuestions)): ?>
+                    <ul class="forwarded-questions-list">
+                        <?php foreach ($recentForwardedQuestions as $question): ?>
+                            <li class="forwarded-item <?= $question['status'] === 'Unread' ? 'unread' : '' ?>">
+                                <div class="forwarded-meta">
+                                    <span>From: <?= htmlspecialchars($question['student_name']) ?></span>
+                                    <span>Forwarded: <?= date('M d, Y', strtotime($question['forwarded_at'])) ?></span>
+                                </div>
+                                <span class="forwarded-category"><?= htmlspecialchars($question['category']) ?></span>
+                                <p class="forwarded-question"><?= htmlspecialchars(substr($question['question'], 0, 150)) . (strlen($question['question']) > 150 ? '...' : '') ?></p>
+                                <div class="forwarded-actions">
+                                    <a href="../../controller/ForwardedQuestionController.php?action=viewQuestion&id=<?= $question['id'] ?>" class="btn-view">
+                                        <?= $question['status'] === 'Unread' ? 'View New' : 'View' ?>
+                                    </a>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions" class="view-all-link">View All Forwarded Questions</a>
+                <?php else: ?>
+                    <p class="no-questions">No forwarded questions at this time.</p>
                 <?php endif; ?>
             </div>
             
-            <?php if (!empty($recentForwardedQuestions)): ?>
-                <ul class="forwarded-questions-list">
-                    <?php foreach ($recentForwardedQuestions as $question): ?>
-                        <li class="forwarded-item <?= $question['status'] === 'Unread' ? 'unread' : '' ?>">
-                            <div class="forwarded-meta">
-                                <span>From: <?= htmlspecialchars($question['student_name']) ?></span>
-                                <span>Forwarded: <?= date('M d, Y', strtotime($question['forwarded_at'])) ?></span>
-                            </div>
-                            <span class="forwarded-category"><?= htmlspecialchars($question['category']) ?></span>
-                            <p class="forwarded-question"><?= htmlspecialchars(substr($question['question'], 0, 150)) . (strlen($question['question']) > 150 ? '...' : '') ?></p>
-                            <div class="forwarded-actions">
-                                <a href="../controller/ForwardedQuestionController.php?action=viewQuestion&id=<?= $question['id'] ?>" class="btn-view">
-                                    <?= $question['status'] === 'Unread' ? 'View New' : 'View' ?>
-                                </a>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-                <a href="../controller/ForwardedQuestionController.php?action=viewForwardedQuestions" class="view-all-link">View All Forwarded Questions</a>
-            <?php else: ?>
-                <p class="no-questions">No forwarded questions at this time.</p>
-            <?php endif; ?>
+            <!-- Recently Replied Questions Section -->
+            <div class="dashboard-section">
+                <div class="section-title">
+                    <h3>Recently Replied Questions</h3>
+                </div>
+                
+                <?php if (!empty($recentReplies)): ?>
+                    <ul class="replied-questions-list">
+                        <?php foreach ($recentReplies as $reply): ?>
+                            <li class="replied-item">
+                                <div class="replied-meta">
+                                    <span>To: <?= htmlspecialchars($reply['student_name']) ?></span>
+                                    <span>Replied: <?= date('M d, Y', strtotime($reply['reply_date'])) ?></span>
+                                </div>
+                                <span class="forwarded-category"><?= htmlspecialchars($reply['category']) ?></span>
+                                <p class="replied-question">
+                                    <strong>Q:</strong> <?= htmlspecialchars(substr($reply['question'], 0, 100)) . (strlen($reply['question']) > 100 ? '...' : '') ?>
+                                </p>
+                                <p class="replied-answer">
+                                    <strong>A:</strong> <?= htmlspecialchars(substr($reply['reply_text'], 0, 100)) . (strlen($reply['reply_text']) > 100 ? '...' : '') ?>
+                                </p>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions" class="view-all-link">View All Replied Questions</a>
+                <?php else: ?>
+                    <p class="no-questions">You haven't replied to any questions yet.</p>
+                <?php endif; ?>
+            </div>
         </div>
         
-        <!-- Your existing content -->
+        <!-- Your existing content goes here -->
     </main>
     
-    <!-- Your existing footer -->
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h1>RelaxU</h1>
+                <p>Your mental health, your priority.</p>
+                <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="lecturer_home.php">Dashboard</a></li>
+                    <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
+                    <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
+                    <li><a href="scheduler.php">Class Schedule</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Support</h3>
+                <p>Email: support@relaxu.com</p>
+                <p>Phone: +1 800-RELAXU</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
