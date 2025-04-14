@@ -53,7 +53,7 @@ class RepliedQuestionsController {
         $userId = $_SESSION['user_id'];
         
         // Get questions based on role
-        if ($role === 'head_of_undergraduate') {
+        if ($role === 'hous') {
             // Head of undergraduate studies can see all replied questions
             $repliedQuestions = $this->model->getAllRepliedQuestions();
         } elseif ($role === 'lecturer') {
@@ -67,13 +67,13 @@ class RepliedQuestionsController {
                 $repliedQuestions = $this->model->getRepliedQuestionsForStudent($studentId);
             } else {
                 $_SESSION['error_message'] = "Student ID not found. Please contact support.";
-                header('Location: ../views/student/student_home.php');
+                header('Location: ../views/home.php');
                 exit();
             }
         } else {
             // Other roles not allowed to view replied questions
             $_SESSION['error_message'] = "You don't have permission to view this page.";
-            header('Location: ../views/home.php');
+            header('Location: ../views/houg/houg_home.php');
             exit();
         }
         
@@ -81,8 +81,8 @@ class RepliedQuestionsController {
         $_SESSION['replied_questions'] = $repliedQuestions;
         
         // Load appropriate view based on role
-        if ($role === 'head_of_undergraduate') {
-            header('Location: ../views/head_of_undergraduate/replied_questions.php');
+        if ($role === 'hous') {
+            header('Location: ../views/houg/forwarded_replied_questions.php');
         } elseif ($role === 'lecturer') {
             header('Location: ../views/lecturer/replied_questions.php');
         } elseif ($role === 'student') {
@@ -115,8 +115,8 @@ class RepliedQuestionsController {
         
         // Determine which view to load based on user role
         $role = $_SESSION['role'];
-        if ($role === 'head_of_undergraduate') {
-            header('Location: ../views/head_of_undergraduate/reply_details.php');
+        if ($role === 'hous') {
+            header('Location: ../views/houg/reply_details.php');
         } elseif ($role === 'lecturer') {
             header('Location: ../views/lecturer/reply_details.php');
         } elseif ($role === 'student') {
