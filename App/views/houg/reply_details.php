@@ -26,6 +26,12 @@ if (!$replyDetails) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link
+      rel="stylesheet"
+      href="../../../assets/css/header_footer.css"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="../../../assets/css/houg_home.css" type="text/css" />
     <style>
         main {
             max-width: 900px;
@@ -182,26 +188,32 @@ if (!$replyDetails) {
 </head>
 <body>
     <!-- Header Section -->
+ 
     <header class="header">
-        <div class="logo">
-            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
-            <h1>RelaxU</h1>
-        </div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="houg_home.php">Dashboard</a></li>
-                <li><a href="academic_questions.php">Academic Questions</a></li>
-                <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions" class="active">Forwarded-Replied Questions</a></li>
-                <li><a href="faculty_schedule.php">Faculty Schedule</a></li>
-                <li><a href="student_requests.php">Student Requests</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <a href="houg_profile.php" class="profile-btn"><b>Profile</b></a>
-            <form action="../../util/logout.php" method="post" style="display: inline">
-                <button type="submit" class="logout-btn"><b>Log Out</b></button>
-            </form>
-        </div>
+      <div class="logo">
+        <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <h1>RelaxU</h1>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
+          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
+          <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
+           <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <!-- Profile button form -->
+<form action="hous_profile.php" method="GET">
+    <button type="submit" class="login"><b>Profile</b></button>
+</form>
+
+    
+        <!-- Logout button form -->
+        <form action="../../../util/logout.php" method="POST" style="display: inline;">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
+      </div>
     </header>
 
     <main>
@@ -271,31 +283,34 @@ if (!$replyDetails) {
     </main>
     
     <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <h1>RelaxU</h1>
-                <p>Your mental health, your priority.</p>
-                <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="houg_home.php">Dashboard</a></li>
-                    <li><a href="academic_questions.php">Academic Questions</a></li>
-                    <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
-                    <li><a href="faculty_schedule.php">Faculty Schedule</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Support</h3>
-                <p>Email: support@relaxu.com</p>
-                <p>Phone: +1 800-RELAXU</p>
-            </div>
+<footer class="footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <h1>RelaxU</h1>
+          <p>Your mental health, your priority.</p>
+          <img
+            id="footer-logo"
+            src="../../../assets/images/logo.jpg"
+            alt="RelaxU Logo"
+          />
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+          <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
+          <li><a href="#">Academic Requests</a></li>
+          <li><a href="#">List of Lecturers</a></li>
+          </ul>
         </div>
+        <div class="footer-section">
+          <h3>Contact Support</h3>
+          <p>Email: support@relaxu.com</p>
+          <p>Phone: +1 800-RELAXU</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
+      </div>
     </footer>
 </body>
 </html>
