@@ -179,6 +179,8 @@ class ForwardedQuestionController {
         header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions');
         exit();
     }
+    
+    
 }
 
 // Handle actions
