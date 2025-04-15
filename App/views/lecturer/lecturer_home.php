@@ -259,7 +259,8 @@ $recentReplies = array_slice($recentReplies, 0, 5);
         </nav>
       <div class="auth-buttons">
         <!-- Profile button form -->
-<form action="hous_profile.php" method="GET">
+<form action="../../controller/LecturerController.php" method="GET">
+    <input type="hidden" name="action" value="myProfile">
     <button type="submit" class="login"><b>Profile</b></button>
 </form>
 

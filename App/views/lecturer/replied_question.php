@@ -323,7 +323,7 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
     <!-- Header Section -->
     <header class="header">
         <div class="logo">
-            <img src="../.././assets/images/logo.jpg" alt="RelaxU Logo" />
+            <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
             <h1>RelaxU</h1>
         </div>
         <nav class="navbar">

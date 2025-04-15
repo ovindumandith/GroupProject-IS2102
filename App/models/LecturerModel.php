@@ -140,5 +140,52 @@ class LecturerModel {
             return false;
         }
     }
+    /**
+ * Update a lecturer by user_id instead of id
+ * @param int $userId The user ID of the lecturer
+ * @param array $userData The data to update
+ * @return bool Success or failure
+ */
+public function updateLecturerByUserId($userId, $userData) {
+    try {
+        // First check if lecturer exists with this user_id
+        $checkQuery = "SELECT id FROM lecturers WHERE user_id = :user_id";
+        $checkStmt = $this->db->prepare($checkQuery);
+        $checkStmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $checkStmt->execute();
+        
+        if ($checkStmt->rowCount() > 0) {
+            // Lecturer exists, update it
+            $lecturerId = $checkStmt->fetchColumn();
+            
+            $query = "UPDATE lecturers 
+                      SET name = :name, 
+                          email = :email, 
+                          department = :department, 
+                          category = :category, 
+                          bio = :bio
+                      WHERE user_id = :user_id";
+        } else {
+            // Lecturer doesn't exist, insert new record
+            $query = "INSERT INTO lecturers (user_id, name, email, department, category, bio) 
+                      VALUES (:user_id, :name, :email, :department, :category, :bio)";
+        }
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $userData['name'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $userData['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':department', $userData['department'], PDO::PARAM_STR);
+        $stmt->bindParam(':category', $userData['category'], PDO::PARAM_STR);
+        $stmt->bindParam(':bio', $userData['bio'], PDO::PARAM_STR);
+        
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return false;
+    }
+}
+
+    
 }
 ?>
