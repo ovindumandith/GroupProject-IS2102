@@ -210,197 +210,103 @@ class LecturerController {
         exit();
     }
 
-
     /**
- * Manage lecturer's own profile
- */
-public function myProfile() {
-    session_start();
-    
-    // Check if user is logged in as lecturer
-    if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
-        header('Location: ../views/login.php?error=unauthorized');
-        exit();
-    }
-    
-    $lecturerId = $_SESSION['user_id'];
-    $successMessage = '';
-    $errorMessage = '';
-    
-    // Handle profile update
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
-        // Sanitize inputs
-        $name = filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING);
-        $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-        $phone = filter_var(trim($_POST['phone']), FILTER_SANITIZE_STRING);
-        $department = filter_var(trim($_POST['department']), FILTER_SANITIZE_STRING);
-        $category = filter_var(trim($_POST['category']), FILTER_SANITIZE_STRING);
-        $bio = filter_var(trim($_POST['bio']), FILTER_SANITIZE_STRING);
+     * Manage lecturer's own profile
+     */
+    public function myProfile() {
+        session_start();
         
-        // Check if email is valid
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errorMessage = "Please enter a valid email address.";
-        } else {
-            // Update users table
-            $userResult = $this->updateUser($lecturerId, $email, $phone);
+        // Check if user is logged in as lecturer
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
+            header('Location: ../views/login.php?error=unauthorized');
+            exit();
+        }
+        
+        $lecturerId = $_SESSION['user_id'];
+        $successMessage = '';
+        $errorMessage = '';
+        
+        // Handle profile update
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
+            // Sanitize inputs
+            $name = filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING);
+            $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+            $phone = filter_var(trim($_POST['phone']), FILTER_SANITIZE_STRING);
+            $department = filter_var(trim($_POST['department']), FILTER_SANITIZE_STRING);
+            $category = filter_var(trim($_POST['category']), FILTER_SANITIZE_STRING);
+            $bio = filter_var(trim($_POST['bio']), FILTER_SANITIZE_STRING);
             
-            // Update lecturer info in lecturers table
-            $lecturerResult = $this->model->updateLecturerByUserId($lecturerId, [
-                'name' => $name,
-                'email' => $email,
-                'department' => $department,
-                'category' => $category,
-                'bio' => $bio
-            ]);
-            
-            if ($userResult && $lecturerResult) {
-                $successMessage = "Profile updated successfully!";
+            // Check if email is valid
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errorMessage = "Please enter a valid email address.";
             } else {
-                $errorMessage = "Failed to update profile. Please try again.";
+                // Update users table
+                $userResult = $this->model->updateUserInfo($lecturerId, $email, $phone);
+                
+                // Update lecturer info in lecturers table
+                $lecturerResult = $this->model->updateLecturerByUserId($lecturerId, [
+                    'name' => $name,
+                    'email' => $email,
+                    'department' => $department,
+                    'category' => $category,
+                    'bio' => $bio
+                ]);
+                
+                if ($userResult && $lecturerResult) {
+                    $successMessage = "Profile updated successfully!";
+                } else {
+                    $errorMessage = "Failed to update profile. Please try again.";
+                }
             }
         }
-    }
-    
-    // Handle password change
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
-        $currentPassword = $_POST['current_password'];
-        $newPassword = $_POST['new_password'];
-        $confirmPassword = $_POST['confirm_password'];
         
-        // Check if current password is correct
-        if (!$this->verifyPassword($lecturerId, $currentPassword)) {
-            $errorMessage = "Current password is incorrect.";
-        } 
-        // Check if new passwords match
-        else if ($newPassword !== $confirmPassword) {
-            $errorMessage = "New passwords don't match.";
-        } 
-        // Check password length
-        else if (strlen($newPassword) < 6) {
-            $errorMessage = "New password must be at least 6 characters long.";
-        } 
-        else {
-            // Update password
-            $result = $this->updatePassword($lecturerId, $newPassword);
+        // Handle password change
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+            $currentPassword = $_POST['current_password'];
+            $newPassword = $_POST['new_password'];
+            $confirmPassword = $_POST['confirm_password'];
             
-            if ($result) {
-                $successMessage = "Password changed successfully!";
-            } else {
-                $errorMessage = "Failed to change password. Please try again.";
+            // Check if current password is correct
+            if (!$this->model->verifyPassword($lecturerId, $currentPassword)) {
+                $errorMessage = "Current password is incorrect.";
+            } 
+            // Check if new passwords match
+            else if ($newPassword !== $confirmPassword) {
+                $errorMessage = "New passwords don't match.";
+            } 
+            // Check password length
+            else if (strlen($newPassword) < 6) {
+                $errorMessage = "New password must be at least 6 characters long.";
+            } 
+            else {
+                // Update password
+                $result = $this->model->updatePassword($lecturerId, $newPassword);
+                
+                if ($result) {
+                    $successMessage = "Password changed successfully!";
+                } else {
+                    $errorMessage = "Failed to change password. Please try again.";
+                }
             }
         }
+        
+        // Get user info
+        $userInfo = $this->model->getUserById($lecturerId);
+        
+        // Get lecturer info
+        $lecturerInfo = $this->model->getLecturerByUserId($lecturerId);
+        
+        // Merge user and lecturer info
+        $profile = array_merge($userInfo ?? [], $lecturerInfo ?? []);
+        
+        // Store messages in session
+        $_SESSION['success_message'] = $successMessage;
+        $_SESSION['error_message'] = $errorMessage;
+        $_SESSION['lecturer_profile'] = $profile;
+        
+        // Load view
+        include '../views/lecturer/lecturer_profile.php';
     }
-    
-    // Get user info
-    $userInfo = $this->getUserInfo($lecturerId);
-    
-    // Get lecturer info
-    $lecturerInfo = $this->model->getLecturerByUserId($lecturerId);
-    
-    // Merge user and lecturer info
-    $profile = array_merge($userInfo ?? [], $lecturerInfo ?? []);
-    
-    // Store messages in session
-    $_SESSION['success_message'] = $successMessage;
-    $_SESSION['error_message'] = $errorMessage;
-    $_SESSION['lecturer_profile'] = $profile;
-    
-    // Load view
-    include '../views/lecturer/lecturer_profile.php';
-}
-
-/**
- * Update user information
- * @param int $userId
- * @param string $email
- * @param string $phone
- * @return bool
- */
-private function updateUser($userId, $email, $phone) {
-    try {
-        $db = new Database();
-        $db = $db->connect();
-        
-        $query = "UPDATE users SET email = :email, phone = :phone WHERE user_id = :user_id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
-        return $stmt->execute();
-    } catch (PDOException $e) {
-        error_log($e->getMessage());
-        return false;
-    }
-}
-
-/**
- * Get user information
- * @param int $userId
- * @return array|false
- */
-private function getUserInfo($userId) {
-    try {
-        $db = new Database();
-        $db = $db->connect();
-        
-        $query = "SELECT * FROM users WHERE user_id = :user_id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log($e->getMessage());
-        return false;
-    }
-}
-
-/**
- * Verify user password
- * @param int $userId
- * @param string $password
- * @return bool
- */
-private function verifyPassword($userId, $password) {
-    try {
-        $db = new Database();
-        $db = $db->connect();
-        
-        $query = "SELECT password FROM users WHERE user_id = :user_id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        
-        $storedPassword = $stmt->fetchColumn();
-        
-        // Verify the password - update this to match your existing password verification method
-        return ($storedPassword === $password);
-    } catch (PDOException $e) {
-        error_log($e->getMessage());
-        return false;
-    }
-}
-
-/**
- * Update user password
- * @param int $userId
- * @param string $newPassword
- * @return bool
- */
-private function updatePassword($userId, $newPassword) {
-    try {
-        $db = new Database();
-        $db = $db->connect();
-        
-        $query = "UPDATE users SET password = :password WHERE user_id = :user_id";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':password', $newPassword, PDO::PARAM_STR);
-        return $stmt->execute();
-    } catch (PDOException $e) {
-        error_log($e->getMessage());
-        return false;
-    }
-}
 }
 
 // Handle actions

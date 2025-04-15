@@ -234,12 +234,13 @@ unset($_SESSION['error_message']);
                 <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
                 <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
                 <li><a href="scheduler.php">Class Schedule</a></li>
-                <li><a href="grading.php">Grading</a></li>
-                <li><a href="resources.php">Resources</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">
-            <a href="../../controller/LecturerController.php?action=myProfile" class="profile-btn"><b>Profile</b></a>
+            <form action="../../controller/LecturerController.php" method="GET">
+    <input type="hidden" name="action" value="myProfile">
+    <button type="submit" class="login"><b>Profile</b></button>
+</form>
             <form action="../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="logout-btn"><b>Log Out</b></button>
             </form>
