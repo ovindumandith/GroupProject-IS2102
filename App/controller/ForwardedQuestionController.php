@@ -34,6 +34,9 @@ class ForwardedQuestionController {
                 case 'respondToQuestion':
                     $this->respondToQuestion();
                     break;
+                case 'forwardQuestion':
+                    $this->forwardQuestion();
+                    break;
                 default:
                     // Redirect to dashboard if action is not recognized
                     header('Location: ../views/lecturer/lecturer_home.php');
@@ -131,6 +134,35 @@ class ForwardedQuestionController {
         echo json_encode(['success' => $result]);
         exit();
     }
+    private function forwardQuestion() {
+    // Check if user is logged in as HOUS
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
+        echo json_encode(['success' => false, 'message' => 'Unauthorized access']);
+        exit();
+    }
+    
+    // Check if question ID and category are provided
+    if (!isset($_POST['question_id']) || !isset($_POST['category'])) {
+        echo json_encode(['success' => false, 'message' => 'Missing required parameters']);
+        exit();
+    }
+    
+    $questionId = (int)$_POST['question_id'];
+    $category = $_POST['category'];
+    $forwardedBy = $_SESSION['user_id'];
+    
+    // Forward the question to all lecturers in the category
+    $result = $this->model->forwardQuestionToLecturers($questionId, $category, $forwardedBy);
+    
+    // Return JSON response
+    header('Content-Type: application/json');
+    if ($result) {
+        echo json_encode(['success' => true, 'message' => 'Question forwarded successfully to lecturers']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to forward question. No lecturers found in this category or an error occurred.']);
+    }
+    exit();
+}
     
     /**
      * Respond to a forwarded question
@@ -167,6 +199,7 @@ class ForwardedQuestionController {
         header('Location: ../controller/ForwardedQuestionController.php?action=viewForwardedQuestions');
         exit();
     }
+    
 }
 
 // Create controller instance and handle request

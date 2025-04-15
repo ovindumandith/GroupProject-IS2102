@@ -32,7 +32,7 @@ class RepliedQuestionsModel {
             return array();
         }
     }
-    
+
     /**
      * Get replied questions for a specific student
      */
@@ -57,7 +57,7 @@ class RepliedQuestionsModel {
             return array();
         }
     }
-    
+
     /**
      * Get all replied questions by a specific lecturer
      */
@@ -80,7 +80,7 @@ class RepliedQuestionsModel {
             return array();
         }
     }
-    
+
     /**
      * Get a specific replied question
      */
@@ -104,7 +104,57 @@ class RepliedQuestionsModel {
             return false;
         }
     }
-    
+
+    /**
+     * Add a reply to a forwarded question
+     * @param int $questionId - The academic question ID
+     * @param int $forwardedId - The forwarded question ID
+     * @param int $lecturerId - The lecturer who is replying
+     * @param string $replyText - The reply text
+     * @return bool - Success or failure
+     */
+    public function addReply($questionId, $forwardedId, $lecturerId, $replyText) {
+        try {
+            // Begin transaction
+            $this->db->beginTransaction();
+
+            // Insert reply into question_replies table
+            $insertQuery = "INSERT INTO question_replies (question_id, user_id, reply_text) 
+                            VALUES (:question_id, :user_id, :reply_text)";
+            $insertStmt = $this->db->prepare($insertQuery);
+            $insertStmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+            $insertStmt->bindParam(':user_id', $lecturerId, PDO::PARAM_INT);
+            $insertStmt->bindParam(':reply_text', $replyText, PDO::PARAM_STR);
+            $insertStmt->execute();
+
+            // Update forwarded_questions status to Responded
+            $updateForwardedQuery = "UPDATE forwarded_questions 
+                                     SET status = 'Responded', responded_at = CURRENT_TIMESTAMP 
+                                     WHERE id = :forwarded_id AND lecturer_id = :lecturer_id";
+            $updateForwardedStmt = $this->db->prepare($updateForwardedQuery);
+            $updateForwardedStmt->bindParam(':forwarded_id', $forwardedId, PDO::PARAM_INT);
+            $updateForwardedStmt->bindParam(':lecturer_id', $lecturerId, PDO::PARAM_INT);
+            $updateForwardedStmt->execute();
+
+            // Update academic_questions status to Answered
+            $updateQuestionQuery = "UPDATE academic_questions 
+                                    SET status = 'Answered' 
+                                    WHERE id = :question_id";
+            $updateQuestionStmt = $this->db->prepare($updateQuestionQuery);
+            $updateQuestionStmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+            $updateQuestionStmt->execute();
+
+            // Commit transaction
+            $this->db->commit();
+            return true;
+        } catch (PDOException $e) {
+            // Rollback transaction if error
+            $this->db->rollBack();
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
     /**
      * Add debugging to help identify issues
      */
@@ -115,13 +165,13 @@ class RepliedQuestionsModel {
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             // Get a sample record to check column names
             $querySample = "SELECT * FROM question_replies LIMIT 1";
             $stmtSample = $this->db->prepare($querySample);
             $stmtSample->execute();
             $sample = $stmtSample->fetch(PDO::FETCH_ASSOC);
-            
+
             return [
                 'count' => $result['count'],
                 'sample' => $sample,
@@ -136,7 +186,7 @@ class RepliedQuestionsModel {
             return ['error' => $e->getMessage()];
         }
     }
-    
+
     /**
      * Get all table names in the database
      */
@@ -154,7 +204,7 @@ class RepliedQuestionsModel {
             return ['error' => $e->getMessage()];
         }
     }
-    
+
     /**
      * Get all column names for a specified table
      */

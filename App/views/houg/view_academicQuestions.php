@@ -223,54 +223,54 @@
     </script>
     <script>
       // Handle forward button clicks
-const forwardButtons = document.querySelectorAll('.forward-btn');
-
-forwardButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const questionId = button.getAttribute('data-question-id');
-    const category = button.getAttribute('data-category');
+// Add event listeners to forward buttons
+document.querySelectorAll('.forward-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    const questionId = this.getAttribute('data-question-id');
+    const category = this.getAttribute('data-category');
     
-    if (confirm(`Are you sure you want to forward this question to all lecturers in the ${category} category?`)) {
-      // Create form data
-      const formData = new FormData();
-      formData.append('question_id', questionId);
-      
-      // Send AJAX request
-      fetch('../controller/ForwardedQuestionController.php?action=forwardQuestion', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Show success message
-          const toast = document.createElement('div');
-          toast.className = 'toast-notification';
-          toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
-          document.body.appendChild(toast);
-          
-          // Show and then hide the toast
-          setTimeout(() => {
-            toast.classList.add('show');
-          }, 100);
-          
-          setTimeout(() => {
-            toast.classList.remove('show');
-          }, 5000);
-          
-          // Disable the button
-          button.disabled = true;
-          button.textContent = 'Forwarded';
-          button.style.backgroundColor = '#999';
-        } else {
-          alert(data.message);
+    // Create form data to send
+    const formData = new FormData();
+    formData.append('question_id', questionId);
+    formData.append('category', category);
+    
+    // Send AJAX request to forward the question
+    fetch('../controller/ForwardedQuestionController.php?action=forwardQuestion', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Show success message
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
+        document.body.appendChild(toast);
+        
+        // Remove the toast after 3 seconds
+        setTimeout(() => {
+          toast.remove();
+        }, 3000);
+        
+        // Update the UI to reflect that question has been forwarded
+        const questionRow = this.closest('tr');
+        if (questionRow.querySelector('.status')) {
+          questionRow.querySelector('.status').textContent = 'Forwarded';
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-      });
-    }
+        
+        // Disable the forward button
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-check"></i> Forwarded';
+      } else {
+        // Show error message
+        alert(data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred while forwarding the question.');
+    });
   });
 });
     </script>
