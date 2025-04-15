@@ -1,0 +1,209 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #a5e3c6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.create-whole-container {
+  background-color: #d4f6d4;
+  width: 450px; /* Adjusted width for narrow frame */
+  height: 700px; /* Adjusted height */
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Keeps elements spaced out */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between left and right sections */
+}
+
+.header-left {
+  flex: 1; /* Adjustable space for the image */
+}
+
+.header-image {
+  max-width: 100%; /* Ensure the image scales proportionally */
+  height: auto;
+  border-radius: 10px; /* Add rounded corners for aesthetics */
+}
+
+.header-right {
+  flex: 2; /* More space for the text section */
+  text-align: center;
+}
+
+.header-right h1 {
+  font-size: 40px; /* Keep the original size */
+  color: #4caf50;
+  margin: 0;
+}
+
+.header-right hr {
+  border: none;
+  border-top: 2px solid #4caf50;
+  margin: 5px 0;
+}
+
+.create-post-container {
+  background-color: #e7f7e7; /* Light green background */
+  border: 2px solid #4caf50; /* Green border for container */
+  border-radius: 20px; /* Rounded corners */
+  padding: 20px; /* Spacing inside the container */
+  width: 400px; /* Fixed width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Profile Section */
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.profile-img {
+  width: 40px; /* Smaller profile image */
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #4caf50;
+}
+
+.username-btn {
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  background-color: transparent;
+  font-size: 12px; /* Smaller font size */
+  cursor: pointer;
+}
+
+/* Title Input */
+.title-input {
+  width: 95%;
+  padding: 8px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 12px; /* Adjusted font */
+}
+
+/* Description Input */
+.description-input {
+  width: 95%;
+  height: 180px; /* Reduced height to fit */
+  padding: 8px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+/* Add Post Button */
+.add-post-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 14px; /* Slightly smaller font */
+  width: 100%;
+  cursor: pointer;
+}
+
+.add-post-btn:hover {
+  background-color: #45a049;
+}
+
+.comment-section {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #b7ebc6;
+  padding: 20px;
+  border-radius: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.comments-container {
+  margin-bottom: 30px;
+}
+
+.comment-card {
+  display: flex;
+  align-items: flex-start;
+  background-color: #e1f5e9;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-pic {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.user-id {
+  font-weight: bold;
+  color: #2f6e4f;
+  margin-bottom: 5px;
+}
+
+.comment-text {
+  margin: 0;
+  color: #333;
+}
+
+.add-comment-box {
+  background-color: #d3f0dd;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 70px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  resize: none;
+}
+
+.comment-btn {
+  align-self: flex-end;
+  padding: 8px 20px;
+  background-color: #5cbf75;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comment-btn:hover {
+  background-color: #4ba865;
+}
