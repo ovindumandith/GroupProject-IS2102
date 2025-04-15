@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +19,8 @@ if (!isset($_SESSION['user_id'])) {
   <link rel="stylesheet" href="../../assets/css/header_footer.css" />
   <link rel="stylesheet" href="../../assets/css/Community.css">
   <script defer src="../../assets/js/Community1.js"></script>
+  <script defer src="../../assets/js/searchpost.js"></script>
+  <script defer src="../../assets/js/likepost.js"></script>
   <script src="../../assets/js/hero_slider.js" defer></script>
   <script src="../../assets/js/testimonial_slider.js" defer></script>
   <script src="../../assets/js/counter.js" defer></script>
@@ -57,12 +60,13 @@ if (!isset($_SESSION['user_id'])) {
     <section class="hero">
     <h1>JOIN OUR COMMUNITY</h1>
         <div class="hero-content">
-            <p>Create authentic relationships for your audience.</p>
-            <button class="btn">Get Started</button><br>
+            <p>Connect with others on a deeper level. <br>Share, Listen & Grow Together...</p>
+            <button class="btn" onclick="document.getElementById('target-section').scrollIntoView({ behavior: 'smooth' });">
+            Get Started</button>
+            <br>
         </div>
 
-          <div class="image-slider">
-          <h2>How its work<h2><br>
+          <div class="image-slider"> <br/>
           <div class="image-slide active">
             <img src="../../assets/images/comm1.png" alt="Image 1" />
             <h3>“Success is not final; failure is not fatal: It is the courage to continue that counts.”<br>
@@ -85,25 +89,47 @@ if (!isset($_SESSION['user_id'])) {
           </div>
     </section>
     
-    <section class="blog-section">
-      <div class="search-bar">
-        <input type="text" placeholder="Search posts..." id="search-input">
-        <button class="styled-button">Search</button>
-      </div>
-  
-      <br>
-      
+    <section class="blog-section" id="target-section">
         <section class="blog-section">
+        <h2 id="target-section">Get Started</h2>
           <div class="search-bar">
-            <a href="/GroupProject-IS2102/App/views/create_post.php" class="styled-button">Create your post</a>       
+            <a href="/GroupProject-IS2102/App/views/create_post.php" class="styled-button">Create your post</a>    
             <a href="/GroupProject-IS2102/App/views/manage_post.php" class="styled-button">Your Personal Posts</a>
-          </div>
-          <br>
+          </div><br>
           <div class="blog-section">
               <h2>Our Blog For You</h2>
           </div>
+      <div class="search-bar">
+      <input type="text" id="searchBox" placeholder="Search by post title..." style="margin-bottom: 20px; padding: 8px; width: 300px;">
+      </div><br>
 
       <div class="posts-container">
+
+      <?php if (!empty($posts)): ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post">
+            <div class="post-header">
+                <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <?= htmlspecialchars($post['username']) ?></h4>
+            </div>
+                <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
+                <?php if ($post['image']): ?>
+                    <img src="<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
+                <?php endif; ?>
+                <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
+                <br><hr>
+                <div class="post-footer">
+                  <button class="like-btn" id="likeButton1"> ❤️ 30 Likes</button>
+                  <a href="/GroupProject-IS2102/App/views/comment_post.php">
+                      <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+                  </a>
+                </div>
+                <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No posts available.</p>
+    <?php endif; ?>
+    
         <!-- Post 1 -->
         <article class="post">
           <div class="post-header">
@@ -117,7 +143,7 @@ if (!isset($_SESSION['user_id'])) {
           We all face challenges, and sometimes, those challenges feel insurmountable. In this heartfelt post, I share my personal experience with mental health struggles, how they impacted my life, and the steps I took to regain control. From practicing mindfulness to embracing self-care routines, this journey was filled with ups and downs, but it ultimately led to a stronger, healthier version of myself. I hope my story inspires you to take that first step toward prioritizing your mental well-being. Join the conversation, share your story, or simply know that you’re not alone in this.
           </p><br><hr>
           <div class="post-footer">
-              <button class="like-btn"> ❤️ 30 Likes</button>
+          <button class="like-btn" id="likeButton2"> ❤️ 30 Likes</button>
               <a href="/GroupProject-IS2102/App/views/comment_post.php">
                 <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
               </a>
@@ -137,7 +163,7 @@ if (!isset($_SESSION['user_id'])) {
           Life can be overwhelming, and sometimes finding time to relax feels impossible. But even a short break can make a difference! This post introduces quick and practical relaxation methods, like focused deep breathing, mindful stretching, or even a five-minute guided meditation. These techniques are designed to fit into your busiest days, helping you recharge your mind and body. Whether you’re at work, studying, or managing multiple responsibilities, take a moment to explore these simple ways to restore balance to your life.
           </p><br><hr>
           <div class="post-footer">
-              <button class="like-btn"> ❤️ 30 Likes</button>
+              <button class="like-btn" id="likeButton3"> ❤️ 30 Likes</button>
               <a href="/GroupProject-IS2102/App/views/comment_post.php">
                 <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
               </a>
@@ -157,51 +183,13 @@ if (!isset($_SESSION['user_id'])) {
           Feeling tense or overwhelmed? Moving your body might be the solution! This post delves into how physical activity not only strengthens your body but also calms your mind. Whether it’s a quick walk, a yoga session, or an intense workout, exercise releases endorphins—your body’s natural stress relievers. We’ll explore the best types of exercises for stress reduction and how you can fit them into your daily routine, no matter how busy life gets. Start small, and let movement transform your mood and energy levels!
           </p><br><hr>
           <div class="post-footer">
-              <button class="like-btn"> ❤️ 30 Likes</button>
+              <button class="like-btn" id="likeButton4"> ❤️ 30 Likes</button>
               <a href="/GroupProject-IS2102/App/views/comment_post.php">
                 <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
               </a>
           </div>
             <small>Posted on: 2024-11-30 15:57:49 </small>
-        </article>
-
-        <!-- Posts-->
-
-        
-    <?php if (!empty($posts)): ?>
-        <?php foreach ($posts as $post): ?>
-            <div class="post">
-            <div class="post-header">
-                <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <?= htmlspecialchars($post['username']) ?></h4>
-            </div>
-                <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
-                <?php if ($post['image']): ?>
-                    <img src="<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
-                <?php endif; ?>
-                <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
-                <br><hr>
-                <div class="post-footer">
-                  <button class="like-btn"> ❤️ 30 Likes</button>
-                  <a href="/GroupProject-IS2102/App/views/comment_post.php">
-                      <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
-                  </a>
-                </div>
-                <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No posts available.</p>
-    <?php endif; ?>
-
-        <!-- Pagination -->
-        <div class="pagination">
-          <button class="pagination-btn">Prev</button>
-          <button class="pagination-btn active">1</button>
-          <button class="pagination-btn">2</button>
-          <button class="pagination-btn">...</button>
-          <button class="pagination-btn">Next</button>
-        </div>
-      </div>
+        </article>       
     </section>
 
     <!-- Footer Section -->
