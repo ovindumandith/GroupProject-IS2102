@@ -13,7 +13,7 @@ body {
 .create-whole-container {
   background-color: #d4f6d4;
   width: 450px; /* Adjusted width for narrow frame */
-  height: 700px; /* Adjusted height */
+  height: 780px; /* Adjusted height */
   border-radius: 15px;
   padding: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -96,15 +96,13 @@ body {
   width: 95%;
   padding: 8px;
   border: 2px solid #4caf50;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  font-size: 12px; /* Adjusted font */
+  margin-bottom: 8px;
 }
 
 /* Description Input */
 .description-input {
   width: 95%;
-  height: 180px; /* Reduced height to fit */
+  height: 100px; /* Reduced height to fit */
   padding: 8px;
   border: 2px solid #4caf50;
   border-radius: 10px;
@@ -172,6 +170,12 @@ body {
 .comment-text {
   margin: 0;
   color: #333;
+  font-size:18px;
+}
+.date {
+  margin: 0;
+  color: #333;
+  font-size:12px;
 }
 
 .add-comment-box {
