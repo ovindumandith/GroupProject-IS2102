@@ -8,6 +8,9 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 
 }
+
+$_SESSION['current_post_id'] = $postId;
+
 ?>
 
 <!DOCTYPE html>
@@ -119,8 +122,8 @@ if (!isset($_SESSION['user_id'])) {
                 <br><hr>
                 <div class="post-footer">
                   <button class="like-btn" id="likeButton1"> ❤️ 30 Likes</button>
-                  <a href="/GroupProject-IS2102/App/views/comment_post.php">
-                      <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+                  <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
+                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
                   </a>
                 </div>
                 <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
@@ -144,7 +147,7 @@ if (!isset($_SESSION['user_id'])) {
           </p><br><hr>
           <div class="post-footer">
           <button class="like-btn" id="likeButton2"> ❤️ 30 Likes</button>
-              <a href="/GroupProject-IS2102/App/views/comment_post.php">
+              <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
                 <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
               </a>
             </div>
@@ -164,9 +167,9 @@ if (!isset($_SESSION['user_id'])) {
           </p><br><hr>
           <div class="post-footer">
               <button class="like-btn" id="likeButton3"> ❤️ 30 Likes</button>
-              <a href="/GroupProject-IS2102/App/views/comment_post.php">
-                <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
-              </a>
+              <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
+                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+                  </a>
           </div>
           <small>Posted on: 2024-12-01 01:57:30 </small>
         </article>
@@ -184,9 +187,9 @@ if (!isset($_SESSION['user_id'])) {
           </p><br><hr>
           <div class="post-footer">
               <button class="like-btn" id="likeButton4"> ❤️ 30 Likes</button>
-              <a href="/GroupProject-IS2102/App/views/comment_post.php">
-                <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
-              </a>
+              <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
+                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+                  </a>
           </div>
             <small>Posted on: 2024-11-30 15:57:49 </small>
         </article>       
