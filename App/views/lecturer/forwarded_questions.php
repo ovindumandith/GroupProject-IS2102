@@ -24,7 +24,7 @@ if (!$question) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Question Details | RelaxU</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/header_footer.css" />
+    <link rel="stylesheet" href="../../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Main container styles */
@@ -301,7 +301,7 @@ if (!$question) {
     <!-- Header Section -->
     <header class="header">
         <div class="logo">
-            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
             <h1>RelaxU</h1>
         </div>
         <nav class="navbar">
@@ -310,13 +310,13 @@ if (!$question) {
                 <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions" class="active">Academic Questions</a></li>
                 <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
                 <li><a href="scheduler.php">Class Schedule</a></li>
-                <li><a href="grading.php">Grading</a></li>
-                <li><a href="resources.php">Resources</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">
-            <a href="lecturer_profile.php" class="profile-btn"><b>Profile</b></a>
-            <form action="../../util/logout.php" method="post" style="display: inline">
+            <form action="hous_profile.php" method="GET">
+                <button type="submit" class="login"><b>Profile</b></button>
+            </form>
+            <form action="../../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="logout-btn"><b>Log Out</b></button>
             </form>
         </div>

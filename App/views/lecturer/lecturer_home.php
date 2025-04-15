@@ -255,8 +255,6 @@ $recentReplies = array_slice($recentReplies, 0, 5);
                 <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
                 <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
                 <li><a href="scheduler.php">Class Schedule</a></li>
-                <li><a href="grading.php">Grading</a></li>
-                <li><a href="resources.php">Resources</a></li>
             </ul>
         </nav>
       <div class="auth-buttons">
@@ -362,10 +360,12 @@ $recentReplies = array_slice($recentReplies, 0, 5);
         <div class="footer-section">
           <h3>Quick Links</h3>
           <ul>
-          <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
-          <li><a href="#">Academic Requests</a></li>
-          <li><a href="#">List of Lecturers</a></li>
-          </ul>
+            <ul>
+                <li><a href="lecturer_home.php" class="active">Dashboard</a></li>
+                <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
+                <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
+                <li><a href="scheduler.php">Class Schedule</a></li>
+            </ul>
         </div>
         <div class="footer-section">
           <h3>Contact Support</h3>

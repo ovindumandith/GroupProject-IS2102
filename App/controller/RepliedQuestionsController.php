@@ -84,7 +84,7 @@ class RepliedQuestionsController {
         if ($role === 'hous') {
             header('Location: ../views/houg/forwarded_replied_questions.php');
         } elseif ($role === 'lecturer') {
-            header('Location: ../views/lecturer/replied_questions.php');
+            header('Location: ../views/lecturer/replied_question.php');
         } elseif ($role === 'student') {
             header('Location: ../views/student/replied_questions.php');
         }

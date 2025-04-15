@@ -18,7 +18,7 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Replied Academic Questions | RelaxU</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/header_footer.css" />
+    <link rel="stylesheet" href="../../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Main content styles */
@@ -323,7 +323,7 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
     <!-- Header Section -->
     <header class="header">
         <div class="logo">
-            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            <img src="../.././assets/images/logo.jpg" alt="RelaxU Logo" />
             <h1>RelaxU</h1>
         </div>
         <nav class="navbar">
@@ -332,13 +332,11 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
                 <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
                 <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions" class="active">Replied Questions</a></li>
                 <li><a href="scheduler.php">Class Schedule</a></li>
-                <li><a href="grading.php">Grading</a></li>
-                <li><a href="resources.php">Resources</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">
             <a href="lecturer_profile.php" class="profile-btn"><b>Profile</b></a>
-            <form action="../../util/logout.php" method="post" style="display: inline">
+            <form action="../../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="logout-btn"><b>Log Out</b></button>
             </form>
         </div>
@@ -478,16 +476,16 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
             <div class="footer-logo">
                 <h1>RelaxU</h1>
                 <p>Your mental health, your priority.</p>
-                <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+                <img id="footer-logo" src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="lecturer_home.php">Dashboard</a></li>
-                    <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
-                    <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
-                    <li><a href="scheduler.php">Class Schedule</a></li>
-                </ul>
+            <ul>
+                <li><a href="lecturer_home.php" class="active">Dashboard</a></li>
+                <li><a href="../../controller/ForwardedQuestionController.php?action=viewForwardedQuestions">Academic Questions</a></li>
+                <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Replied Questions</a></li>
+                <li><a href="scheduler.php">Class Schedule</a></li>
+            </ul>
             </div>
             <div class="footer-section">
                 <h3>Contact Support</h3>
