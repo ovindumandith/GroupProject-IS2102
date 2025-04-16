@@ -115,8 +115,8 @@ $_SESSION['current_post_id'] = $postId;
                 <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <?= htmlspecialchars($post['username']) ?></h4>
             </div>
                 <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
-                <?php if ($post['image']): ?>
-                    <img src="<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
+                <?php if (!empty($post['image_path'])): ?>
+                  <img src="<?= $post['image_path'] ?>" alt="Post image">
                 <?php endif; ?>
                 <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
                 <br><hr>
