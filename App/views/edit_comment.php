@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../../assets/css/comment_post.css">
 </head>
 <body>
-    <div class="container">
+    <div class="create-whole-container">
         <h2>Edit Comment</h2>
 
         <?php if (isset($error)): ?>
@@ -18,7 +18,7 @@
                 <input type="hidden" name="comment_id" value="<?= htmlspecialchars($comment['comment_id']) ?>">
                 <textarea name="comment_text" required rows="4"><?= htmlspecialchars($comment['comment_text']) ?></textarea>
                 <br><br>
-                <button type="submit">Update Comment</button>
+                <button type="submit" class="add-post-btn ">Update Comment</button>
             </form>
         <?php endif; ?>
     </div>
