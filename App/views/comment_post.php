@@ -99,6 +99,7 @@ $comments = $commentModel->getCommentsByPostId($postId);
                     </div><br>
                     <a href="/GroupProject-IS2102/App/controller/CommentController.php?id=<?= $comment['comment_id'] ?>" 
                     onclick="return confirm('Delete this comment?')"class="btn">Delete</a>
+                    <a href="/GroupProject-IS2102/App/controller/EditCommentController.php?id=<?= $comment['comment_id'] ?>" class="edit-btn">Edit</a>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No comments yet. Be the first to comment!</p>
