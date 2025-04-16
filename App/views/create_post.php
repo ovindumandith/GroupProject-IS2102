@@ -26,7 +26,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             
             <div class="header-right">
-            <button class="c-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+            <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
             <br><br>
                 <h1>Create Your Post</h1>
                 <hr>
@@ -43,8 +43,11 @@ if (!isset($_SESSION['user_id'])) {
                 <br/><br/>
                 <input type="text" class="title-input" name="title" placeholder="Title" required><br/>
                 <div class="upload-box">
-                    <input type="file" name="image" accept="image/*">
+                <label for="file">Upload image (optional)</label><br><br>
+                <input type="file" name="image"><br><br>
                 </div>
+
+        
                 <br/>
                 <textarea class="description-input" name="description" placeholder="Description" required></textarea>
                 <button class="add-post-btn" type="submit">Add Post</button>

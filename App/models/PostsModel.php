@@ -29,17 +29,21 @@ class PostsModel {
     }
 
     public function addPost($userId, $title, $image, $description) {
-        $query = "INSERT INTO posts (user_id, title, image, description, created_at) VALUES (?, ?, ?, ?, NOW())";
-        $stmt = $this->db->prepare($query);
-
-        // Bind parameters
-        $stmt->bindValue(1, $userId);
-        $stmt->bindValue(2, $title);
-        $stmt->bindValue(3, $image);
-        $stmt->bindValue(4, $description);
-
-        // Execute the query
-        return $stmt->execute();
+        try {
+            $query = "INSERT INTO posts (user_id, title, image, description, created_at) 
+                     VALUES (:user_id, :title, :image, :description, NOW())";
+            $stmt = $this->db->prepare($query);
+            
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return false;
+        }
     }
 
     // Delete Post
