@@ -222,5 +222,111 @@ class RepliedQuestionsModel {
             return ['error' => $e->getMessage()];
         }
     }
+
+    /**
+     * Update a reply
+     * @param int $replyId The ID of the reply to update
+     * @param string $newReplyText The new reply text
+     * @param int $userId The user ID who is updating (for verification)
+     * @return bool Success or failure
+     */
+    public function updateReply($replyId, $newReplyText, $userId) {
+        try {
+            // Verify the reply belongs to this user before updating
+            $verifyQuery = "SELECT id FROM question_replies 
+                            WHERE id = :reply_id AND user_id = :user_id";
+            $verifyStmt = $this->db->prepare($verifyQuery);
+            $verifyStmt->bindParam(':reply_id', $replyId, PDO::PARAM_INT);
+            $verifyStmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $verifyStmt->execute();
+
+            if ($verifyStmt->rowCount() === 0) {
+                // Reply doesn't belong to this user
+                return false;
+            }
+
+            // Update the reply
+            $query = "UPDATE question_replies 
+                      SET reply_text = :reply_text, updated_at = CURRENT_TIMESTAMP 
+                      WHERE id = :reply_id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':reply_id', $replyId, PDO::PARAM_INT);
+            $stmt->bindParam(':reply_text', $newReplyText, PDO::PARAM_STR);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Delete a reply
+     * @param int $replyId The ID of the reply to delete
+     * @param int $userId The user ID who is deleting (for verification)
+     * @return bool Success or failure
+     */
+    public function deleteReply($replyId, $userId) {
+    try {
+        // Begin transaction
+        $this->db->beginTransaction();
+
+        // Get question_id before deleting the reply
+        $getQuestionIdQuery = "SELECT question_id FROM question_replies WHERE id = :reply_id AND user_id = :user_id";
+        $getQuestionIdStmt = $this->db->prepare($getQuestionIdQuery);
+        $getQuestionIdStmt->bindParam(':reply_id', $replyId, PDO::PARAM_INT);
+        $getQuestionIdStmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $getQuestionIdStmt->execute();
+        
+        if ($getQuestionIdStmt->rowCount() === 0) {
+            // Reply doesn't exist or doesn't belong to this user
+            $this->db->rollBack();
+            return false;
+        }
+        
+        $questionId = $getQuestionIdStmt->fetchColumn();
+        
+        // Delete the reply
+        $deleteQuery = "DELETE FROM question_replies WHERE id = :reply_id";
+        $deleteStmt = $this->db->prepare($deleteQuery);
+        $deleteStmt->bindParam(':reply_id', $replyId, PDO::PARAM_INT);
+        
+        if (!$deleteStmt->execute()) {
+            $this->db->rollBack();
+            return false;
+        }
+
+        // Update forwarded question status
+        $updateForwardedQuery = "UPDATE forwarded_questions 
+                                SET status = 'Read', responded_at = NULL 
+                                WHERE question_id = :question_id AND lecturer_id = :lecturer_id";
+        $updateForwardedStmt = $this->db->prepare($updateForwardedQuery);
+        $updateForwardedStmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+        $updateForwardedStmt->bindParam(':lecturer_id', $userId, PDO::PARAM_INT);
+        $updateForwardedStmt->execute();
+        
+        // Check if there are any other replies to this question
+        $checkRepliesQuery = "SELECT COUNT(*) FROM question_replies WHERE question_id = :question_id";
+        $checkRepliesStmt = $this->db->prepare($checkRepliesQuery);
+        $checkRepliesStmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+        $checkRepliesStmt->execute();
+        
+        if ($checkRepliesStmt->fetchColumn() == 0) {
+            // No other replies exist, update question status back to Forwarded
+            $updateQuestionQuery = "UPDATE academic_questions 
+                                   SET status = 'Forwarded' 
+                                   WHERE id = :question_id";
+            $updateQuestionStmt = $this->db->prepare($updateQuestionQuery);
+            $updateQuestionStmt->bindParam(':question_id', $questionId, PDO::PARAM_INT);
+            $updateQuestionStmt->execute();
+        }
+        
+        $this->db->commit();
+        return true;
+    } catch (PDOException $e) {
+        $this->db->rollBack();
+        error_log("Delete reply error: " . $e->getMessage());
+        return false;
+    }
+}
 }
 ?>

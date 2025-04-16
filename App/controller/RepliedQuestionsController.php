@@ -28,6 +28,12 @@ class RepliedQuestionsController {
                 case 'getLecturerReplies':
                     $this->getLecturerReplies();
                     break;
+                case 'updateReply':
+                    $this->updateReply();
+                    break;
+                case 'deleteReply':
+                    $this->deleteReply();
+                    break;    
                 default:
                     // Redirect to dashboard if action is not recognized
                     header('Location: ../views/home.php');
@@ -146,6 +152,86 @@ class RepliedQuestionsController {
         echo json_encode($repliedQuestions);
         exit();
     }
+    
+    /**
+     * Update a reply
+     */
+private function updateReply() {
+    // Check if user is logged in as lecturer
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
+        header('Location: ../login.php?error=unauthorized');
+        exit();
+    }
+    
+    // Debug logging
+    error_log("Update Reply - POST data: " . print_r($_POST, true));
+    
+    // Check if all required parameters are set
+    if (!isset($_POST['reply_id']) || !isset($_POST['reply_text'])) {
+        $_SESSION['error_message'] = "Missing required information.";
+        header('Location: ../controller/RepliedQuestionsController.php?action=viewRepliedQuestions');
+        exit();
+    }
+    
+    $replyId = (int)$_POST['reply_id'];
+    $replyText = $_POST['reply_text'];
+    $lecturerId = $_SESSION['user_id'];
+    
+    // Add debug logging
+    error_log("Attempting to update reply ID: $replyId by lecturer ID: $lecturerId");
+    error_log("New reply text: $replyText");
+    
+    // Update the reply
+    $result = $this->model->updateReply($replyId, $replyText, $lecturerId);
+    
+    if ($result) {
+        $_SESSION['success_message'] = "Your reply has been updated successfully.";
+    } else {
+        $_SESSION['error_message'] = "Failed to update reply. Please try again.";
+        error_log("Failed to update reply ID: $replyId by lecturer ID: $lecturerId");
+    }
+    
+    // Redirect back to replied questions list
+    header('Location: ../controller/RepliedQuestionsController.php?action=viewRepliedQuestions');
+    exit();
+}
+    
+    /**
+     * Delete a reply
+     */
+private function deleteReply() {
+    // Check if user is logged in as lecturer
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'lecturer') {
+        header('Location: ../login.php?error=unauthorized');
+        exit();
+    }
+    
+    // Debug POST data
+    error_log("DELETE REQUEST - POST data: " . print_r($_POST, true));
+    
+    // Check if reply ID is provided and valid
+    if (!isset($_POST['reply_id']) || empty($_POST['reply_id']) || !is_numeric($_POST['reply_id'])) {
+        $_SESSION['error_message'] = "Invalid or missing reply ID: " . (isset($_POST['reply_id']) ? $_POST['reply_id'] : 'not set');
+        header('Location: ../controller/RepliedQuestionsController.php?action=viewRepliedQuestions');
+        exit();
+    }
+    
+    $replyId = (int)$_POST['reply_id'];
+    $lecturerId = $_SESSION['user_id'];
+    
+    // Delete the reply
+    $result = $this->model->deleteReply($replyId, $lecturerId);
+    
+    if ($result) {
+        $_SESSION['success_message'] = "Your reply has been deleted successfully.";
+    } else {
+        $_SESSION['error_message'] = "Failed to delete reply. Please try again. (Reply ID: $replyId)";
+    }
+    
+    // Redirect back to replied questions list
+    header('Location: ../controller/RepliedQuestionsController.php?action=viewRepliedQuestions');
+    exit();
+}
 }
 
 // Create controller instance and handle request
