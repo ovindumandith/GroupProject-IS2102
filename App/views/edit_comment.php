@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Comment</title>
-    <link rel="stylesheet" href="../../assets/css/edit_comment.css">
+    <link rel="stylesheet" href="../../assets/css/comment_post.css">
 </head>
 <body>
-<div class="edit-container">
+    <div class="container">
         <h2>Edit Comment</h2>
-        <form method="POST" action="/GroupProject-IS2102/App/controller/EditCommentController.php">
-            <input type="hidden" name="comment_id" value="<?= $comment['comment_id'] ?>">
-            <textarea name="comment_text" required><?= htmlspecialchars($comment['comment_text']) ?></textarea>
-            <button type="submit">Save Changes</button>
-            <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $comment['post_id'] ?>">Cancel</a>
-        </form>
+
+        <?php if (isset($error)): ?>
+            <div class="error" style="color: red;"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <?php if ($comment): ?>
+            <form action="../../App/controller/EditCommentController.php" method="POST">
+                <input type="hidden" name="comment_id" value="<?= htmlspecialchars($comment['comment_id']) ?>">
+                <textarea name="comment_text" required rows="4"><?= htmlspecialchars($comment['comment_text']) ?></textarea>
+                <br><br>
+                <button type="submit">Update Comment</button>
+            </form>
+        <?php endif; ?>
     </div>
 </body>
 </html>
