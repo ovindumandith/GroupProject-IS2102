@@ -6,6 +6,20 @@ let totalTime = 0; // Total productive time
 let currentTask = null;
 let isLongBreak = false;
 
+const today = new Date();
+  const day = today.getDate();
+  const month = today.toLocaleString('default', { month: 'long' });
+  const year = today.getFullYear();
+
+  const formatted = `
+    <div class="date-container">
+      <p class="day">${day}</p>
+      <p class="month-year">${month} , ${year}</p>
+    </div>
+  `;
+
+  document.getElementById('sidebarHeader').innerHTML = formatted;
+
 // Get input values for the timer durations
 function getTimerSettings() {
     const workDuration = parseInt(document.getElementById('work-time').value) * 60; // Convert to seconds
@@ -83,6 +97,14 @@ function sessionComplete() {
     startTimer();
 }
 
+
+// Start Task (integrates with Pomodoro Timer)
+function startTask(taskName) {
+    currentTask = taskName;
+    alert(`Starting Pomodoro for task: ${taskName}`);
+    initTimer();
+    startTimer();
+}
 // Add Task to Task List
 function addTask() {
     const taskInput = document.getElementById('task-name');
@@ -101,14 +123,6 @@ function addTask() {
     taskList.appendChild(taskItem);
 
     taskInput.value = '';
-}
-
-// Start Task (integrates with Pomodoro Timer)
-function startTask(taskName) {
-    currentTask = taskName;
-    alert(`Starting Pomodoro for task: ${taskName}`);
-    initTimer();
-    startTimer();
 }
 
 // Goal Setting Logic
@@ -139,3 +153,26 @@ function addGoal() {
         badges.appendChild(badge);
     }
 }
+// Select DOM elements
+const addTaskBtn = document.getElementById('add-task-btn');
+const addTaskModal = document.getElementById('add-task-modal');
+const cancelModalBtns = document.querySelectorAll('.cancel-modal, .close-modal');
+
+// Function to show the modal
+addTaskBtn.addEventListener('click', () => {
+    addTaskModal.style.display = 'flex'; // or 'block', based on your CSS
+});
+
+// Function to close the modal
+cancelModalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        addTaskModal.style.display = 'none';
+    });
+});
+
+// Optional: Close modal if user clicks outside of the modal content
+window.addEventListener('click', (event) => {
+    if (event.target === addTaskModal) {
+        addTaskModal.style.display = 'none';
+    }
+});

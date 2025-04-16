@@ -1,7 +1,7 @@
 <?php
 
 require_once '../models/ToDoList.php';
-
+session_start(); 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ensure proper JSON header
     header('Content-Type: application/json');
@@ -11,29 +11,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
     $date = $_POST['date'] ?? '';
     $time = $_POST['time'] ?? '';
-    $id = $_POST['id'] ?? '';
-    $status = $_POST['status'] ?? '';
-
+    $id = $_POST['id'] ?? null;
+    $status = $_POST['status'] ?? null;
+    $description = $_POST['description'] ?? '';
+    $username= $_SESSION['user_name'];
+     
     // $data = json_decode(file_get_contents("php://input"), true);
     // if (isset($data['id']) && isset($data['status'])) {
     //     $taskId = $data['id'];
     //     $status = $data['status'];
-        
+
     // }    
-   
+
     // Validate inputs
     $errors = [];
-    if ($status == null) {
+    if (is_null($status)) {
+       
         if (empty($title)) $errors[] = 'Title is required.';
         if (empty($date)) $errors[] = 'Date is required.';
         if (empty($time)) $errors[] = 'Time is required.';
+        if (empty($description)) $errors[] = 'Description is required.';
 
-        if (!empty($date) && strtotime($date) < time()) {
-            $errors[] = 'The event date must be in the future.';
+        if (!$id) {
+            if (!empty($date) && strtotime($date) < time()) {
+                $errors[] = 'The event date must be in the future.';
+            }
         }
-
+        
         $task = new ToDoList();
+        
         if ($task->checkTaskOverlap($date, $time, $title, $id)) {
+           
             echo json_encode(['errors' => ['An Task with the same title already exists at this date and time.']]);
             exit();
         }
@@ -47,17 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $task = new ToDoList();
-
-    if ($status) {
+   
+    if (!is_null($status)){
         $success = $task->updateTaskStatus($id, $status);
         $message = $success ? 'Task status updated successfully!' : 'Failed to update the Task status.';
-    }
-    else if ($id) {
-        $success = $task->updateTask($id, $title, $date, $time);
+    } else if(!empty($id)) {
+        $success = $task->updateTask($id, $title, $date, $time, $description);
+        if($success){
+            $isSave = $task->saveTaskHistories('Update Task',$username,date('Y-m-d H:i:s'));
+            $message = $isSave ? 'Task saved successfully!' : 'Failed to save the Task.'; 
+        }
         $message = $success ? 'Task updated successfully!' : 'Failed to update the Task.';
     } else {
-        $success = $task->saveTask($title, $date, $time);
-        $message = $success ? 'Task saved successfully!' : 'Failed to save the Task.';
+        $success = $task->saveTask($title, $date, $time, $description,$username);
+        if($success){
+            $isSave = $task->saveTaskHistories('Add Task',$username,date('Y-m-d H:i:s'));
+            $message = $isSave ? 'Task saved successfully!' : 'Failed to save the Task.';
+        }
+       
+        
     }
 
     echo json_encode(['message' => $message]);
@@ -108,11 +124,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } else {
         // If no search query or date is provided, fetch all events
         $tasks = $task->getAllTasks();
+        $taskHistories=$task-> getAllWeeklyTask();
     }
 
     // Return the events as JSON
     header('Content-Type: application/json');
-    echo json_encode($tasks);
+    echo json_encode([
+        'tasks' => $tasks,
+        'taskHistories' => $taskHistories
+    ]);
     exit();
 }
 

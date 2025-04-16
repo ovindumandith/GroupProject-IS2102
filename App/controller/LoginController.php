@@ -34,8 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     header('Location: ../views/admin/superadmin_home.html');
                     break;
                 case 'hous':
-                    header('Location: ../views/houg/houg_home.html');
-                    break;  
+                    require_once '../models/AcademicQuestionModel.php';
+                    $academicQuestionModel = new AcademicQuestionModel();
+                    // Fetch pending questions
+                    $pendingQuestions = $academicQuestionModel->getPendingQuestions();
+                    // Store data in session or pass to the view
+                    $_SESSION['pending_questions'] = $pendingQuestions;
+                    header('Location: ../views/houg/houg_home.php');
+                    break;
                 case 'lecturer':
                     header('Location: ../views/lecturer/lecturer_home.html');
                     break;

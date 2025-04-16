@@ -68,11 +68,14 @@ if (!isset($_SESSION['user_id'])) {
     <div class="header-container">
     <div class="header_overlay">
     <div class="overlay-text">
-      Trust in your ability to manage – you’ve got this!
-      
+    <h1 style="font-size: 3rem; font-weight: 600; margin-bottom: 20px;">
+       Trust in your ability to manage – you’ve got this!
+</h1>
+
+     </h1> 
     </div>
   </div>
-  <img src="../../assets/images/workload/93.png" alt="Header Image" class="header-image active" id="headerImage1">
+  <img src="../../assets/images/workload/27.png" alt="Header Image" class="header-image active" id="headerImage1">
 </div>      
     
   

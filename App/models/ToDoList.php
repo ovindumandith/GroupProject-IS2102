@@ -13,7 +13,7 @@ class ToDoList
     public function getAllTasks()
     {
         try {
-            $query = "SELECT * FROM to_do_lists WHERE is_completed = 0 ORDER BY date, time";
+            $query = "SELECT * FROM to_do_lists   ORDER BY date, time";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,6 +21,21 @@ class ToDoList
             return [];
         }
     }
+    public function getAllWeeklyTask()
+    {
+        try {
+            $query = "SELECT * FROM to_do_lists
+                      WHERE YEARWEEK(date, 1) = YEARWEEK(NOW(), 1) 
+                      ORDER BY date";
+                      
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+    
     public function getTasksByDate($date)
     {
         $stmt = $this->db->prepare("SELECT * FROM to_do_lists WHERE date = :date");
@@ -29,22 +44,48 @@ class ToDoList
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function saveTask($title, $date, $time)
+    public function saveTask($title, $date, $time, $description, $username)
     {
         try {
-            $query = 'INSERT INTO to_do_lists (title,date,time) 
-                      VALUES (:title,:date, :time)';
+            $query = 'INSERT INTO to_do_lists (title, date, time, description, user_name) 
+                      VALUES (:title, :date, :time, :description, :username)';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':title', $title);
             $stmt->bindParam(':date', $date);
             $stmt->bindParam(':time', $time);
-
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':username', $username); // ✅ Fixed here
+    
             if ($stmt->execute()) {
-
                 return true;
             } else {
+                print_r($stmt->errorInfo()); // Show SQL error details
+                return false;
             }
         } catch (PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function saveTaskHistories($action, $changeBy, $changeAt)
+    {
+        try {
+            $query = 'INSERT INTO to_do_list_histories (action, change_by, change_at) 
+                      VALUES (:action,:changeBy,:changeAt)';
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':action', $action);
+            $stmt->bindParam(':changeBy', $changeBy);
+            $stmt->bindParam(':changeAt', $changeAt);
+               
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                print_r($stmt->errorInfo()); // Show SQL error details
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Database error: " . $e->getMessage();
             error_log("Database error: " . $e->getMessage());
             return false;
         }
@@ -63,11 +104,11 @@ class ToDoList
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC); // Assuming you're using PDO
     }
-    public function updateTask($id, $title, $date, $time)
+    public function updateTask($id, $title, $date, $time,$description)
     {
 
         try {
-            $query = "UPDATE to_do_lists SET title = ?, date = ?, time = ? WHERE id = ?";
+            $query = "UPDATE to_do_lists SET title = ?, date = ?, time = ?,description= ? WHERE id = ?";
     
             // Prepare the statement
             $stmt = $this->db->prepare($query);
@@ -76,10 +117,11 @@ class ToDoList
             $stmt->bindParam(1, $title, PDO::PARAM_STR);
             $stmt->bindParam(2, $date, PDO::PARAM_STR);
             $stmt->bindParam(3, $time, PDO::PARAM_STR);
+            $stmt->bindParam(4, $description, PDO::PARAM_STR);
         
             // Bind the id as an integer, but only if $id is provided (i.e., not NULL)
             if ($id !== null) {
-                $stmt->bindParam(4, $id, PDO::PARAM_INT);
+                $stmt->bindParam(5, $id, PDO::PARAM_INT);
             } else {
                 // Handle the case where ID is NULL (if necessary)
                 // For example, throw an exception or return false
@@ -100,20 +142,19 @@ class ToDoList
     }
     public function updateTaskStatus($id,$is_completed)
     {
-        error_log('AFSDSD'.$id,$is_completed);
+        // error_log('AFSDSD'.$id,$is_completed);
 
         try {
-            $query = "UPDATE to_do_lists SET is_completed = ? WHERE id = ?";
+            $query = "UPDATE to_do_lists SET is_completed = 1 WHERE id = ?";
     
             // Prepare the statement
             $stmt = $this->db->prepare($query);
         
             // Binding parameters with proper types
-            $stmt->bindParam(1, $is_completed, PDO::PARAM_STR);
-          
+     
             // Bind the id as an integer, but only if $id is provided (i.e., not NULL)
             if ($id !== null) {
-                $stmt->bindParam(2, $id, PDO::PARAM_INT);
+                $stmt->bindParam(1, $id, PDO::PARAM_INT);
             } else {
                 // Handle the case where ID is NULL (if necessary)
                 // For example, throw an exception or return false
@@ -154,31 +195,30 @@ class ToDoList
     }
     public function checkTaskOverlap($date, $time, $title, $id = null)
     {
-        // Assuming you have a database connection in $this->db
-        $query = "SELECT * FROM to_do_lists WHERE title = ? AND date = ? AND time = ?";
-
-        // If we're updating, exclude the current task from the check
-        if ($id) {
-            $query .= " AND id != ?";
+        // Base query
+        $query = "SELECT COUNT(*) FROM to_do_lists WHERE title = :title AND date = :date AND time = :time";
+    
+        // Exclude the current task ID if updating
+        if ($id !== null) {
+            $query .= " AND id != :id";
         }
-
+    
         // Prepare the query
         $stmt = $this->db->prepare($query);
-
-        // Binding parameters with proper types
-        $stmt->bindParam(1, $title, PDO::PARAM_STR);
-        $stmt->bindParam(2, $date, PDO::PARAM_STR);
-        $stmt->bindParam(3, $time, PDO::PARAM_STR);
-
-        // If updating, bind the taskId to the last parameter
-        if ($id) {
-            $stmt->bindParam(4, $id, PDO::PARAM_INT); // taskId should be the last one
-
+    
+        // Bind parameters
+        $stmt->bindParam(":title", $title, PDO::PARAM_STR);
+        $stmt->bindParam(":date", $date, PDO::PARAM_STR);
+        $stmt->bindParam(":time", $time, PDO::PARAM_STR);
+    
+        if ($id !== null) {
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         }
-
+    
         $stmt->execute();
-
-        // Check if any rows were returned, meaning the event already exists
-        return $stmt->rowCount() > 0;
+    
+        // Fetch count to check if any matching record exists
+        return $stmt->fetchColumn() > 0;
     }
+    
 }

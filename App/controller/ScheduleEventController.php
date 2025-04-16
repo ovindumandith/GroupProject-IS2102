@@ -1,5 +1,4 @@
 <?php
-
 require_once '../models/ScheduleEvent.php';
 
 
@@ -7,35 +6,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ensure proper JSON header
     header('Content-Type: application/json');
     error_reporting(E_ERROR | E_PARSE); // Suppress PHP warnings
-
-    // Fetch input values
-    $title = $_POST['title'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $date = $_POST['date'] ?? '';
-    $startTime = $_POST['startTime'] ?? '';
-    $endTime = $_POST['endTime'] ?? '';
-    $eventId = $_POST['id'] ?? null;
+    $eventId = $_POST['id'] ?? ''; // Get the event ID
+    $title = $_POST['title']; // Get the event title
+    $start = $_POST['start']; // Get the event start date and time
+    $end = $_POST['end']; // Get the event end date and time
 
     // Validate inputs
     $errors = [];
 
     if (empty($title)) $errors[] = 'Title is required.';
-    if (empty($date)) $errors[] = 'Date is required.';
-    if (empty($startTime)) $errors[] = 'Start time is required.';
-    if (empty($endTime)) $errors[] = 'End time is required.';
-    if (!empty($startTime) && !empty($endTime) && $startTime >= $endTime) {
+    if (empty($start)) $errors[] = 'Start time is required.';
+    if (empty($end)) $errors[] = 'End time is required.';
+    if (!empty($start) && !empty($end) && $start >= $end) {
         $errors[] = 'Start time must be less than end time.';
     }
 
-    if (!empty($date) && strtotime($date) < time()) {
-        $errors[] = 'The event date must be in the future.';
-    }
     
     $event = new ScheduleEvent();
-    if ($event->checkEventOverlap($date, $startTime, $endTime, $title, $eventId)) {
-        echo json_encode(['errors' => ['An event with the same title already exists at this date and time.']]);
-        exit();
-    }
+    // if ($event->checkEventOverlap($title, $start, $endTime, $title, $eventId)) {
+    //     echo json_encode(['errors' => ['An event with the same title already exists at this date and time.']]);
+    //     exit();
+    // }
     
     
     // Handle validation errors
@@ -48,10 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Save or update event
     if ($eventId) {
-        $success = $event->updateEvent($eventId, $title, $description, $date, $startTime, $endTime);
+        $success = $event->updateEvent($eventId, $title, $start, $end);
         $message = $success ? 'Event updated successfully!' : 'Failed to update the event.';
     } else {
-        $success = $event->saveEvent($title, $description, $date, $startTime, $endTime);
+        $success = $event->saveEvent($title, $start, $end);
         $message = $success ? 'Event saved successfully!' : 'Failed to save the event.';
     }
 
@@ -90,34 +81,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $event = new ScheduleEvent();
-
-    // Check if there's a search query in the URL
-    if (isset($_GET['search'])) {
-        $searchQuery = $_GET['search'];
-        // Get filtered events based on the search query
-        $events = $event->getEventsBySearch($searchQuery);
-    } elseif (isset($_GET['date'])) {
-        $date = $_GET['date'];
-        // Get events filtered by date
-        $events = $event->getEventsByDate($date);
-    } else {
-        // If no search query or date is provided, fetch all events
-        $events = $event->getAllEvents();
+    $events = $event->getAllEvents();
+    $eventHistories=$event-> getAllWeeklyEvent();
+    foreach ($events as $event) {
+        $data[] = [
+            'id' => $event['id'], // Event ID
+            'title' => $event['title'], // Event title
+            'start' => $event['start_time'], // Event start date and time
+            'end' => $event['end_time'] // Event end date and time
+        ];
     }
+    // // Check if there's a search query in the URL
+    // if (isset($_GET['search'])) {
+    //     $searchQuery = $_GET['search'];
+    //     // Get filtered events based on the search query
+    //     $events = $event->getEventsBySearch($searchQuery);
+    // } elseif (isset($_GET['date'])) {
+    //     $date = $_GET['date'];
+    //     // Get events filtered by date
+    //     $events = $event->getEventsByDate($date);
+    // } else {
+    //     // If no search query or date is provided, fetch all events
+       
+    // }
 
     // Return the events as JSON
     header('Content-Type: application/json');
-    echo json_encode($events);
+    echo json_encode([
+        'data' => $data,
+        'eventHistories' => $eventHistories
+    ]);
+    // echo json_encode($data);
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // Decode the raw JSON input
     $input = json_decode(file_get_contents('php://input'), true);
-    $eventId = $input['id'] ?? null;
+    $eventId = $input['id'] ?? null; // Retrieve ID from JSON
 
     if ($eventId) {
+       
         $event = new ScheduleEvent();
+
         if ($event->deleteEvent($eventId)) {
             echo json_encode(['status' => 'success', 'message' => 'Event deleted successfully.']);
         } else {

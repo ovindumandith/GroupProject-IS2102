@@ -57,7 +57,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #4caf50, #2196f3);
+  background: #009f77;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 15px 30px;
   z-index: 1000;
@@ -149,7 +149,7 @@ section {
 
 /* Sticky Header Behavior */
 .main-header.sticky {
-  background: linear-gradient(90deg, #2196f3, #4caf50);
+  background:  #009f77;
   padding: 10px 20px;
 }
 
