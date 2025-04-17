@@ -211,3 +211,8 @@ body {
 .comment-btn:hover {
   background-color: #4ba865;
 }
+
+.btn-image {
+  width: 24px;
+  height: 24px;
+}
