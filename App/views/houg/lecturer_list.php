@@ -28,14 +28,15 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
-        <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
+        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
       <nav class="navbar">
         <ul>
           <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
           <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
-           <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
+          <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
+          <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
@@ -121,14 +122,14 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
           <p>Your mental health, your priority.</p>
           <img
             id="footer-logo"
-            src="../../../assets/images/logo.jpg"
+            src="../../assets/images/logo.jpg"
             alt="RelaxU Logo"
           />
         </div>
         <div class="footer-section">
           <h3>Quick Links</h3>
           <ul>
-          <li><a href="../../views/houg/houg_home.php">Dashboard</a></li>
+          <li><a href="../views/houg/houg_home.php">Dashboard</a></li>
           <li><a href="#">Academic Requests</a></li>
           <li><a href="#">List of Lecturers</a></li>
           </ul>

@@ -44,10 +44,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
         </ul>
       </nav>
       <div class="auth-buttons">
+
         <!-- Profile button form -->
-<form action="hous_profile.php" method="GET">
-    <button type="submit" class="login"><b>Profile</b></button>
-</form>
+        <form action="../../controller/HOUSProfileController.php" method="GET">
+          <input type="hidden" name="action" value="viewProfile">
+          <button type="submit" class="login"><b>Profile</b></button>
+        </form>
+
 
     
         <!-- Logout button form -->
