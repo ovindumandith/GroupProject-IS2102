@@ -1,0 +1,286 @@
+/* Lecturer List Styles */
+:root {
+  --primary-color: #009f77;
+  --primary-dark: #00815f;
+  --primary-light: #e0f5f0;
+  --secondary-color: #fa8128;
+  --secondary-dark: #e06c11;
+  --text-dark: #333333;
+  --text-light: #ffffff;
+  --gray-dark: #555555;
+  --gray: #777777;
+  --gray-light: #dddddd;
+  --gray-lighter: #f8f8f8;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* Page title */
+h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin: 30px 0;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+}
+
+/* Filter container */
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.category-filter select {
+  padding: 10px 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.category-filter select:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 8px rgba(0, 159, 119, 0.2);
+}
+
+.search-box {
+  position: relative;
+  width: 300px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 8px rgba(0, 159, 119, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
+}
+
+/* Lecturers grid */
+.lecturers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.lecturer-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.lecturer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.lecturer-image {
+  height: 200px;
+  background-color: var(--gray-lighter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lecturer-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.lecturer-card:hover .lecturer-image img {
+  transform: scale(1.05);
+}
+
+.default-avatar {
+  width: 100px;
+  height: 100px;
+  background-color: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 3rem;
+}
+
+.lecturer-info {
+  padding: 20px;
+}
+
+.lecturer-info h3 {
+  color: var(--text-dark);
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.department {
+  color: var(--gray);
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Category badge variants */
+.category-examination {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.category-financial {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.category-medical {
+  background-color: #f9fbe7;
+  color: #afb42b;
+}
+
+.category-registration {
+  background-color: #e0f2f1;
+  color: #00897b;
+}
+
+.category-mahapola {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+}
+
+.category-bursary {
+  background-color: #ede7f6;
+  color: #5e35b1;
+}
+
+.category-accommodation {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.lecturer-actions {
+  padding: 0 20px 20px;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.profile-link i {
+  margin-left: 5px;
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+
+.profile-link:hover {
+  color: var(--secondary-color);
+}
+
+.profile-link:hover i {
+  transform: translateX(3px);
+}
+
+/* No results state */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  background-color: var(--gray-lighter);
+  border-radius: var(--border-radius);
+  color: var(--gray);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .filter-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .search-box {
+    width: 100%;
+  }
+  
+  .category-filter select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  .lecturers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .lecturers-grid {
+    grid-template-columns: 1fr;
+  }
+}

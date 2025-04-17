@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     $_SESSION['login_error'] = 'Invalid request method.';
-    header('Location: ../views/counseliing/counselor_login.php');
+    header('Location: ../views/counselling/counselor_login.php');
     exit();
 }
 ?>

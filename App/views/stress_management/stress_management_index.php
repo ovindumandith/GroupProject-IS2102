@@ -67,19 +67,19 @@ if (!isset($_SESSION['user_id'])) {
   <h2>Stress Management Options</h2>
   <div class="card-container">
     <div class="card" onclick="window.location.href='stress_management_form.php'">
-      <h3>Stress Management Form</h3>
-      <p>Complete a self-assessment to monitor your stress.</p>
-      <img src="../../../assets/images/stress_monitoring.jpg" alt="Stress History Icon">
+      <h3>Stress Assessment</h3>
+      <p>Complete a comprehensive assessment to monitor your stress levels.</p>
+      <img src="../../../assets/images/stress_monitoring.jpg" alt="Stress Assessment Icon">
     </div>
-    <div class="card" onclick="window.location.href='stress_management_records.php'">
-      <h3>Your Past Stress Records</h3>
-      <p>View your history of stress management data.</p>
+    <div class="card" onclick="window.location.href='../../controller/StressAssessmentController.php?action=view_records'">
+      <h3>Your Assessment History</h3>
+      <p>View your history of stress assessments and results.</p>
       <img src="../../../assets/images/past_stress_records.jpg" alt="Past Stress History Icon">
     </div>
-    <div class="card" onclick="window.location.href='stress_report.php'">
-      <h3>Stress Report</h3>
-      <p>Analyze your past stress trends with a comprehensive report.</p>
-        <img src="../../../assets/images/stress_report.jpg" alt="Stress Report Icon">   
+    <div class="card" onclick="window.location.href='../../controller/StressAssessmentController.php?action=view_trend'">
+      <h3>Stress Trend Analysis</h3>
+      <p>Analyze your stress trends over time with interactive visualizations.</p>
+      <img src="../../../assets/images/stress_report.jpg" alt="Stress Trend Icon">   
     </div>
   </div>
 </div>

@@ -1,0 +1,99 @@
+.student-appointments {
+  font-size: 2.5rem; /* Increase font size for emphasis */
+  font-weight: 700; /* Make it bold */
+  color: #006d58; /* Darker green tone for better contrast */
+  text-align: center; /* Center align the text */
+
+  margin: 20px 0; /* Add spacing around */
+  letter-spacing: 2px; /* Add spacing between letters for elegance */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  position: relative; /* Position for decorative elements */
+}
+
+/* Decorative line below the heading */
+.student-appointments::after {
+  content: "";
+  display: block;
+  width: 50px; /* Length of the line */
+  height: 4px; /* Thickness of the line */
+  background-color: #004d40; /* Even darker green for contrast */
+  margin: 10px auto 0; /* Center line below the heading */
+  border-radius: 2px; /* Slightly rounded edges */
+}
+
+/* General Table Styling */
+table {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+table thead {
+  background-color: #009f77;
+  color: white;
+}
+
+table th,
+table td {
+  padding: 15px;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  justify-content: center; /* Center-align buttons */
+  gap: 10px; /* Equal spacing between buttons */
+}
+
+.btn {
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.update-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.update-btn:hover {
+  background-color: #43a047;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #e53935;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+}
+
+.delete-btn:active {
+  background-color: #d32f2f;
+  transform: translateY(0);
+}

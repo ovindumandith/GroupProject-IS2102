@@ -38,7 +38,17 @@ $counselor = $_SESSION['counselor'];
       <nav class="navbar">
         <ul>
           <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
-          <li><a href="../views/manage_appointments.php">Appointments</a></li>
+          <li class="services">
+            <a href="#">Appointments </a>
+            <ul class="dropdown">
+              <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Appointments</a></li>
+              <li><a href="../../controller/AppointmentController.php?action=showApprovedAppointments">Approved</a></li>
+              <li><a href="../../controller/AppointmentController.php?action=showDeniedAppointments">Denied</a></li>
+              
+            </ul>
+          </li>
+          
+
           <li><a href="../views/messages.php">Messages</a></li>
           <li><a href="../views/reviews.php">Reviews</a></li>
         </ul>

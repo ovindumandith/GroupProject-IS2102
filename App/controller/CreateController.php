@@ -6,10 +6,12 @@ class CreateController {
 
     public function __construct() {
         $this->model = new PostsModel();
+        session_start();
     }
 
     public function addPost() {
         try {
+            // Verify POST request
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 echo "Request method received: " . $_SERVER['REQUEST_METHOD'];
                 throw new Exception("Invalid request method. Expected POST.");
@@ -22,31 +24,48 @@ class CreateController {
             $image = null;
 
             // Handle file upload
-            if (!empty($_FILES['image']['name'])) {
-                $targetDir = "../Postuploads/";
-                $imageName = basename($_FILES['image']['name']);
-                $targetFilePath = $targetDir . $imageName;
+if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    // Use absolute path that works for your XAMPP setup
+    $uploadDir = '/Applications/XAMPP/xamppfiles/htdocs/GroupProject-IS2102/App/views/uploads/';
+    
+    // Create directory if needed (with proper permissions)
+    if (!file_exists($uploadDir)) {
+        if (!mkdir($uploadDir, 0755, true)) {
+            throw new Exception("Failed to create upload directory at: ".$uploadDir);
+        }
+    }
 
-                // Validate file type
-                $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
-                $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    // Validate file
+    $fileInfo = pathinfo($_FILES['image']['name']);
+    $extension = strtolower($fileInfo['extension']);
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    
+    if (!in_array($extension, $allowedTypes)) {
+        throw new Exception("Only JPG, PNG, GIF files are allowed");
+    }
 
-                if (!in_array($fileType, $allowedTypes)) {
-                    throw new Exception("Invalid file type. Allowed types: JPG, JPEG, PNG, GIF.");
-                }
+    if ($_FILES['image']['size'] > 2000000) { // 2MB
+        throw new Exception("File too large (max 2MB)");
+    }
 
-                // Ensure the directory exists and is writable
-                if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0777, true);
-                }
+    // Generate unique filename
+    $filename = uniqid('post_', true).'.'.$extension;
+    $destination = $uploadDir.$filename;
 
-                // Move the file to the target directory
-                if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-                    throw new Exception("Failed to upload the file.");
-                }
+    // Debug output
+    error_log("Temporary file: ".$_FILES['image']['tmp_name']);
+    error_log("Destination: ".$destination);
+    error_log("Directory writable: ".(is_writable($uploadDir) ? 'Yes' : 'No'));
 
-                $image = $imageName;
-            }
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+        // Store relative path in database
+        $imagePath = 'views/uploads/'.$filename;
+    } else {
+        $error = error_get_last();
+        throw new Exception("File upload failed: ".$error['message']);
+    }
+}
+
 
             // Add the post to the database
             if ($this->model->addPost($userId, $title, $image, $description)) {

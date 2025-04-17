@@ -19,6 +19,8 @@ require_once '../controller/ManagePostController.php';
         <img src="../../assets/images/managepost.png" alt="Header Image" class="header-image">
       </div>
       <div class="header-right">
+      <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+            <br><br>
         <h1>Manage Your Posts</h1>
         <hr>
       </div>
@@ -60,8 +62,6 @@ require_once '../controller/ManagePostController.php';
             </div>
 
         <?php endforeach; ?>
-    <?php else: ?>
-        <p>No more posts available.</p>
     <?php endif; ?>
     </div> 
 </body>

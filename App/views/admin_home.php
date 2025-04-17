@@ -26,10 +26,13 @@ if (!isset($_SESSION['user_id'])) {
       type="text/css"
     />
     <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/css/admin_home.css"
+      type="text/css">
+      
 
-    <script src="../../assets/js/hero_slider.js" defer></script>
-    <script src="../../assets/js/testimonial_slider.js" defer></script>
-    <script src="../../assets/js/counter.js" defer></script>
+
   </head>
   <body>
     <!-- Header Section -->
@@ -44,12 +47,12 @@ if (!isset($_SESSION['user_id'])) {
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="#">Stress Monitoring</a></li>
+              <li><a href="../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
               <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
               <li><a href="./workload.php">Workload Management Tools</a></li>
             </ul>
           </li>
-          <li><a href="#">Academic Help</a></li>
+          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
           <li><a href="#">Counseling</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
@@ -62,6 +65,76 @@ if (!isset($_SESSION['user_id'])) {
         </form>
       </div>
     </header>
+     <div class="main-content">
+      <div class="welcome-message">
+                <h1>Welcome Admin to your Dashboard</h1>
+                <p>Here you can manage and monitor all the activities and data related to students, counselors, lecturers, and more.</p>
+            </div>
+            <div class="overview">
+                <div class="card">
+                    <h3>Total Students</h3>
+                    <p id="total-students">500</p>
+                </div>
+                <div class="card">
+                    <h3>Total Counselors</h3>
+                    <p id="total-counselors">50</p>
+                </div>
+                <div class="card">
+                    <h3>Total Lecturers</h3>
+                    <p id="total-lecturers">30</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3>Counselor Breakdown</h3>
+                    <div id="counselor-chart" class="chart"></div>
+                </div>
+                <div class="chart-container">
+                    <h3>Students Registered Over Time</h3>
+                    <div id="students-chart" class="chart"></div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-container">
+                <h3>Recent Users</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td>Student</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jane Smith</td>
+                            <td>Counselor</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sam Johnson</td>
+                            <td>Lecturer</td>
+                            <td>Inactive</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    
+            
 
 
 

@@ -17,7 +17,7 @@ if (!$conn) {
 
 // Fetch user information
 $user_id = $_SESSION['user_id'];
-$query = "SELECT username, email, phone, year, role FROM users WHERE user_id = ?";
+$query = "SELECT username, password, email, phone, year, role FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
 $stmt->execute();
@@ -32,17 +32,19 @@ $update_success = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
+    $password = $_POST['password'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $year = $_POST['year'];
 
-    $update_query = "UPDATE users SET username = ?, email = ?, phone = ?, year = ? WHERE user_id = ?";
+    $update_query = "UPDATE users SET username = ?, password=?, email = ?, phone = ?, year = ? WHERE user_id = ?";
     $update_stmt = $conn->prepare($update_query);
     $update_stmt->bindParam(1, $username);
-    $update_stmt->bindParam(2, $email);
-    $update_stmt->bindParam(3, $phone);
-    $update_stmt->bindParam(4, $year);
-    $update_stmt->bindParam(5, $user_id, PDO::PARAM_INT);
+    $update_stmt->bindParam(2, $password);
+    $update_stmt->bindParam(3, $email);
+    $update_stmt->bindParam(4, $phone);
+    $update_stmt->bindParam(5, $year);
+    $update_stmt->bindParam(6, $user_id, PDO::PARAM_INT);
     
     if ($update_stmt->execute()) {
         $update_success = true;
@@ -97,13 +99,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
 
     <!-- Content Section (for demonstration) -->
-    <div class="content">
-        <h1> User Profile</h1>
-         
-    
-    <form method="POST" action="profile.php" id="updateform">
+
+<div class="content">
+  <h1>User Profile</h1>
+
+  <div class="profile-container">
+    <!-- Profile Form Card -->
+    <div class="card profile-form-card">
+      <h2>Profile Details</h2>
+      <form method="POST" action="profile.php" id="updateform">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($user['password']); ?>" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
@@ -115,10 +124,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="text" id="year" name="year" value="<?php echo htmlspecialchars($user['year']); ?>" required>
 
         <input type="submit" value="Update Profile">
-    </form>
-      <p></p>
+      </form>
     </div>
-    <div id="toast" class="toast">Profile updated successfully!</div>
+
+    <!-- Appointments Button Card -->
+    <div class="card appointments-card">
+      <h2>Appointments</h2>
+      <img src="../../assets/images/stu_appointment.jpg" alt="Appointments Icon" class="card-image" ><br><br>
+      <p<>View your Scheduled Appointments here</p>
+      <a href="../controller/AppointmentController.php?action=showStudentAppointments" class="appointments-link">View My Appointments</a>
+    </div>
+
+    <!-- Academic Requests Button Card -->
+    <div class="card academic-requests-card">
+      <h2>Academic Requests</h2>
+      <img src="../../assets/images/stu_acareq.jpg" alt="Academic Requests Icon" class="card-image" ><br><br>
+      <p>View your Academic Requests here</p>
+      <a href="../controller/Academic_QuestionsController.php?action=viewUserQuestions" class="academic-link">My Academic Requests</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!--<div id="toast" class="toast">Profile updated successfully!</div>-->
 
   <script>
         <?php if ($update_success): ?>

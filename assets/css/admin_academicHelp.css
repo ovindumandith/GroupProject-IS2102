@@ -1,0 +1,325 @@
+/* Admin Academic Help Styles */
+:root {
+  --primary-color: #009f77;
+  --secondary-color: #fa8128;
+  --accent-color: #646cff;
+  --background-light: #f5f5f5;
+  --background-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --text-dark: #333;
+  --gray: #666666;
+  --gray-light: #eeeeee;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --danger-color: #f44336;
+}
+
+/* Page Title */
+h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin: 40px 0 30px;
+  font-size: 2em;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+}
+
+/* Questions Table */
+.questions-table {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto 50px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.questions-table thead {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.questions-table th {
+  padding: 15px 20px;
+  text-align: left;
+  font-weight: 600;
+  position: relative;
+}
+
+.questions-table th:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.questions-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: middle;
+}
+
+.questions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.questions-table tbody tr:hover {
+  background-color: #f0f7f4;
+}
+
+.questions-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Status Column */
+.questions-table td:nth-child(4) {
+  font-weight: 600;
+}
+
+.questions-table td:nth-child(4):contains("Pending") {
+  color: var(--warning-color);
+}
+
+.questions-table td:nth-child(4):contains("Answered") {
+  color: var(--success-color);
+}
+
+/* Action Buttons */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.reply-btn {
+  background-color: var(--primary-color);
+}
+
+.reply-btn:hover {
+  background-color: #008c68;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-btn {
+  background-color: var(--danger-color);
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal-content.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-content h2 {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.modal-content h2::after {
+  display: none;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray);
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: var(--danger-color);
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+}
+
+.modal-content p strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+#replyText {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  min-height: 150px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+#replyText:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+#replyForm .action-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#replyForm .action-btn:hover {
+  background-color: #008c68;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1100;
+  font-weight: 500;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#toast-message {
+  display: inline-block;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .questions-table {
+    width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .questions-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  h2 {
+    font-size: 1.8em;
+    margin: 30px 0 20px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .action-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.5em;
+  }
+  
+  .questions-table th,
+  .questions-table td {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+}
+
+/* Add this CSS to handle displaying status colors properly */
+.status-pending {
+  color: var(--warning-color);
+}
+
+.status-answered {
+  color: var(--success-color);
+}

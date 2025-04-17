@@ -1,282 +1,132 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Community */
+:root {
+  --primary-color: #009f77;
+  --secondary-color: #fa8128;
+  --accent-color: #646cff;
+  --background-light: #f5f5f5;
+  --background-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --text-dark: #333;
+  --gray: #666666;
+  --gray-light: #eeeeee;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background-color: #f4f4f4;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--background-light);
+  margin: 0;
+  padding: 0;
 }
 
-/* Header Styles */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #009f77; /* Darker tone of #d1d8ce */
-  padding: 15px 30px;
-  height: 80px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 50px;
-  margin-right: 10px;
-}
-
-.logo h1 {
-  font-size: 1.8rem;
-  color: white;
-}
-
-.navbar ul {
-  display: flex;
-  list-style: none;
-}
-
-/* Navbar list item hover effect */
-.navbar ul li {
-  margin: 0 20px;
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #2abf89, #008060);
+  color: var(--text-light);
+  padding: 100px 20px;
+  text-align: center;
   position: relative;
-  transition: transform 0.3s ease, color 0.3s ease;
+  overflow: hidden;
 }
 
-.navbar ul li:hover {
-  transform: scale(1.1); /* Slightly enlarges the list item */
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  padding-right: 20px;
 }
 
-.navbar ul li a {
-  text-decoration: none;
-  color: white; /* Default color is white */
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 10px 0;
-  transition: color 0.3s ease; /* Smooth color transition */
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.navbar ul li:hover > a {
-  color: #ffeb3b; /* Change text color to yellow on hover */
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+  opacity: 0.9;
 }
 
-/* Dropdown Menu */
-.services .dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #009f77;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
-  list-style: none;
-  z-index: 1000;
-}
-
-.services:hover .dropdown {
-  display: block;
-}
-
-/* Dropdown list item */
-.dropdown li {
+.hero button {
+  background: #fa8128;
+  color: #fff;
+  border: 2px;
   padding: 10px 20px;
-  transition: transform 0.3s ease, color 0.3s ease; /* Same hover transition */
+  border-radius: 15px;
+  font-size: 1em;
+  cursor: pointer;
 }
 
-.dropdown li a {
-  color: white; /* Default color is white */
-  font-size: 1rem;
-  text-decoration: none;
-  transition: color 0.3s ease; /* Smooth color change */
+/* Image Slider Wrapper */
+.image-slider {
+  position: relative;
+  max-width: 800px; /* Adjust the width of the slider here */
+  margin: auto;
+  overflow: hidden;
+  flex: 1;
+  max-width: 600px; /* Adjust width of the image slider */
+  text-align: right;
 }
 
-/* Hovering on individual dropdown list item */
-.dropdown li:hover a {
-  color: #ffeb3b; /* Change link text color on hover */
+/* Individual Slide */
+.image-slide {
+  display: none;
+  text-align: center;
 }
 
-/* Services tab hover (applies only to Services) */
-.services:hover > a {
-  color: #ffeb3b; /* Only change the color of the "Services" tab, not the dropdown */
+.image-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  max-height: 400px; /* Adjust the max height of the images */
+  object-fit: cover;
+  border: 4px solid #fa8128;
+  flex: 1;
+  max-width: 600px; /* Adjust width of the image slider */
+  text-align: right;
 }
 
-/* Auth Buttons */
-.auth-buttons {
+.image-slide h3 {
+  color: #333;
+  font-size: 18px;
+  margin-top: 10px;
+  flex: 1;
+  max-width: 600px; /* Adjust width of the image slider */
+  text-align: center;
+}
+
+.image-slide.active {
+  display: block;
+  flex: 1;
+  max-width: 600px; /* Adjust width of the image slider */
+  text-align: right;
+}
+
+/* Slider Buttons */
+.slider-buttons {
   display: flex;
+  justify-content: center;
+  margin-top: 15px; /* Space between images and arrows */
 }
 
-.auth-buttons button {
-  background-color: #fa8128;
+.slider-buttons button {
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 20px;
   cursor: pointer;
-  margin-left: 10px;
-  font-size: 1rem;
+  border-radius: 50%;
   transition: background-color 0.3s ease;
-}
-
-.auth-buttons button:hover {
-  transform: scale(1.1);
-  transition: background-color 0.3s ease;
-}
-
-/* Content Placeholder */
-.content {
-  flex: 1;
-  padding: 20px;
-}
-
-/* Footer Styles */
-.footer {
-  background-color: #009f77; /* Lighter tone of green */
-  padding: 40px;
-  color: white;
-  margin-top: auto; /* Pushes the footer to the bottom when there's little content */
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.footer-logo h1 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-.footer-logo p {
-  width: 200px;
-  font-size: 0.9rem;
-}
-
-.footer-section {
-  width: 20%;
-}
-
-.footer-section h3 {
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-}
-
-.footer-section ul {
-  list-style: none;
-}
-
-.footer-section ul li {
-  margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-  color: white;
-  text-decoration: none;
-  transition: margin-left 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-  margin-left: 5px;
-  color: #ffeb3b;
-}
-
-.footer-section p {
-  margin-bottom: 10px;
-}
-.social-media ul li:hover img {
-  transform: scale(1.1); /* Slightly upscale the icon on hover */
-  transition: transform 0.3s ease; /* Smooth transition */
-}
-.social-media {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.social-media ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.social-media ul li {
   margin: 0 10px;
 }
 
-.social-media ul li img {
-  width: 30px;
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.footer-bottom p {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-#footer-logo {
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  height: 100px;
-  width: 100px;
-}
-
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #CCF0E5; /* Light background similar to the image */
-}
-
-/* Styling for the Blog Section Heading */
-
-.blog-section h2 {
-  text-align: center; 
-  color: rgb(20, 135, 53); /* White text color for contrast */
-  font-size: 2em; /* Medium-sized heading */
-  font-weight: bold; /* Makes the text bold */
-  margin: 0; /* Removes extra margin */
-}
-
-
-/* Header Section */
-.community-header {
-  text-align: center;
-  background-color: #88c799; /* Green tone from the photo */
-  color: rgb(25, 81, 63);
-  padding: 20px 10px;
-}
-
-.community-header h1 {
-  font-size: 2.5em;
-  margin: 0;
-}
-
-.community-header p {
-  font-size: 1.1em;
-  margin: 10px 0 0;
-}
-
-.header-image img {
-  width: 100%; /* Makes the image span the entire width of the header */
-  height: 600px; /* Maintains aspect ratio */
-  border-radius: 0px; /* Smooth rounded corners */
-  margin-top: 15px; /* Adds space between the text and the image */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds depth with shadow */
+.slider-buttons button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 
@@ -298,18 +148,8 @@ body {
   border-radius: 5px;
 }
 
-.search-bar button {
-  background-color: #88c799;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-
 .styled-button {
-    display: inline-block;
+    display: flex;
     padding: 12px 20px;
     background-color: #4caf50; /* Green button background */
     color: white; /* White text color */
@@ -327,9 +167,21 @@ body {
     border: 2px solid #4caf50; /* Retain green border */
   }
 
+/* Styling for the Blog Section Heading */
+
+.blog-section h2 {
+  text-align: center; 
+  color: rgb(20, 135, 53); /* White text color for contrast */
+  font-size: 2em; /* Medium-sized heading */
+  font-weight: bold; /* Makes the text bold */
+  margin: 0; /* Removes extra margin */
+}
+
 /* Posts Section */
 .posts-container {
-  padding: 20px;
+  max-width: 600px; /* Reduce the maximum width */
+  margin: 20px auto;
+  overflow: hidden;
 }
 
 .post {
@@ -374,16 +226,15 @@ body {
 }
 
 .post-img {
-  width: 100%;
-  height: 500px;
-  border-radius: 5px;
-  margin: 10px 0;
+  width: 100%; /* Ensure the image fits within the container */
+  max-height: 300px; /* Limit the height */
+  object-fit: cover; /* Ensure the image is cropped proportionally */
+  border-radius: 8px;
 }
 
 .post p {
-  font-size: 1em;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 14px; /* Smaller text size */
+  line-height: 1.5; /* Adjust line spacing */
 }
 
 .post-footer {
@@ -398,36 +249,21 @@ body {
   font-size: 1em;
 }
 
-/* Pagination */
-.pagination {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.pagination-btn {
-  background-color: rgb(130, 208, 150); /* Same green for consistency */
-  color: rgb(3, 25, 18);
+#add-comment-button {
+  align-self: flex-start;
+  color: white;
   border: none;
-  padding: 10px 15px;
-  margin: 0 5px;
+  padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.pagination-btn.active {
-  background-color: #44C571; /* Darker green for active state */
-}
-
-.share-img {
-  width: 40%;
-  height: auto;
+.cmnt-img {
+  width: 16px;
+  height: 16px;
   border-radius: 5px;
   margin: 10px 0;
 }
 
-.cmt-img {
-  width: 25%;
-  height: auto;
-  border-radius: 5px;
-  margin: 10px 0;
-}
+
+

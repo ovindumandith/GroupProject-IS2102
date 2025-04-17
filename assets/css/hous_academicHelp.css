@@ -1,0 +1,517 @@
+/* Head of Undergraduate Studies - Academic Help Styles */
+:root {
+  --primary-color: #009f77;
+  --primary-dark: #00815f;
+  --primary-light: #e0f5f0;
+  --secondary-color: #fa8128;
+  --secondary-dark: #e06c11;
+  --text-dark: #333333;
+  --text-light: #ffffff;
+  --gray-dark: #555555;
+  --gray: #777777;
+  --gray-light: #dddddd;
+  --gray-lighter: #f8f8f8;
+  --success: #4caf50;
+  --warning: #ff9800;
+  --danger: #f44336;
+  --info: #2196f3;
+  --pending: #ffc107;
+  --resolved: #4caf50;
+  --in-progress: #2196f3;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* Page Title */
+h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin: 30px 0;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+}
+
+/* Search container */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  max-width: 600px;
+  position: relative;
+}
+
+.search-box {
+  position: relative;
+  width: 100%;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 20px 14px 50px;
+  font-size: 1rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  background-color: var(--text-light);
+  transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  pointer-events: none;
+  transition: var(--transition);
+  z-index: 1;
+}
+
+.search-box input:focus + .search-icon {
+  color: var(--secondary-color);
+}
+
+/* Questions Table */
+.questions-table {
+  width: 90%;
+  max-width: 1400px;
+  margin: 20px auto 60px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  background-color: var(--text-light);
+}
+
+.questions-table thead {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.questions-table th {
+  padding: 15px 20px;
+  text-align: left;
+  font-weight: 600;
+  position: relative;
+}
+
+/* Separator between table headers */
+.questions-table th:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.questions-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--gray-light);
+  vertical-align: middle;
+}
+
+/* Last row without bottom border */
+.questions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Row hover effect */
+.questions-table tbody tr:hover {
+  background-color: var(--primary-light);
+  cursor: default;
+}
+
+/* Alternating row colors */
+.questions-table tbody tr:nth-child(even) {
+  background-color: var(--gray-lighter);
+}
+
+.questions-table tbody tr:nth-child(even):hover {
+  background-color: var(--primary-light);
+}
+
+/* Status column styling */
+.questions-table td:nth-child(5) {
+  font-weight: 600;
+}
+
+/* Add classes for different statuses in your PHP */
+.status-pending {
+  color: var(--pending);
+}
+
+.status-resolved {
+  color: var(--resolved);
+}
+
+.status-inprogress {
+  color: var(--in-progress);
+}
+
+/* Button styles */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reply-btn {
+  background-color: var(--primary-color);
+}
+
+.reply-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px #004f98;
+}
+.forward-btn {
+  background-color: var(--info);
+}
+
+.forward-btn:hover {
+  background-color: #0b7dda;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: var(--text-light);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.modal-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-content h2 {
+  color: var(--primary-color);
+  text-align: left;
+  padding-bottom: 15px;
+  margin: 0 0 20px;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.modal-content h2::after {
+  display: none;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--gray);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+}
+
+.close:hover {
+  color: var(--danger);
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.modal-content p strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+#modal-question-text {
+  display: block;
+  background-color: var(--gray-lighter);
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+#replyText {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  min-height: 150px;
+  resize: vertical;
+  font-family: "Poppins", sans-serif;
+  transition: var(--transition);
+}
+
+#replyText:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(0, 159, 119, 0.2);
+}
+
+#replyForm .action-btn {
+  background-color: var(--primary-color);
+  padding: 12px 0;
+  width: 100%;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+#replyForm .action-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Empty state styling */
+.questions-table tbody tr td[colspan="7"] {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--gray);
+  font-size: 1.1rem;
+}
+
+/* Truncate long text */
+.questions-table td {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .questions-table {
+    width: 95%;
+  }
+
+  .questions-table td {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .questions-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .questions-table td {
+    max-width: none;
+  }
+
+  .search-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .questions-table th,
+  .questions-table td {
+    padding: 12px 15px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+tbody tr {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Staggered animation for table rows */
+tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+tbody tr:nth-child(4) {
+  animation-delay: 0.2s;
+}
+tbody tr:nth-child(5) {
+  animation-delay: 0.25s;
+}
+tbody tr:nth-child(6) {
+  animation-delay: 0.3s;
+}
+tbody tr:nth-child(7) {
+  animation-delay: 0.35s;
+}
+tbody tr:nth-child(8) {
+  animation-delay: 0.4s;
+}
+tbody tr:nth-child(9) {
+  animation-delay: 0.45s;
+}
+tbody tr:nth-child(10) {
+  animation-delay: 0.5s;
+}
+
+/* Category badges */
+.category-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.category-examination {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.category-financial {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.category-medical {
+  background-color: #f9fbe7;
+  color: #afb42b;
+}
+
+.category-registration {
+  background-color: #e0f2f1;
+  color: #00897b;
+}
+
+.category-mahapola {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+}
+
+.category-bursary {
+  background-color: #ede7f6;
+  color: #5e35b1;
+}
+
+.category-accommodation {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.category-other {
+  background-color: #fafafa;
+  color: #616161;
+}
+
+/* Add these classes in your PHP loop */
+/* Example: <td><span class="category-badge category-<?= strtolower($question['category']) ?>"><?= htmlspecialchars($question['category']) ?></span></td> */
+
+/* Improve focus styles for accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(0, 159, 119, 0.5);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
