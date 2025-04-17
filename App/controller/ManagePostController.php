@@ -44,9 +44,16 @@ class ManagePostController {
     
 
     public function displayPosts() {
-        $userId = 1; // Example user ID (replace with dynamic user session ID)
-        $posts = $this->model->getPostsByUserId($userId); 
-        require '../views/manage_post.php'; // Load the view and pass the posts data
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if (!$userId) {
+            // Not logged in
+            echo "<script>alert('You must be logged in to view this page.'); window.location = 'login.php';</script>";
+            exit;
+        }
+
+        $posts = $this->model->getPostsByUserId($userId);
+        require '../views/manage_post.php';
     }
 }
 

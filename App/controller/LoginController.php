@@ -39,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 case 'lecturer':
                     header('Location: ../views/lecturer/lecturer_home.php');
                     break;
+                case 'CommunityAdmin':
+                        header('Location: ../views/CommmunityAdmin_home.php');
+                        break;
                 default:
                     header('Location: ../../../../index.php');
                     break;

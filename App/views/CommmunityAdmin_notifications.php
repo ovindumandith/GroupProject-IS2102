@@ -1,21 +1,11 @@
-<?php
-session_start();
-
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the login page if not logged in
-    header('Location: login.php');
-    exit();
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RelaxU</title>
+    <title>Admin Notifications</title>
+  <link rel="stylesheet" href="../../assets/css/CommunityAdmin_notifications.css" type="text/css"/>
+    <script src="../../assets/js/CommunityAdmin_notifications.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -25,11 +15,6 @@ if (!isset($_SESSION['user_id'])) {
       href="../../assets/css/header_footer.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
-    <link
-      rel="stylesheet"
-      href="../../assets/css/admin_home.css"
-      type="text/css">
       
 
 
@@ -56,74 +41,58 @@ if (!isset($_SESSION['user_id'])) {
       </div>
     </header>
   
-    <div class="main-content">
-    <div class="welcome-message">
-        <h1>Welcome to Community Admin Dashboard</h1>
-        <p>Here you can manage and monitor all activities related to posts, comments, users, and engagement.</p>
-    </div>
+<main>
+  <br>
+    <h2>Admin Sent Notifications</h2>
+    <section class="notification-form-section">
+  <h3>Send Notification to User</h3>
+  <form action="../controller/CommunityAdminController.php?action=sendNotification" method="POST" class="notification-form">
+    <label for="user_id">User ID:</label>
+    <input type="text" id="user_id" name="user_id" required>
 
-    <div class="overview">
-        <div class="card">
-            <h3>Total Posts</h3>
-            <p id="total-posts">1200</p>
-        </div>
-        <div class="card">
-            <h3>Total Comments</h3>
-            <p id="total-comments">3500</p>
-        </div>
-        <div class="card">
-            <h3>Total Users</h3>
-            <p id="total-users">780</p>
-        </div>
-    </div>
+    <label for="post_id">Post ID:</label>
+    <input type="text" id="post_id" name="post_id" required>
 
-    <!-- Charts Section -->
-    <div class="charts-section">
-        <div class="chart-container">
-            <h3>Top Contributors</h3>
-            <div id="contributors-chart" class="chart"></div>
-        </div>
-        <div class="chart-container">
-            <h3>Posts Over Time</h3>
-            <div id="posts-chart" class="chart"></div>
-        </div>
-    </div>
+    <label for="titile">Post Title:</label>
+    <input type="text" id="title" name="title" required>
 
-    <!-- Data Table -->
-    <div class="table-container">
-        <h3>Recent Activities</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Activity</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>101</td>
-                    <td>Amanda Lee</td>
-                    <td>Added a new post</td>
-                    <td>Published</td>
-                </tr>
-                <tr>
-                    <td>102</td>
-                    <td>David Kim</td>
-                    <td>Commented on a post</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <td>103</td>
-                    <td>Emma Brown</td>
-                    <td>Deleted a comment</td>
-                    <td>Removed</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <label for="reason">Reason:</label>
+    <textarea id="reason" name="reason" rows="4" required placeholder="Write the reason for deleting the post..."></textarea>
+
+    <button type="submit">Send Notification</button>
+  </form>
+</section>
+
+</main>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Search by Reason, Post ID, User ID...">
 </div>
+<table id="notificationsTable">
+  <thead>
+    <tr>
+      <th>Notification ID</th><th>User ID</th><th>Post ID</th><th>Reason</th><th>Deleted At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo "<tr>
+                  <td>{$row['notification_id']}</td> <td>{$row['user_id']}</td> <td>{$row['post_id']}</td> <td>{$row['reason']}</td> <td>{$row['created_at']}</td>
+                </tr>";
+        }
+      } else {
+        echo "<tr><td colspan='5' class='no-data'>No notifications found.</td></tr>";
+      }
+      $conn->close();
+    ?>
+  </tbody>
+</table>
+
+
+
+
 
     <!-- Footer Section -->
     <footer class="footer">

@@ -46,7 +46,9 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `year`, `password`
 (1, 'student1', 'student1@example.com', '0775889658', '1st Year', '123', 'student', '2024-09-15 19:22:10'),
 (2, 'admin1', 'admin1@example.com', '0778552145', NULL, '123', 'admin', '2024-09-15 19:22:10'),
 (3, 'superadmin1', 'superadmin1@example.com', '0778563254', NULL, '123', 'super_admin', '2024-09-15 19:22:10'),
-(4, 'student2', 'ovindumandith@gmail.com', '0703871009', '1', '111111111', 'student', '2024-09-23 02:23:12');
+(4, 'student2', 'ovindumandith@gmail.com', '0703871009', '1', '111111111', 'student', '2024-09-23 02:23:12'),
+(5, 'CommunityAdmin1', 'communityadmin1@gmail.com', '0761530378', NULL, '123', 'CommunityAdmin', '2025-04-17 09:24:59');
+
 
 --
 -- Indexes for dumped tables
