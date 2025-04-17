@@ -13,7 +13,7 @@ $(document).ready(function () {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'Month,agendaWeek,agendaDay'
         },
         selectable: true,
         selectHelper: true,
@@ -177,7 +177,7 @@ function fetchHistories(taskHistories) {
           <div class="circle"></div>
           <div class="details">
               <strong>${item.title}</strong>
-              <small>${item.description || "No additional details"}</small>
+              <small>${item.description}</small>
           </div>
       `;
   

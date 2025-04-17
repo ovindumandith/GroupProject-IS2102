@@ -158,18 +158,17 @@ const addTaskBtn = document.getElementById('add-task-btn');
 const addTaskModal = document.getElementById('add-task-modal');
 const cancelModalBtns = document.querySelectorAll('.cancel-modal, .close-modal');
 
-// Function to show the modal
+// Show modal
 addTaskBtn.addEventListener('click', () => {
-    addTaskModal.style.display = 'flex'; // or 'block', based on your CSS
+    addTaskModal.classList.add('active');
 });
 
-// Function to close the modal
+// Hide modal
 cancelModalBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        addTaskModal.style.display = 'none';
+        addTaskModal.classList.remove('active');
     });
 });
-
 // Optional: Close modal if user clicks outside of the modal content
 window.addEventListener('click', (event) => {
     if (event.target === addTaskModal) {

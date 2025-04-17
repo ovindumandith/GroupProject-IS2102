@@ -10,93 +10,97 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goal Tracker - Time Management Dashboard</title>
     <link rel="stylesheet" href="../../assets/css/time_tracking.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header" id="sidebarHeader" ></div>
-   
-    <nav class="sidebar-nav">
-    <ul>
-        <li class="active"><a href="#"><span class="material-symbols-rounded">dashboard</span> Dashboard</a></li>
-        <li><a href="#"><span class="material-symbols-rounded">task</span> Tasks</a></li>
-        <li><a href="#"><span class="material-symbols-rounded">emoji_events</span> Achievements</a></li>
-    </ul>
-</nav>
+            <div class="sidebar-header" id="sidebarHeader"></div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><span class="material-symbols-rounded">dashboard</span> Dashboard</a>
+                    </li>
+                    <li><a href="#"><span class="material-symbols-rounded">task</span> Tasks</a></li>
+                    <li><a href="#"><span class="material-symbols-rounded">emoji_events</span> Achievements</a></li>
+                </ul>
+            </nav>
             <div class="sidebar-footer">
-    <button id="back-button" class="btn btn-secondary">
-        <span class="material-symbols-rounded">arrow_back</span> Back
-    </button>
-</div>
+                <button id="back-button" class="btn btn-secondary">
+                    <span class="material-symbols-rounded">arrow_back</span> Back
+                </button>
+            </div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
-    <div class="header-title">
-        <h2>Time Tracker</h2>
-    </div>
-    <div class="header-actions">
-    <button id="add-task-btn" class="btn btn-primary">
-        <span class="material-symbols-rounded">add</span> Add New Task
-    </button>
-</div>
+                <div class="header-title">
+                    <h2>Time Tracker</h2>
+                </div>
+                <div class="header-actions">
+                    <button id="add-task-btn" class="btn btn-primary">
+                        <span class="material-symbols-rounded">add</span> Add New Task
+                    </button>
+                </div>
 
-</header>
+            </header>
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                 <!-- Stats Cards -->
                 <section class="stats-section">
-    <div class="stats-card">
-        <div class="stats-icon">
-            <span class="material-symbols-rounded">schedule</span>
-        </div>
-        <div class="stats-info">
-            <h3>Total Time Tracked</h3>
-            <p id="total-time-tracked">0h 0m</p>
-        </div>
-    </div>
-    <div class="stats-card">
-        <div class="stats-icon">
-            <span class="material-symbols-rounded">task</span>
-        </div>
-        <div class="stats-info">
-            <h3>Tasks Completed</h3>
-            <p id="tasks-completed">0/0</p>
-        </div>
-    </div>
-    <div class="stats-card">
-        <div class="stats-icon">
-            <span class="material-symbols-rounded">emoji_events</span>
-        </div>
-        <div class="stats-info">
-            <h3>Badges Earned</h3>
-            <p id="badges-earned">0</p>
-        </div>
-    </div>
-</section>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <span class="material-symbols-rounded">schedule</span>
+                        </div>
+                        <div class="stats-info">
+                            <h3>Total Time Tracked</h3>
+                            <p id="total-time-tracked">0h 0m</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <span class="material-symbols-rounded">task</span>
+                        </div>
+                        <div class="stats-info">
+                            <h3>Tasks Completed</h3>
+                            <p id="tasks-completed">0/0</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon">
+                            <span class="material-symbols-rounded">emoji_events</span>
+                        </div>
+                        <div class="stats-info">
+                            <h3>Badges Earned</h3>
+                            <p id="badges-earned">0</p>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- Tasks Section -->
                 <section class="tasks-section">
-    <div class="section-header">
-        <h3>Today's Tasks</h3>
-    </div>
-    <div class="tasks-container" id="tasks-container">
-        <!-- Tasks will be added here dynamically -->
-        <div class="empty-state">
-            <span class="material-symbols-rounded">task</span>
-            <p>No tasks added yet. Click "Add New Task" to get started.</p>
-        </div>
-    </div>
-</section>
+                    <div class="section-header">
+                        <h3>Today's Tasks</h3>
+                    </div>
+                    <div class="tasks-container" id="tasks-container">
+                        <!-- Tasks will be added here dynamically -->
+                        <div class="empty-state">
+                            <span class="material-symbols-rounded">task</span>
+                            <p>No tasks added yet. Click "Add New Task" to get started.</p>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- Achievements Section -->
                 <section class="achievements-section">
@@ -133,14 +137,17 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                     <div class="form-group">
                         <label for="task-description">Description (Optional)</label>
-                        <textarea id="task-description" name="task-description" placeholder="Brief description of the task"></textarea>
+                        <textarea id="task-description" name="task-description"
+                            placeholder="Brief description of the task"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="time-goal">Time Goal</label>
                         <div class="time-input-group">
-                            <input type="number" id="time-goal-hours" name="time-goal-hours" min="0" max="24" placeholder="0" required>
+                            <input type="number" id="time-goal-hours" name="time-goal-hours" min="0" max="24"
+                                placeholder="0" required>
                             <label for="time-goal-hours">hours</label>
-                            <input type="number" id="time-goal-minutes" name="time-goal-minutes" min="0" max="59" placeholder="0" required>
+                            <input type="number" id="time-goal-minutes" name="time-goal-minutes" min="0" max="59"
+                                placeholder="0" required>
                             <label for="time-goal-minutes">minutes</label>
                         </div>
                     </div>
@@ -163,7 +170,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="modal-body">
                 <div class="task-detail-content">
                     <p id="detail-task-description" class="task-description"></p>
-                    
+
                     <div class="detail-stats">
                         <div class="detail-stat">
                             <span class="stat-label">Priority:</span>
@@ -182,7 +189,7 @@ if (!isset($_SESSION['user_id'])) {
                             <span id="detail-task-status" class="stat-value"></span>
                         </div>
                     </div>
-                    
+
                     <div class="detail-progress">
                         <h4>Progress</h4>
                         <div class="progress-bar">
@@ -193,7 +200,7 @@ if (!isset($_SESSION['user_id'])) {
                             <span id="detail-progress-ratio">0/0</span>
                         </div>
                     </div>
-                    
+
                     <div class="detail-actions">
                         <button id="detail-start-btn" class="btn btn-success">
                             <span class="material-symbols-rounded">play_arrow</span> Start Timer
@@ -221,8 +228,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
     <script src="../../assets/js/time_tracking.js"></script>
-    
+
 </body>
+
 </html>
-
-

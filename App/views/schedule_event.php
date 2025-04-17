@@ -37,7 +37,7 @@ include "./templates/header.php";
                 </div>
 
                 <div class="container mt-5">
-                    <h1>Event Calendar</h1>
+                    <h1>Event Schedular</h1>
 
                     <div id="calendar-container">
                         <div id="calendar"></div>
