@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     header('Location: ../views/admin/superadmin_home.html');
                     break;
                 case 'hous':
-                    header('Location: ../views/houg/houg_home.php');
+                    header('Location: ../controller/HOUSDashboardController.php');
                     break;
                 case 'lecturer':
                     header('Location: ../views/lecturer/lecturer_home.php');
