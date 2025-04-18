@@ -233,18 +233,24 @@ $profileData = $_SESSION['hous_profile'] ?? [];
         </div>
         <nav class="navbar">
             <ul>
-          <li><a href="../controller/HOUSDashboardController.php">Dashboard</a></li>
-          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
-          <li><a href="../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
-          <li><a href="../controller/LecturerController.php?action=list">List of Lecturers</a></li>
+          <li><a href="../../controller/HOUSDashboardController.php">Dashboard</a></li>
+          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
+          <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
+          <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
             </ul>
         </nav>
-        <div class="auth-buttons">
-            <a href="../../controller/HOUSProfileController.php?action=viewProfile" class="profile-btn active"><b>Profile</b></a>
-            <form action="../../../util/logout.php" method="post" style="display: inline">
-                <button type="submit" class="logout-btn"><b>Log Out</b></button>
-            </form>
-        </div>
+      <div class="auth-buttons">
+
+        <!-- Profile button form -->
+        <form action="../../controller/HOUSProfileController.php" method="GET">
+          <input type="hidden" name="action" value="viewProfile">
+          <button type="submit" class="login"><b>Profile</b></button>
+        </form>
+        <!-- Logout button form -->
+        <form action="../../../util/logout.php" method="POST" style="display: inline;">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
+      </div>
     </header>
 
     <main>

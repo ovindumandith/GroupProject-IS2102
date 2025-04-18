@@ -42,15 +42,12 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
       <div class="auth-buttons">
 
         <!-- Profile button form -->
-        <form action="../../controller/HOUSProfileController.php" method="GET">
+        <form action="../controller/HOUSProfileController.php" method="GET">
           <input type="hidden" name="action" value="viewProfile">
           <button type="submit" class="login"><b>Profile</b></button>
         </form>
-
-
-    
         <!-- Logout button form -->
-        <form action="../../../util/logout.php" method="POST" style="display: inline;">
+        <form action="../../util/logout.php" method="POST" style="display: inline;">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
