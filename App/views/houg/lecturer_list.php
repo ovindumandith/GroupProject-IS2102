@@ -1,6 +1,5 @@
 <?php
 
-
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../views/login.php?error=unauthorized');
@@ -27,30 +26,29 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
 <body>
     <!-- Header Section -->
     <header class="header">
-      <div class="logo">
-        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
-        <h1>RelaxU</h1>
-      </div>
-      <nav class="navbar">
-        <ul>
-          <li><a href="../controller/HOUSDashboardController.php">Dashboard</a></li>
-          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
-          <li><a href="../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
-          <li><a href="../controller/LecturerController.php?action=list">List of Lecturers</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-
-        <!-- Profile button form -->
-        <form action="../controller/HOUSProfileController.php" method="GET">
-          <input type="hidden" name="action" value="viewProfile">
-          <button type="submit" class="login"><b>Profile</b></button>
-        </form>
-        <!-- Logout button form -->
-        <form action="../../util/logout.php" method="POST" style="display: inline;">
-          <button type="submit" class="login"><b>Log Out</b></button>
-        </form>
-      </div>
+        <div class="logo">
+            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            <h1>RelaxU</h1>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../controller/HOUSDashboardController.php">Dashboard</a></li>
+                <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
+                <li><a href="../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
+                <li><a href="../controller/LecturerController.php?action=list">List of Lecturers</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <!-- Profile button form -->
+            <form action="../controller/HOUSProfileController.php" method="GET">
+                <input type="hidden" name="action" value="viewProfile">
+                <button type="submit" class="login"><b>Profile</b></button>
+            </form>
+            <!-- Logout button form -->
+            <form action="../../util/logout.php" method="POST" style="display: inline;">
+                <button type="submit" class="login"><b>Log Out</b></button>
+            </form>
+        </div>
     </header>
 
     <main>
@@ -59,17 +57,14 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
         <!-- Category Filter -->
         <div class="filter-container">
             <div class="category-filter">
-                <form action="../../controller/LecturerController.php" method="GET">
-                    <input type="hidden" name="action" value="list">
-                    <select name="category" id="categoryFilter" onchange="this.form.submit()">
-                        <option value="">All Categories</option>
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?= htmlspecialchars($category) ?>" <?= $selectedCategory === $category ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($category) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </form>
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= htmlspecialchars(strtolower($category)) ?>">
+                            <?= htmlspecialchars($category) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             
             <div class="search-box">
@@ -99,11 +94,11 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
                                 <?= htmlspecialchars($lecturer['category']) ?>
                             </span>
                         </div>
-<div class="lecturer-actions">
-    <a href="../controller/LecturerController.php?action=viewProfile&id=<?= $lecturer['id'] ?>" class="profile-link">
-        View Profile <i class="fas fa-chevron-right"></i>
-    </a>
-</div>
+                        <div class="lecturer-actions">
+                            <a href="../controller/LecturerController.php?action=viewProfile&id=<?= $lecturer['id'] ?>" class="profile-link">
+                                View Profile <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -112,37 +107,75 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
                 </div>
             <?php endif; ?>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get filter elements
+                const categoryFilter = document.getElementById('categoryFilter');
+                const lecturerCards = document.querySelectorAll('.lecturer-card');
+                
+                // Function to filter lecturers
+                function filterLecturers() {
+                    const selectedCategory = categoryFilter.value.toLowerCase();
+                    let visibleCount = 0;
+                    
+                    lecturerCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category').toLowerCase();
+                        
+                        // Show card if no category filter or category matches
+                        if (selectedCategory === '' || cardCategory === selectedCategory) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show "no results" message if no cards are visible
+                    const noResultsElement = document.querySelector('.no-results');
+                    if (noResultsElement) {
+                        if (visibleCount === 0) {
+                            noResultsElement.style.display = '';
+                            noResultsElement.querySelector('p').textContent = 
+                                `No lecturers found for category "${categoryFilter.options[categoryFilter.selectedIndex].text}". Try a different category or view all lecturers.`;
+                        } else {
+                            noResultsElement.style.display = 'none';
+                        }
+                    }
+                }
+                
+                // Add event listener to category filter
+                if (categoryFilter) {
+                    categoryFilter.addEventListener('change', filterLecturers);
+                }
+            });
+        </script>
     </main>
 
     <!-- Footer Section -->
-<footer class="footer">
-      <div class="footer-container">
-        <div class="footer-logo">
-          <h1>RelaxU</h1>
-          <p>Your mental health, your priority.</p>
-          <img
-            id="footer-logo"
-            src="../../assets/images/logo.jpg"
-            alt="RelaxU Logo"
-          />
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h1>RelaxU</h1>
+                <p>Your mental health, your priority.</p>
+                <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../views/houg/houg_home.php">Dashboard</a></li>
+                    <li><a href="#">Academic Requests</a></li>
+                    <li><a href="#">List of Lecturers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Support</h3>
+                <p>Email: support@relaxu.com</p>
+                <p>Phone: +1 800-RELAXU</p>
+            </div>
         </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-          <li><a href="../views/houg/houg_home.php">Dashboard</a></li>
-          <li><a href="#">Academic Requests</a></li>
-          <li><a href="#">List of Lecturers</a></li>
-          </ul>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
         </div>
-        <div class="footer-section">
-          <h3>Contact Support</h3>
-          <p>Email: support@relaxu.com</p>
-          <p>Phone: +1 800-RELAXU</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
-      </div>
     </footer>
 
     <script>
