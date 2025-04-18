@@ -50,9 +50,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
           <input type="hidden" name="action" value="viewProfile">
           <button type="submit" class="login"><b>Profile</b></button>
         </form>
-
-
-    
         <!-- Logout button form -->
         <form action="../../../util/logout.php" method="POST" style="display: inline;">
           <button type="submit" class="login"><b>Log Out</b></button>

@@ -40,11 +40,13 @@ class LecturerModel {
             return false;
         }
     }
-
-    // Get lecturer by ID
+    /**
+     * Get lecturer by ID with detailed information
+     */
     public function getLecturerById($id) {
         try {
-            $query = "SELECT l.*, u.role FROM lecturers l 
+            $query = "SELECT l.*, u.email, u.phone, u.username, u.created_at as join_date
+                      FROM lecturers l 
                       JOIN users u ON l.user_id = u.user_id 
                       WHERE l.id = :id";
             $stmt = $this->db->prepare($query);
@@ -267,5 +269,93 @@ class LecturerModel {
             return false;
         }
     }
+    /**
+ * Get forwarded questions for a specific lecturer
+ */
+public function getLecturerForwardedQuestions($lecturerId) {
+    try {
+        $query = "SELECT fq.*, aq.question, aq.full_name AS student_name, 
+                  aq.category, aq.created_at AS question_date
+                  FROM forwarded_questions fq
+                  JOIN academic_questions aq ON fq.question_id = aq.id
+                  WHERE fq.lecturer_id = :lecturer_id
+                  ORDER BY fq.forwarded_at DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':lecturer_id', $lecturerId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Get replies by a specific lecturer
+ */
+public function getLecturerReplies($lecturerId) {
+    try {
+        $query = "SELECT qr.*, aq.question, aq.full_name AS student_name, 
+                  aq.category, aq.created_at AS question_date
+                  FROM question_replies qr
+                  JOIN academic_questions aq ON qr.question_id = aq.id
+                  WHERE qr.user_id = :lecturer_id
+                  ORDER BY qr.created_at DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':lecturer_id', $lecturerId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Get statistics for a lecturer (count of forwarded questions, replies, etc.)
+ */
+public function getLecturerStats($lecturerId) {
+    try {
+        // Get forwarded questions count
+        $forwardedQuery = "SELECT COUNT(*) as forwarded_count, 
+                          SUM(CASE WHEN status = 'Unread' THEN 1 ELSE 0 END) as unread_count,
+                          SUM(CASE WHEN status = 'Read' THEN 1 ELSE 0 END) as read_count,
+                          SUM(CASE WHEN status = 'Responded' THEN 1 ELSE 0 END) as responded_count
+                          FROM forwarded_questions 
+                          WHERE lecturer_id = :lecturer_id";
+        $forwardedStmt = $this->db->prepare($forwardedQuery);
+        $forwardedStmt->bindParam(':lecturer_id', $lecturerId, PDO::PARAM_INT);
+        $forwardedStmt->execute();
+        $forwardedStats = $forwardedStmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Get replies count
+        $repliesQuery = "SELECT COUNT(*) as replies_count 
+                        FROM question_replies 
+                        WHERE user_id = :lecturer_id";
+        $repliesStmt = $this->db->prepare($repliesQuery);
+        $repliesStmt->bindParam(':lecturer_id', $lecturerId, PDO::PARAM_INT);
+        $repliesStmt->execute();
+        $repliesCount = $repliesStmt->fetchColumn();
+        
+        // Combine stats
+        return [
+            'forwarded_count' => $forwardedStats['forwarded_count'] ?? 0,
+            'unread_count' => $forwardedStats['unread_count'] ?? 0,
+            'read_count' => $forwardedStats['read_count'] ?? 0,
+            'responded_count' => $forwardedStats['responded_count'] ?? 0,
+            'replies_count' => $repliesCount ?? 0
+        ];
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return [
+            'forwarded_count' => 0,
+            'unread_count' => 0,
+            'read_count' => 0,
+            'responded_count' => 0,
+            'replies_count' => 0
+        ];
+    }
+}
+
 }
 ?>

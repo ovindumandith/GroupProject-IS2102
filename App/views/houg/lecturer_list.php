@@ -33,17 +33,20 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="../../controller/HOUSDashboardController.php">Dashboard</a></li>
-          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
-          <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
-          <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
+          <li><a href="../controller/HOUSDashboardController.php">Dashboard</a></li>
+          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
+          <li><a href="../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
+          <li><a href="../controller/LecturerController.php?action=list">List of Lecturers</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
+
         <!-- Profile button form -->
-<form action="hous_profile.php" method="GET">
-    <button type="submit" class="login"><b>Profile</b></button>
-</form>
+        <form action="../../controller/HOUSProfileController.php" method="GET">
+          <input type="hidden" name="action" value="viewProfile">
+          <button type="submit" class="login"><b>Profile</b></button>
+        </form>
+
 
     
         <!-- Logout button form -->
@@ -99,11 +102,11 @@ $selectedCategory = $_SESSION['selected_category'] ?? null;
                                 <?= htmlspecialchars($lecturer['category']) ?>
                             </span>
                         </div>
-                        <div class="lecturer-actions">
-                            <a href="../../controller/LecturerController.php?action=viewProfile&id=<?= $lecturer['id'] ?>" class="profile-link">
-                                View Profile <i class="fas fa-chevron-right"></i>
-                            </a>
-                        </div>
+<div class="lecturer-actions">
+    <a href="../controller/LecturerController.php?action=viewProfile&id=<?= $lecturer['id'] ?>" class="profile-link">
+        View Profile <i class="fas fa-chevron-right"></i>
+    </a>
+</div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

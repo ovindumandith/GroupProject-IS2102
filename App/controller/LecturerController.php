@@ -8,6 +8,41 @@ class LecturerController {
         $this->model = new LecturerModel();
     }
     
+    public function handleRequest() {
+        // Check if action parameter exists
+        if (isset($_GET['action'])) {
+            $action = $_GET['action'];
+            
+            // Handle different actions
+            switch ($action) {
+                case 'list':
+                    $this->list();
+                    break;
+                case 'viewProfile':
+                    $this->viewLecturerProfile();
+                    break;
+                case 'add':
+                    $this->add();
+                    break;
+                case 'edit':
+                    $this->edit();
+                    break;
+                case 'delete':
+                    $this->delete();
+                    break;
+                case 'myProfile':
+                    $this->myProfile();
+                    break;
+                default:
+                    echo 'Invalid action';
+                    break;
+            }
+        } else {
+            // Default action is to list lecturers
+            $this->list();
+        }
+    }
+    
     // List all lecturers
     public function list() {
         session_start();
@@ -51,37 +86,50 @@ class LecturerController {
         }
     }
     
-    // View lecturer profile
-    public function viewProfile() {
+    // View lecturer profile for HOUS
+    public function viewLecturerProfile() {
         session_start();
         
-        // Check if user is logged in
-        if (!isset($_SESSION['user_id'])) {
-            header('Location: ../views/login.php?error=unauthorized');
+        // Check if user is logged in as HOUS
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
+            header('Location: ../login.php?error=unauthorized');
             exit();
         }
         
-        // Get lecturer ID from request
-        $lecturerId = isset($_GET['id']) ? (int)$_GET['id'] : null;
-        
-        if (!$lecturerId) {
-            header('Location: ../controller/LecturerController.php?action=list&error=invalid_id');
+        // Check if lecturer ID is provided
+        if (!isset($_GET['id'])) {
+            $_SESSION['error_message'] = "Missing lecturer ID.";
+            header('Location: ../controller/LecturerController.php?action=list');
             exit();
         }
+        
+        $lecturerId = (int)$_GET['id'];
         
         // Get lecturer details
         $lecturer = $this->model->getLecturerById($lecturerId);
         
         if (!$lecturer) {
-            header('Location: ../controller/LecturerController.php?action=list&error=not_found');
+            $_SESSION['error_message'] = "Lecturer not found.";
+            header('Location: ../controller/LecturerController.php?action=list');
             exit();
         }
         
-        // Store in session for view
-        $_SESSION['lecturer_profile'] = $lecturer;
+        // Get additional data for the lecturer
+        $forwardedQuestions = $this->model->getLecturerForwardedQuestions($lecturer['user_id']);
+        $replies = $this->model->getLecturerReplies($lecturer['user_id']);
+        $stats = $this->model->getLecturerStats($lecturer['user_id']);
         
-        // Load view
-        include '../views/lecturer_profile.php';
+        // Store data in session for view to access
+        $_SESSION['lecturer_profile'] = [
+            'details' => $lecturer,
+            'forwarded_questions' => $forwardedQuestions,
+            'replies' => $replies,
+            'stats' => $stats
+        ];
+        
+        // Redirect to lecturer profile view
+        header('Location: ../views/houg/lecturer_profile.php');
+        exit();
     }
     
     // Add new lecturer (Admin/HOUS only)
@@ -209,10 +257,7 @@ class LecturerController {
         header('Location: ../controller/LecturerController.php?action=list');
         exit();
     }
-
-    /**
-     * Manage lecturer's own profile
-     */
+    
     public function myProfile() {
         session_start();
         
@@ -312,30 +357,10 @@ class LecturerController {
 // Handle actions
 if (isset($_GET['action'])) {
     $controller = new LecturerController();
-    $action = $_GET['action'];
-    
-    switch ($action) {
-        case 'list':
-            $controller->list();
-            break;
-        case 'viewProfile':
-            $controller->viewProfile();
-            break;
-        case 'add':
-            $controller->add();
-            break;
-        case 'edit':
-            $controller->edit();
-            break;
-        case 'delete':
-            $controller->delete();
-            break;
-        case 'myProfile':
-            $controller->myProfile();
-            break;  
-        default:
-            echo 'Invalid action';
-            break;
-    }
+    $controller->handleRequest();
+} else {
+    // Default action
+    $controller = new LecturerController();
+    $controller->list();
 }
 ?>
