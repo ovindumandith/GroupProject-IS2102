@@ -148,8 +148,10 @@ h2 {
   color: white;
   display: inline-flex;
   align-items: center;
+  justify-content: center; /* Centers the text and icon */
   gap: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 85px; /* Gives consistent width to all buttons */
 }
 
 .view-btn {
@@ -352,8 +354,10 @@ h2 {
 /* Action buttons container in table */
 .action-buttons {
   display: flex;
+  flex-direction: row; /* This ensures horizontal layout */
   gap: 6px;
-  flex-wrap: wrap;
+  justify-content: flex-start; /* Aligns buttons to the left */
+  flex-wrap: nowrap; /* Prevents wrapping to new line */
 }
 
 /* Modal styles enhancement */
