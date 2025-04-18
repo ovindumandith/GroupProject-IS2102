@@ -40,7 +40,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
           <li><a href="../../controller/HOUSDashboardController.php">Dashboard</a></li>
           <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
           <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
-           <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
+          <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">

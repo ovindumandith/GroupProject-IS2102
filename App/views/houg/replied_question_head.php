@@ -357,11 +357,10 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
         </div>
         <nav class="navbar">
             <ul>
-                <li><a href="head_dashboard.php">Dashboard</a></li>
-                <li><a href="academic_questions.php">Academic Questions</a></li>
-                <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions" class="active">Replied Questions</a></li>
-                <li><a href="faculty_schedule.php">Faculty Schedule</a></li>
-                <li><a href="student_requests.php">Student Requests</a></li>
+          <li><a href="../../controller/HOUSDashboardController.php">Dashboard</a></li>
+          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions_hous">Academic Requests</a></li>
+          <li><a href="../../controller/RepliedQuestionsController.php?action=viewRepliedQuestions">Forwarded-Replied Questions</a></li>
+          <li><a href="../../controller/LecturerController.php?action=list">List of Lecturers</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">
