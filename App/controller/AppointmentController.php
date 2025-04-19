@@ -1,11 +1,14 @@
 <?php
 require_once '../models/AppointmentModel.php';
+require_once '../services/EmailService.php';
 
 class AppointmentController {
     private $model;
+    private $emailService;
 
     public function __construct() {
         $this->model = new AppointmentModel();
+        $this->emailService = new EmailService();
     }
 
     // Method to schedule an appointment
@@ -98,17 +101,40 @@ class AppointmentController {
     }
 
     // Method to update appointment status
+    
     public function updateAppointmentStatus() {
         session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id'], $_POST['status'])) {
             $appointmentId = $_POST['appointment_id'];
             $status = $_POST['status'];
 
+            // Get appointment details before updating
+            $appointment = $this->model->getAppointmentById($appointmentId);
+            
+            if (!$appointment) {
+                $_SESSION['status_update_error'] = 'Appointment not found.';
+                header('Location: /GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments');
+                exit();
+            }
+
             if ($this->model->updateAppointmentStatus($appointmentId, $status)) {
                 $_SESSION['status_update_success'] = 'Appointment status updated successfully.';
+                
+                // Get student details to use their name in the email
+                $studentDetails = $this->model->getStudentDetails($appointment['student_id']);
+                $studentName = $studentDetails ? $studentDetails['username'] : 'Student';
+                
+                // Send email notification to student
+                $this->emailService->sendAppointmentStatusNotification(
+                    $appointment['email'], 
+                    $studentName, 
+                    $appointment, 
+                    $status
+                );
             } else {
                 $_SESSION['status_update_error'] = 'Failed to update appointment status.';
             }
+            
             header('Location: /GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments');
             exit();
         }
@@ -212,57 +238,76 @@ public function viewStudentStressTrend() {
  * Reschedule an approved appointment
  * This method updates the appointment date for approved appointments
  */
-public function rescheduleAppointment() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    
-    // Ensure the user is logged in as a counselor
-    if (!isset($_SESSION['counselor']['id'])) {
-        header('Location: ../views/counselling/counselor_login.php');
-        exit();
-    }
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id']) && isset($_POST['new_date'])) {
-        $appointmentId = $_POST['appointment_id'];
-        $newDate = $_POST['new_date'];
+    // Method to reschedule an appointment
+    public function rescheduleAppointment() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         
-        // Validate the appointment belongs to this counselor
-        $appointment = $this->model->getAppointmentById($appointmentId);
-        if (!$appointment || $appointment['counselor_id'] != $_SESSION['counselor']['id']) {
-            $_SESSION['reschedule_error'] = "You don't have permission to reschedule this appointment.";
-            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+        // Ensure the user is logged in as a counselor
+        if (!isset($_SESSION['counselor']['id'])) {
+            header('Location: ../views/counselling/counselor_login.php');
             exit();
         }
         
-        // Validate the appointment is approved
-        if ($appointment['status'] !== 'Accepted') {
-            $_SESSION['reschedule_error'] = "Only approved appointments can be rescheduled.";
-            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
-            exit();
-        }
-        
-        // Validate the new date is in the future
-        if (strtotime($newDate) <= time()) {
-            $_SESSION['reschedule_error'] = "Please select a future date and time.";
-            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
-            exit();
-        }
-        
-        // Update the appointment date
-        if ($this->model->rescheduleAppointment($appointmentId, $newDate)) {
-            $_SESSION['reschedule_success'] = "Appointment successfully rescheduled to " . date('M d, Y h:i A', strtotime($newDate));
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id']) && isset($_POST['new_date'])) {
+            $appointmentId = $_POST['appointment_id'];
+            $newDate = $_POST['new_date'];
             
-            // Optional: Notify the student about rescheduling
-            // You could add code here to send an email or add a notification for the student
-        } else {
-            $_SESSION['reschedule_error'] = "Failed to reschedule appointment. Please try again.";
+            // Get the appointment details
+            $appointment = $this->model->getAppointmentById($appointmentId);
+            
+            if (!$appointment) {
+                $_SESSION['reschedule_error'] = "Appointment not found.";
+                header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+                exit();
+            }
+            
+            // Validate the appointment belongs to this counselor
+            if ($appointment['counselor_id'] != $_SESSION['counselor']['id']) {
+                $_SESSION['reschedule_error'] = "You don't have permission to reschedule this appointment.";
+                header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+                exit();
+            }
+            
+            // Validate the appointment is approved
+            if ($appointment['status'] !== 'Accepted') {
+                $_SESSION['reschedule_error'] = "Only approved appointments can be rescheduled.";
+                header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+                exit();
+            }
+            
+            // Validate the new date is in the future
+            if (strtotime($newDate) <= time()) {
+                $_SESSION['reschedule_error'] = "Please select a future date and time.";
+                header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+                exit();
+            }
+            
+            // Update the appointment date
+            if ($this->model->rescheduleAppointment($appointmentId, $newDate)) {
+                $_SESSION['reschedule_success'] = "Appointment successfully rescheduled to " . date('M d, Y h:i A', strtotime($newDate));
+                
+                // Get student details to use their name in the email
+                $studentDetails = $this->model->getStudentDetails($appointment['student_id']);
+                $studentName = $studentDetails ? $studentDetails['username'] : 'Student';
+                
+                // Send email notification to student about the reschedule
+                $this->emailService->sendAppointmentStatusNotification(
+                    $appointment['email'], 
+                    $studentName, 
+                    $appointment, 
+                    'Rescheduled', 
+                    $newDate
+                );
+            } else {
+                $_SESSION['reschedule_error'] = "Failed to reschedule appointment. Please try again.";
+            }
+            
+            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+            exit();
         }
-        
-        header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
-        exit();
     }
-}
     
 }
 
