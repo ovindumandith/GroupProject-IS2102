@@ -208,6 +208,62 @@ public function viewStudentStressTrend() {
             }
         }
     }
+    /**
+ * Reschedule an approved appointment
+ * This method updates the appointment date for approved appointments
+ */
+public function rescheduleAppointment() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Ensure the user is logged in as a counselor
+    if (!isset($_SESSION['counselor']['id'])) {
+        header('Location: ../views/counselling/counselor_login.php');
+        exit();
+    }
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id']) && isset($_POST['new_date'])) {
+        $appointmentId = $_POST['appointment_id'];
+        $newDate = $_POST['new_date'];
+        
+        // Validate the appointment belongs to this counselor
+        $appointment = $this->model->getAppointmentById($appointmentId);
+        if (!$appointment || $appointment['counselor_id'] != $_SESSION['counselor']['id']) {
+            $_SESSION['reschedule_error'] = "You don't have permission to reschedule this appointment.";
+            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+            exit();
+        }
+        
+        // Validate the appointment is approved
+        if ($appointment['status'] !== 'Accepted') {
+            $_SESSION['reschedule_error'] = "Only approved appointments can be rescheduled.";
+            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+            exit();
+        }
+        
+        // Validate the new date is in the future
+        if (strtotime($newDate) <= time()) {
+            $_SESSION['reschedule_error'] = "Please select a future date and time.";
+            header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+            exit();
+        }
+        
+        // Update the appointment date
+        if ($this->model->rescheduleAppointment($appointmentId, $newDate)) {
+            $_SESSION['reschedule_success'] = "Appointment successfully rescheduled to " . date('M d, Y h:i A', strtotime($newDate));
+            
+            // Optional: Notify the student about rescheduling
+            // You could add code here to send an email or add a notification for the student
+        } else {
+            $_SESSION['reschedule_error'] = "Failed to reschedule appointment. Please try again.";
+        }
+        
+        header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
+        exit();
+    }
+}
+    
 }
 
 // Check if an action is set in the query string
@@ -240,6 +296,9 @@ if (isset($_GET['action'])) {
         case 'viewStudentStressTrend':
             $controller->viewStudentStressTrend();
             break; 
+        case 'rescheduleAppointment':
+            $controller->rescheduleAppointment();
+            break;
         default:
             echo 'Invalid action';
     }
