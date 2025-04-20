@@ -11,6 +11,17 @@ require_once '../models/CommunitynotificationsModel.php';
 $notificationModel = new Notification();
 $result = $notificationModel->fetchAllNotifications();
 ?>
+<?php if (isset($_GET['status'])): ?>
+  <div class="status-message <?php echo htmlspecialchars($_GET['status']); ?>">
+    <?php
+      if ($_GET['status'] === 'success') echo "Notification sent and post deleted successfully.";
+      elseif ($_GET['status'] === 'fail') echo "Error: Failed to send notification.";
+      elseif ($_GET['status'] === 'invalid') echo "Please fill in all fields.";
+    ?>
+  </div>
+<?php endif; ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
