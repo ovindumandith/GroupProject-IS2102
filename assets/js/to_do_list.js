@@ -221,11 +221,11 @@ function categorizeTasks(tasks) {
       status = 'completed';
       categorized.done.push({ ...task, color, status });
     } else if (dueDate === today) {
-      color = '#ceecfd';
+      color = '#6b8f71';
       status = 'today'; // Blueish
       categorized.today.push({ ...task, color, status });
     } else if (dueDate > today) {
-      color = '#f8d7da';
+      color = '#6b8f71';
       status = 'upcoming'; // Redish
       categorized.upcoming.push({ ...task, color, status });
     } else {

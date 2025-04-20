@@ -40,7 +40,7 @@ include "./templates/header.php";
                                     <label for="time">Time:</label>
                                     <input type="time" id="time" name="time" required>
                                     <label for="description">Description:</label>
-                                    <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+                                    <textarea id="description" name="description" rows="4" cols="50" ></textarea>
                                     <button type="submit" id="formSubmitButton">Save Task</button>
                                 </form>
                             </div>

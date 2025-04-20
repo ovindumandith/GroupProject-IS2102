@@ -162,6 +162,15 @@ h1 {
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
   grid-column-gap: 1.6rem;
+  
+}
+.project-column{
+  background-color: #ebf0f7;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #badfcd;
+  
 }
 
 .project-column-heading {
@@ -172,8 +181,10 @@ h1 {
 }
 
 .project-column-heading__title {
-  font-size: 18px;
+  font-size: 19px;
   font-family:Arial;
+  margin-left: 10px;
+  margin-top: 10px;
 
 }
 
@@ -187,7 +198,7 @@ h1 {
 
 .task {
   cursor: move;
-  background-color: var(--white);
+  background-color: #e8f1ec;
   padding: 1rem;
   border-radius: 10px;
   width: 100%;
@@ -235,7 +246,7 @@ h1 {
 
 .task__options-container {
   display: flex;
-  gap: 8px; /* Adds space between the buttons */
+  gap: 7px; /* Adds space between the buttons */
 }
 
 .task__options {
@@ -250,7 +261,7 @@ h1 {
   position: relative;
   width: 100%;
   color: var(--light-grey);
-  font-size: 13.5px;
+  font-size: 13.8px;
 }
 
 .task__stats span:not(:last-of-type) {

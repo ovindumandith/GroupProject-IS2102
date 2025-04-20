@@ -61,76 +61,79 @@ if (!isset($_SESSION['user_id'])) {
   </header>
 
   <header class="hero">
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <h1>"Stay Organized, Stay Sane"</h1>
-            
-            <p class="description">
-            Stay organized, stay balanced. 
-            Our workload management tools are designed to help you plan, prioritize, and manage your academic responsibilities with ease. 
-            Whether you're juggling assignments, exams, or extracurriculars, we've got the support you need to reduce stress and stay on track
-            </p>
-        </div>
-    </header>
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>"Stay Organized, Stay Sane"</h1>
+       <p class="description">
+        Stay organized, stay balanced
+        Our workload management tools are designed to help you plan, prioritize, and manage your academic
+        responsibilities with ease.
+        Whether you're juggling assignments, exams, or extracurriculars, we've got the support you need to reduce stress
+        and stay on track
+      </p>
+    </div>
+  </header>
 
   <div class="main-content">
-  <div class="card-container">
-        <div class="service-card">
-            <div class="card-image">
-                <img src="../../assets/images/workload/104.png" alt="Physical therapist working with a patient">
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">Task Planner</h2>
-                <p class="card-description">
-                
-                Our Task Planner helps you break down your academic workload into manageable steps. 
-                Create daily to-do lists, set priorities, and check off tasks as you complete them. 
-                It’s your personal assistant for staying organized and focused.
-
-</p>
-                <a href="to_do_list.php" class="read-more-btn">Explore</a>
-            </div>
+    <div class="card-container">
+      <div class="service-card">
+        <div class="card-image">
+          <img src="../../assets/images/workload/104.png" alt="Physical therapist working with a patient">
         </div>
+        <div class="card-content">
+          <h2 class="card-title">Task Planner</h2>
+          <p class="card-description">
+
+            Our Task Planner helps you break down your academic workload into manageable steps.
+            Create daily to-do lists, set priorities, and check off tasks as you complete them.
+            It’s your personal assistant for staying organized and focused
+
+          </p>
+          <a href="to_do_list.php" class="read-more-btn">Explore</a>
+        </div>
+      </div>
     </div>
 
     <div class="card-container">
-        <div class="service-card">
-            <div class="card-image">
-                <img src="../../assets/images/workload/101.png" alt="Physical therapist working with a patient">
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">Event scheduler</h2>
-                <p class="card-description">
-                Use the Event Scheduler to keep track of classes, deadlines, study sessions, and social activities—all in one place
-                Set reminders so you never miss an important event and maintain a balanced schedule that works for you
-
-
-                </p>
-                <a href="schedule_event.php" class="read-more-btn">Explore</a>
-            </div>
+      <div class="service-card">
+        <div class="card-image">
+          <img src="../../assets/images/workload/101.png" alt="Physical therapist working with a patient">
         </div>
+        <div class="card-content">
+          <h2 class="card-title">Event scheduler</h2>
+          <p class="card-description">
+            Use the Event Scheduler to keep track of classes, deadlines, study sessions, and social activities—all in
+            one place
+            Set reminders so you never miss an important event and maintain a balanced schedule that works for you
+
+
+          </p>
+          <a href="schedule_event.php" class="read-more-btn">Explore</a>
+        </div>
+      </div>
     </div>
     <div class="card-container">
-        <div class="service-card">
-            <div class="card-image">
-                <img src="../../assets/images/workload/103.png" alt="Physical therapist working with a patient">
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">Time Tracker</h2>
-                <p class="card-description">
-                Set a goal time for each task and track your real-time progress with a built-in timer. 
-                Hit "Start" when you begin, and "Stop" when you're done. 
-                Compare your actual time with your goal and receive badges or friendly suggestions to improve time management
-                </p>
-                <a href="time_tracking.php" class="read-more-btn">Explore</a>
-            </div>
+      <div class="service-card">
+        <div class="card-image">
+          <img src="../../assets/images/workload/103.png" alt="Physical therapist working with a patient">
         </div>
+        <div class="card-content">
+          <h2 class="card-title">Time Tracker</h2>
+          <p class="card-description">
+            Set a goal time for each task and track your real-time progress with a built-in timer.
+            Hit "Start" when you begin, and "Stop" when you're done.
+            Compare your actual time with your goal and receive badges or friendly suggestions to improve time
+            management
+          </p>
+          <a href="time_tracking.php" class="read-more-btn">Explore</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  
-  
- </body>
+
+
+  </body>
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-container">
@@ -184,6 +187,6 @@ if (!isset($_SESSION['user_id'])) {
       <p>copyright 2024 @RelaxU all rights reserved</p>
     </div>
   </footer>
-</body>
+  </body>
 
 </html>
