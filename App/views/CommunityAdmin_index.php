@@ -37,13 +37,13 @@ $_SESSION['current_post_id'] = $postId;
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="../views/CommmunityAdmin_home.php">Home</a></li>
           <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
-          <li><a href="#">Send </a></li>
+          <li><a href="../views/CommmunityAdmin_notifications.php">Notifications</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='../views/profile.php'"><b>Profile</b></button>
+        <button class="signup" onclick="location.href='../views/CommunityAdmin_profile.php'"><b>Profile</b></button>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>

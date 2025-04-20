@@ -11,17 +11,6 @@ require_once '../models/CommunitynotificationsModel.php';
 $notificationModel = new Notification();
 $result = $notificationModel->fetchAllNotifications();
 ?>
-<?php if (isset($_GET['status'])): ?>
-  <div class="status-message <?php echo htmlspecialchars($_GET['status']); ?>">
-    <?php
-      if ($_GET['status'] === 'success') echo "Notification sent and post deleted successfully.";
-      elseif ($_GET['status'] === 'fail') echo "Error: Failed to send notification.";
-      elseif ($_GET['status'] === 'invalid') echo "Please fill in all fields.";
-    ?>
-  </div>
-<?php endif; ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,50 +42,40 @@ $result = $notificationModel->fetchAllNotifications();
       </div>
       <nav class="navbar">
         <ul>
-        <li><a href="CommmunityAdmin_home.php">Home</a></li>
-          <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
-          <li><a href="CommmunityAdmin_notifications.php">Notifications</a></li>
+        <li><a href="../views/home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="#">Workload Management Tools</a></li>
+            </ul>
+          </li>
+          <li><a href="../views/Academic_Help.php">Academic Help</a></li>
+          <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
+          <li><a href="../controller/CommunityController.php?action=list">Community</a></li>
+          <li><a href="../views/About_Us.php">About Us</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='CommunityAdmin_profile.php'"><b>Profile</b></button>
+        <button class="signup" onclick="location.href='../views/profile.php'"><b>Profile</b></button>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
     </header>
   
-<main>
-  <br>
-    <h2>Admin Sent Notifications</h2>
-    <section class="notification-form-section">
-  <h3>Send Notification to User</h3>
-  <form action="../controller/CommunitynotificationsController.php?action=sendNotification" method="POST" class="notification-form">
-    <label for="user_id">User ID:</label>
-    <input type="text" id="user_id" name="user_id" required>
-
-    <label for="post_id">Post ID:</label>
-    <input type="text" id="post_id" name="post_id" required>
-
-    <label for="title">Post Title:</label>
-    <input type="text" id="title" name="title" required>
-
-    <label for="reason">Reason:</label>
-    <textarea id="reason" name="reason" rows="4" required placeholder="Write the reason for deleting the post..."></textarea>
-
-    <input type="submit" value="Add Notification">
-  </form>
-</section>
-
-
-
+<main><br>
+<br>
+<button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+            
 <div class="search-box">
-  <input type="text" id="searchInput" placeholder="Search by Reason, Post ID, User ID...">
+  <input type="text" id="searchInput" placeholder="Search by Title...">
 </div>
 <table id="notificationsTable">
   <thead>
     <tr>
-      <th>Notification ID</th><th>User ID</th><th>Post ID</th><th>Reason</th><th>Deleted At</th>
+      <th>Post Title</th><th>Reason</th><th>Deleted At</th>
     </tr>
   </thead>
   <tbody>
@@ -104,20 +83,17 @@ $result = $notificationModel->fetchAllNotifications();
   if ($result) {
     foreach ($result as $row) {
       echo "<tr>
-              <td>{$row['notification_id']}</td>
-              <td>{$row['user_id']}</td>
-              <td>{$row['post_id']}</td>
+              <td>{$row['title']}</td>
               <td>{$row['reason']}</td>
               <td>{$row['created_at']}</td>
             </tr>";
     }
   } else {
-    echo "<tr><td colspan='5' class='no-data'>No notifications found.</td></tr>";
+    echo "<tr><td colspan='3' class='no-data'>No notifications found.</td></tr>";
   }
 ?>
   </tbody>
 </table>
-
 </main>
 
 
