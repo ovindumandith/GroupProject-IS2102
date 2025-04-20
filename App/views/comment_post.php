@@ -99,10 +99,13 @@ $comments = $commentModel->getCommentsByPostId($postId);
                         <!-- Action buttons -->
                         <?php if ($_SESSION['user_id'] == $comment['user_id']): ?>
                             <a href="/GroupProject-IS2102/App/controller/CommentController.php?id=<?= $comment['comment_id'] ?>" 
-                               onclick="return confirm('Delete this comment?')" class="btn">Delete</a>
+                               onclick="return confirm('Delete this comment?')">
+                               <img src="../../assets/images/Delete.png" alt="Delete" class="btn-image">
+                            </a>
 
-                            <a href="/GroupProject-IS2102/App/controller/EditCommentController.php?action=edit&comment_id=<?= $comment['comment_id'] ?>" 
-                               class="edit-btn">Edit</a>
+                            <a href="/GroupProject-IS2102/App/controller/EditCommentController.php?action=edit&comment_id=<?= $comment['comment_id'] ?>" >
+                            <img src="../../assets/images/Edit.png" alt="Edit" class="btn-image">
+                            </a>
                         <?php endif; ?>
                     </div><br>
                 <?php endforeach; ?>

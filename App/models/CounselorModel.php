@@ -92,6 +92,7 @@ public function addReview($counselorId, $userId, $rating, $reviewText) {
             return null;
         }
     }
+    
 
 
 

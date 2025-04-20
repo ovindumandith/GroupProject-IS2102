@@ -59,7 +59,6 @@ public function viewLoggedInCounselorProfile() {
     }
 }
 
-
     
 }
 

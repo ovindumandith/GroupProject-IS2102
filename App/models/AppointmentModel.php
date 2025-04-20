@@ -131,6 +131,20 @@ public function getAppointmentById($appointmentId) {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+/**
+ * Reschedule an appointment to a new date and time
+ * 
+ * @param int $appointmentId The appointment ID
+ * @param string $newDate The new appointment date and time
+ * @return bool Whether the update was successful
+ */
+public function rescheduleAppointment($appointmentId, $newDate) {
+    $query = "UPDATE appointments SET appointment_date = :new_date, updated_at = NOW() WHERE id = :appointment_id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':new_date', $newDate, PDO::PARAM_STR);
+    $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+    return $stmt->execute();
+}
 
 
     

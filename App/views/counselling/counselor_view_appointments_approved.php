@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start(); // Start session if not already started
+    session_start();
 }
 
 // Redirect to login if not logged in as a counselor
@@ -8,7 +8,6 @@ if (!isset($_SESSION['counselor'])) {
     header('Location: ../../views/counselor_login.php');
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -16,69 +15,18 @@ if (!isset($_SESSION['counselor'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pending Appointments</title>
-    <style>
-        table {
-            width: 90%;
-            border-collapse: collapse;
-            margin: 20px auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #009f77;
-            color: white;
-        }
-        #appointment-heading {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .action-btn {
-            padding: 6px 12px;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-        .accept-btn {
-            background-color: #4CAF50;
-        }
-        .reject-btn {
-            background-color: #f44336;
-        }
-        .toast-success {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            text-align: center;
-        }
-        .toast-error {
-            background-color: #f44336;
-            color: white;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            text-align: center;
-        }
-    </style>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-        rel="stylesheet"
-    />
-    <link
-        rel="stylesheet"
-        href="../../assets/css/header_footer.css"
-        type="text/css"
-    />
+    <title>Approved Appointments | RelaxU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/header_footer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/counselor_dashboard.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/counselor_view_appointments_approved.css" type="text/css" />
+    <style>
+        
+    </style>
 </head>
 <body>
-<!-- Header Section -->
+    <!-- Header Section -->
     <header class="header">
       <div class="logo">
         <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
@@ -87,27 +35,24 @@ if (!isset($_SESSION['counselor'])) {
       <nav class="navbar">
         <ul>
           <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
-                    <li class="services">
-            <a href="#">Appointments </a>
+          <li class="services">
+            <a href="#">Appointments</a>
             <ul class="dropdown">
-              <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Appointments</a></li>
+              <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Pending</a></li>
               <li><a href="../../controller/AppointmentController.php?action=showApprovedAppointments">Approved</a></li>
               <li><a href="../../controller/AppointmentController.php?action=showDeniedAppointments">Denied</a></li>
-              
             </ul>
           </li>
-
           <li><a href="../views/messages.php">Messages</a></li>
           <li><a href="../views/reviews.php">Reviews</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
         <!-- Profile button form -->
-<form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
-    <button type="submit" class="login"><b>Profile</b></button>
-</form>
-
-    
+        <form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
+            <button type="submit" class="login"><b>Profile</b></button>
+        </form>
+        
         <!-- Logout button form -->
         <form action="../../util/counselor_logout.php" method="POST" style="display: inline;">
           <button type="submit" class="login"><b>Log Out</b></button>
@@ -115,21 +60,22 @@ if (!isset($_SESSION['counselor'])) {
       </div>
     </header>
 
-    <h1 id="appointment-heading">Approved Appointments</h1>
-
-    <?php if (!empty($appointments)): ?>
-        <table>
+    <div class="container">
+        <h1>Approved Appointments</h1>
+        <div class="table-container">
+<?php if (!empty($appointments)): ?>
+    <div style="overflow-x: auto;">
+        <table class="appointment-table">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Student ID</th>
-                    <th>Appointment Date</th>
+                    <th>Date & Time</th>
                     <th>Topic</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -137,20 +83,116 @@ if (!isset($_SESSION['counselor'])) {
                     <tr>
                         <td><?= htmlspecialchars($appointment['id']) ?></td>
                         <td><?= htmlspecialchars($appointment['student_id']) ?></td>
-                        <td><?= htmlspecialchars($appointment['appointment_date']) ?></td>
+                        <td class="date-format"><?= date('M d, Y - h:i A', strtotime($appointment['appointment_date'])) ?></td>
                         <td><?= htmlspecialchars($appointment['topic']) ?></td>
                         <td><?= htmlspecialchars($appointment['email']) ?></td>
                         <td><?= htmlspecialchars($appointment['phone']) ?></td>
-                        <td><?= htmlspecialchars($appointment['created_at']) ?></td>
-                        <td><?= htmlspecialchars($appointment['updated_at']) ?></td>
-                        <td><?= htmlspecialchars($appointment['status']) ?></td>
+                        <td><span class="status-badge"><?= htmlspecialchars($appointment['status']) ?></span></td>
+                        <td>
+<button type="button" class="reschedule-btn" onclick="openRescheduleModal(<?= htmlspecialchars($appointment['id']) ?>)">
+    Reschedule
+</button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <?php else: ?>
-        <p style="text-align: center;">No pending appointments at the moment.</p>
-    <?php endif; ?>
+    </div>
+
+    <!-- Reschedule Modal -->
+    <div id="rescheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRescheduleModal()">&times;</span>
+            <h2>Reschedule Appointment</h2>
+            <p>Please select a new date and time for this appointment:</p>
+            
+            <form id="rescheduleForm" action="../controller/AppointmentController.php?action=rescheduleAppointment" method="POST">
+                <input type="hidden" id="appointmentId" name="appointment_id" value="">
+                
+                <div class="form-group">
+                    <label for="newDate">New Date and Time:</label>
+                    <input type="datetime-local" id="newDate" name="new_date" required>
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit" class="action-btn accept-btn">Confirm Reschedule</button>
+                    <button type="button" class="action-btn reject-btn" onclick="closeRescheduleModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Get the modal
+        const modal = document.getElementById("rescheduleModal");
+        
+        // Function to open the modal and set the appointment ID
+        function openRescheduleModal(appointmentId) {
+            document.getElementById("appointmentId").value = appointmentId;
+            
+            // Set minimum date to today
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const hours = String(today.getHours()).padStart(2, '0');
+            const minutes = String(today.getMinutes()).padStart(2, '0');
+            
+            const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            document.getElementById("newDate").min = minDateTime;
+            
+            modal.style.display = "block";
+        }
+        
+        // Function to close the modal
+        function closeRescheduleModal() {
+            modal.style.display = "none";
+        }
+        
+        // Close the modal if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeRescheduleModal();
+            }
+        }
+    </script>
+<?php else: ?>
+    <p style="text-align: center;">No approved appointments at the moment.</p>
+<?php endif; ?>
+
+<!-- Display toast messages -->
+<?php if (isset($_SESSION['reschedule_success'])): ?>
+    <div class="toast-success">
+        <?= htmlspecialchars($_SESSION['reschedule_success']) ?>
+    </div>
+    <?php unset($_SESSION['reschedule_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['reschedule_error'])): ?>
+    <div class="toast-error">
+        <?= htmlspecialchars($_SESSION['reschedule_error']) ?>
+    </div>
+    <?php unset($_SESSION['reschedule_error']); ?>
+<?php endif; ?>
+
+<script>
+    // Auto-hide toast messages after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const toasts = document.querySelectorAll('.toast-success, .toast-error');
+        toasts.forEach(toast => {
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 500);
+            }, 5000);
+        });
+    });
+</script>
+
+
+        </div>
+    </div>
 
     <footer class="footer">
       <div class="footer-container">
@@ -182,5 +224,5 @@ if (!isset($_SESSION['counselor'])) {
         <p>&copy; 2024 RelaxU. All Rights Reserved.</p>
       </div>
     </footer>
-  </body>
+</body>
 </html>

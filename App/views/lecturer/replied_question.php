@@ -123,27 +123,29 @@ $repliedQuestions = $_SESSION['replied_questions'] ?? [];
                             <td class="question-text"><?= htmlspecialchars($reply['question']) ?></td>
                             <td class="reply-text"><?= htmlspecialchars($reply['reply_text']) ?></td>
                             <td><?= date('M d, Y', strtotime($reply['reply_date'])) ?></td>
-                            <td>
-                                <button class="action-btn view-btn" 
-                                        data-reply-id="<?= $reply['reply_id'] ?>"
-                                        data-student-name="<?= htmlspecialchars($reply['student_name']) ?>"
-                                        data-category="<?= htmlspecialchars($reply['category']) ?>"
-                                        data-question="<?= htmlspecialchars($reply['question']) ?>"
-                                        data-reply="<?= htmlspecialchars($reply['reply_text']) ?>"
-                                        data-date="<?= date('M d, Y h:i A', strtotime($reply['reply_date'])) ?>">
-                                    <i class="fas fa-eye"></i> View                           
-                                </button>
-                                <button class="action-btn edit-btn" 
-                                        data-reply-id="<?= $reply['reply_id'] ?>"
-                                        data-reply="<?= htmlspecialchars($reply['reply_text']) ?>">
-                                        <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="action-btn delete-btn" 
-                                        data-reply-id="<?= $reply['reply_id'] ?>"
-                                        data-student-name="<?= htmlspecialchars($reply['student_name']) ?>">
-                                       <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </td>
+<td>
+    <div class="action-buttons">
+        <button class="action-btn view-btn" 
+                data-reply-id="<?= $reply['reply_id'] ?>"
+                data-student-name="<?= htmlspecialchars($reply['student_name']) ?>"
+                data-category="<?= htmlspecialchars($reply['category']) ?>"
+                data-question="<?= htmlspecialchars($reply['question']) ?>"
+                data-reply="<?= htmlspecialchars($reply['reply_text']) ?>"
+                data-date="<?= date('M d, Y h:i A', strtotime($reply['reply_date'])) ?>">
+            <i class="fas fa-eye"></i> View                           
+        </button>
+        <button class="action-btn edit-btn" 
+                data-reply-id="<?= $reply['reply_id'] ?>"
+                data-reply="<?= htmlspecialchars($reply['reply_text']) ?>">
+                <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="action-btn delete-btn" 
+                data-reply-id="<?= $reply['reply_id'] ?>"
+                data-student-name="<?= htmlspecialchars($reply['student_name']) ?>">
+               <i class="fas fa-trash"></i> Delete
+        </button>
+    </div>
+</td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

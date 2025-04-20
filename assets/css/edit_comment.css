@@ -1,21 +1,35 @@
-/* General Styling */
 body {
     background-color: #a5e3c6;
   }
   
-  /* Adjust container dimensions */
   .create-whole-container {
     background-color: #d4f6d4;
-    width: 80%; /* Adjust for responsive width */
-    max-width: 600px; /* Limit max width for larger screens */
-    height: 300px; /* Allow height to adjust based on content */
+    width: 80%;
+    max-width: 600px;
+    min-height: 300px; 
+    height: auto; 
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Add consistent spacing between sections */
+    gap: 20px;
   }
+  
+  textarea {
+    width: 70%;
+    resize: vertical; /* Allows user to resize vertically only */
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #a0d6a0;
+    border-radius: 10px;
+    background-color: #f5fff5;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
   
   .add-post-btn {
     background-color: #4caf50;
@@ -23,7 +37,7 @@ body {
     border: none;
     border-radius: 20px;
     padding: 8px 10px;
-    font-size: 14px; /* Slightly smaller font */
+    font-size: 14px; 
     width: 100%;
     cursor: pointer;
   }
