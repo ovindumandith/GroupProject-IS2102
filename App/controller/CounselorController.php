@@ -141,60 +141,63 @@ class CounselorController {
             exit();
         }
     }
-
     // Change password
-    public function changePassword() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+public function changePassword() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-        // Check if counselor is logged in
-        if (!isset($_SESSION['counselor']['id'])) {
-            header('Location: /GroupProject-IS2102/App/views/counselor_login.php');
-            exit();
-        }
+    // Check if counselor is logged in
+    if (!isset($_SESSION['counselor']['id'])) {
+        header('Location: ../views/counselling/counselor_login.php');
+        exit();
+    }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $counselorId = $_SESSION['counselor']['id'];
-            $currentPassword = $_POST['current_password'];
-            $newPassword = $_POST['new_password'];
-            $confirmPassword = $_POST['confirm_password'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $counselorId = $_SESSION['counselor']['id'];
+        $currentPassword = $_POST['current_password'];
+        $newPassword = $_POST['new_password'];
+        $confirmPassword = $_POST['confirm_password'];
 
-            // Get counselor data to verify current password
-            $counselor = $this->counselorModel->getCounselorById($counselorId);
+        // Get counselor data to verify current password
+        $counselor = $this->counselorModel->getCounselorById($counselorId);
 
-            // Verify current password
-            if (!password_verify($currentPassword, $counselor['password'])) {
-                $_SESSION['password_error'] = "Current password is incorrect.";
-                header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
-                exit();
-            }
-
-            // Check if new password matches confirmation
-            if ($newPassword !== $confirmPassword) {
-                $_SESSION['password_error'] = "New password and confirmation do not match.";
-                header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
-                exit();
-            }
-
-            // Check password strength
-            if (strlen($newPassword) < 8) {
-                $_SESSION['password_error'] = "Password must be at least 8 characters long.";
-                header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
-                exit();
-            }
-
-            // Update password
-            if ($this->counselorModel->updatePassword($counselorId, $newPassword)) {
-                $_SESSION['password_success'] = "Password changed successfully.";
-            } else {
-                $_SESSION['password_error'] = "Failed to change password.";
-            }
-
+        // Verify current password (plain text comparison since passwords aren't hashed yet)
+        if ($currentPassword !== $counselor['password']) {
+            $_SESSION['password_error'] = "Current password is incorrect.";
             header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
             exit();
         }
+
+        // Check if new password matches confirmation
+        if ($newPassword !== $confirmPassword) {
+            $_SESSION['password_error'] = "New password and confirmation do not match.";
+            header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
+            exit();
+        }
+
+        // Check password strength
+        if (strlen($newPassword) < 8) {
+            $_SESSION['password_error'] = "Password must be at least 8 characters long.";
+            header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
+            exit();
+        }
+
+        // Update password - store as plain text for now
+        // Later you can modify this to use hashing
+        if ($this->counselorModel->updatePlainPassword($counselorId, $newPassword)) {
+            $_SESSION['password_success'] = "Password changed successfully.";
+        } else {
+            $_SESSION['password_error'] = "Failed to change password.";
+        }
+
+        header('Location: /GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile');
+        exit();
     }
+}
+
+    // Change password
+
 }
 
 // Handle the incoming request based on the 'action' and 'id' parameters

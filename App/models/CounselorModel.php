@@ -178,6 +178,14 @@ class CounselorModel {
             ];
         }
     }
+    // Update counselor password as plain text (temporary solution)
+public function updatePlainPassword($id, $newPassword) {
+    $query = "UPDATE counselors SET password = :password, updated_at = NOW() WHERE id = :id";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':password', $newPassword, PDO::PARAM_STR);
+    return $stmt->execute();
+}
 
     private function logError($errorMessage) {
         $logFile = 'error_log.txt';
