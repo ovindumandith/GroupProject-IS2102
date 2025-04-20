@@ -18,7 +18,6 @@ if (!isset($_SESSION['counselor'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counselor Profile | RelaxU</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/header_footer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/counselor_dashboard.css" type="text/css" />
     <style>
@@ -290,7 +289,7 @@ if (!isset($_SESSION['counselor'])) {
         </div>
         <nav class="navbar">
             <ul>
-                <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
+                <li><a href="../views/counselling/counselor_dashboard.php">Dashboard</a></li>
                 <li class="services">
                     <a href="#">Appointments</a>
                     <ul class="dropdown">

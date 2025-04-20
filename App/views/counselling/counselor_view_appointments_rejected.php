@@ -138,26 +138,26 @@ if (!isset($_SESSION['counselor'])) {
         <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
         <h1>RelaxU</h1>
       </div>
-      <nav class="navbar">
-        <ul>
-          <li><a href="../views/counselor_dashboard.php">Dashboard</a></li>
-          <li class="services">
-            <a href="#">Appointments</a>
-            <ul class="dropdown">
-              <li><a href="../../controller/AppointmentController.php?action=showPendingAppointments">Pending</a></li>
-              <li><a href="../../controller/AppointmentController.php?action=showApprovedAppointments">Approved</a></li>
-              <li><a href="../../controller/AppointmentController.php?action=showDeniedAppointments">Denied</a></li>
-            </ul>
-          </li>
-          <li><a href="../views/messages.php">Messages</a></li>
-          <li><a href="../views/reviews.php">Reviews</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <!-- Profile button form -->
-        <form action="../../controller/CounselorController.php?action=viewLoggedInCounselorProfile" method="GET">
-            <button type="submit" class="login"><b>Profile</b></button>
-        </form>
+    <nav class="navbar">
+      <ul>
+        <li><a href="../views/counselling/counselor_dashboard.php"> Dashboard</a></li>
+        <li class="services">
+          <a href="#"></i> Appointments </a>
+          <ul class="dropdown">
+            <li><a href="../controller/AppointmentController.php?action=showPendingAppointments">Pending</a></li>
+            <li><a href="../controller/AppointmentController.php?action=showApprovedAppointments">Approved</a></li>
+            <li><a href="../controller/AppointmentController.php?action=showDeniedAppointments">Denied</a></li>
+          </ul>
+        </li>
+        <li><a href="../views/messages.php"> Messages</a></li>
+        <li><a href="../views/reviews.php"> Reviews</a></li>
+      </ul>
+    </nav>
+    <div class="auth-buttons">
+      <!-- Profile button form -->
+<a href="/GroupProject-IS2102/App/controller/CounselorController.php?action=viewLoggedInCounselorProfile" class="login" style="display: inline-block; text-decoration: none; background-color: #fa8128; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; margin-left: 10px; font-size: 1rem; transition: background-color 0.3s ease;">
+    <b>Profile</b>
+</a>
         
         <!-- Logout button form -->
         <form action="../../util/counselor_logout.php" method="POST" style="display: inline;">

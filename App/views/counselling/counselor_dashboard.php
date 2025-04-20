@@ -37,7 +37,7 @@ $counselor = $_SESSION['counselor'];
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="counselor_dashboard.php">Dashboard</a></li>
+          <li><a href="../../views/counselling/counselor_dashboard.php">Dashboard</a></li>
           <li class="services">
             <a href="#">Appointments </a>
             <ul class="dropdown">
