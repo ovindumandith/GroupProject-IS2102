@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to the login page if not logged in
+    header('Location: login.php');
+    exit();
+}
+require_once '../models/CommunitynotificationsModel.php';
+$notificationModel = new Notification();
+$result = $notificationModel->fetchAllNotifications();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,24 +60,24 @@
     <h2>Admin Sent Notifications</h2>
     <section class="notification-form-section">
   <h3>Send Notification to User</h3>
-  <form action="../controller/CommunityAdminController.php?action=sendNotification" method="POST" class="notification-form">
+  <form action="../controller/CommunitynotificationsController.php?action=sendNotification" method="POST" class="notification-form">
     <label for="user_id">User ID:</label>
     <input type="text" id="user_id" name="user_id" required>
 
     <label for="post_id">Post ID:</label>
     <input type="text" id="post_id" name="post_id" required>
 
-    <label for="titile">Post Title:</label>
+    <label for="title">Post Title:</label>
     <input type="text" id="title" name="title" required>
 
     <label for="reason">Reason:</label>
     <textarea id="reason" name="reason" rows="4" required placeholder="Write the reason for deleting the post..."></textarea>
 
-    <button type="submit">Send Notification</button>
+    <input type="submit" value="Add Notification">
   </form>
 </section>
 
-</main>
+
 
 <div class="search-box">
   <input type="text" id="searchInput" placeholder="Search by Reason, Post ID, User ID...">
@@ -75,22 +89,25 @@
     </tr>
   </thead>
   <tbody>
-    <?php
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>
-                  <td>{$row['notification_id']}</td> <td>{$row['user_id']}</td> <td>{$row['post_id']}</td> <td>{$row['reason']}</td> <td>{$row['created_at']}</td>
-                </tr>";
-        }
-      } else {
-        echo "<tr><td colspan='5' class='no-data'>No notifications found.</td></tr>";
-      }
-      $conn->close();
-    ?>
+  <?php
+  if ($result) {
+    foreach ($result as $row) {
+      echo "<tr>
+              <td>{$row['notification_id']}</td>
+              <td>{$row['user_id']}</td>
+              <td>{$row['post_id']}</td>
+              <td>{$row['reason']}</td>
+              <td>{$row['created_at']}</td>
+            </tr>";
+    }
+  } else {
+    echo "<tr><td colspan='5' class='no-data'>No notifications found.</td></tr>";
+  }
+?>
   </tbody>
 </table>
 
-
+</main>
 
 
 
