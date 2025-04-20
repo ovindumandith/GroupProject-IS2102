@@ -650,55 +650,6 @@
     color: var(--gray-600);
   }
   
-  .priority-selector {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .priority-selector input[type="radio"] {
-    display: none;
-  }
-  
-  .priority-label {
-    padding: 8px 16px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: 500;
-    text-align: center;
-    flex: 1;
-    transition: var(--transition);
-  }
-  
-  .priority-selector input[type="radio"]:checked + .priority-label {
-    color: var(--white);
-  }
-  
-  .priority-selector input[type="radio"]:checked + .priority-label.priority-low {
-    background-color: var(--success-color);
-  }
-  
-  .priority-selector input[type="radio"]:checked + .priority-label.priority-medium {
-    background-color: var(--warning-color);
-  }
-  
-  .priority-selector input[type="radio"]:checked + .priority-label.priority-high {
-    background-color: var(--danger-color);
-  }
-  
-  .priority-label.priority-low {
-    background-color: rgba(74, 222, 128, 0.2);
-    color: var(--success-color);
-  }
-  
-  .priority-label.priority-medium {
-    background-color: rgba(251, 191, 36, 0.2);
-    color: var(--warning-color);
-  }
-  
-  .priority-label.priority-high {
-    background-color: rgba(248, 113, 113, 0.2);
-    color: var(--danger-color);
-  }
   
   .form-actions {
     display: flex;

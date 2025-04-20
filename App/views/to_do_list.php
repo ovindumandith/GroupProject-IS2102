@@ -23,7 +23,9 @@ include "./templates/header.php";
                 <div class='project-info'>
                     <h1>Task Planner</h1>
                     <div class='project-participants'>
-                        <button class='project-participants_add' onclick="showPopup()">Add Task</button>
+                        <button  class="add-task-btn " onclick="showPopup()">
+                        <span class="icon">+</span>Add Task
+                        </button>
                         <!-- Popup Form (Initially Hidden) -->
                         <div class="popup" id="eventPopup">
                             <div class="popup-content">
@@ -82,6 +84,7 @@ include "./templates/header.php";
                 </button>
             </main>
             <aside class='task-details'>
+                
                 <div class='tag-progress'>
 
                     <h2>Weekly Task</h2>

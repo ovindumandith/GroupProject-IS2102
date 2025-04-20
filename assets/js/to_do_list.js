@@ -225,7 +225,7 @@ function categorizeTasks(tasks) {
       status = 'today'; // Blueish
       categorized.today.push({ ...task, color, status });
     } else if (dueDate > today) {
-      color = '#6b8f71';
+      color = 	'#3e4c47';
       status = 'upcoming'; // Redish
       categorized.upcoming.push({ ...task, color, status });
     } else {
