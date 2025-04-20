@@ -55,3 +55,77 @@ document.addEventListener("DOMContentLoaded", () => {
   // Change the content every 5 seconds
   setInterval(changeContent, 5000);
 });
+
+
+// Add event listeners for enhanced hover effects
+document.addEventListener('DOMContentLoaded', function() {
+  const card = document.querySelector('.service-card');
+  const btn = document.querySelector('.read-more-btn');
+  
+  // Optional: Add more interactive elements if needed
+  card.addEventListener('mouseenter', function() {
+      btn.classList.add('btn-hover');
+  });
+  
+  card.addEventListener('mouseleave', function() {
+      btn.classList.remove('btn-hover');
+  });
+  
+  // Optional: Add click event for the Read More button
+  btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('More information about Assessment and Education would appear here.');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const typingTextElement = document.getElementById('typing-text');
+  const phrases = [
+      'Healthier, Happier Life',
+      'Strength and Mobility',
+      'Recovery and Wellness',
+      'Balance and Flexibility'
+  ];
+  
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100; // Base typing speed in milliseconds
+  
+  function typeText() {
+      const currentPhrase = phrases[phraseIndex];
+      
+      // If deleting, remove a character, otherwise add a character
+      if (isDeleting) {
+          typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+          charIndex--;
+      } else {
+          typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
+          charIndex++;
+      }
+      
+      // Adjust typing speed
+      let speed = typingSpeed;
+      
+      if (isDeleting) {
+          // Faster when deleting
+          speed = typingSpeed / 2;
+      } else if (charIndex === currentPhrase.length) {
+          // Pause at the end of phrase
+          speed = typingSpeed * 3;
+          isDeleting = true;
+      } else if (charIndex === 0) {
+          // Move to next phrase when done deleting
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          // Pause before starting new phrase
+          speed = typingSpeed * 1.5;
+      }
+      
+      // Continue the typing loop
+      setTimeout(typeText, speed);
+  }
+  
+  // Start the typing animation
+  typeText();
+});
