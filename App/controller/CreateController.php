@@ -59,7 +59,7 @@ if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR
 
             // Add the post to the database
             if ($this->model->addPost($userId, $title, $image, $description)) {
-                header("Location: ../views/community_index.php");
+                header("Location: ../views/create_post.php");
                 exit();
             } else {
                 throw new Exception("Failed to create the post. Please try again.");
