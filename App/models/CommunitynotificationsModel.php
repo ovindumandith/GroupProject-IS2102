@@ -40,5 +40,16 @@ class Notification {
             return [];
         }
     }
+
+    public function fetchNotificationsByUserId($userId) {
+        $conn = $this->connect(); // Assuming this is how you connect to DB
+    
+        $stmt = $conn->prepare("SELECT * FROM notifications WHERE user_id = ?");
+        $stmt->execute([$userId]);
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
 }
 ?>
