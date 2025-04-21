@@ -21,7 +21,12 @@ include "./templates/header.php";
         <div class='app'>
             <main class='project'>
                 <div class='project-info'>
-                    <h1>Task Planner</h1>
+                <div class="user-info">
+                        <div class="avatar">
+                            <img src="../../assets/images/workload/avatar.jpeg" alt="User Avatar">
+                        </div>
+                        <h1 class="welcome-text">Welcome User👋 </h1>
+                    </div>
                     <div class='project-participants'>
                         <button  class="add-task-btn " onclick="showPopup()">
                         <span class="icon">+</span>Add Task

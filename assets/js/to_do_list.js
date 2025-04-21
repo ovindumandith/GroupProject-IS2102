@@ -217,19 +217,19 @@ function categorizeTasks(tasks) {
     let status = '';
 
     if (task.is_completed === 1) {
-      color = '#d6ede2'; // Green
+      color = '#e3f1d9'; // Green
       status = 'completed';
       categorized.done.push({ ...task, color, status });
     } else if (dueDate === today) {
-      color = '#6b8f71';
+      //color = '#e3f1d9';
       status = 'today'; // Blueish
       categorized.today.push({ ...task, color, status });
     } else if (dueDate > today) {
-      color = 	'#3e4c47';
+      //color = 	'#e3f1d9';
       status = 'upcoming'; // Redish
       categorized.upcoming.push({ ...task, color, status });
     } else {
-      color = '#ceecfd'; 
+      //color = '#e3f1d9'; 
       status = 'overdue'; // Blueish
       categorized.overdue.push({ ...task, color, status });
     }

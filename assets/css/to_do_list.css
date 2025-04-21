@@ -26,59 +26,17 @@ body {
   color: var(--text);
   overflow: hidden;
   font-family: "Poppins", sans-serif;
-  background-color: #f4f4f4;
+  background-color: #eeefe5;
 }
 
 .app {
-  background-color:#f7f9f6 ;
+  background-color:#f3f6f0 ;
   width: 100%;
   min-height: 80vh;
   margin-top: 30px;
 } 
 
 
-/* Individual event */
-.event {
-  position: relative;
-  margin: 20px 0;
-  display: flex;
-  align-items: center;
-}
-
-/* Date positioned to the left */
-.event .date {
-  position: absolute;
-  left: -50px; /* Moves the date further left */
-  font-size: 14px;
-  color: #333;
-  white-space: nowrap; /* Prevents date from breaking */
-}
-
-/* Small circle on the timeline */
-.event .circle {
-  width: 13px;
-  height: 12px;
-  background-color: #c85c0e;
-  border-radius: 50%;
-  position: absolute;
-  left: -8px; /* Adjust to position it properly */
-}
-
-/* Event content box */
-.event .details {
-  background: rgb(215, 228, 201);
-  padding: 8px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  margin-left: 20px; /* Space between line and box */
-  min-width: 100px;
-}
-
-.event .details small {
-  display: block;
-  color: gray;
-  font-size: 12px;
-}
 
 
 h1 {
@@ -96,19 +54,54 @@ h1 {
 
 
  .project-info {
-  padding: 2rem 0;
+  padding: 3rem 0;
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   
+  
+  
 }
-.project-info h1{
-  color: #ee5813;
-  font-size:45px ;
-  margin-top: 20px;
-  margin-left: 25px;
+
+.user-info {
+  display: flex;
+  align-items: center;
 }
+
+.avatar {
+  background-color: var(--primary-color);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+
+/* Welcome Text */
+.welcome-text {
+  margin-left: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: #ffa500;
+}
+
 .project-participants {
   display: flex;
   align-items: center;
@@ -148,7 +141,7 @@ h1 {
   
 }
 .project-column{
-  background-color: #e8f0e3;
+  background-color: #f3f6f0 ;
   border-radius: 10px;
   height: 630px;
 }
@@ -164,7 +157,7 @@ h1 {
 
 .project-column-heading__title {
   font-size: 17px;
-  
+  color:#c48105;
   margin-left: 15px;
   margin-top: 10px;
   color: #000;
@@ -173,7 +166,6 @@ h1 {
 
 .project-column-heading__options {
   background: transparent;
-  color: var(--light-grey);
   font-size: 18px;
   border: 0;
   cursor: pointer;
@@ -186,7 +178,7 @@ h1 {
   width: 95%;
   box-shadow: rgba(115, 104, 104, 0.1) 0px 2px 8px 0px;
   margin-bottom: 1rem;
-  background-color: #ffffff;
+  background-color: #ebf3e5;
   margin-left: 10px;
 }
 
@@ -196,7 +188,7 @@ h1 {
 }
 
 .task p {
-  font-size: 12px;
+  font-size: 13px;
   margin: 0.9rem 0;
 }
 
@@ -225,11 +217,12 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: -8px;
 }
 
 .task__options-container {
   display: flex;
-  gap: 7px; /* Adds space between the buttons */
+  gap: 5px; /* Adds space between the buttons */
 }
 
 .task__options {
@@ -271,21 +264,37 @@ h1 {
 }
 
 .task-details {
-  width: 24%;
+  width: 19%;
   border-left: 1px solid #d9e0e9;
   display: inline-block;
   height: 100%;
   vertical-align: top;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
+  background-color:#ebeee9 ;
+  border-radius: 5px;
+
 }
 
 .tag-progress {
   margin: 1.5rem 0;
+  margin-top: 10px;
 }
 
+.timeline {
+  position: relative;
+  margin: 20px 0;
+  /* padding-left: 50px; */
+  border-left: 2px solid #ccc;
+  width: 300px;
+  transform: translateX(-10px); /* Moves it left by 10px */
+  margin-left:50px
+}
+
+
 .tag-progress h2 {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 1rem;
+  color: rgb(237, 123, 89);
 }
 
 .tag-progress p {
@@ -389,14 +398,14 @@ h1 {
   }
 
   .task-details {
-      width: 65%;
+      width: 45%;
       display: flex;
   }
 
   .tag-progress,
   .task-activity {
       flex-basis: 30%;
-      background: var(--white);
+      
       padding: 1rem;
       border-radius: 8px;
       margin: 1rem;
@@ -437,16 +446,49 @@ h1 {
       font-size: 25px;
   }
 }
-
-.timeline {
+/* Individual event */
+.event {
   position: relative;
   margin: 20px 0;
-  /* padding-left: 50px; */
-  border-left: 2px solid #ccc;
-  width: 300px;
-  transform: translateX(-10px); /* Moves it left by 10px */
-  margin-left:50px
+  display: flex;
+  align-items: center;
 }
+
+/* Date positioned to the left */
+.event .date {
+  position: absolute;
+  left: -55px; /* Moves the date further left */
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap; /* Prevents date from breaking */
+}
+
+/* Small circle on the timeline */
+.event .circle {
+  width: 13px;
+  height: 12px;
+  background-color: #ed8032;
+  border-radius: 50%;
+  position: absolute;
+  left: -6px; /* Adjust to position it properly */
+}
+
+/* Event content box */
+.event .details {
+  background: #e6efdf;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin-left: 20px; /* Space between line and box */
+  min-width: 100px;
+}
+
+.event .details small {
+  display: block;
+  color: gray;
+  font-size: 12px;
+}
+
 
 
 /* popup */
