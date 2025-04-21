@@ -221,15 +221,15 @@ function categorizeTasks(tasks) {
       status = 'completed';
       categorized.done.push({ ...task, color, status });
     } else if (dueDate === today) {
-      //color = '#e3f1d9';
+      color = '#e78b46';
       status = 'today'; // Blueish
       categorized.today.push({ ...task, color, status });
     } else if (dueDate > today) {
-      //color = 	'#e3f1d9';
+      color = 	'#e3f1d9';
       status = 'upcoming'; // Redish
       categorized.upcoming.push({ ...task, color, status });
     } else {
-      //color = '#e3f1d9'; 
+      color = '#e3f1d9'; 
       status = 'overdue'; // Blueish
       categorized.overdue.push({ ...task, color, status });
     }

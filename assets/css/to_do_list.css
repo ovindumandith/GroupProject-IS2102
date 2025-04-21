@@ -125,9 +125,10 @@ h1 {
 }
 
 .add-task-btn:hover {
-  background-color: #c48105;
+  background-color: #e7932c;
   transform: translateY(-3px); /* "Lift" effect */
   box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4); /* Stronger shadow */
+  border: none;
 }
 .icon {
   font-size: 18px;
@@ -178,7 +179,7 @@ h1 {
   width: 95%;
   box-shadow: rgba(115, 104, 104, 0.1) 0px 2px 8px 0px;
   margin-bottom: 1rem;
-  background-color: #ebf3e5;
+  background-color: #ffffff;
   margin-left: 10px;
 }
 
@@ -557,7 +558,7 @@ h1 {
 }
 
 .popup-content button {
-  background-color: #55a419;
+  background-color: #e78b46;
   color: white;
   padding: 10px;
   border: none;
@@ -566,7 +567,7 @@ h1 {
 }
 
 .popup-content button:hover {
-  background-color: #347205;
+  background-color: #db782d;
 }
 
 /* Close Button */
