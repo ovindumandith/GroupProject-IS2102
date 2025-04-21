@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <ul>
         <li><a href="CommmunityAdmin_home.php">Home</a></li>
           <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
+          <li><a href="CommunityAdminEvents.php">Community Events</a></li>
           <li><a href="CommmunityAdmin_notifications.php">Notifications</a></li>
         </ul>
       </nav>

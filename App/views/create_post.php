@@ -7,6 +7,14 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
+$role = $_SESSION['role'] ?? 'student';
+
+if ($role === 'CommunityAdmin') {
+    $controllerPath = '../controller/CommunityAdminController.php?action=list';
+} else {
+    $controllerPath = '../controller/CommunityController.php?action=list';
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +34,10 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             
             <div class="header-right">
-            <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
-            <br><br>
+            <button class="add-post-btn" onclick="window.location.href='<?= $controllerPath ?>';">
+            Back to Community
+            </button>
+         <br><br>
                 <h1>Create Your Post</h1>
                 <hr>
             </div>

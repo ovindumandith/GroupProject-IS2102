@@ -1,17 +1,24 @@
 <?php
-session_start(); // Start session to get user ID
+session_start();
 require_once '../controller/ManagePostController.php';
 
-// Get the logged-in user's ID from the session
 $currentUserId = $_SESSION['user_id'] ?? null;
 
-// Check if the user is logged in
 if (!$currentUserId) {
-    // Redirect to login page or show error
     header('Location: login.php');
     exit;
 }
+
+$role = $_SESSION['role'] ?? 'student';
+
+if ($role === 'CommunityAdmin') {
+    $controllerPath = '../controller/CommunityAdminController.php?action=list';
+} else {
+    $controllerPath = '../controller/CommunityController.php?action=list';
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +35,9 @@ if (!$currentUserId) {
         <img src="../../assets/images/managepost.png" alt="Header Image" class="header-image">
       </div>
       <div class="header-right">
-        <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+        <button class="add-post-btn" onclick="window.location.href='<?= $controllerPath ?>';">
+            Back to Community
+        </button>
         <br><br>
         <h1>Manage Your Posts</h1>
         <hr>

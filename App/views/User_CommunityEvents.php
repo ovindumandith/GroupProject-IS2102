@@ -3,19 +3,23 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to the login page if not logged in
     header('Location: login.php');
     exit();
 }
-?>
 
+require_once '../models/CommunityEventsModel.php';
+$eventModel = new Event();
+$result = $eventModel->fetchAllEvents();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RelaxU</title>
+    <title>Admin Notifications</title>
+  <link rel="stylesheet" href="../../assets/css/CommunityAdmin_notifications.css" type="text/css"/>
+    <script src="../../assets/js/CommunityAdmin_notifications.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -25,11 +29,6 @@ if (!isset($_SESSION['user_id'])) {
       href="../../assets/css/header_footer.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
-    <link
-      rel="stylesheet"
-      href="../../assets/css/admin_home.css"
-      type="text/css">
       
 
 
@@ -43,88 +42,72 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <nav class="navbar">
         <ul>
-        <li><a href="CommmunityAdmin_home.php">Home</a></li>
-          <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
-          <li><a href="CommunityAdminEvents.php">Community Events</a></li>
-          <li><a href="CommmunityAdmin_notifications.php">Notifications</a></li>
+        <li><a href="../views/home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="#">Workload Management Tools</a></li>
+            </ul>
+          </li>
+          <li><a href="../views/Academic_Help.php">Academic Help</a></li>
+          <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
+          <li><a href="../controller/CommunityController.php?action=list">Community</a></li>
+          <li><a href="../views/About_Us.php">About Us</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='CommunityAdmin_profile.php'"><b>Profile</b></button>
+        <button class="signup" onclick="location.href='../views/profile.php'"><b>Profile</b></button>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
     </header>
   
-    <div class="main-content">
-    <div class="welcome-message">
-        <h1>Welcome to Community Admin Dashboard</h1>
-        <p>Here you can manage and monitor all activities related to posts, comments, users, and engagement.</p>
-    </div>
+<main><br>
+<br>
+<button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
 
-    <div class="overview">
-        <div class="card">
-            <h3>Total Posts</h3>
-            <p id="total-posts">1200</p>
-        </div>
-        <div class="card">
-            <h3>Total Comments</h3>
-            <p id="total-comments">3500</p>
-        </div>
-        <div class="card">
-            <h3>Total Users</h3>
-            <p id="total-users">780</p>
-        </div>
-    </div>
+    <h2 class="page-title">Upcoming Community Events</h2>
 
-    <!-- Charts Section -->
-    <div class="charts-section">
-        <div class="chart-container">
-            <h3>Top Contributors</h3>
-            <div id="contributors-chart" class="chart"></div>
-        </div>
-        <div class="chart-container">
-            <h3>Posts Over Time</h3>
-            <div id="posts-chart" class="chart"></div>
-        </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by Title...">
     </div>
+<!-- Events Table -->
+<table id="eventsTable">
+      <thead>
+        <tr>
+          <th>Event ID</th>
+          <th>Title</th>
+          <th>Date & Time</th>
+          <th>Link</th>
+          <th>Description</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        if ($result && count($result) > 0) {
+          foreach ($result as $row) {
+            echo "<tr>
+                    <td>" . htmlspecialchars($row['event_id']) . "</td>
+                    <td>" . htmlspecialchars($row['title']) . "</td>
+                    <td>" . htmlspecialchars($row['date']) . "</td>
+                    <td><a href=\"" . htmlspecialchars($row['link']) . "\" target=\"_blank\">Join</a></td>
+                    <td>" . htmlspecialchars($row['description']) . "</td>
+                    <td>" . htmlspecialchars($row['category']) . "</td>
+                  </tr>";
+          }
+        } else {
+          echo "<tr><td colspan='6' class='no-data'>No events available at this time.</td></tr>";
+        }
+        ?>
+      </tbody>
+    </table>
+</main>
 
-    <!-- Data Table -->
-    <div class="table-container">
-        <h3>Recent Activities</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Activity</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>101</td>
-                    <td>Amanda Lee</td>
-                    <td>Added a new post</td>
-                    <td>Published</td>
-                </tr>
-                <tr>
-                    <td>102</td>
-                    <td>David Kim</td>
-                    <td>Commented on a post</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <td>103</td>
-                    <td>Emma Brown</td>
-                    <td>Deleted a comment</td>
-                    <td>Removed</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+
 
     <!-- Footer Section -->
     <footer class="footer">

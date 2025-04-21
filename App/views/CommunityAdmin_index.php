@@ -39,6 +39,7 @@ $_SESSION['current_post_id'] = $postId;
         <ul>
           <li><a href="../views/CommmunityAdmin_home.php">Home</a></li>
           <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
+          <li><a href="../views/CommunityAdminEvents.php">Community Events</a></li>
           <li><a href="../views/CommmunityAdmin_notifications.php">Notifications</a></li>
         </ul>
       </nav>

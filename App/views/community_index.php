@@ -96,7 +96,8 @@ $_SESSION['current_post_id'] = $postId;
         <section class="blog-section">
         <h2 id="target-section">Get Started</h2>
           <div class="search-bar">
-            <a href="/GroupProject-IS2102/App/views/create_post.php" class="styled-button">Create your post</a>    
+            <a href="/GroupProject-IS2102/App/views/create_post.php" class="styled-button">Create your post</a>  
+            <a href="/GroupProject-IS2102/App/views/User_CommunityEvents.php" class="styled-button">Community Events</a>  
             <a href="/GroupProject-IS2102/App/views/User_notifications.php" class="styled-button">View Admin Notifications</a> 
             <a href="/GroupProject-IS2102/App/views/manage_post.php" class="styled-button">Your Personal Posts</a>
           </div><br>

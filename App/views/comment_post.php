@@ -52,6 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_text'])) {
 
 // Get comments
 $comments = $commentModel->getCommentsByPostId($postId);
+
+$role = $_SESSION['role'] ?? 'student';
+
+if ($role === 'CommunityAdmin') {
+    $controllerPath = '../controller/CommunityAdminController.php?action=list';
+} else {
+    $controllerPath = '../controller/CommunityController.php?action=list';
+}
 ?>
 
 <!DOCTYPE html>
@@ -68,8 +76,10 @@ $comments = $commentModel->getCommentsByPostId($postId);
             <img src="../../assets/images/STRESS.png" alt="Header Image" class="header-image">
         </div>
         <div class="header-right">
-            <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
-            <br><br>
+        <button class="add-post-btn" onclick="window.location.href='<?= $controllerPath ?>';">
+            Back to Community
+        </button>
+        <br><br>
             <h1>Comment Section</h1>
             <hr>
         </div>

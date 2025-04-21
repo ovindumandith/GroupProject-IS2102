@@ -122,3 +122,14 @@ tr:hover {
 .add-post-btn:hover {
   background-color: #45a049;
 }
+
+.edit-btn, .delete-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+.edit-btn { background-color: #4CAF50; } /* Green */
+.delete-btn { background-color: #f44336; } /* Red */
