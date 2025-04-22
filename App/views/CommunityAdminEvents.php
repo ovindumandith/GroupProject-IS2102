@@ -118,13 +118,13 @@ $result = $eventModel->fetchAllEvents();
                     <td>" . htmlspecialchars($row['category']) . "</td>
                     <td>" . htmlspecialchars($row['created_at']) . "</td>
                     <td>
-                      <form method='POST' action='../controller/CommunityController.php' onsubmit=\"return confirm('Are you sure you want to delete this event?');\">
-                        <input type='hidden' name='action' value='delete'>
-                        <input type='hidden' name='id' value='{$eventId}'>
+                    <form method='POST' action='../controller/CommunityEventsController.php' onsubmit=\"return confirm('Are you sure you want to delete this event?');\">
+                    <input type='hidden' name='action' value='delete'>
+                      <input type='hidden' name='id' value='" . htmlspecialchars($row['event_id']) . "'>                      
                         <button type='submit' class='delete-btn'>Delete</button>
                       </form>
                   </td>
-                  <td><a class='edit-btn' href='editEventForm.php?id={$eventId}'>Update</a></td>
+                  <td><a class='edit-btn' href='editEventForm.php?id=" . htmlspecialchars($row['event_id']) . "'>Update</a></td>
                   </tr>";
           }
         } else {
