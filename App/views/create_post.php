@@ -53,7 +53,7 @@ if ($role === 'CommunityAdmin') {
                 <br/><br/>
                 <input type="text" class="title-input" name="title" placeholder="Title" required><br/>
                 <div class="upload-box">
-                <label for="file">Upload image (optional)</label><br><br>
+                <label for="file">Uploads (optional)</label><br><br>
                 <input type="file" name="image"><br><br>
                 </div>
 

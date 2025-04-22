@@ -21,7 +21,7 @@ class CommunityController {
             foreach ($posts as &$post) {
                 if (!empty($post['image'])) {
                     // Use relative path from the root of your application
-                    $post['image_path'] = '../views/uploads/' . $post['image'];
+                    $post['image_path'] = '/GroupProject-IS2102/App/' . $post['image'];
                 } else {
                     $post['image_path'] = null;
                 }

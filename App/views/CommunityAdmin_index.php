@@ -103,7 +103,10 @@ $_SESSION['current_post_id'] = $postId;
         <?php foreach ($posts as $post): ?>
             <div class="post">
             <div class="post-header">
-                <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <?= htmlspecialchars($post['username']) ?></h4>
+                <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <br>
+                Username: <?= htmlspecialchars($post['username']) ?><br>
+                User ID: <?= htmlspecialchars($post['user_id']) ?><br>
+                Post ID: <?= htmlspecialchars($post['post_id']) ?></h4>
             </div>
                 <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
                 <?php if (!empty($post['image_path'])): ?>

@@ -24,4 +24,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         exit;
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    $notiId = $_POST['id'] ?? null;
+
+    if ($notiId) {
+        $notification = new Notification();
+        $deleted = $notification->deleteNoti($notiId);
+
+        if ($deleted) {
+            header("Location: ../views/CommmunityAdmin_notifications.php?status=deleted");
+        } else {
+            header("Location: ../views/CommmunityAdmin_notifications.php?status=deletefail");
+        }
+        exit;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'update') {
+    $notificationId = $_POST['notification_id'] ?? null;
+    $title = $_POST['title'] ?? null;
+    $reason = $_POST['reason'] ?? null;
+
+    if ($notificationId && $title && $reason) {
+        $notification = new Notification();
+        $updated = $notification->updateNotification($notificationId, $title, $reason);
+
+        if ($updated) {
+            header("Location: ../views/CommmunityAdmin_notifications.php?status=updated");
+        } else {
+            header("Location: ../views/CommmunityAdmin_notifications.php?status=updatefail");
+        }
+        exit;
+    }
+}
+
 ?>

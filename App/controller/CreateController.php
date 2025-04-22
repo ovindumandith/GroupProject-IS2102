@@ -35,14 +35,14 @@ if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR
 
     $fileInfo = pathinfo($_FILES['image']['name']);
     $extension = strtolower($fileInfo['extension']);
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif','pdf'];
 
     if (!in_array($extension, $allowedTypes)) {
-        throw new Exception("Only JPG, PNG, GIF files are allowed");
+        throw new Exception("Only JPG, PNG, GIF, PDF files are allowed");
     }
 
-    if ($_FILES['image']['size'] > 2000000) {
-        throw new Exception("File too large (max 2MB)");
+    if ($_FILES['image']['size'] > 10000000) {
+        throw new Exception("File too large (max 10MB)");
     }
 
     $filename = uniqid('post_', true).'.'.$extension;
