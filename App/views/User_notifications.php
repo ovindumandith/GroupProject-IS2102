@@ -7,9 +7,11 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+$user_id = $_SESSION['user_id']; //Save user_id
+
 require_once '../models/CommunitynotificationsModel.php';
 $notificationModel = new Notification();
-$result = $notificationModel->fetchAllNotifications();
+$result = $notificationModel->fetchNotificationsByUser($user_id);
 ?>
 
 <!DOCTYPE html>
