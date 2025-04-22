@@ -40,5 +40,46 @@ class Notification {
             return [];
         }
     }
+
+    public function fetchNotificationsByUser($user_id) {
+        $query = "SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function deleteNoti($notiId) {
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM notifications WHERE notification_id = ?");
+            $stmt->execute([$notiId]);
+            return true;
+        } catch (PDOException $e) {
+            error_log("Error deleting event: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function updateNotification($id, $title, $reason) {
+        try {
+            $stmt = $this->conn->prepare("UPDATE notifications SET title = ?, reason = ? WHERE notification_id = ?");
+            $stmt->execute([$title, $reason, $id]);
+            return true;
+        } catch (PDOException $e) {
+            error_log("Error updating notification: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    public function fetchNotificationById($id) {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM notifications WHERE notification_id = ?");
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching notification by ID: " . $e->getMessage());
+            return false;
+        }
+    }
+    
 }
 ?>

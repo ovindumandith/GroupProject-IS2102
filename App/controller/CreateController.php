@@ -23,53 +23,43 @@ class CreateController {
             $description = htmlspecialchars($_POST['description']);
             $image = null;
 
-            // Handle file upload
+            $image = null;
+$imagePath = null;
+
 if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-    // Use absolute path that works for your XAMPP setup
     $uploadDir = '/Applications/XAMPP/xamppfiles/htdocs/GroupProject-IS2102/App/views/uploads/';
     
-    // Create directory if needed (with proper permissions)
     if (!file_exists($uploadDir)) {
-        if (!mkdir($uploadDir, 0755, true)) {
-            throw new Exception("Failed to create upload directory at: ".$uploadDir);
-        }
+        mkdir($uploadDir, 0755, true);
     }
 
-    // Validate file
     $fileInfo = pathinfo($_FILES['image']['name']);
     $extension = strtolower($fileInfo['extension']);
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-    
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif','pdf'];
+
     if (!in_array($extension, $allowedTypes)) {
-        throw new Exception("Only JPG, PNG, GIF files are allowed");
+        throw new Exception("Only JPG, PNG, GIF, PDF files are allowed");
     }
 
-    if ($_FILES['image']['size'] > 2000000) { // 2MB
-        throw new Exception("File too large (max 2MB)");
+    if ($_FILES['image']['size'] > 10000000) {
+        throw new Exception("File too large (max 10MB)");
     }
 
-    // Generate unique filename
     $filename = uniqid('post_', true).'.'.$extension;
     $destination = $uploadDir.$filename;
 
-    // Debug output
-    error_log("Temporary file: ".$_FILES['image']['tmp_name']);
-    error_log("Destination: ".$destination);
-    error_log("Directory writable: ".(is_writable($uploadDir) ? 'Yes' : 'No'));
-
     if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-        // Store relative path in database
         $imagePath = 'views/uploads/'.$filename;
+        $image = $imagePath; // ✅ Assign here
     } else {
         $error = error_get_last();
         throw new Exception("File upload failed: ".$error['message']);
     }
 }
 
-
             // Add the post to the database
             if ($this->model->addPost($userId, $title, $image, $description)) {
-                header("Location: ../views/community_index.php");
+                header("Location: ../views/create_post.php");
                 exit();
             } else {
                 throw new Exception("Failed to create the post. Please try again.");

@@ -10,7 +10,7 @@ class PostsModel {
     }
 
     public function getAllPosts() {
-        $query = "SELECT p.post_id, p.title, p.description, p.image, p.created_at, u.username 
+        $query = "SELECT p.post_id, p.title, p.description, p.image, p.created_at, p.user_id, u.username 
                   FROM posts p 
                   JOIN users u ON p.user_id = u.user_id
                   ORDER BY p.created_at DESC";
@@ -19,7 +19,6 @@ class PostsModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Fetch posts by user ID
     public function getPostsByUserId($userId) {
         $sql = "SELECT * FROM posts WHERE user_id = :user_id ORDER BY created_at DESC";
         $stmt = $this->db->prepare($sql);
@@ -46,7 +45,6 @@ class PostsModel {
         }
     }
 
-    // Delete Post
 public function deletePost($postId) {
     try {
         $query = 'DELETE FROM posts WHERE post_id = :post_id';

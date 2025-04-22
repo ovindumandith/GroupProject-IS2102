@@ -3,15 +3,13 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to the login page if not logged in
     header('Location: login.php');
     exit();
 }
-$user_id = $_SESSION['user_id']; //Save user_id
 
-require_once '../models/CommunitynotificationsModel.php';
-$notificationModel = new Notification();
-$result = $notificationModel->fetchNotificationsByUser($user_id);
+require_once '../models/CommunityEventsModel.php';
+$eventModel = new Event();
+$result = $eventModel->fetchAllEvents();
 ?>
 
 <!DOCTYPE html>
@@ -70,32 +68,43 @@ $result = $notificationModel->fetchNotificationsByUser($user_id);
 <main><br>
 <br>
 <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
-            
-<div class="search-box">
-  <input type="text" id="searchInput" placeholder="Search by Title...">
-</div>
-<table id="notificationsTable">
-  <thead>
-    <tr>
-      <th>Post Title</th><th>Reason</th><th>Deleted At</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php
-  if ($result) {
-    foreach ($result as $row) {
-      echo "<tr>
-              <td>{$row['title']}</td>
-              <td>{$row['reason']}</td>
-              <td>{$row['created_at']}</td>
-            </tr>";
-    }
-  } else {
-    echo "<tr><td colspan='3' class='no-data'>No notifications found.</td></tr>";
-  }
-?>
-  </tbody>
-</table>
+
+    <h2 class="page-title">Upcoming Community Events</h2>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by Title...">
+    </div>
+<!-- Events Table -->
+<table id="eventsTable">
+      <thead>
+        <tr>
+          <th>Event ID</th>
+          <th>Title</th>
+          <th>Date & Time</th>
+          <th>Link</th>
+          <th>Description</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        if ($result && count($result) > 0) {
+          foreach ($result as $row) {
+            echo "<tr>
+                    <td>" . htmlspecialchars($row['event_id']) . "</td>
+                    <td>" . htmlspecialchars($row['title']) . "</td>
+                    <td>" . htmlspecialchars($row['date']) . "</td>
+                    <td><a href=\"" . htmlspecialchars($row['link']) . "\" target=\"_blank\">Join</a></td>
+                    <td>" . htmlspecialchars($row['description']) . "</td>
+                    <td>" . htmlspecialchars($row['category']) . "</td>
+                  </tr>";
+          }
+        } else {
+          echo "<tr><td colspan='6' class='no-data'>No events available at this time.</td></tr>";
+        }
+        ?>
+      </tbody>
+    </table>
 </main>
 
 

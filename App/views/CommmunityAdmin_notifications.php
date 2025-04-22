@@ -55,6 +55,7 @@ $result = $notificationModel->fetchAllNotifications();
         <ul>
         <li><a href="CommmunityAdmin_home.php">Home</a></li>
           <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
+          <li><a href="CommunityAdminEvents.php">Community Events</a></li>
           <li><a href="CommmunityAdmin_notifications.php">Notifications</a></li>
         </ul>
       </nav>
@@ -84,7 +85,7 @@ $result = $notificationModel->fetchAllNotifications();
     <label for="reason">Reason:</label>
     <textarea id="reason" name="reason" rows="4" required placeholder="Write the reason for deleting the post..."></textarea>
 
-    <input type="submit" value="Add Notification">
+    <input type="submit" value="Add Notification" class="add-post-btn">
   </form>
 </section>
 
@@ -96,7 +97,13 @@ $result = $notificationModel->fetchAllNotifications();
 <table id="notificationsTable">
   <thead>
     <tr>
-      <th>Notification ID</th><th>User ID</th><th>Post ID</th><th>Reason</th><th>Deleted At</th>
+      <th>Notification ID</th>
+      <th>User ID</th>
+      <th>Post ID</th>
+      <th>Reason</th>
+      <th>Deleted At</th>
+      <th>Delete</th> 
+      <th>Update</th>
     </tr>
   </thead>
   <tbody>
@@ -109,6 +116,14 @@ $result = $notificationModel->fetchAllNotifications();
               <td>{$row['post_id']}</td>
               <td>{$row['reason']}</td>
               <td>{$row['created_at']}</td>
+              <td>
+              <form method='POST' action='../controller/CommunitynotificationsController.php' onsubmit=\"return confirm('Are you sure you want to delete this event?');\">
+                  <input type='hidden' name='action' value='delete'>
+                  <input type='hidden' name='id' value='" . htmlspecialchars($row['notification_id']) . "'>                      
+                  <button type='submit' class='delete-btn'>Delete</button>
+                </form>
+                  </td>
+                  <td><a class='edit-btn' href='editNotificationForm.php?id={$row['notification_id']}'>Update</a></td>
             </tr>";
     }
   } else {

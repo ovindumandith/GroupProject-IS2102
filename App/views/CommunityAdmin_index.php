@@ -39,6 +39,7 @@ $_SESSION['current_post_id'] = $postId;
         <ul>
           <li><a href="../views/CommmunityAdmin_home.php">Home</a></li>
           <li><a href="../controller/CommunityAdminController.php?action=list">Community</a></li>
+          <li><a href="../views/CommunityAdminEvents.php">Community Events</a></li>
           <li><a href="../views/CommmunityAdmin_notifications.php">Notifications</a></li>
         </ul>
       </nav>
@@ -102,7 +103,10 @@ $_SESSION['current_post_id'] = $postId;
         <?php foreach ($posts as $post): ?>
             <div class="post">
             <div class="post-header">
-                <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <?= htmlspecialchars($post['username']) ?></h4>
+                <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <br>
+                Username: <?= htmlspecialchars($post['username']) ?><br>
+                User ID: <?= htmlspecialchars($post['user_id']) ?><br>
+                Post ID: <?= htmlspecialchars($post['post_id']) ?></h4>
             </div>
                 <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
                 <?php if (!empty($post['image_path'])): ?>
