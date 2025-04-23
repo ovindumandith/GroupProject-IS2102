@@ -10,6 +10,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
+
+document.getElementById("search-bar").addEventListener("input", function () {
+  const query = this.value;
+
+  // Avoid unnecessary calls if input is empty
+  if (query.trim() === "") {
+    document.getElementById("search-results").innerHTML = "";
+    return;
+  }
+
+  // Make AJAX call to PHP backend
+  fetch(`../controller/ToDoListController.php?search=${encodeURIComponent(query)}`)
+    .then(response => response.json())
+    .then(data => {
+      const resultsDiv = document.getElementById("search-results");
+      resultsDiv.innerHTML = "";
+
+      if (data.tasks && data.tasks.length > 0) {
+        data.tasks.forEach(task => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <span class="task-text">${task.title} - ${task.date}</span>
+            <div class="task-buttons">
+              <button style='color:#c4cad3' class="task__options" onclick="openEditPopup(${task.id})"><i class="fas fa-pencil-alt"></i></button>
+              <button style='color:#c4cad3' class="task__options" onclick="deleteTask(${task.id})"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          `;
+          resultsDiv.appendChild(li);
+        });
+      } else {
+        resultsDiv.innerHTML = "<li>No matching tasks found.</li>";
+      }
+    });
+});
+
+
   // function handleDragStart(e) {
   //   this.style.opacity = '0.1';
   //   this.style.border = '3px dashed #c4cad3';
@@ -217,19 +253,19 @@ function categorizeTasks(tasks) {
     let status = '';
 
     if (task.is_completed === 1) {
-      color = '#e3f1d9'; // Green
+      color = '#e8f1ec'; // Green
       status = 'completed';
       categorized.done.push({ ...task, color, status });
     } else if (dueDate === today) {
-      color = '#e78b46';
+      color = '#e8f1ec';
       status = 'today'; // Blueish
       categorized.today.push({ ...task, color, status });
     } else if (dueDate > today) {
-      color = 	'#e3f1d9';
+      color = 	'#e8f1ec';
       status = 'upcoming'; // Redish
       categorized.upcoming.push({ ...task, color, status });
     } else {
-      color = '#e3f1d9'; 
+      color = '#e8f1ec'; 
       status = 'overdue'; // Blueish
       categorized.overdue.push({ ...task, color, status });
     }
@@ -265,7 +301,7 @@ function createTaskHTML(task) {
           <div class="task__options-container">
           ${task.status !== 'completed' ?`
               <button style='color:green' class='task__options' onclick="openEditPopup(${task.id})"><i class="fas fa-pencil"></i></button>
-              <button style='color:red' class='task__options' onclick="deleteTask(${task.id})"><i class="fas fa-trash"></i></button>` : ''}
+              <button style='color:green' class='task__options' onclick="deleteTask(${task.id})"><i class="fas fa-trash"></i></button>` : ''}
           </div>
       </div>
       <p>${task.description}</p>
@@ -339,6 +375,7 @@ function showAlert(message, isSuccess = true) {
     popup.style.display = "none";
   }, 3000);
 }
+
 //delete event
 function deleteTask(eventId) {
   if (!confirm("Are you sure you want to delete this task?")) {
@@ -367,6 +404,7 @@ function deleteTask(eventId) {
       console.error('Error deleting event:', error);
     });
 }
+
 async function updateTaskStatus(taskId, isChecked) {
   const status = isChecked ? 1 : 0; // 1 for completed, 0 for not completed
   const url = `../controller/ToDoListController.php`;
