@@ -108,7 +108,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
           </p>
-          <a href="schedule_event.php" class="read-more-btn">Explore</a>
+          <a href="new-schedule-event.php" class="read-more-btn">Explore</a>
         </div>
       </div>
     </div>

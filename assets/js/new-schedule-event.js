@@ -43,7 +43,7 @@ function fetchEventsForDay(date) {
     const formattedDate = `${year}-${month}-${day}`; // Combine components
 
     // API call to fetch events for the given day
-    fetch(`../controller/ScheduleEventController.php?date=${formattedDate}`)
+    fetch(`../controller/new-schedule-event-controller.php?date=${formattedDate}`)
         .then(response => response.text()) // Read response as text first
         .then(data => {
             // Log raw response to see if it's HTML or an error message
@@ -65,7 +65,7 @@ function fetchEventsForDay(date) {
 async function fetchEvents() {
     try {
         // Fetch all events from the backend
-        const response = await fetch('../controller/ScheduleEventController.php', {
+        const response = await fetch('../controller/new-schedule-event-controller.php', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -247,7 +247,7 @@ function displayEvents(events) {
 
 async function fetchEventDetails(eventId) {
     try {
-        const response = await fetch(`../controller/ScheduleEventController.php?id=${eventId}`);
+        const response = await fetch(`../controller/new-schedule-event-controller.php?id=${eventId}`);
 
         // Check if the response is not an error (i.e., status 2xx)
         if (!response.ok) {
@@ -313,7 +313,7 @@ function deleteEvent(eventId) {
         return; // Exit if the user cancels the confirmation
     }
 
-    fetch('../controller/ScheduleEventController.php', {
+    fetch('../controller/new-schedule-event-controller.php', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -339,7 +339,7 @@ function searchEvents() {
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
     // Construct the URL with query parameters
-    const url = `../controller/ScheduleEventController.php?search=${encodeURIComponent(searchQuery)}`;
+    const url = `../controller/new-schedule-event-controller.php?search=${encodeURIComponent(searchQuery)}`;
 
     // Fetch all events from the backend
     fetch(url, {
@@ -404,7 +404,7 @@ document.getElementById("eventForm").addEventListener("submit", function (event)
         endTime: document.getElementById("endTime").value,
     };
 
-    const url = `../controller/ScheduleEventController.php`;
+    const url = `../controller/new-schedule-event-controller.php`;
 
     fetch(url, {
         method: 'POST',
