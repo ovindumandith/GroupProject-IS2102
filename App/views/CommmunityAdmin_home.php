@@ -104,19 +104,19 @@ if (!isset($_SESSION['user_id'])) {
             </thead>
             <tbody>
                 <tr>
-                    <td>101</td>
+                    <td>1</td>
                     <td>Amanda Lee</td>
                     <td>Added a new post</td>
                     <td>Published</td>
                 </tr>
                 <tr>
-                    <td>102</td>
+                    <td>2</td>
                     <td>David Kim</td>
                     <td>Commented on a post</td>
                     <td>Approved</td>
                 </tr>
                 <tr>
-                    <td>103</td>
+                    <td>3</td>
                     <td>Emma Brown</td>
                     <td>Deleted a comment</td>
                     <td>Removed</td>
