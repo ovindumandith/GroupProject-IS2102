@@ -92,8 +92,6 @@ if (!isset($_SESSION['user_id'])) {
                                         <input type="text" id="title" name="title" required>
                                         <label for="date">Date:</label>
                                         <input type="date" id="date" name="date" required>
-                                        <label for="time">Time:</label>
-                                        <input type="time" id="time" name="time" required>
                                         <label for="description">Description:</label>
                                         <textarea id="description" name="description" rows="4" cols="50"></textarea>
                                         <button type="submit" id="formSubmitButton">Save Task</button>

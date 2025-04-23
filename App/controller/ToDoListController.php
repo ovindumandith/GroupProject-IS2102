@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once '../models/ToDoList.php';
 session_start(); 
@@ -10,11 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $title = $_POST['title'] ?? '';
     $date = $_POST['date'] ?? '';
-    $time = $_POST['time'] ?? '';
     $id = $_POST['id'] ?? null;
     $status = $_POST['status'] ?? null;
     $description = $_POST['description'] ?? '';
-    $username= $_SESSION['user_name'];
+    $username= $_SESSION['user_name']?? '';
      
     // $data = json_decode(file_get_contents("php://input"), true);
     // if (isset($data['id']) && isset($data['status'])) {
@@ -29,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
         if (empty($title)) $errors[] = 'Title is required.';
         if (empty($date)) $errors[] = 'Date is required.';
-        if (empty($time)) $errors[] = 'Time is required.';
-        if (empty($description)) $errors[] = 'Description is required.';
+        
+       
 
         if (!$id) {
             if (!empty($date) && strtotime($date) < time()) {
@@ -40,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $task = new ToDoList();
         
-        if ($task->checkTaskOverlap($date, $time, $title, $id)) {
+        if ($task->checkTaskOverlap($date, $title, $id)) {
            
             echo json_encode(['errors' => ['An Task with the same title already exists at this date and time.']]);
             exit();
@@ -60,14 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $success = $task->updateTaskStatus($id, $status);
         $message = $success ? 'Task status updated successfully!' : 'Failed to update the Task status.';
     } else if(!empty($id)) {
-        $success = $task->updateTask($id, $title, $date, $time, $description);
+        $success = $task->updateTask($id, $title, $date, $description);
         if($success){
             $isSave = $task->saveTaskHistories('Update Task',$username,date('Y-m-d H:i:s'));
             $message = $isSave ? 'Task saved successfully!' : 'Failed to save the Task.'; 
         }
         $message = $success ? 'Task updated successfully!' : 'Failed to update the Task.';
     } else {
-        $success = $task->saveTask($title, $date, $time, $description,$username);
+        $success = $task->saveTask($title, $date, $description ,$username);
         if($success){
             $isSave = $task->saveTaskHistories('Add Task',$username,date('Y-m-d H:i:s'));
             $message = $isSave ? 'Task saved successfully!' : 'Failed to save the Task.';
@@ -111,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $task = new ToDoList();
+    $taskHistories=[];
 
     // Check if there's a search query in the URL
     if (isset($_GET['search'])) {
@@ -126,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $tasks = $task->getAllTasks();
         $taskHistories=$task-> getAllWeeklyTask();
     }
+    
 
     // Return the events as JSON
     header('Content-Type: application/json');

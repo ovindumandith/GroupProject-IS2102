@@ -13,7 +13,7 @@ class ToDoList
     public function getAllTasks()
     {
         try {
-            $query = "SELECT * FROM to_do_lists   ORDER BY date, time";
+            $query = "SELECT * FROM to_do_lists   ORDER BY date";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,15 +44,14 @@ class ToDoList
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function saveTask($title, $date, $time, $description, $username)
+    public function saveTask($title, $date, $description, $username)
     {
         try {
-            $query = 'INSERT INTO to_do_lists (title, date, time, description, user_name) 
-                      VALUES (:title, :date, :time, :description, :username)';
+            $query = 'INSERT INTO to_do_lists (title, date, description, user_name) 
+                      VALUES (:title,:date,:description,:username)';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':title', $title);
             $stmt->bindParam(':date', $date);
-            $stmt->bindParam(':time', $time);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':username', $username); // ✅ Fixed here
     
@@ -104,11 +103,11 @@ class ToDoList
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC); // Assuming you're using PDO
     }
-    public function updateTask($id, $title, $date, $time,$description)
+    public function updateTask($id, $title, $date,$description)
     {
 
         try {
-            $query = "UPDATE to_do_lists SET title = ?, date = ?, time = ?,description= ? WHERE id = ?";
+            $query = "UPDATE to_do_lists SET title = ?, date = ?,description= ? WHERE id = ?";
     
             // Prepare the statement
             $stmt = $this->db->prepare($query);
@@ -116,12 +115,12 @@ class ToDoList
             // Binding parameters with proper types
             $stmt->bindParam(1, $title, PDO::PARAM_STR);
             $stmt->bindParam(2, $date, PDO::PARAM_STR);
-            $stmt->bindParam(3, $time, PDO::PARAM_STR);
-            $stmt->bindParam(4, $description, PDO::PARAM_STR);
+            $stmt->bindParam(3, $description, PDO::PARAM_STR);
         
+            
             // Bind the id as an integer, but only if $id is provided (i.e., not NULL)
             if ($id !== null) {
-                $stmt->bindParam(5, $id, PDO::PARAM_INT);
+                $stmt->bindParam(4, $id, PDO::PARAM_INT);
             } else {
                 // Handle the case where ID is NULL (if necessary)
                 // For example, throw an exception or return false
@@ -193,10 +192,10 @@ class ToDoList
         // Fetch all matching events
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function checkTaskOverlap($date, $time, $title, $id = null)
+    public function checkTaskOverlap($date, $title, $id = null)
     {
         // Base query
-        $query = "SELECT COUNT(*) FROM to_do_lists WHERE title = :title AND date = :date AND time = :time";
+        $query = "SELECT COUNT(*) FROM to_do_lists WHERE title = :title AND date = :date ";
     
         // Exclude the current task ID if updating
         if ($id !== null) {
@@ -209,7 +208,7 @@ class ToDoList
         // Bind parameters
         $stmt->bindParam(":title", $title, PDO::PARAM_STR);
         $stmt->bindParam(":date", $date, PDO::PARAM_STR);
-        $stmt->bindParam(":time", $time, PDO::PARAM_STR);
+        
     
         if ($id !== null) {
             $stmt->bindParam(":id", $id, PDO::PARAM_INT);

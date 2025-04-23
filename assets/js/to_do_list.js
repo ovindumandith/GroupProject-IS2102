@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-
 document.getElementById("search-bar").addEventListener("input", function () {
   const query = this.value;
 
@@ -22,12 +21,26 @@ document.getElementById("search-bar").addEventListener("input", function () {
 
   // Make AJAX call to PHP backend
   fetch(`../controller/ToDoListController.php?search=${encodeURIComponent(query)}`)
-    .then(response => response.json())
+    .then(response => {
+      // Check if the response is ok (status 200)
+      if (!response.ok) {
+        throw new Error('Network response was not ok: ' + response.status);
+      }
+
+      // Check if the response is JSON
+      const contentType = response.headers.get('Content-Type');
+      if (contentType && contentType.includes('application/json')) {
+        return response.json(); // Parse JSON if valid
+      } else {
+        throw new Error('Expected JSON response but got: ' + contentType);
+      }
+    })
     .then(data => {
       const resultsDiv = document.getElementById("search-results");
       resultsDiv.innerHTML = "";
 
       if (data.tasks && data.tasks.length > 0) {
+        // Loop through tasks and display them
         data.tasks.forEach(task => {
           const li = document.createElement("li");
           li.innerHTML = `
@@ -42,6 +55,11 @@ document.getElementById("search-bar").addEventListener("input", function () {
       } else {
         resultsDiv.innerHTML = "<li>No matching tasks found.</li>";
       }
+    })
+    .catch(error => {
+      console.error('Error during fetch operation:', error);
+      const resultsDiv = document.getElementById("search-results");
+      resultsDiv.innerHTML = "<li>Error fetching data. Please try again later.</li>";
     });
 });
 
@@ -171,7 +189,6 @@ document.getElementById("eventForm").addEventListener("submit", async function (
     id: document.getElementById("taskId").value,
     title: document.getElementById("title").value,
     date: document.getElementById("date").value,
-    time: document.getElementById("time").value,
     description: document.getElementById("description").value,
   };
 
@@ -307,7 +324,7 @@ function createTaskHTML(task) {
       <p>${task.description}</p>
       <div class='task__stats'>
           <span><time><i class="fas fa-flag"></i> ${task.date}</time></span>
-          <span><i class="fas fa-clock"></i> ${task.time}</span>
+          
       </div>
       ${task.status !== 'completed' ? `<input type="checkbox" class="task__checkbox">` : ''}
     </div>
@@ -323,7 +340,7 @@ function openEditPopup(taskId) {
     document.getElementById('title').value = event.title;
 
     document.getElementById('date').value = event.date;
-    document.getElementById('time').value = event.time;
+    
     document.getElementById('description').value = event.description;
 
     // Change the popup title and button text for editing an event
