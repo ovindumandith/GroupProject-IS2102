@@ -27,6 +27,14 @@ if (!isset($_SESSION['user_id'])) {
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar content goes here -->
+            <div class="logo">
+                            <div class="profile-icon">
+                                <img src="https://avatar.iran.liara.run/public" alt="User">
+                            </div>
+                        </div>
+                        <nav class="nav-icons">
+                            <a href="workload.php"><i class="fas fa-arrow-left"></i></a>
+                        </nav>
         </div>
 
         <!-- Main Content -->
@@ -36,7 +44,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="header-left">
                     <h1>Event Scheduler</h1>
                     <div class="search-and-add">
-                    <div class="search-container">
+                        <div class="search-container">
                             <div class="search-task">
                                 <input type="text" id="search-bar" name="search" placeholder="search task here...">
                                 <button class="search-button"><i class="fas fa-search"></i></button>
@@ -47,7 +55,7 @@ if (!isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                         <button class="add-event-button" onclick="showPopup()">
-                        <span class="add-icon">+</span>
+                            <span class="add-icon">+</span>
                             Add event
                         </button>
 
@@ -85,33 +93,24 @@ if (!isset($_SESSION['user_id'])) {
             <!-- Calendar and Event Details -->
             <div class="content-section">
                 <!-- Left Panel -->
-                 <div class="left-panel">
-                <div class="calendar-panel">
-                    <div class="calendar-navigation">
-                        
-                        <h2 id="monthYear"></h2>
-                        <button id="prevMonth">&lt;</button>
-                        <button id="nextMonth">&gt;</button>
-                    </div>
-                    <!-- Calendar Table -->
-                    <table id="calendar"></table>
+                <div class="left-panel">
+                    <div class="calendar-panel">
+                        <div class="calendar-navigation">
 
-                    
-                </div>
-                <div class="upcoming-events">
-    <h3>Upcoming Events</h3>
-    <div class="event-card">
-        <h4>Math Class</h4>
-        <p>10:00 AM - 11:00 AM</p>
-        <p>Apr 25, 2025</p>
-    </div>
-    <div class="event-card">
-        <h4>Team Meeting</h4>
-        <p>2:00 PM - 3:00 PM</p>
-        <p>Apr 26, 2025</p>
-    </div>
-    <!-- Add more .event-card blocks dynamically if needed -->
-</div>
+                            <h2 id="monthYear"></h2>
+                            <button id="prevMonth">&lt;</button>
+                            <button id="nextMonth">&gt;</button>
+                        </div>
+                        <!-- Calendar Table -->
+                        <table id="calendar"></table>
+
+
+                    </div>
+                    <div class="upcoming-events">
+                        <h3>Upcoming Events</h3>
+                         
+                        <!-- Add more .event-card blocks dynamically if needed -->
+                    </div>
                 </div>
                 <!-- Right Panel -->
                 <div class="schedule-panel">
@@ -127,28 +126,28 @@ if (!isset($_SESSION['user_id'])) {
                         <button class="today-button" onclick="setToday()">Today</button>
                     </div>
                     <div class="course-card-container">
-                    <!-- Weekly Days Navigation -->
-                    <div class="week-navigation" id="week-navigation">
-                        <span data-day="0">S</span>
-                        <span data-day="1">M</span>
-                        <span data-day="2">T</span>
-                        <span data-day="3" class="active">W</span>
-                        <span data-day="4">T</span>
-                        <span data-day="5">F</span>
-                        <span data-day="6">S</span>
-                    </div>
+                        <!-- Weekly Days Navigation -->
+                        <div class="week-navigation" id="week-navigation">
+                            <span data-day="0">S</span>
+                            <span data-day="1">M</span>
+                            <span data-day="2">T</span>
+                            <span data-day="3" class="active">W</span>
+                            <span data-day="4">T</span>
+                            <span data-day="5">F</span>
+                            <span data-day="6">S</span>
+                        </div>
 
-                    <!-- Schedule List -->
-                   
-                    <div class="schedule">
-                       
+                        <!-- Schedule List -->
+
+                        <div class="schedule">
+
                             <div class="course-card math">
                                 <!-- Content will be added dynamically -->
                             </div>
-                    </div>  
+                        </div>
                     </div>
-                </div>    
-                
+                </div>
+
             </div>
 
             <!-- Popup Message -->

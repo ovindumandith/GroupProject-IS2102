@@ -9,8 +9,8 @@ body {
 
 .dashboard {
     display: flex;
-    height: 100vh; /* Take full height of the viewport */
-    width: 100%; /* Take full width */
+    height: 99vh; /* Take full height of the viewport */
+    width: 99%; /* Take full width */
     margin: 2px; /* Remove margin to fill the screen */
     border-radius: 15px; /* Remove rounded corners for a full-screen design */
    
@@ -22,14 +22,48 @@ body {
 
 /* Sidebar Styling */
 .sidebar {
-    width: 40px; /* Increase sidebar width for better use of space */
-    background-color: #e7efe5;
+    width: 35px; /* Increase sidebar width for better use of space */
+    background-color: #d6e3dc;
     color: #fff;
     padding: 20px;
     display: flex;
     flex-direction: column;
     height: 100%; /* Full height */
+    justify-content: space-between;
 }
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .nav-icons .nav-item,
+  .nav-icons a {
+    color: #ffffffcc;
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-icons a:hover,
+  .nav-icons .active {
+    color: #fff;
+  }
+  
+  .profile-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
 
 .main-content {
     flex: 1;
@@ -41,11 +75,11 @@ body {
 
 .header-content{
     height: 100px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-    margin-top: 0;
-    padding:0;
+     box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding:15px;
     
-    margin-bottom: 10px;
+    margin-bottom: 13px;
 }
 .header-left {
     display: flex;
@@ -54,9 +88,9 @@ body {
     margin-left: 30px;
 }
 .header-left h1 {
-    font-size:2.1rem ;
+    font-size:1.8rem ;
     font-family: 'Times New Roman', Times, serif;
-    color: hsl(25, 88%, 46%);
+    color: hsl(25, 91%, 50%);
     margin-left: 50px;
 }
 /* Header Styling */
@@ -177,79 +211,59 @@ body {
   }
 
 .add-event-button {
-    background-color: #ea8430;
-    color: rgb(29, 19, 19);
+    background-color: #f67811;
+    color: rgb(255, 255, 255);
     border: none;
-    border-radius: 20px;
-    padding: 15px 15px;
-    font-size: 1.25rem;
+    border-radius: 23px;
+    padding: 10px 10px;
+    font-size: 1.12rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 30px;
-    width: 200px;
+    width: 150px;
 }
 
 .add-event-button:hover {
-    background-color:#d86e17;
+    background-color:#ee791a;
 }
 /* Icon inside Add Task Button */
 .add-icon {
-    width: 30px; /* Adjust icon size as needed */
-    height: 30px;
+    width: 20px; /* Adjust icon size as needed */
+    height: 35px;
     margin-right: 10px; /* Space between icon and text */
-    
+    font-size: 30px;
   }
 
 
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #ded4b9;
-    color: rgb(14, 121, 7);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
 
-.back-button img {
-    width: 15px;
-    height: 15px;
-    margin-right: 8px;
-}
-
-.back-button:hover {
-    background-color:#ded4b9;
-}
-button.back-button {
-    color:rgb(212, 70, 70) ;
-    font-size: 30px;
-}
 
 
 /* Calendar Section */
 .content-section {
     display: flex;
     gap: 30px;
-    height: 80%;
+    height: 85%;
+}
+
+.left-panel{
+    width:22% ;
 }
 
 /* Upcoming Events */
 .upcoming-events {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 3px;
-    height: 47%;
+    height: 52%;
+    width: 95%;
     border-radius: 12px;
-    max-height: 700px;
+    max-height: 740px;
     overflow-y: auto;
     scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
-    background-color: #d8e6cd;
+    background-color: #ffffff;
+    margin-left: 23px;
 }
 
 .upcoming-events:-webkit-scrollbar {
@@ -259,8 +273,8 @@ button.back-button {
 
 .upcoming-events h3 {
     margin-bottom: 20px;
-    font-size: 16px;
-    color: #77a077;
+    font-size: 17px;
+    color: #909290;
     margin-left: 10px;
 
 }
@@ -290,14 +304,14 @@ button.back-button {
 
 /* Calendar Panel */
 .calendar-panel {
-    width:320px;
+    width:330px;
     padding: 20px;
-    background-color: #c8e3c3;
+    background-color:#d6e3dc;
     border-radius: 10px;
     box-shadow: 10px 15px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-
-    height: 300px; ;
+   margin-top: 25px;
+    margin-left: 23px;
+    height: 280px; ;
     
     
 }
@@ -316,18 +330,18 @@ button.back-button {
 
 }
 .calendar-navigation h2{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-left: 20px;
     font-family: 'Times New Roman', Times, serif;
-    color: #ed9523;
+    color: #c5c5c4;
     
 }
 .calendar-navigation button {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.2rem; /* Reduced font size */
-    color: #d29758;
+    font-size: 1.1rem; /* Reduced font size */
+    color: #81807f;
     padding: 5px;
     transition: transform 0.2s;
     
@@ -337,19 +351,19 @@ button.back-button {
 
 .event-dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: rgb(200, 154, 69);
-    border-radius: 40%;
+    width: 5px;
+    height: 6px;
+    background-color: #ff7d2c;
+    border-radius: 50%;
     margin-top: 5px;
     margin-left: 2px;
 }
 
 .has-event {
-    background-color:#e68b59cc; /* Optional: highlight cells with events */
-    border-radius: 10px;
-    width: 5px;
-    height: 5px;
+    background-color:#ffffff; /* Optional: highlight cells with events */
+    border-radius: 5px;
+    width: 3px;
+    height: 3px;
 
 }
 
@@ -407,14 +421,14 @@ button.back-button {
 /* Schedule Panel Styling */
 .schedule-panel {
     flex: 2; /* Make this panel take twice the space */
-    background-color: #e9f0d5;
-    border-radius: 20px;
+    background-color: #d6e3dc;
+    border-radius: 25px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 20%;
+    width: 19%;
     margin-top: 20px; /* Adds space between week navigation and schedule */
     display: flex;
     flex-direction: column;
-    height: 100%; /* Make the panel take up available height */
+    height: 99%; /* Make the panel take up available height */
     overflow: hidden; /* Prevent overflow from affecting the overall layout */
 }
 
@@ -431,8 +445,8 @@ button.back-button {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 98%;
-    margin-top: 5px;
+    width: 97%;
+    margin-top: 12px;
    
 }
 /* Scrollbar Styling */
@@ -467,9 +481,9 @@ button.back-button {
 
 .date .day {
     font-size: 27px;
-    
+    margin-top: 20px;
     margin-left: 20px;
-    color: #cccccc;
+    color: #8a8989;
 
 }
 
@@ -477,18 +491,21 @@ button.back-button {
     display: flex;
     flex-direction: column;
     font-size: 13px;
-    color: #b2afaf;
+    color: #949292;
     margin-left: 10px;
+    margin-top: 20px;
 }
 
 .today-button {
     padding: 10px 20px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    background-color:#d6e3dc ;
     border: none;
     color: #7f7f7f;
     border-radius: 18px;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
+    margin-top: 20px;
+    margin-right:20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -498,8 +515,8 @@ button.back-button {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    font-size: 18px;
-    color: #979593;
+    font-size: 20px;
+    color: #b6b6b6;
     background-color:white
 }
 
@@ -511,14 +528,15 @@ button.back-button {
 }
 
 .week-navigation .active {
-    background-color: #e5e8e2;
-    color: #dc6a28;
+    
+    color: #f0732b;
+    font-weight: 700;
     border-radius: 5px;
     width: 5px;
 }
 
 .course-card{
-    background-color: #e4ebe3;
+    background-color: #e5efe6;
     border-radius: 15px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
