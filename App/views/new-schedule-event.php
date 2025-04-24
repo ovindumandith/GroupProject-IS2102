@@ -28,14 +28,17 @@ if (!isset($_SESSION['user_id'])) {
         <div class="sidebar">
             <!-- Sidebar content goes here -->
             <div class="logo">
-                            <div class="profile-icon">
-                                <img src="https://avatar.iran.liara.run/public" alt="User">
-                            </div>
-                        </div>
-                        <nav class="nav-icons">
-                            <a href="workload.php"><i class="fas fa-arrow-left"></i></a>
-                        </nav>
+                <div class="profile-icon">
+                    <img src="https://avatar.iran.liara.run/public" alt="User">
+                </div>
+                </div>
+            <nav class="nav-icons">
+                <a href="workload.php"><i class="fas fa-arrow-left"></i></a>
+            </nav>
         </div>
+
+
+           
 
         <!-- Main Content -->
         <div class="main-content">
@@ -96,9 +99,9 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="left-panel">
                     <div class="calendar-panel">
                         <div class="calendar-navigation">
-
-                            <h2 id="monthYear"></h2>
                             <button id="prevMonth">&lt;</button>
+                            <h2 id="monthYear"></h2>
+
                             <button id="nextMonth">&gt;</button>
                         </div>
                         <!-- Calendar Table -->
@@ -106,9 +109,13 @@ if (!isset($_SESSION['user_id'])) {
 
 
                     </div>
+                   
                     <div class="upcoming-events">
-                        <h3>Upcoming Events</h3>
-                         
+                       
+                   
+
+                       
+
                         <!-- Add more .event-card blocks dynamically if needed -->
                     </div>
                 </div>
@@ -151,7 +158,8 @@ if (!isset($_SESSION['user_id'])) {
             </div>
 
             <!-- Popup Message -->
-            <div id="popupMessage" style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
+            <div id="popupMessage"
+                style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
                 <span id="popupText"></span>
             </div>
         </div>

@@ -24,14 +24,17 @@ if (!isset($_SESSION['user_id'])) {
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header" id="sidebarHeader"></div>
+            <div class="sidebar-header" id="sidebarHeader">
+            <div class="header-title">
+                    <p id="current-date">Loading date...</p>
+                </div>
+            </div>
 
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="active"><a href="#"><span class="material-symbols-rounded">dashboard</span> Dashboard</a>
-                    </li>
-                    <li><a href="#"><span class="material-symbols-rounded">task</span> Tasks</a></li>
-                    <li><a href="#"><span class="material-symbols-rounded">emoji_events</span> Achievements</a></li>
+                    <li class="active"><a href="#" data-target="dashboard-content"><span class="material-symbols-rounded">dashboard</span> Dashboard</a></li>
+                    <li><a href="#" data-target="task-content"><span class="material-symbols-rounded">task</span> Tasks</a></li>
+                    <li><a href="#" data-target="achievement-content"><span class="material-symbols-rounded">emoji_events</span> Achievements</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -44,8 +47,9 @@ if (!isset($_SESSION['user_id'])) {
         <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
+               
                 <div class="header-title">
-                    <h2>Time Tracker</h2>
+                    <h2>Activity Tracker</h2>
                 </div>
                 <div class="header-actions">
                     <button id="add-task-btn" class="btn btn-primary">
@@ -56,7 +60,7 @@ if (!isset($_SESSION['user_id'])) {
             </header>
 
             <!-- Dashboard Content -->
-            <div class="dashboard-content">
+            <div class="dashboard-content content-section">
                 <!-- Stats Cards -->
                 <section class="stats-section">
                     <div class="stats-card">
@@ -95,10 +99,10 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                     <div class="tasks-container" id="tasks-container">
                         <!-- Tasks will be added here dynamically -->
-                        <div class="empty-state">
+                        <!-- <div class="empty-state" >
                             <span class="material-symbols-rounded">task</span>
                             <p>No tasks added yet. Click "Add New Task" to get started.</p>
-                        </div>
+                        </div> -->
                     </div>
                 </section>
 
@@ -119,6 +123,13 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                 </section>
             </div>
+            <div class="task-content content-section" style="display:none;">
+                <div id="goalsList"></div>
+            </div>
+            <div class="achievement-content content-section" style="display: none;">
+    <div id="viewBadgs"></div>
+</div>
+
         </main>
     </div>
 
@@ -131,6 +142,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="modal-body">
                 <form id="add-task-form">
+                    <div id="errorContainer" style="color: red; margin-bottom: 10px;"></div>
                     <div class="form-group">
                         <label for="task-name">Task Name</label>
                         <input type="text" id="task-name" name="task-name" placeholder="e.g., Math Assignment" required>
@@ -215,6 +227,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- Achievement Notification -->
@@ -227,6 +240,10 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
+    <div id="popupMessage" style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
+        <span id="popupText"></span>
+    </div>
+
     <script src="../../assets/js/time_tracking.js"></script>
 
 </body>

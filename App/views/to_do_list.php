@@ -132,7 +132,7 @@ if (!isset($_SESSION['user_id'])) {
 
                             <div class='tag-progress'>
 
-                                <h2>Weekly Grind</h2>
+                             <h2>⏳ Weekly Grind</h2>
                                 <div id="timeline" class="timeline"></div>
                                 <!-- <div class="event">
                                 <span class="date">01 Oct</span>

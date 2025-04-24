@@ -1,11 +1,16 @@
 let events = [];
 window.onload = async function () {
     // Fetch events from the server
+  
+    loadEvent();
+};
+async function loadEvent() {
     const events = await fetchEvents();
     setToday()
     // Generate the calendar with the fetched events
     generateCalendar(events);
-};
+    displayUpcomingSchedule(events);
+}
 function setToday() {
 
     const today = new Date();
@@ -218,9 +223,51 @@ function displayEvents(events) {
         eventCard.classList.add('course-card', 'math'); // Add appropriate classes
 
         eventCard.innerHTML = `
-        <div class="time">${formatTime(event.start_time)} - ${formatTime(event.end_time)}</div>
+        
+        <div class="course-info">
+    <h5>
+        <i class="fas fa-star" style="color: #f4c542; font-size:15px; margin-right: 6px;"></i> 
+        ${event.title}
+    </h5>
+    <div class="time">
+        <i class="fas fa-clock" style="color: #4caf50; font-size:15px; margin-right: 6px;"></i>
+        ${formatTime(event.start_time)} - ${formatTime(event.end_time)}
+    </div>
+    <div class="details">${event.description}</div>
+    <div class="button-container">
+        <button class="edit-btn" onclick="openEditPopup(${event.id})">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="delete-btn" onclick="deleteEvent(${event.id})">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+</div>
+
+    `;
+
+        // Function to format time to HH:MM
+        function formatTime(time) {
+            // If time is a string in HH:MM:SS format (e.g., "12:12:00")
+            return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
+        }
+        scheduleContainer.appendChild(eventCard);
+    });
+}
+
+function displayUpcomingEvents(events) {
+    const scheduleContainer = document.querySelector('.schedule');
+    scheduleContainer.innerHTML = ''; // Clear previous events
+
+    events.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.classList.add('course-card', 'math'); // Add appropriate classes
+
+        eventCard.innerHTML = `
+        
         <div class="course-info">
             <h4>${event.title}</h4>
+            <div class="time">${formatTime(event.start_time)} - ${formatTime(event.end_time)}</div>
             <div class="details">${event.description}</div>
             <div class="button-container">
                 <button class="edit-btn" onclick="openEditPopup(${event.id})">
@@ -232,18 +279,64 @@ function displayEvents(events) {
             </div>
         </div>
     `;
-    
-    // Function to format time to HH:MM
-    function formatTime(time) {
-        // If time is a string in HH:MM:SS format (e.g., "12:12:00")
-        return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
-    }
-    
 
+        // Function to format time to HH:MM
+        function formatTime(time) {
+            // If time is a string in HH:MM:SS format (e.g., "12:12:00")
+            return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
+        }
         scheduleContainer.appendChild(eventCard);
     });
 }
+function displayUpcomingSchedule(events) {
+    const container = document.querySelector('.upcoming-events');
+    const eventsWrapper = document.createElement('div');
+    eventsWrapper.classList.add('events-wrapper');
 
+    // Clear existing events (excluding the title)
+    container.innerHTML = ' <h3><i class="fas fa-thumbtack pinned-icon"></i> Upcoming Events</h3>';
+
+    const now = new Date();
+
+    // Filter and sort future events
+    const upcoming = events
+        .filter(event => new Date(event.date + 'T' + event.start_time) > now)
+        .sort((a, b) => new Date(a.date + 'T' + a.start_time) - new Date(b.date + 'T' + b.start_time));
+
+    upcoming.forEach(event => {
+        const card = document.createElement('div');
+        card.className = 'event-card';
+
+        const startTimeFormatted = formatTo12Hour(event.start_time);
+        const endTimeFormatted = formatTo12Hour(event.end_time);
+        const eventDate = new Date(event.date);
+        const dateFormatted = eventDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+
+        card.innerHTML = `
+           <div class="title-row">
+        <h4>${event.title}</h4>
+        <i class="fas fa-bell" style="color: #f39c12;"></i>
+    </div>
+    <p>${startTimeFormatted} - ${endTimeFormatted}</p>
+    <p>${dateFormatted}</p>
+            
+        `;
+
+        container.appendChild(card);
+    });
+
+    // Helper: Convert HH:MM:SS to 12-hour AM/PM format
+    function formatTo12Hour(timeStr) {
+        const [hour, minute] = timeStr.split(':');
+        const date = new Date();
+        date.setHours(+hour, +minute);
+        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+}
 
 async function fetchEventDetails(eventId) {
     try {
@@ -422,6 +515,8 @@ document.getElementById("eventForm").addEventListener("submit", function (event)
                 // Only show success alert if there are no errors
                 showAlert(data.message);
                 document.getElementById("eventForm").reset(); // Reset form on success
+                closePopup();
+                loadEvent();
             }
         })
         .catch((error) => {
