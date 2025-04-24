@@ -234,6 +234,80 @@ public function viewStudentStressTrend() {
             }
         }
     }
+        /**
+/**
+ * View all appointments
+ */
+public function viewAppointments() {
+    session_start(); // Start the session first
+    
+    // Check if user is logged in as admin
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+        header('Location: ../login.php?error=unauthorized');
+        exit();
+    }
+    
+    // Get status filter if provided
+    $status = isset($_GET['status']) ? $_GET['status'] : null;
+    
+    // Get appointments based on status filter
+    if ($status && in_array($status, ['Pending', 'Accepted', 'Denied'])) {
+        $appointments = $this->model->getAppointmentsByStatus($status);
+    } else {
+        $appointments = $this->model->getAllAppointments();
+    }
+    
+    // Get appointment counts by status
+    $counts = $this->model->getAppointmentCountsByStatus();
+    
+    // Store data in session for view to access
+    $_SESSION['appointments'] = $appointments;
+    $_SESSION['appointment_counts'] = $counts;
+    $_SESSION['selected_status'] = $status;
+    
+    // Redirect to appointments view
+    header('Location: ../views/admin/admin_appointments/appointments.php');
+    exit();
+}
+
+/**
+ * View appointment details
+ */
+public function viewAppointmentDetails() {
+    session_start(); // Start the session first
+    
+    // Check if user is logged in as admin
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+        header('Location: ../login.php?error=unauthorized');
+        exit();
+    }
+    
+    // Check if appointment ID is provided
+    if (!isset($_GET['id'])) {
+        $_SESSION['error_message'] = "Missing appointment ID.";
+        header('Location: ../controller/AppointmentController.php?action=viewAppointments');
+        exit();
+    }
+    
+    $appointmentId = (int)$_GET['id'];
+    
+    // Get appointment details
+    $appointment = $this->model->getDetailedAppointmentById($appointmentId);
+    
+    if (!$appointment) {
+        $_SESSION['error_message'] = "Appointment not found.";
+        header('Location: ../controller/AppointmentController.php?action=viewAppointments');
+        exit();
+    }
+    
+    // Store appointment in session for view to access
+    $_SESSION['appointment_details'] = $appointment;
+    
+    // Redirect to appointment details view
+    header('Location: ../views/admin/admin_appointments/appointment_details.php');
+    exit();
+}
+
     /**
  * Reschedule an approved appointment
  * This method updates the appointment date for approved appointments
@@ -344,6 +418,13 @@ if (isset($_GET['action'])) {
         case 'rescheduleAppointment':
             $controller->rescheduleAppointment();
             break;
+        case 'viewAppointments':    
+            $controller->viewAppointments();
+            break;  
+        case 'viewAppointmentDetails':
+            $controller->viewAppointmentDetails();
+            break;      
+
         default:
             echo 'Invalid action';
     }

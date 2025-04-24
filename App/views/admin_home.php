@@ -53,7 +53,7 @@ if (!isset($_SESSION['user_id'])) {
             </ul>
           </li>
           <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
-          <li><a href="#">Counseling</a></li>
+          <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
