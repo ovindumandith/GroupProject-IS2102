@@ -59,7 +59,10 @@ if (!isset($_SESSION['user_id'])) {
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='admin_profile.php'"><b>Profile</b></button>
+<form action="../../App/controller/AdminProfileController.php" method="GET">
+  <input type="hidden" name="action" value="viewProfile">
+  <button type="submit" class="login"><b>Profile</b></button>
+</form>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
