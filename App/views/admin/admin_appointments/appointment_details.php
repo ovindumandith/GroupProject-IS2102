@@ -24,8 +24,11 @@ if (!$appointment) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-   <link rel="stylesheet" href="../../../assets/css/header_footer.css" />
+   <link rel="stylesheet" href="../../../../assets/css/header_footer.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../../assets/css/appointment_details.css" />
+    <link rel="stylesheet" href="../../../../assets/css/admin_home.css" />
+    
    <style>
        /* Main content styles */
        main {
@@ -247,20 +250,29 @@ if (!$appointment) {
    <!-- Header Section -->
    <header class="header">
        <div class="logo">
-           <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
+           <img src="../../../../assets/images/logo.jpg" alt="RelaxU Logo" />
            <h1>RelaxU</h1>
        </div>
-       <nav class="navbar">
-           <ul>
-               <li><a href="admin_home.php">Dashboard</a></li>
-               <li><a href="../../controller/AppointmentController.php?action=viewAppointments" class="active">Counseling</a></li>
-               <li><a href="#">Users</a></li>
-               <li><a href="#">Reports</a></li>
-           </ul>
-       </nav>
+      <nav class="navbar">
+        <ul>
+          <li><a href="./admin_home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
+              <li><a href="./workload.php">Workload Management Tools</a></li>
+            </ul>
+          </li>
+          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+          <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </nav>
        <div class="auth-buttons">
            <a href="#" class="profile-btn"><b>Profile</b></a>
-           <form action="../../../util/logout.php" method="post" style="display: inline">
+           <form action="../../../../util/logout.php" method="post" style="display: inline">
                <button type="submit" class="logout-btn"><b>Log Out</b></button>
            </form>
        </div>
@@ -340,25 +352,7 @@ if (!$appointment) {
                </div>
            </div>
            
-           <?php if ($appointment['status'] === 'Pending'): ?>
-               <div class="action-container">
-                   <form action="../../controller/AppointmentController.php?action=updateStatus" method="POST">
-                       <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
-                       <input type="hidden" name="status" value="Accepted">
-                       <button type="submit" class="action-btn btn-accept">
-                           <i class="fas fa-check"></i> Accept Appointment
-                       </button>
-                   </form>
-                   
-                   <form action="../../controller/AppointmentController.php?action=updateStatus" method="POST">
-                       <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
-                       <input type="hidden" name="status" value="Denied">
-                       <button type="submit" class="action-btn btn-deny">
-                           <i class="fas fa-times"></i> Deny Appointment
-                       </button>
-                   </form>
-               </div>
-           <?php endif; ?>
+           
        </div>
    </main>
    
@@ -368,7 +362,7 @@ if (!$appointment) {
            <div class="footer-logo">
                <h1>RelaxU</h1>
                <p>Your mental health, your priority.</p>
-               <img id="footer-logo" src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
+               <img id="footer-logo" src="../../../../assets/images/logo.jpg" alt="RelaxU Logo" />
            </div>
            <div class="footer-section">
                <h3>Quick Links</h3>

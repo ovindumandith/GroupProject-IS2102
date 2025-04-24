@@ -27,7 +27,6 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
     <title>Counseling Appointments | RelaxU Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../../../assets/css/header_footer.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../../../../assets/css/admin_home.css" />
     
     <link rel="stylesheet" href="../../../../assets/css/admin_appointments.css" />
@@ -40,14 +39,23 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
             <img src="../../../../assets/images/logo.jpg" alt="RelaxU Logo" />
             <h1>RelaxU</h1>
         </div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="admin_home.php">Dashboard</a></li>
-                <li><a href="../../controller/AppointmentController.php?action=viewAppointments" class="active">Counseling</a></li>
-                <li><a href="#">Users</a></li>
-                <li><a href="#">Reports</a></li>
+      <nav class="navbar">
+        <ul>
+          <li><a href="./admin_home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
+              <li><a href="./workload.php">Workload Management Tools</a></li>
             </ul>
-        </nav>
+          </li>
+          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+          <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </nav>
         <div class="auth-buttons">
             <a href="#" class="profile-btn"><b>Profile</b></a>
             <form action="../../../../util/logout.php" method="post" style="display: inline">
@@ -148,7 +156,7 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
                                 </td>
                                 <td>
                                     <div class="action-buttons">
-                                        <a href="../../controller/AppointmentController.php?action=viewAppointmentDetails&id=<?= $appointment['id'] ?>" class="action-btn view-btn">
+                                        <a href="/GroupProject-IS2102/App/controller/AppointmentController.php?action=viewAppointmentDetails&id=<?= $appointment['id'] ?>" class="action-btn view-btn">
                                             <i class="fas fa-eye"></i> View
                                         </a>
                                     </div>
