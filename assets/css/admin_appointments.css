@@ -1,3 +1,10 @@
+/* Main content styles */
+main {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
 h2 {
   color: #009f77;
   margin-bottom: 25px;
