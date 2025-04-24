@@ -256,16 +256,28 @@ $stats = $_SESSION['system_stats'] ?? [];
             <img src="../../../assets/images/logo.jpg" alt="RelaxU Logo" />
             <h1>RelaxU</h1>
         </div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="admin_home.php">Dashboard</a></li>
-                <li><a href="../../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
-                <li><a href="#">Users</a></li>
-                <li><a href="#">Reports</a></li>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../admin_home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
+              <li><a href="./workload.php">Workload Management Tools</a></li>
             </ul>
-        </nav>
+          </li>
+          <li><a href="../../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+          <li><a href="../../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </nav>
         <div class="auth-buttons">
-            <a href="../../controller/AdminProfileController.php?action=viewProfile" class="profile-btn active"><b>Profile</b></a>
+            <form action="../../controller/AdminProfileController.php" method="GET">
+  <input type="hidden" name="action" value="viewProfile">
+  <button type="submit" class="login"><b>Profile</b></button>
+</form>
             <form action="../../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="logout-btn"><b>Log Out</b></button>
             </form>
