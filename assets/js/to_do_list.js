@@ -314,7 +314,7 @@ function createTaskHTML(task) {
   return `
     <div class='task' draggable='true' data-task-id='${task.id}'>
       <div class='task__tags'>
-          <span class='task__tag' style='background-color: ${task.color}'>📋 ${task.title}</span>
+          <span class='task__tag' style='background-color: ${task.color}'> ${task.title}</span>
           <div class="task__options-container">
           ${task.status !== 'completed' ?`
               <button style='color:#9d9d9d' class='task__options' onclick="openEditPopup(${task.id})"><i class="fas fa-pencil"></i></button>

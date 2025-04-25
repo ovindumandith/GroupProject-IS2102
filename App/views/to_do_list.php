@@ -63,7 +63,7 @@ if (!isset($_SESSION['user_id'])) {
                     </aside>
 
                     <div class='project-info'>
-                        <h1> Dashboard</h1>
+                        <h1>Daily Planner </h1>
                         <div class="search-container">
                             <div class="search-task">
                                 <input type="text" id="search-bar" name="search" placeholder="search task here...">
@@ -132,7 +132,7 @@ if (!isset($_SESSION['user_id'])) {
 
                             <div class='tag-progress'>
 
-                             <h2>⏳ Weekly Grind</h2>
+                             <h2> Weekly Grind</h2>
                                 <div id="timeline" class="timeline"></div>
                                 <!-- <div class="event">
                                 <span class="date">01 Oct</span>
