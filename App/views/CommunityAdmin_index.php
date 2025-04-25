@@ -117,7 +117,7 @@ $_SESSION['current_post_id'] = $postId;
                 <div class="post-footer">
                   <button class="like-btn" id="likeButton1"> ❤️ 30 Likes</button>
                   <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
-                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
+                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="profile-picc"></button>
                   </a>
                 </div>
                 <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
@@ -125,68 +125,7 @@ $_SESSION['current_post_id'] = $postId;
         <?php endforeach; ?>
     <?php else: ?>
         <p>No posts available.</p>
-    <?php endif; ?>
-    
-        <!-- Post 1 -->
-        <article class="post">
-          <div class="post-header">
-            <img src="../../assets/images/Account.png" alt="Profile" class="profile-pic">
-            <h4>Camy</h4>
-          </div>
-          <h3>My Journey to Better Mental Health</h3>
-          <br>
-          <img src="../../assets/images/Post1.png" alt="Post Image" class="post-img"><br>
-          <p>
-          We all face challenges, and sometimes, those challenges feel insurmountable. In this heartfelt post, I share my personal experience with mental health struggles, how they impacted my life, and the steps I took to regain control. From practicing mindfulness to embracing self-care routines, this journey was filled with ups and downs, but it ultimately led to a stronger, healthier version of myself. I hope my story inspires you to take that first step toward prioritizing your mental well-being. Join the conversation, share your story, or simply know that you’re not alone in this.
-          </p><br><hr>
-          <div class="post-footer">
-          <button class="like-btn" id="likeButton2"> ❤️ 30 Likes</button>
-              <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
-                <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
-              </a>
-            </div>
-          <small>Posted on: 2024-12-02 17:57:46 </small>
-        </article>
-  
-        <!-- Post 2 -->
-        <article class="post">
-          <div class="post-header">
-            <img src="../../assets/images/Account.png" alt="Profile" class="profile-pic">
-            <h4>Julian</h4>
-          </div>
-          <h3>5-Minute Relaxation Techniques for Busy Days</h3><br>
-          <img src="../../assets/images/Post2.png" alt="Post Image" class="post-img"><br>
-          <p>
-          Life can be overwhelming, and sometimes finding time to relax feels impossible. But even a short break can make a difference! This post introduces quick and practical relaxation methods, like focused deep breathing, mindful stretching, or even a five-minute guided meditation. These techniques are designed to fit into your busiest days, helping you recharge your mind and body. Whether you’re at work, studying, or managing multiple responsibilities, take a moment to explore these simple ways to restore balance to your life.
-          </p><br><hr>
-          <div class="post-footer">
-              <button class="like-btn" id="likeButton3"> ❤️ 30 Likes</button>
-              <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
-                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
-                  </a>
-          </div>
-          <small>Posted on: 2024-12-01 01:57:30 </small>
-        </article>
-  
-        <!-- Post 3 -->
-        <article class="post">
-          <div class="post-header">
-            <img src="../../assets/images/Account.png" alt="Profile" class="profile-pic">
-            <h4>Stefan</h4>
-          </div>
-          <h3>How Exercise Can Help You Beat Stress</h3><br>
-          <img src="../../assets/images/Post3.png" alt="Post Image" class="post-img"><br>
-          <p>
-          Feeling tense or overwhelmed? Moving your body might be the solution! This post delves into how physical activity not only strengthens your body but also calms your mind. Whether it’s a quick walk, a yoga session, or an intense workout, exercise releases endorphins—your body’s natural stress relievers. We’ll explore the best types of exercises for stress reduction and how you can fit them into your daily routine, no matter how busy life gets. Start small, and let movement transform your mood and energy levels!
-          </p><br><hr>
-          <div class="post-footer">
-              <button class="like-btn" id="likeButton4"> ❤️ 30 Likes</button>
-              <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
-                    <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="cmt-img"></button>
-                  </a>
-          </div>
-            <small>Posted on: 2024-11-30 15:57:49 </small>
-        </article>       
+    <?php endif; ?>     
     </section>
 
     <!-- Footer Section -->
