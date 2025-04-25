@@ -28,7 +28,7 @@ if ($role === 'CommunityAdmin') {
   <link rel="stylesheet" href="../../assets/css/manage_posts.css">
 </head>
 <body>
-  <div class="create-whole-container">
+  <main class="create-whole-container">
     <!-- Header Section -->
     <div class="header">
       <div class="header-left">
@@ -52,8 +52,13 @@ if ($role === 'CommunityAdmin') {
                 <div class="post">
                     <h2><?= htmlspecialchars($post['title']) ?></h2>
                 
+                    <?php
+                        $baseUrl = '/GroupProject-IS2102/App/';
+                    ?>
+
                     <?php if (!empty($post['image'])): ?>
-                        <img src="<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" class="post-image">
+                        <img src="<?= htmlspecialchars($baseUrl . $post['image']) ?>"
+                        alt="<?= htmlspecialchars($post['title']) ?>" class="post-image">
                     <?php endif; ?>
 
                     <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
@@ -77,8 +82,8 @@ if ($role === 'CommunityAdmin') {
             <?php endif; ?>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>No posts found.</p>
+        <p>No more posts found.</p>
     <?php endif; ?>
-  </div> 
+    </main> 
 </body>
 </html>
