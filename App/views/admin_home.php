@@ -155,14 +155,20 @@ if (!isset($_SESSION['user_id'])) {
         </div>
         <div class="footer-section">
           <h3>Services</h3>
-          <ul>
-            <li><a href="#">Stress Monitoring</a></li>
-            <li><a href="./relaxation_activities.php">Relaxation Activities</a></li>
-            <li><a href="#">Academic Help</a></li>
-            <li><a href="#">Counseling</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Workload Managment Tools</a></li>
-          </ul>
+<ul>
+          <li><a href="./admin_home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
+              <li><a href="./workload.php">Workload Management Tools</a></li>
+            </ul>
+          </li>
+          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+          <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
         </div>
         <div class="footer-section">
           <h3>Contact</h3>

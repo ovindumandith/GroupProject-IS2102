@@ -179,12 +179,20 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="admin_home.php">Dashboard</a></li>
-                    <li><a href="../../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
-                    <li><a href="#">Users</a></li>
-                    <li><a href="#">Reports</a></li>
-                </ul>
+        <ul>
+          <li><a href="./admin_home.php">Home</a></li>
+          <li class="services">
+            <a href="#">Services </a>
+            <ul class="dropdown">
+              <li><a href="../../../../App/controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
+              <li><a href="./workload.php">Workload Management Tools</a></li>
+            </ul>
+          </li>
+          <li><a href="../../../../App/controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+          <li><a href="../../../../App/controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
             </div>
             <div class="footer-section">
                 <h3>Contact Support</h3>
