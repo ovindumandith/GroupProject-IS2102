@@ -70,11 +70,7 @@ $result = $eventModel->fetchAllEvents();
 <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
 
     <h2 class="page-title">Upcoming Community Events</h2>
-
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search by Title...">
-    </div>
-<!-- Events Table -->
+    <br>
 <table id="eventsTable">
       <thead>
         <tr>
