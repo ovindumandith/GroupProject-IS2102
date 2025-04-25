@@ -4,7 +4,7 @@ require_once '../../config/config.php';
 class ReviewModel {
     private $db;
 
-    public function __construct() {
+    public function _construct() {
         $this->db = new Database();
         $this->db = $this->db->connect();
     }

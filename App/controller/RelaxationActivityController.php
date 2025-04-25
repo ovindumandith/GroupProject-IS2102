@@ -17,6 +17,7 @@ class RelaxationActivityController {
             $tempName = $file['tmp_name'];
             $folder = './uploads/' . $fileName;
             $playlist_url = $_POST['playlist_url'];
+            $stress_level = $_POST['stress_level'] ? $_POST['stress_level'] : [];
 
             // Validate the file
             $errors = $this->validateFile($file);
@@ -25,11 +26,11 @@ class RelaxationActivityController {
                 // Move uploaded file
                 if (move_uploaded_file($tempName, $folder)) {
                     // Add activity to the database
-                    $isAdded = $this->model->addRelaxationActivity($name, $description, $fileName, $playlist_url);
+                    $isAdded = $this->model->addRelaxationActivity($name, $description, $fileName, $playlist_url, $stress_level);
 
                     if ($isAdded) {
                         // Redirect to relaxation activities page
-                        header("Location: /GroupProject-IS2102/App/views/relaxation_activities.php");
+                        header("Location: /GroupProject-IS2102/App/views/add_relaxation_activites.php");
                         exit;
                     } else {
                         echo "Failed to add activity. Please try again.";

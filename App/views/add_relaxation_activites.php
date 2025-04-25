@@ -55,7 +55,7 @@
         <h1>Add Relaxation Activities</h1>
          
     
-    <form method="post"  action="./admin_page_relaxation activites.php" id="updateform" enctype="multipart/form-data">
+    <form method="post"  action="./add_relaxation_activites.php" id="updateform" enctype="multipart/form-data">
         <label for="activity_name">Activity Title:</label>
         <input type="text" id="activity_name" name="activity_name" required>
 
@@ -65,8 +65,18 @@
         <label for="playlist">Source:</label>
         <input type="text" id="playlist" name="playlist_url" required></input>
 
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image_url" class="file-input" required>
+            <div class="image-preview-container">
+                <label for="image" class="file-input-label">Choose Image</label>
+                <input type="file" id="image_url" name="image_url" class="file-input" required>
+                <img id="newImagePreview" class="new-image-preview" src="#" alt="Image Preview">
+            </div>
+
+        <label>Recommended Stress Level:</label>
+        <div class="radio-group">
+          <label for="low"><input type="radio" value="low" id="low" name="stress_level">Low</label>
+          <label for="moderate"><input type="radio" value="moderate" id="moderate" name="stress_level">Moderate</label>
+          <label for="high"><input type="radio" value="high" id="high" name="stress_level">High</label>
+        </div>
 
         <input type="submit" name="submit" value="Add Activity">
     </form>
@@ -129,4 +139,8 @@
       </div>
     </footer>
   </body>
+
+  <script src="../../assets/js/update_relaxation_activities.js"></script>
+    // Simple image preview functionality
+   
 </html>

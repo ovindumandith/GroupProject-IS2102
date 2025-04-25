@@ -1,137 +1,118 @@
 <?php
-require_once "../controller/ViewRelaxationActivityController.php";
+session_start();
 
-$controller = new ViewRelaxationActivityController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controller->updateActivity();
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'superadmin')) {
+    header('Location: login.php');
+    exit();
 }
 
+require_once '../models/ViewRelaxationActivityModel.php';
+require_once '../controller/ViewRelaxationActivityController.php';
+
+// Initialize model and controller
+$model = new ViewRelaxationActivityModel();
+$controller = new ViewRelaxationActivityController($model);
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->updateActivity();
+    exit();
+}
+
+// Get activity data
+$activityId = $_GET['id'] ?? null;
+$activity = $activityId ? $model->getActivityById($activityId) : null;
+
+if (!$activity) {
+    $_SESSION['error'] = "Activity not found";
+    header("Location: relaxation_activities.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RelaxU</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <title>Update Activity | RelaxU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/relaxation_activities.css" />
     <link rel="stylesheet" href="../../assets/css/user_profile.css" type="text/css" />
-  </head>
-  <body>
+</head>
+<body>
     <!-- Header Section -->
     <header class="header">
-      <div class="logo">
-        <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
-        <h1>RelaxU</h1>
-      </div>
-      <nav class="navbar">
-        <ul>
-          <li><a href="home.php">Home</a></li>
-          <li class="services">
-            <a href="#">Services </a>
-            <ul class="dropdown">
-              <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="../views/relaxation_activities.php">Relaxation Activities</a></li>
-              <li><a href="#">Workload Management Tools</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Academic Help</a></li>
-          <li><a href="#">Counseling</a></li>
-          <li><a href="#">Community</a></li>
-          <li><a href="#">About Us</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <button class="signup"><b>Profile</b></button>
-        <button class="login"><b>Log Out</b></button>
-      </div>
+        <!-- Your existing header code -->
     </header>
-    <!-- Content Section (for demonstration) -->
+
+    <!-- Display Error Messages -->
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert error"><?= htmlspecialchars($_SESSION['error']) ?></div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
+    <!-- Content Section -->
     <div class="content">
-        <h1>Update Relaxation Activities</h1>
-         
-    
+        <h1>Update Relaxation Activity</h1>
+        
         <form method="post" id="updateform" enctype="multipart/form-data">
-          <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id'] ?? '') ?>">
-          <input type="hidden" name="existing_image_url" value="<?= htmlspecialchars($_GET['image_url'] ?? '') ?>">
+            <input type="hidden" name="id" value="<?= htmlspecialchars($activity['id']) ?>">
+            <input type="hidden" name="existing_image_url" value="<?= htmlspecialchars($activity['image_url']) ?>">
 
-          <label for="activity_name">Activity Title:</label>
-          <input type="text" id="activity_name" name="activity_name" value="<?= htmlspecialchars($_GET['activity_name'] ?? '') ?>" required>
+            <label for="activity_name">Activity Title:</label>
+            <input type="text" id="activity_name" name="activity_name" 
+                   value="<?= htmlspecialchars($activity['activity_name']) ?>" required>
 
-          <label for="description">Description:</label>
-          <textarea id="description" name="description" required><?= htmlspecialchars($_GET['description'] ?? '') ?></textarea>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required><?= 
+                htmlspecialchars($activity['description']) ?></textarea>
 
-          <label for="playlist">Source:</label>
-          <input type="text" id="playlist" name="playlist_url" value="<?= htmlspecialchars($_GET['playlist_url'] ?? '') ?>" required>
+            <label for="playlist_url">Source:</label>
+            <input type="text" id="playlist_url" name="playlist_url" 
+                   value="<?= htmlspecialchars($activity['playlist_url']) ?>" required>
 
-          <label for="image">Image:</label>
-          <input type="file" id="image" name="image_url">
+            <label for="image_url">Image:</label>
+            <div>
+                <?php if (!empty($activity['image_url'])): ?>
+                    <img src="./uploads/<?= htmlspecialchars($activity['image_url']) ?>" 
+                         class="image-preview" alt="Current Image">
+                    <span class="current-image-label">Current: <?= htmlspecialchars($activity['image_url']) ?></span>
+                <?php endif; ?>
+                <input type="file" id="image_url" name="image_url" class="file-input" accept="image/*">
+                <img id="newImagePreview" class="new-image-preview" src="#" alt="New Image Preview">
+            </div>
 
-          <input type="submit" name="submit" value="Update Activity">
-      </form>
-      <p></p>
+            <label>Recommended Stress Level:</label>
+            <div class="radio-group">
+                <label for="low">
+                    <input type="radio" value="low" id="low" name="stress_level" 
+                        <?= (isset($activity['stress_level']) && $activity['stress_level'] === 'low' ? 'checked' : '') ?>>
+                    Low
+                </label>
+                <label for="moderate">
+                    <input type="radio" value="moderate" id="moderate" name="stress_level"
+                        <?= (isset($activity['stress_level']) && $activity['stress_level'] === 'moderate' ? 'checked' : '') ?>>
+                    Moderate
+                </label>
+                <label for="high">
+                    <input type="radio" value="high" id="high" name="stress_level"
+                        <?= (isset($activity['stress_level']) && $activity['stress_level'] === 'high' ? 'checked' : '') ?>>
+                    High
+                </label>
+            </div>
+
+            <input type="submit" name="submit" value="Update Activity">
+        </form>
     </div>
-    <div id="toast" class="toast">Profile updated successfully!</div>
-
 
     <!-- Footer Section -->
     <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-logo">
-          <h1>RelaxU</h1>
-          <p>Relax and Refresh while Excelling in your Studies</p>
-          <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
-        </div>
-        <div class="footer-section">
-          <h3>Services</h3>
-          <ul>
-            <li><a href="#">Stress Monitoring</a></li>
-            <li><a href="#">Relaxation Activities</a></li>
-            <li><a href="#">Academic Help</a></li>
-            <li><a href="#">Counseling</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Workload Managment Tools</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Contact</h3>
-          <p><i class="fa fa-image"></i> +14 5464 8272</p>
-          <p><i class="fa fa-envelope"></i> rona@domain.com</p>
-          <p><i class="fa fa-map-marker"></i> Lazy Tower 192, Burn Swiss</p>
-        </div>
-        <div class="footer-section">
-          <h3>Links</h3>
-          <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms Of Use</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="social-media">
-        <ul>
-          <li>
-            <a href="#"><img src="../../assets/images/facebook.png" alt="Facebook" /></a>
-          </li>
-          <li>
-            <a href="#"><img src="../../assets/images/twitter.png" alt="Twitter" /></a>
-          </li>
-          <li>
-            <a href="#"><img src="../../assets/images/instagram.png" alt="Instagram" /></a>
-          </li>
-          <li>
-            <a href="#"><img src="../../assets/images/youtube.png" alt="YouTube" /></a>
-          </li>
-        </ul>
-      </div>
-      <div class="footer-bottom">
-        <p>copyright 2024 @RelaxU all rights reserved</p>
-      </div>
+        <!-- Your existing footer code -->
     </footer>
-  </body>
-</html>
+            
+     
 
+    <script src="../../assets/js/update_relaxation_activities.js"></script>
+</body>
+</html>
