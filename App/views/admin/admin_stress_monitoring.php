@@ -20,6 +20,7 @@ $assessments = $_SESSION['all_assessments'] ?? [];
     <link rel="stylesheet" href="../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="../../assets/css/admin_dashboard.css" />
     <link rel="stylesheet" href="../../assets/css/admin_stress_monitoring.css" />
+    
 
 </head>
 <body>
