@@ -464,7 +464,7 @@ body {
 /* Ensure the course-card and other events are styled properly */
 
 
-.rd-container{
+.card-container{
     background-color: #fdfbfb;
     border-radius: 20px;
     padding: 20px;

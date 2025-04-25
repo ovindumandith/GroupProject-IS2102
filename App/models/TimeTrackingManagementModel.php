@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/config.php';
 
-class TimeTrackingManagement
+class TimeTrackingManagementModel
 {
     private $db;
 
@@ -97,7 +97,7 @@ class TimeTrackingManagement
     }
     public function deleteTask($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM to_do_lists WHERE id = :id");
+        $stmt = $this->db->prepare("DELETE FROM goals WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
@@ -145,39 +145,41 @@ class TimeTrackingManagement
         // Prepare the SQL query
 
     }
-    public function updateTaskStatus($id, $is_completed)
+    public function updateTaskStatus($id, $status)
     {
-        // error_log('AFSDSD'.$id,$is_completed);
-
         try {
-            $query = "UPDATE to_do_lists SET is_completed = 1 WHERE id = ?";
-
-            // Prepare the statement
+            $query = "UPDATE goals SET completed = ? WHERE id = ?";
             $stmt = $this->db->prepare($query);
 
-            // Binding parameters with proper types
+            $stmt->bindParam(1, $status, PDO::PARAM_STR);
 
-            // Bind the id as an integer, but only if $id is provided (i.e., not NULL)
             if ($id !== null) {
-                $stmt->bindParam(1, $id, PDO::PARAM_INT);
+                $stmt->bindParam(2, $id, PDO::PARAM_INT); // Corrected index
             } else {
-                // Handle the case where ID is NULL (if necessary)
-                // For example, throw an exception or return false
-                return false; // Returning false since the task ID is required
+                return false;
             }
 
-            // Execute the query and return the result
-            if ($stmt->execute()) {
-                return true; // Update successful
-            } else {
-                return false; // Update failed
-            }
+            return $stmt->execute(); // true if successful, false if not
         } catch (\Throwable $th) {
             throw $th;
         }
-        // Prepare the SQL query
-
     }
+    public function updateTimeSpent(int $id): bool
+{
+    try {
+        $sql  = "UPDATE goals
+                   SET time_spent = time_spent + 1
+                 WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        error_log("DB error in updateTimeSpent: " . $e->getMessage());
+        return false;
+    }
+}
+
+
     public function getTaskBySearch($searchQuery)
     {
         // Sanitize input (for security)

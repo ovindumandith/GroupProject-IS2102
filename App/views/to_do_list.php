@@ -46,95 +46,114 @@ if (!isset($_SESSION['user_id'])) {
     <div class="dashboard-container">
 
         <!-- Main Content -->
-        
-            <!-- Working version of https://dribbble.com/shots/14552329--Exploration-Task-Management-Dashboard -->
-            <div class='main-content'>
-                <main class='project'>
 
-                    <aside class="sidebar">
-                        <div class="logo">
-                            <div class="profile-icon">
-                                <img src="https://avatar.iran.liara.run/public" alt="User">
-                            </div>
+        <!-- Working version of https://dribbble.com/shots/14552329--Exploration-Task-Management-Dashboard -->
+        <div class='main-content'>
+            <main class='project'>
+
+                <aside class="sidebar">
+                    <div class="logo">
+                        
+                    </div>
+                    <nav class="nav-icons">
+                    <a href="workload.php"><i class="fas fa-power-off"></i> </a>
+                    </nav>
+                </aside>
+
+                <div class='project-info'>
+                    <h1>Daily Planner </h1>
+                    <div class="search-container">
+                        <div class="search-task">
+                            <input type="text" id="search-bar" name="search" placeholder="search task here...">
+                            <button class="search-button"><i class="fas fa-search"></i></button>
                         </div>
-                        <nav class="nav-icons">
-                            <a href="workload.php"><i class="fas fa-arrow-left"></i></a>
-                        </nav>
-                    </aside>
-
-                    <div class='project-info'>
-                        <h1>Daily Planner </h1>
-                        <div class="search-container">
-                            <div class="search-task">
-                                <input type="text" id="search-bar" name="search" placeholder="search task here...">
-                                <button class="search-button"><i class="fas fa-search"></i></button>
-                            </div>
-                            <div class="results-container">
-                                <ul id="search-results">
-                                </ul>
-                            </div>
+                        <div class="results-container">
+                            <ul id="search-results">
+                            </ul>
                         </div>
+                    </div>
 
-                        <div class='project-participants'>
-                            <button class="add-task-btn " onclick="showPopup()">
-                                <span class="icon">+</span>Add Task
-                            </button>
-                            <!-- Popup Form (Initially Hidden) -->
-                            <div class="popup" id="eventPopup">
-                                <div class="popup-content">
-                                    <span class="close-btn" onclick="closePopup()">&times;</span>
-                                    <h2 id="popupTitle">Add Task</h2>
-                                    <form id="eventForm" method="POST">
-                                        <input type="hidden" id="taskId" name="id"> <!-- Hidden field for event ID -->
-                                        <!-- Error container (for displaying error messages) -->
-                                        <div id="errorContainer" style="color: red; margin-bottom: 10px;"></div>
-                                        <label for="title">Title:</label>
-                                        <input type="text" id="title" name="title" required>
-                                        <label for="date">Date:</label>
-                                        <input type="date" id="date" name="date" required>
-                                        <label for="description">Description:</label>
-                                        <textarea id="description" name="description" rows="4" cols="50"></textarea>
-                                        <button type="submit" id="formSubmitButton">Save Task</button>
-                                    </form>
-                                </div>
+                    <div class='project-participants'>
+                        <button class="add-task-btn " onclick="showPopup()">
+                            <span class="icon">+</span>Add Task
+                        </button>
+                        <!-- Popup Form (Initially Hidden) -->
+                        <div class="popup" id="eventPopup">
+                            <div class="popup-content">
+                                <span class="close-btn" onclick="closePopup()">&times;</span>
+                                <h2 id="popupTitle">Add Task</h2>
+                                <form id="eventForm" method="POST">
+                                    <input type="hidden" id="taskId" name="id"> <!-- Hidden field for event ID -->
+                                    <!-- Error container (for displaying error messages) -->
+                                    <div id="errorContainer" style="color: red; margin-bottom: 10px;"></div>
+                                    <label for="title">Title:</label>
+                                    <input type="text" id="title" name="title" required>
+                                    <label for="date">Date:</label>
+                                    <input type="date" id="date" name="date" required>
+                                    <label for="description">Description:</label>
+                                    <textarea id="description" name="description" rows="4" cols="50"></textarea>
+                                    <button type="submit" id="formSubmitButton">Save Task</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class='project-tasks'>
-                        <div class='project-column'>
-                            <div class='project-column-heading'>
-                                <h2 class='project-column-heading__title'>Today</h2>
+                </div>
+                <div class='project-tasks'>
+                    <div class='project-column'>
+                        <div class='project-column-heading'>
+                            <h2 class='project-column-heading__title'>Today</h2>
+                        </div>
+                        <div id="today-tasks"></div>
+                    </div>
+
+                    <div class='project-column'>
+                        <div class='project-column-heading'>
+                            <h2 class='project-column-heading__title'>Upcoming</h2>
+                        </div>
+                        <div id="upcoming-tasks"></div>
+                    </div>
+
+                    <div class='project-column'>
+                        <div class='project-column-heading'>
+                            <h2 class='project-column-heading__title'>Overdue</h2>
+                        </div>
+                        <div id="overdue-tasks"></div>
+                    </div>
+
+                    <div class='project-column'>
+                        <div class='project-column-heading'>
+                            <h2 class='project-column-heading__title'>Done</h2>
+                        </div>
+                        <div id="done-tasks"><i class="fas fa-check-circle" style="color:green;"></i> Completed
+                        </div>
+                    </div>
+                    <aside class='task-details'>
+                        <div class="achievement-card">
+
+                            <div class="achievement-text">
+                                <div class="achievement-header">
+                                    <div class="profile-icon">
+                                        <img src="https://avatar.iran.liara.run/public" alt="User">
+                                    </div>
+                                    <h2>Hey Abi!</h2>
+                                </div>
+                                <p>You are almost there</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%;"></div>
+                                    <!-- 80% complete, adjust as needed -->
+                                </div>
+                                <p class="progress-status">20 out of 25 tasks are completed</p>
                             </div>
-                            <div id="today-tasks"></div>
+                            <div class="achievement-image">
+                                
+                            </div>
                         </div>
 
-                        <div class='project-column'>
-                            <div class='project-column-heading'>
-                                <h2 class='project-column-heading__title'>Upcoming</h2>
-                            </div>
-                            <div id="upcoming-tasks"></div>
-                        </div>
+                        <div class='tag-progress'>
 
-                        <div class='project-column'>
-                            <div class='project-column-heading'>
-                                <h2 class='project-column-heading__title'>Overdue</h2>
-                            </div>
-                            <div id="overdue-tasks"></div>
-                        </div>
-
-                        <div class='project-column'>
-                            <div class='project-column-heading'>
-                                <h2 class='project-column-heading__title'>Done</h2>
-                            </div>
-                            <div id="done-tasks"></div>
-                        </div>
-                        <aside class='task-details'>
-
-                            <div class='tag-progress'>
-
-                             <h2> Weekly Grind</h2>
-                                <div id="timeline" class="timeline"></div>
-                                <!-- <div class="event">
+                            <h2> Weekly Grind</h2>
+                            <div id="timeline" class="timeline"></div>
+                            <!-- <div class="event">
                                 <span class="date">01 Oct</span>
                                 <div class="details">Doctor Appointment</div>
                             </div>
@@ -142,10 +161,10 @@ if (!isset($_SESSION['user_id'])) {
                                 <span class="date">29 Sep</span>
                                 <div class="details">AWS Conference</div>
                             </div> -->
-                            </div>
-                    </div>
-                    </aside>
-            </div>
+                        </div>
+                </div>
+                </aside>
+        </div>
 
         </main>
 

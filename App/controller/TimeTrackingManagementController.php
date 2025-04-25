@@ -9,13 +9,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Fetch input values
 
     $id = $_POST['id'] ?? null;
-    $taskName = $_POST['taskName'] ?? '';
+    $taskName = $_POST['task_name'] ?? '';
     $description = $_POST['description'] ?? '';
-    $timeGoal = $_POST['timeGoal'] ?? '';
-    $timeUnit = $_POST['timeUnit'] ?? '';
-    $timeSpent = $_POST['timeSpent'] ?? null;
+    $timeGoal = $_POST['time_goal'] ?? '';
+    $timeUnit = $_POST['time_unit'] ?? '';
+    $timeSpent = $_POST['time_spent'] ?? null;
     $completed = $_POST['completed'] ?? null;
     $createdAt = $_SESSION['createdAt'];
+    $taskStatus = $_POST['taskStatus']?? null;
+    $timeUpdate = $_POST['timeUpdate']?? null;
+   
+    $trackingManagement = new TimeTrackingManagementModel();
 
     // $data = json_decode(file_get_contents("php://input"), true);
     // if (isset($data['id']) && isset($data['status'])) {
@@ -26,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate inputs
     $errors = [];
-    if (is_null($status)) {
+    if (is_null($status) && is_null($taskStatus) && is_null($timeUpdate)) {
 
         if (empty($taskName)) $errors[] = 'TaskName is required.';
         if (empty($description)) $errors[] = 'Description is required.';
@@ -39,9 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $timeManagement = new TimeTrackingManagement();
-
-        if ($timeManagement->checkTaskOverlap($date, $time, $title, $id)) {
+       
+        if ($trackingManagement->checkTaskOverlap($date, $time, $title, $id)) {
 
             echo json_encode(['errors' => ['An Task with the same title already exists at this date and time.']]);
             exit();
@@ -55,11 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
-    if(!is_null($id)){
-        echo json_encode($id);
+    if(!is_null($taskStatus)){
+        $success = $trackingManagement->updateTaskStatus($id,$taskStatus);
+        $message = $success ? 'Task Update successfully!' : 'Failed to Update the Task.';
+    }
+    else if(!is_null($timeUpdate)){
+        $success = $trackingManagement->updateTimeSpent($id);
+        $message = $success ? 'Task Update successfully!' : 'Failed to Update the Task.';
     }
     else{
-        $success = $timeManagement->saveTaskManagement($taskName, $description, $timeGoal, $timeUnit, $timeSpent, $completed, $createdAt);
+        $success = $trackingManagement->saveTaskManagement($taskName, $description, $timeGoal, $timeUnit, $timeSpent, 0, $createdAt);
         $message = $success ? 'Task saved successfully!' : 'Failed to save the Task.';
     }
     
@@ -119,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $timeTracking = new TimeTrackingManagement();
+    $timeTracking = new TimeTrackingManagementModel();
 
     // Check if there's a search query in the URL
     if (isset($_GET['search'])) {
@@ -148,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $taskId = $input['id'] ?? null;
 
     if ($taskId) {
-        $task = new ToDoList();
+        $task = new TimeTrackingManagementModel();
         if ($task->deleteTask($taskId)) {
             echo json_encode(['status' => 'success', 'message' => 'Event deleted successfully.']);
         } else {

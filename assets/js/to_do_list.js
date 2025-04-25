@@ -316,16 +316,16 @@ function createTaskHTML(task) {
       <div class='task__tags'>
           <span class='task__tag' style='background-color: ${task.color}'> ${task.title}</span>
           <div class="task__options-container">
-          ${task.status !== 'completed' ?`
-              <button style='color:#9d9d9d' class='task__options' onclick="openEditPopup(${task.id})"><i class="fas fa-pencil"></i></button>
-              <button style='color:#9d9d9d' class='task__options' onclick="deleteTask(${task.id})"><i class="fas fa-trash"></i></button>` : ''}
+             <button style='color:#9d9d9d' class='task__options' onclick="openEditPopup(${task.id})"><i class="fas fa-pencil"></i></button>
+              <button style='color:#9d9d9d' class='task__options' onclick="deleteTask(${task.id})"><i class="fas fa-trash"></i></button>
           </div>
       </div>
-      <p>${task.description}</p>
-      <div class='task__stats'>
+       <p>${task.description}</p>
+       <div class='task__stats'>
           <span><time><i class="fas fa-flag"></i> ${task.date}</time></span>
-          
-      </div>
+        </div>
+     
+     
       ${task.status !== 'completed' ? `<input type="checkbox" class="task__checkbox">` : ''}
     </div>
   `;

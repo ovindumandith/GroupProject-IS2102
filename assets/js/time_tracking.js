@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const prioritySlider = document.getElementById("priority")
     const links = document.querySelectorAll('.sidebar-nav a');
     const sections = document.querySelectorAll('.content-section');
+    fetchTasks()
 
+
+    viewBadges()
     links.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -26,9 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
     // Load goals from localStorage or server
-    loadGoals()
-    fetchTasks()
-    viewBadges()
+    function closeModal(modal) {
+        // Remove active class to trigger animations
+        modal.classList.remove("active")
+
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+            modal.style.display = "none"
+        }, 300)
+    }
 
     goalForm.addEventListener("submit", async function (event) {
         event.preventDefault()
@@ -37,22 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
         errorContainer.innerHTML = ""; // Clear previous errors
         // Get form values
 
-        const taskName = document.getElementById("task-name").value
+        const task_name = document.getElementById("task-name").value
         const description = document.getElementById("task-description").value
         const timeValue = Number.parseInt(document.getElementById("time-goal-hours").value)
-        const timeUnit = document.getElementById("time-goal-minutes").value
+        const time_unit = document.getElementById("time-goal-minutes").value
 
         // Convert time to minutes for consistency
-        const timeInMinutes = timeUnit === "hours" ? timeValue * 60 : timeValue
+        const timeInMinutes = (timeValue * 60) + Number(time_unit);
 
         // Create goal object
         // Create goal object
         const goal = {
-            taskName,
+            task_name,
             description,
-            timeGoal: timeInMinutes,
-            timeUnit,
-            timeSpent: 0,
+            time_goal: timeInMinutes,
+            time_unit,
+            time_spent: 0,
             completed: false,
             createdAt: new Date().toISOString(),
         }
@@ -107,9 +116,23 @@ document.addEventListener("DOMContentLoaded", () => {
         // sendToServer(goal);
 
         // Refresh goals list
-        loadGoals()
+        loadGoals(goals)
+    }
+    function showAlert(message, isSuccess = true) {
+        const popup = document.getElementById("popupMessage");
+        const popupText = document.getElementById("popupText");
+
+        popupText.textContent = message;
+        popup.style.background = isSuccess ? "#4caf50" : "#f44336"; // Green for success, Red for error
+        popup.style.display = "block";
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 3000);
     }
     async function fetchTasks() {
+
         try {
             // Fetch all events from the backend
             const response = await fetch('../controller/TimeTrackingManagementController.php', {
@@ -161,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sortedBadges.forEach((badge) => {
             const badgeElement = document.createElement("div");
             badgeElement.className = "badge-card";
-        
+
             badgeElement.innerHTML = `
                 <div class="card">
                     <div class="card-body">
@@ -176,18 +199,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </div>
             `;
-        
+
             achievementContent.appendChild(badgeElement);
         });
 
-       
+
     }
 
     // Function to load goals
-    function loadGoals() {
-        // Get goals from localStorage
-        const goals = JSON.parse(localStorage.getItem("tasks")) || []
+    function loadGoals(data) {
 
+        // Get goals from localStorage
+        const goals = data
+        localStorage.setItem("tasks", JSON.stringify(data))
+        tasks = localStorage.getItem("tasks")
         // Clear goals list
         goalsList.innerHTML = ""
 
@@ -215,29 +240,30 @@ document.addEventListener("DOMContentLoaded", () => {
         goalElement.dataset.id = goal.id
 
         // Calculate progress percentage
-        const progressPercentage = Math.min(Math.round((goal.timeSpent / goal.timeGoal) * 100), 100)
+        const progressPercentage = Math.min(Math.round((goal.time_spent / goal.time_goal) * 100), 100)
 
         // Get priority label
         const priorityLabel = getPriorityLabel(goal.priority)
         const priorityClass = getPriorityClass(goal.priority)
 
         // Format time
-        const timeGoalFormatted = formatTime(goal.timeGoal)
-        const timeSpentFormatted = formatTime(goal.timeSpent)
+        const time_goalFormatted = formatTime(goal.time_goal)
+        const time_spentFormatted = formatTime(goal.time_spent)
+
 
         // Set inner HTML
         goalElement.innerHTML = `
               <div class="goal-header">
-                  <h3 class="goal-title">${goal.name}</h3>
+                  <h3 class="goal-title">${goal.task_name}</h3>
                  
               </div>
               <div class="goal-details">
                   <div class="goal-time">
-                      <span>Goal: ${timeGoalFormatted}</span>
+                      <span>Goal: ${time_goalFormatted}</span>
                   </div>
                   
                   <div class="time-tracking">
-                      <span>Time spent: ${timeSpentFormatted}</span>
+                      <span>Time spent: ${time_spentFormatted}</span>
                       <div class="time-controls">
                           <button class="btn-time" data-action="start" title="Start timer">▶</button>
                           <button class="btn-time" data-action="add" title="Add 15 minutes">+</button>
@@ -250,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
                   <div class="progress-stats">
                       <span>${progressPercentage}% complete</span>
-                      <span>${timeSpentFormatted} / ${timeGoalFormatted}</span>
+                      <span>${time_spentFormatted} / ${time_goalFormatted}</span>
                   </div>
               </div>
               <div class="goal-actions">
@@ -282,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Delete button
         const deleteBtn = goalElement.querySelector('[data-action="delete"]')
         deleteBtn.addEventListener("click", () => {
+
             deleteGoal(goal.id)
         })
 
@@ -353,22 +380,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (goalIndex !== -1) {
             // Add time
-            goals[goalIndex].timeSpent += minutes
+            goals[goalIndex].time_spent += minutes
 
             // Save
             localStorage.setItem("tasks", JSON.stringify(goals))
 
             // Refresh
-            loadGoals()
+            loadGoals(goals)
 
             // Show notification
-            showNotification(`Added ${minutes} minutes to "${goals[goalIndex].taskName}"`, "success")
+            showNotification(`Added ${minutes} minutes to "${goals[goalIndex].task_name}"`, "success")
         }
     }
 
     // Function to toggle goal completion
     function toggleGoalCompletion(goalId) {
         // Get goals
+
         const goals = JSON.parse(localStorage.getItem("tasks")) || []
 
         // Find goal
@@ -382,11 +410,40 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("tasks", JSON.stringify(goals))
 
             // Refresh
-            loadGoals()
+            loadGoals(goals)
 
             // Show notification
             const action = goals[goalIndex].completed ? "completed" : "reopened"
-            showNotification(`Goal "${goals[goalIndex].name}" ${action}`, "success")
+            const goal = {
+                id: goalId,
+                taskStatus: action === 'completed'
+                    ? 1
+                    : action === 'reopened'
+                        ? 0
+                        : null
+
+            }
+            fetch('../controller/TimeTrackingManagementController.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(goal), // Pass the event ID
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showAlert(data.message);
+                        // Refresh or update the UI to reflect the deletion
+                        //    fetchTasks()
+                    } else {
+                        showAlert(data.message || 'Failed to delete the event.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting event:', error);
+                });
+            showNotification(`Goal "${goals[goalIndex].task_name}" ${action}`, "success")
         }
     }
 
@@ -396,7 +453,26 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!confirm("Are you sure you want to delete this goal?")) {
             return
         }
-
+        fetch('../controller/TimeTrackingManagementController.php', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: goalId }), // Pass the event ID
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showAlert(data.message);
+                    // Refresh or update the UI to reflect the deletion
+                    fetchTasks()
+                } else {
+                    showAlert(data.message || 'Failed to delete the event.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting event:', error);
+            });
         // Get goals
         const goals = JSON.parse(localStorage.getItem("tasks")) || []
 
@@ -600,7 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
             description: "Tracked a total of 2 hours",
             icon: "⏱️",
             condition: (tasks) => {
-                const totalMinutes = tasks.reduce((total, task) => total + task.timeSpent, 0)
+                const totalMinutes = tasks.reduce((total, task) => total + task.time_spent, 0)
                 return totalMinutes >= 120
             },
         },
@@ -609,14 +685,14 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Efficiency Expert",
             description: "Completed a task under the estimated time",
             icon: "⚡",
-            condition: (tasks) => tasks.some((task) => task.completed && task.timeSpent < task.timeGoal),
+            condition: (tasks) => tasks.some((task) => task.completed && task.time_spent < task.time_goal),
         },
         {
             id: "perfect_planner",
             name: "Perfect Planner",
             description: "Completed a task exactly on time",
             icon: "🎯",
-            condition: (tasks) => tasks.some((task) => task.completed && task.timeSpent === task.timeGoal),
+            condition: (tasks) => tasks.some((task) => task.completed && task.time_spent === task.time_goal),
         },
     ]
 
@@ -689,39 +765,31 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("keydown", escKeyHandler)
     }
 
-    function closeModal(modal) {
-        // Remove active class to trigger animations
-        modal.classList.remove("active")
 
-        // Wait for animation to complete before hiding
-        setTimeout(() => {
-            modal.style.display = "none"
-        }, 300)
-    }
 
     function addNewTask() {
-        const taskName = document.getElementById("task-name").value
+        const task_name = document.getElementById("task-name").value
         const taskDescription = document.getElementById("task-description").value
-        const timeGoalHours = Number.parseInt(document.getElementById("time-goal-hours").value) || 0
-        const timeGoalMinutes = Number.parseInt(document.getElementById("time-goal-minutes").value) || 0
+        const time_goalHours = Number.parseInt(document.getElementById("time-goal-hours").value) || 0
+        const time_goalMinutes = Number.parseInt(document.getElementById("time-goal-minutes").value) || 0
 
         // Set default priority to medium since we removed the selector
         const taskPriority = "medium"
 
         // Convert time to minutes
-        const timeGoal = timeGoalHours * 60 + timeGoalMinutes
+        const time_goal = time_goalHours * 60 + time_goalMinutes
 
-        if (timeGoal <= 0) {
+        if (time_goal <= 0) {
             alert("Please set a time goal greater than 0")
             return
         }
 
         const newTask = {
             id: Date.now().toString(),
-            name: taskName,
+            name: task_name,
             description: taskDescription,
-            timeGoal: timeGoal,
-            timeSpent: 0,
+            time_goal: time_goal,
+            time_spent: 0,
             priority: taskPriority,
             completed: false,
             createdAt: new Date().toISOString(),
@@ -758,7 +826,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Filter tasks for today only
         const todaysTasks = tasks.filter((task) => {
-            const taskDate = new Date(task.createdAt)
+            const taskDate = new Date(task.created_at)
             taskDate.setHours(0, 0, 0, 0)
             return taskDate.getTime() === today.getTime()
         })
@@ -796,18 +864,18 @@ document.addEventListener("DOMContentLoaded", () => {
         taskElement.dataset.id = task.id
 
         // Calculate progress percentage
-        const progressPercentage = Math.min(Math.round((task.timeSpent / task.timeGoal) * 100), 100)
+        const progressPercentage = Math.min(Math.round((task.time_spent / task.time_goal) * 100), 100)
 
         // Format times
-        const goalTimeFormatted = formatTime(task.timeGoal)
-        const timeSpentFormatted = formatTime(task.timeSpent)
+        const goalTimeFormatted = formatTime(task.time_goal)
+        const time_spentFormatted = formatTime(task.time_spent)
 
         taskElement.innerHTML = `
         <div class="task-header">
-          <h3 class="task-title">${task.name}</h3>
+          <h3 class="task-title">${task.task_name}</h3>
         </div>
         <div class="task-timer">
-          <div class="timer-display" id="timer-display-${task.id}">${timeSpentFormatted}</div>
+          <div class="timer-display" id="timer-display-${task.id}">${time_spentFormatted}</div>
           <div class="timer-controls">
             <button class="timer-btn ${task.id === activeTaskId ? "pause-btn" : "start-btn"}" data-action="${task.id === activeTaskId ? "pause" : "start"}">
               <span class="material-symbols-rounded">${task.id === activeTaskId ? "pause" : "play_arrow"}</span>
@@ -820,7 +888,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="progress-stats">
             <span>${progressPercentage}% complete</span>
-            <span>${timeSpentFormatted} / ${goalTimeFormatted}</span>
+            <span>${time_spentFormatted} / ${goalTimeFormatted}</span>
           </div>
         </div>
       `
@@ -849,16 +917,16 @@ document.addEventListener("DOMContentLoaded", () => {
         detailTaskDescription.textContent = task.description || "No description provided."
         detailTaskPriority.textContent = capitalizeFirstLetter(task.priority)
         detailTaskPriority.className = `stat-value priority-${task.priority}`
-        detailGoalTime.textContent = formatTime(task.timeGoal)
-        detailTimeSpent.textContent = formatTime(task.timeSpent)
+        detailGoalTime.textContent = formatTime(task.time_goal)
+        detailTimeSpent.textContent = formatTime(task.time_spent)
         detailTaskStatus.textContent = task.completed ? "Completed" : "In Progress"
         detailTaskStatus.className = `stat-value ${task.completed ? "priority-low" : "priority-medium"}`
 
         // Calculate progress
-        const progressPercentage = Math.min(Math.round((task.timeSpent / task.timeGoal) * 100), 100)
+        const progressPercentage = Math.min(Math.round((task.time_spent / task.time_goal) * 100), 100)
         detailProgressFill.style.width = `${progressPercentage}%`
         detailProgressPercent.textContent = `${progressPercentage}%`
-        detailProgressRatio.textContent = `${formatTime(task.timeSpent)} / ${formatTime(task.timeGoal)}`
+        detailProgressRatio.textContent = `${formatTime(task.time_spent)} / ${formatTime(task.time_goal)}`
 
         // Update buttons
         detailStartBtn.textContent = task.id === activeTaskId ? "Pause Timer" : "Start Timer"
@@ -891,6 +959,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Open modal
         openModal(taskDetailsModal)
+    }
+    async function updateTimeSpent($id) {
+        const url = `../controller/TimeTrackingManagementController.php`;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ id: $id,timeUpdate: 1 }), // Format data for POST
+            });
+
+            const data = await response.json();
+
+            // Handle errors if present
+            if (data.errors) {
+                displayErrors(data.errors);
+            } else if (data.message) {
+                // Only show success alert if there are no errors
+
+
+
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     function toggleTimer(taskId, taskElement) {
@@ -931,7 +1025,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!task) return
 
         // Initial time in seconds
-        let totalSeconds = task.timeSpent * 60
+        let totalSeconds = task.time_spent * 60
 
         // Update UI
         const timerBtn = taskElement.querySelector(".timer-btn")
@@ -964,7 +1058,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (elapsedSeconds >= 60) {
                 // Add a minute to the task
                 if (task) {
-                    task.timeSpent += 1 // Add 1 minute
+
+                    task.time_spent += 1 // Add 1 minute
+                    updateTimeSpent(taskId)
                     saveData()
                     updateTaskUI(task)
                     updateStats()
@@ -982,16 +1078,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskElement = document.querySelector(`.task-card[data-id="${task.id}"]`)
         if (taskElement) {
             const timerDisplay = taskElement.querySelector(".timer-display")
-            timerDisplay.textContent = formatTime(task.timeSpent)
+            timerDisplay.textContent = formatTime(task.time_spent)
 
             // Update progress
-            const progressPercentage = Math.min(Math.round((task.timeSpent / task.timeGoal) * 100), 100)
+            const progressPercentage = Math.min(Math.round((task.time_spent / task.time_goal) * 100), 100)
             const progressFill = taskElement.querySelector(".progress-fill")
             progressFill.style.width = `${progressPercentage}%`
 
             const progressStats = taskElement.querySelectorAll(".progress-stats span")
             progressStats[0].textContent = `${progressPercentage}% complete`
-            progressStats[1].textContent = `${formatTime(task.timeSpent)} / ${formatTime(task.timeGoal)}`
+            progressStats[1].textContent = `${formatTime(task.time_spent)} / ${formatTime(task.time_goal)}`
         }
 
         // Update task details if open
@@ -1000,12 +1096,12 @@ document.addEventListener("DOMContentLoaded", () => {
             activeTaskElement &&
             activeTaskElement.dataset.id === task.id
         ) {
-            detailTimeSpent.textContent = formatTime(task.timeSpent)
+            detailTimeSpent.textContent = formatTime(task.time_spent)
 
-            const progressPercentage = Math.min(Math.round((task.timeSpent / task.timeGoal) * 100), 100)
+            const progressPercentage = Math.min(Math.round((task.time_spent / task.time_goal) * 100), 100)
             detailProgressFill.style.width = `${progressPercentage}%`
             detailProgressPercent.textContent = `${progressPercentage}%`
-            detailProgressRatio.textContent = `${formatTime(task.timeSpent)} / ${formatTime(task.timeGoal)}`
+            detailProgressRatio.textContent = `${formatTime(task.time_spent)} / ${formatTime(task.time_goal)}`
         }
     }
 
@@ -1047,7 +1143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateStats() {
         // Calculate total time tracked
-        const totalMinutes = tasks.reduce((total, task) => total + task.timeSpent, 0)
+        const totalMinutes = tasks.reduce((total, task) => total + task.time_spent, 0)
         totalTimeTrackedEl.textContent = formatTime(totalMinutes)
 
         // Calculate tasks completed
@@ -1061,7 +1157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let goalCompletionPercentage = 0
         if (tasks.length > 0) {
             const totalProgress = tasks.reduce((sum, task) => {
-                return sum + Math.min(task.timeSpent / task.timeGoal, 1)
+                return sum + Math.min(task.time_spent / task.time_goal, 1)
             }, 0)
             goalCompletionPercentage = Math.round((totalProgress / tasks.length) * 100)
         }
@@ -1159,7 +1255,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("badges", JSON.stringify(badges))
 
         // Also send to server (PHP backend)
-        sendDataToServer()
+        // sendDataToServer()
     }
 
     function loadData() {
