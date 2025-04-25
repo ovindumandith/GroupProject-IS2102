@@ -19,130 +19,9 @@ $assessments = $_SESSION['all_assessments'] ?? [];
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="../../assets/css/admin_dashboard.css" />
-    <style>
-        .assessment-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .assessment-title {
-            color: #3f72af;
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-        
-        .assessment-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .assessment-table th,
-        .assessment-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-        
-        .assessment-table th {
-            background-color: #3f72af;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .assessment-table tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .stress-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            text-align: center;
-        }
-        
-        .high {
-            background-color: #ffebee;
-            color: #b71c1c;
-        }
-        
-        .moderate {
-            background-color: #fff3e0;
-            color: #e65100;
-        }
-        
-        .low {
-            background-color: #e8f5e9;
-            color: #1b5e20;
-        }
-        
-        .action-button {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 500;
-            text-align: center;
-            color: white;
-            background-color: #3f72af;
-        }
-        
-        .action-button:hover {
-            background-color: #2c5282;
-        }
-        
-        .search-filter {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .search-box {
-            flex-grow: 1;
-            max-width: 400px;
-            margin-right: 20px;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .filter-options {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .filter-options select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-        }
-        
-        @media (max-width: 768px) {
-            .search-filter {
-                flex-direction: column;
-            }
-            
-            .search-box {
-                max-width: none;
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/admin_stress_monitoring.css" />
+    
+
 </head>
 <body>
     <!-- Header Section -->
@@ -249,14 +128,21 @@ $assessments = $_SESSION['all_assessments'] ?? [];
             </div>
             <div class="footer-section">
                 <h3>Services</h3>
-                <ul>
-                    <li><a href="../controller/StressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
-                    <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
-                    <li><a href="../views/Academic_Help.php">Academic Help</a></li>
-                    <li><a href="#">Counseling</a></li>
-                    <li><a href="#">Community</a></li>
-                    <li><a href="./workload.php">Workload Management Tools</a></li>
-                </ul>
+            <ul>
+                <li><a href="./admin_home.php">Home</a></li>
+                <li class="services">
+                    <a href="#">Services </a>
+                    <ul class="dropdown">
+                        <li><a href="../controller/StressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+                        <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
+                        <li><a href="./workload.php">Workload Management Tools</a></li>
+                    </ul>
+                </li>
+                <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+                <li><a href="#">Counseling</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
             </div>
             <div class="footer-section">
                 <h3>Contact</h3>
