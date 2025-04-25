@@ -34,6 +34,11 @@
   vertical-align: top;
 }
 
+/* Add this new rule for the status column */
+.assessment-table td:nth-child(4) {
+  text-align: center;
+}
+
 .assessment-table th {
   background-color: #e9f5f3;
   color: #009f77;
@@ -51,6 +56,8 @@
   border-radius: 20px;
   font-weight: 600;
   display: inline-block;
+  text-align: center;
+  min-width: 100px;
 }
 
 .status-answered {
@@ -60,8 +67,11 @@
   border-radius: 20px;
   font-weight: 600;
   display: inline-block;
+  text-align: center;
+  min-width: 100px;
 }
 
+/* Rest of your CSS remains unchanged */
 .button-group {
   display: flex;
   gap: 8px;

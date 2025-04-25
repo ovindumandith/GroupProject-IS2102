@@ -28,9 +28,7 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../../../assets/css/header_footer.css" />
     <link rel="stylesheet" href="../../../../assets/css/admin_home.css" />
-    
-    <link rel="stylesheet" href="../../../../assets/css/admin_appointments.css" />
-
+    <link rel="stylesheet" href="../../../../assets//css/admin_appointments.css" />
 </head>
 <body>
     <!-- Header Section -->
@@ -52,7 +50,6 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
           </li>
           <li><a href="../../../../App/controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
           <li><a href="../../../../App/controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
-          <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
       </nav>
@@ -89,19 +86,19 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
         <?php endif; ?>
         
         <div class="stats-container">
-            <a href="../../controller/AppointmentController.php?action=viewAppointments" class="stat-card stat-total <?= !$selectedStatus ? 'active' : '' ?>">
+            <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments" class="stat-card stat-total <?= !$selectedStatus ? 'active' : '' ?>">
                 <div class="stat-number"><?= $counts['total_count'] ?></div>
                 <div class="stat-label">All Appointments</div>
             </a>
-            <a href="../../controller/AppointmentController.php?action=viewAppointments&status=Pending" class="stat-card stat-pending <?= $selectedStatus === 'Pending' ? 'active' : '' ?>">
+            <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments&status=Pending" class="stat-card stat-pending <?= $selectedStatus === 'Pending' ? 'active' : '' ?>">
                 <div class="stat-number"><?= $counts['pending_count'] ?></div>
                 <div class="stat-label">Pending</div>
             </a>
-            <a href="../../controller/AppointmentController.php?action=viewAppointments&status=Accepted" class="stat-card stat-accepted <?= $selectedStatus === 'Accepted' ? 'active' : '' ?>">
+            <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments&status=Accepted" class="stat-card stat-accepted <?= $selectedStatus === 'Accepted' ? 'active' : '' ?>">
                 <div class="stat-number"><?= $counts['accepted_count'] ?></div>
                 <div class="stat-label">Accepted</div>
             </a>
-            <a href="../../controller/AppointmentController.php?action=viewAppointments&status=Denied" class="stat-card stat-denied <?= $selectedStatus === 'Denied' ? 'active' : '' ?>">
+            <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments&status=Denied" class="stat-card stat-denied <?= $selectedStatus === 'Denied' ? 'active' : '' ?>">
                 <div class="stat-number"><?= $counts['denied_count'] ?></div>
                 <div class="stat-label">Denied</div>
             </a>
@@ -109,10 +106,10 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
         
         <div class="filter-search-container">
             <div class="filter-container">
-                <a href="../../controller/AppointmentController.php?action=viewAppointments" class="filter-link all <?= !$selectedStatus ? 'active' : '' ?>">All</a>
-                <a href="../../controller/AppointmentController.php?action=viewAppointments&status=Pending" class="filter-link pending <?= $selectedStatus === 'Pending' ? 'active' : '' ?>">Pending</a>
-                <a href="../../controller/AppointmentController.php?action=viewAppointments&status=Accepted" class="filter-link accepted <?= $selectedStatus === 'Accepted' ? 'active' : '' ?>">Accepted</a>
-                <a href="../../controller/AppointmentController.php?action=viewAppointments&status=Denied" class="filter-link denied <?= $selectedStatus === 'Denied' ? 'active' : '' ?>">Denied</a>
+                <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments" class="filter-link all <?= !$selectedStatus ? 'active' : '' ?>">All</a>
+                <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments&status=Pending" class="filter-link pending <?= $selectedStatus === 'Pending' ? 'active' : '' ?>">Pending</a>
+                <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments&status=Accepted" class="filter-link accepted <?= $selectedStatus === 'Accepted' ? 'active' : '' ?>">Accepted</a>
+                <a href="../../../../App/controller/AppointmentController.php?action=viewAppointments&status=Denied" class="filter-link denied <?= $selectedStatus === 'Denied' ? 'active' : '' ?>">Denied</a>
             </div>
             
             <div class="search-box">
