@@ -28,13 +28,16 @@
             </ul>
           </li>
           <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
-          <li><a href="#">Counseling</a></li>
+          <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='admin_profile.php'"><b>Profile</b></button>
+        <form action="../../App/controller/AdminProfileController.php" method="GET">
+  <input type="hidden" name="action" value="viewProfile">
+  <button type="submit" class="login"><b>Profile</b></button>
+</form>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>

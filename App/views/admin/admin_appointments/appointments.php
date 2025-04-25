@@ -45,19 +45,22 @@ $selectedStatus = $_SESSION['selected_status'] ?? null;
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
+              <li><a href="../../../../App/controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
               <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
               <li><a href="./workload.php">Workload Management Tools</a></li>
             </ul>
           </li>
-          <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
-          <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+          <li><a href="../../../../App/controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+          <li><a href="../../../../App/controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
       </nav>
         <div class="auth-buttons">
-            <a href="#" class="profile-btn"><b>Profile</b></a>
+            <form action="../../../../App/controller/AdminProfileController.php" method="GET">
+  <input type="hidden" name="action" value="viewProfile">
+  <button type="submit" class="login"><b>Profile</b></button>
+</form>
             <form action="../../../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="logout-btn"><b>Log Out</b></button>
             </form>
