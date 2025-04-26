@@ -47,12 +47,20 @@
     <!-- Content Section (for demonstration) -->
     <div id="content">
         <div class="card-container">
-            <div class="card" onclick="window.location.href='relaxation_activities.php'">
+            <div class="card">
                 <h3>View Current Relaxation Activities</h3>
+                <div class="stress-links">
+                  <a href="../views/low_level_relaxation_activities.php">Low</a>
+                  <a href="../views/moderate_level_relaxation_activities.php">Moderate</a>
+                  <a href="../views/high_level_relaxation_activities.php">High</a>
+                </div>
                 <img src="../../assets/images/relaxed-woman-enjoying-sea_1098-1441.avif" alt="View Current Acitivities">
             </div>
-            <div class="card" onclick="window.location.href='admin_page_relaxation activites.php'">
+            <div class="card">
                 <h3>Add New Relaxation Acitivities</h3>
+                <div class="stress-links">
+                  <a href="../views/add_relaxation_activites.php">Add</a>
+                </div>
                 <img src="../../assets/images/young-adult-enjoying-yoga-nature_23-2149573166.jpg" alt="Past Stress History Icon">
             </div>
         </div>
