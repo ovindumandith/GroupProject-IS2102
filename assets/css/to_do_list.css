@@ -448,9 +448,9 @@ body {
 }
 
 .achievement-text h2 {
-  color: #6a0dad; /* purple */
+  color: #da8432; /* purple */
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 .achievement-text p {
@@ -469,7 +469,7 @@ body {
 
 .progress-fill {
   height: 100%;
-  background-color: #6a0dad; /* same purple */
+  background-color: #d77921; /* same purple */
   width: 0;
   border-radius: 5px;
 }

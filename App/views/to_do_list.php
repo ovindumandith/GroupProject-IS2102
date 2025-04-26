@@ -135,7 +135,7 @@ if (!isset($_SESSION['user_id'])) {
                                     <div class="profile-icon">
                                         <img src="https://avatar.iran.liara.run/public" alt="User">
                                     </div>
-                                    <h2>Hey Abi!</h2>
+                                    <h2 id="username">Hey <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?></h2>
                                 </div>
                                 <p>You are almost there</p>
                                 <div class="progress-bar">

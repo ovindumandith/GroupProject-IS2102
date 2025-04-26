@@ -123,10 +123,10 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                 </section>
             </div>
-            <div class="task-content content-section" style="display:none;">
+            <div class="task-content content-section" style="display:flex;">
                 <div id="goalsList"></div>
             </div>
-            <div class="achievement-content content-section" style="display: none;">
+            <div class="achievement-content content-section" style="display: flex;">
     <div id="viewBadgs"></div>
 </div>
 
