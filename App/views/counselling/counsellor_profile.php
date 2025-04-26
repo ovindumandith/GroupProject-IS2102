@@ -25,7 +25,11 @@ if (!isset($_SESSION['user_id'])) {
       href="../../assets/css/header_footer.css"
       type="text/css"
     />
-    <link rel="stylesheet" href="../../assets/css/counsellor_profile.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/css/counsellor_profile.css"
+      type="text/css"/>
+
 
 
   </head>
