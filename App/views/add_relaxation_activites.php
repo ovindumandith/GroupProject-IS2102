@@ -8,11 +8,18 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../assets/css/admin_activites_portal.css" />
-    <link rel="stylesheet" href="../../assets/css/header_footer.css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/relaxation_activities.css" />
+    <link rel="stylesheet" href="../../assets/css/add_relaxation_activities.css" type="text/css" />
   </head>
   <body>
+  <?php
+
+    require_once "../controller/RelaxationActivityController.php";
+
+    $controller = new RelaxationActivityController();
+    $message = $controller->handleRequest();
+
+?>
     <!-- Header Section -->
     <header class="header">
       <div class="logo">
@@ -26,7 +33,7 @@
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="relaxation_activities.php">Relaxation Activities</a></li>
+              <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>
@@ -43,28 +50,54 @@
         </form>
       </div>
     </header>
-
     <!-- Content Section (for demonstration) -->
-    <div id="content">
-        <div class="card-container">
-            <div class="card">
-                <h3>View Current Relaxation Activities</h3>
-                <div class="stress-links">
-                  <a href="../views/low_level_relaxation_activities.php">Low</a>
-                  <a href="../views/moderate_level_relaxation_activities.php">Moderate</a>
-                  <a href="../views/high_level_relaxation_activities.php">High</a>
-                </div>
-                <img src="../../assets/images/relaxed-woman-enjoying-sea_1098-1441.avif" alt="View Current Acitivities">
-            </div>
-            <div class="card">
-                <h3>Add New Relaxation Acitivities</h3>
-                <div class="stress-links">
-                  <a href="../views/add_relaxation_activites.php">Add</a>
-                </div>
-                <img src="../../assets/images/young-adult-enjoying-yoga-nature_23-2149573166.jpg" alt="Past Stress History Icon">
-            </div>
-        </div>
+
+    <?php if (isset($_SESSION['error'])): ?>
+<div class="alert error creative-error">
+    <div class="error-header">
+        <span class="error-emoji">🚨</span>
     </div>
+    <div class="error-content">
+        <?= str_replace('<br>', "\n", htmlspecialchars($_SESSION['error'])) ?>
+    </div>
+</div>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+    <div class="content">
+        <h1>Add Relaxation Activities</h1>
+         
+    
+    <form method="post"  action="./add_relaxation_activites.php" id="updateform" enctype="multipart/form-data">
+        <label for="activity_name">Activity Title:</label>
+        <input type="text" id="activity_name" name="activity_name" required>
+
+        <label for="description">description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="playlist">Source:</label>
+        <input type="text" id="playlist" name="playlist_url" required></input>
+
+        <label for="image_url">Image:</label>
+            <div class="image-preview-container">
+                <label for="image" class="file-input-label">Choose Image</label>
+                <input type="file" id="image_url" name="image_url" class="file-input" required >
+                <img id="newImagePreview" class="new-image-preview" src="#" alt="Image Preview">
+            </div>
+
+        <label>Recommended Stress Level:</label>
+        <div class="radio-group">
+          <label for="low"><input type="radio" value="low" id="low" name="stress_level" required>Low</label>
+          <label for="moderate"><input type="radio" value="moderate" id="moderate" name="stress_level">Moderate</label>
+          <label for="high"><input type="radio" value="high" id="high" name="stress_level">High</label>
+        </div>
+
+        <input type="submit" name="submit" value="Add Activity">
+    </form>
+      <p></p>
+    </div>
+    <div id="toast" class="toast">Profile updated successfully!</div>
+
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -87,7 +120,7 @@
         </div>
         <div class="footer-section">
           <h3>Contact</h3>
-          <p><i class="fa fa-phone"></i> +14 5464 8272</p>
+          <p><i class="fa fa-image"></i> +14 5464 8272</p>
           <p><i class="fa fa-envelope"></i> rona@domain.com</p>
           <p><i class="fa fa-map-marker"></i> Lazy Tower 192, Burn Swiss</p>
         </div>
@@ -120,4 +153,8 @@
       </div>
     </footer>
   </body>
+
+  <script src="../../assets/js/update_relaxation_activities.js"></script>
+    // Simple image preview functionality
+   
 </html>

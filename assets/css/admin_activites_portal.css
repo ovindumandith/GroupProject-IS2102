@@ -43,13 +43,75 @@
     font-size: 14px;
   }
 
-  .card img {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    margin: 10px 10px 5px 10px;
-    border-radius: 5px;
-  }
+  /* Add to admin_activites_portal.css */
+
+.card div.stress-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.card div.stress-links a {
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+/* Low stress style */
+.card div.stress-links a[href*="low"] {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Medium stress style */
+.card div.stress-links a[href*="moderate"] {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+/* High stress style */
+.card div.stress-links a[href*="high"] {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.card div.stress-links a[href*="add"] {
+  background-color: #e3f2fd; /* Soft blush pink */
+  color: #1565c0;  
+}
+
+/* Hover effects */
+.card div.stress-links a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.card div.stress-links a[href*="low"]:hover {
+  background-color: #c8e6c9;
+}
+
+.card div.stress-links a[href*="moderate"]:hover {
+  background-color: #ffe0b2;
+}
+
+.card div.stress-links a[href*="high"]:hover {
+  background-color: #ffcdd2;
+}
+
+.card img {
+  width: 100%;                /* Makes image fit the card width */
+  height: 180px;              /* Slightly reduced height */
+  object-fit: cover;          /* Crop nicely if aspect ratio differs */
+  margin: 0 auto 10px auto;   /* Center image and add bottom space */
+  display: block;             /* Prevent inline spacing issues */
+  border-radius: 10px;        /* Softer corners */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: soft shadow */
+}
+
   
   @media (max-width: 768px) {
     .card-container {
