@@ -1,12 +1,17 @@
-body {
-    background-color: #a5e3c6;
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; /* Optional: to contrast your container */
   }
   
   .create-whole-container {
     background-color: #d4f6d4;
     width: 80%;
     max-width: 600px;
-    min-height: 300px; 
+    min-height: 250px; 
     height: auto; 
     border-radius: 15px;
     padding: 20px;
@@ -17,7 +22,7 @@ body {
   }
   
   textarea {
-    width: 70%;
+    width: 90%;
     resize: vertical; /* Allows user to resize vertically only */
     padding: 10px 15px;
     font-size: 16px;

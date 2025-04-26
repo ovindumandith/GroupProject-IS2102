@@ -43,7 +43,24 @@ class UpdatePostController {
         $postId = intval($_POST['post_id']);
         $title = $_POST['title'];
         $description = $_POST['description'];
-        $image = $_POST['image'] ?? NULL;
+        $oldImage = $_POST['old_image'] ?? null;
+        $uploadDir = '/GroupProject-IS2102/App/views/uploads/';
+
+        // Handle new image upload
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $imageTmpName = $_FILES['image']['tmp_name'];
+            $imageName = basename($_FILES['image']['name']);
+            $targetPath = $uploadDir . $imageName;
+
+            // Move uploaded image
+            if (move_uploaded_file($imageTmpName, $targetPath)) {
+                $image = $imageName;
+            } else {
+                $image = $oldImage; // Fallback to old image if upload fails
+            }
+        } else {
+            $image = $oldImage; // Use old image if no new image uploaded
+        }
 
         if ($this->model->updatePost($postId, $title, $description, $image)) {
             echo "<script>alert('Post updated successfully.'); window.location='../views/manage_post.php';</script>";
@@ -53,7 +70,6 @@ class UpdatePostController {
     }
 }
 
-// Instantiate and handle request
 $controller = new UpdatePostController();
 $controller->handleRequest();
 ?>

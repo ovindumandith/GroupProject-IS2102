@@ -30,10 +30,11 @@ if (!$selectedEvent) {
 <head>
   <meta charset="UTF-8" />
   <title>Edit Event</title>
-  <link rel="stylesheet" href="../../assets/css/CommunityAdmin_notifications.css" />
+  <link rel="stylesheet" href="../../assets/css/Edit_community.css" />
 </head>
 <body>
-  <h2>Edit Community Event</h2>
+  <main class="notification-form-section">
+  <h2>Update Community Event</h2>
   <form action="../controller/CommunityEventsController.php?action=updateEvent" method="POST" class="notification-form">
     <input type="hidden" name="event_id" value="<?= htmlspecialchars($selectedEvent['event_id']) ?>">
 
@@ -54,5 +55,6 @@ if (!$selectedEvent) {
 
     <input type="submit" value="Update Event" class="add-post-btn">
   </form>
+</main>
 </body>
 </html>
