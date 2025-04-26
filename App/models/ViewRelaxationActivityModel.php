@@ -1,15 +1,17 @@
 <?php
-
 require_once '../../config/config.php';
 
 class ViewRelaxationActivityModel {
-
     private $db;
 
     public function __construct() {
-        // Initialize and connect to the database
-        $this->db = new Database();
-        $this->db = $this->db->connect(); // Assuming the connect method returns a PDO instance
+        $db = new Database();
+        $this->db = $db->connect();
+        
+        if ($this->db === null) {
+            error_log("Database connection failed in ViewRelaxationActivityModel");
+            throw new Exception("Database connection failed");
+        }
     }
 
     public function getAllActivities() {
@@ -17,45 +19,28 @@ class ViewRelaxationActivityModel {
             $sql = "SELECT * FROM relaxation_activities";
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Return all results as an array
-        } catch (Exception $e) {
-            // Handle exception
-            echo "Error: " . $e->getMessage();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching activities: " . $e->getMessage());
             return [];
         }
     }
 
-    public function getUserRole($userId) {
-        // Logic to fetch the user role from the database
-        // Assuming the user role is stored in a table called 'users' and the column name is 'role'
-        try {
-            $sql = "SELECT role FROM users WHERE user_id = :id";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $userId);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['role'];
-        } catch (Exception $e) {
-            // Handle exception
-            echo "Error: " . $e->getMessage();
-            return null;
-        }
-    }
-
-    public function updateActivity($activityId, $activityName, $description, $imageUrl, $playlistUrl) {
+    public function updateActivity($activityId, $activityName, $description, $imageUrl, $playlistUrl, $stressLevel) {
 
         try {
-            $sql = "UPDATE relaxation_activities SET activity_name = :activity_name, description = :description, image_url = :image_url, playlist_url = :playlist_url WHERE id = :id";
+            $sql = "UPDATE relaxation_activities SET activity_name = :activity_name, description = :description, image_url = :image_url, playlist_url = :playlist_url, stress_level = :stress_level WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':activity_name', $activityName);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':image_url', $imageUrl);
             $stmt->bindParam(':playlist_url', $playlistUrl);
+            $stmt->bindParam(':stress_level', $stressLevel);
             $stmt->bindParam(':id', $activityId);
             $stmt->execute();
             
             error_log("Executing SQL: $sql");
-            error_log("With Params: ID=$activityId, Name=$activityName, Description=$description, Image=$imageUrl, Playlist=$playlistUrl");
+            error_log("With Params: ID=$activityId, Name=$activityName, Description=$description, Image=$imageUrl, Playlist=$playlistUrl, Stress Level=$stressLevel");
 
             if ($stmt->execute()) {
                 // Debugging log for success
@@ -74,21 +59,50 @@ class ViewRelaxationActivityModel {
     }
 
     public function deleteActivity($activityId) {
-        // Logic to delete an activity from the database
         try {
+            // First delete associated image file if exists
+            $activity = $this->getActivityById($activityId);
+            if ($activity && !empty($activity['image_url'])) {
+                $filePath = "./uploads/" . $activity['image_url'];
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
+            // Then delete from database
             $sql = "DELETE FROM relaxation_activities WHERE id = :id";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':id', $activityId);
-            $stmt->execute();
-            return true;
-        } catch (Exception $e) {
-            // Handle exception
-            echo "Error: " . $e->getMessage();
+            $stmt->bindParam(':id', $activityId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error deleting activity: " . $e->getMessage());
             return false;
         }
     }
+     
+    public function getActivityById($activityId) {
+        try {
+            $sql = "SELECT * FROM relaxation_activities WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $activityId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching activity by ID: " . $e->getMessage());
+            return null;
+        }
+    }
 
-
+    public function getActivitiesByStressLevel($stressLevel) {
+        try {
+            $sql = "SELECT * FROM relaxation_activities WHERE stress_level = :stress_level";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':stress_level', $stressLevel, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching activities by stress level: " . $e->getMessage());
+            return [];
+        }
+    }
 }
-
-?>

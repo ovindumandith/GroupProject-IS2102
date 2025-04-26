@@ -9,37 +9,49 @@ class RelaxationActivityController {
     }
 
     public function handleRequest() {
+        session_start(); // Ensure session is started
+
         if (isset($_POST['submit'])) {
-            $name = $_POST['activity_name'];
-            $description = isset($_POST['description']) ? $_POST['description'] : '';
-            $file = $_FILES['image_url'];
-            $fileName = $file['name'];
-            $tempName = $file['tmp_name'];
-            $folder = './uploads/' . $fileName;
-            $playlist_url = $_POST['playlist_url'];
+            try {
+                $name = $_POST['activity_name'];
+                $description = $_POST['description'] ?? '';
+                $file = $_FILES['image_url'];
+                $playlist_url = $_POST['playlist_url'];
+                $stress_level = $_POST['stress_level'] ?? '';
 
-            // Validate the file
-            $errors = $this->validateFile($file);
+                // Validate input
+                $errors = $this->validateFile($file);
 
-            if (empty($errors)) {
-                // Move uploaded file
-                if (move_uploaded_file($tempName, $folder)) {
-                    // Add activity to the database
-                    $isAdded = $this->model->addRelaxationActivity($name, $description, $fileName, $playlist_url);
-
-                    if ($isAdded) {
-                        // Redirect to relaxation activities page
-                        header("Location: /GroupProject-IS2102/App/views/relaxation_activities.php");
-                        exit;
-                    } else {
-                        echo "Failed to add activity. Please try again.";
-                    }
-                } else {
-                    echo "Failed to upload file. Please try again.";
+                if (!empty($errors)) {
+                    throw new Exception(implode("\n", $errors));
                 }
-            } else {
-                // Display validation errors
-                echo implode("<br>", $errors);
+
+                // Handle file upload
+                $fileName = $this->handleFileUpload($file);
+
+                // Add to database
+                $isAdded = $this->model->addRelaxationActivity(
+                    $name,
+                    $description,
+                    $fileName,
+                    $playlist_url,
+                    $stress_level
+                );
+
+                if (!$isAdded) {
+                    throw new Exception("Failed to add activity. Please try again.");
+                }
+
+                // Determine redirect page
+                $redirectPage = $this->getRedirectPage($stress_level);
+                $_SESSION['success'] = "🎉 Activity added successfully!";
+                header("Location: $redirectPage");
+                exit;
+
+            } catch (Exception $e) {
+                $_SESSION['error'] = $e->getMessage();
+                header("Location: add_relaxation_activites.php");
+                exit;
             }
         }
     }
@@ -47,17 +59,54 @@ class RelaxationActivityController {
     private function validateFile($file) {
         $errors = [];
         $allowedExtensions = ["jpg", "jpeg", "png", "avif", "jfif"];
-        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-        if (!in_array($fileExtension, $allowedExtensions)) {
-            $errors[] = "Only JPG, JPEG, PNG, AVIF, JFIF files are allowed.";
+        
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            $errors[] = "File upload error. Please try again.";
+            return $errors;
         }
-
+    
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (!in_array($ext, $allowedExtensions)) {
+            $allowedList = implode(", ", array_unique([
+                "JPG", 
+                "JPEG", 
+                "PNG", 
+                "AVIF", 
+                "JFIF"
+            ]));
+            $errors[] = "Invalid file type (.$ext). Supported formats: $allowedList.";
+        }
+    
         if ($file['size'] > 5000000) {
-            $errors[] = "File size should not exceed 5MB.";
+            $errors[] = "File size exceeds limit. Maximum allowed: 5MB.";
         }
-
+    
         return $errors;
     }
+
+    private function handleFileUpload($file) {
+        $uploadsDir = './uploads/';
+        if (!is_dir($uploadsDir)) {
+            mkdir($uploadsDir, 0755, true);
+        }
+
+        $fileName = uniqid() . '_' . basename($file['name']);
+        $targetPath = $uploadsDir . $fileName;
+
+        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+            throw new Exception("🚫 Failed to upload file. Please try again.");
+        }
+
+        return $fileName;
+    }
+
+    private function getRedirectPage($stressLevel) {
+        $redirectMap = [
+            'low' => 'low_level_relaxation_activities.php',
+            'moderate' => 'moderate_level_relaxation_activities.php',
+            'high' => 'high_level_relaxation_activities.php'
+        ];
+
+        return $redirectMap[$stressLevel] ?? 'high_level_relaxation_activities.php';
+    }
 }
-?>
