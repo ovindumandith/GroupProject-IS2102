@@ -406,21 +406,28 @@ document.addEventListener("DOMContentLoaded", () => {
             // Toggle completion
             goals[goalIndex].completed = !goals[goalIndex].completed
 
+            // Show notification
+            const action = goals[goalIndex].completed ? "completed" : "reopened";
+
+            const taskStatus = action === 'completed'
+                ? 1
+                : action === 'reopened'
+                    ? 0
+                    : null;
+
+            goals[goalIndex].completed = taskStatus
+            
             // Save
             localStorage.setItem("tasks", JSON.stringify(goals))
 
             // Refresh
             loadGoals(goals)
 
-            // Show notification
-            const action = goals[goalIndex].completed ? "completed" : "reopened"
+
+
             const goal = {
                 id: goalId,
-                taskStatus: action === 'completed'
-                    ? 1
-                    : action === 'reopened'
-                        ? 0
-                        : null
+                taskStatus: taskStatus
 
             }
             fetch('../controller/TimeTrackingManagementController.php', {
@@ -968,7 +975,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({ id: $id,timeUpdate: 1 }), // Format data for POST
+                body: new URLSearchParams({ id: $id, timeUpdate: 1 }), // Format data for POST
             });
 
             const data = await response.json();
