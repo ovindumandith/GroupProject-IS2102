@@ -14,8 +14,6 @@ class ManagePostController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['delete'])) {
                 $this->handleDelete();
-            } elseif (isset($_POST['edit'])) {
-                $this->handleEdit();
             } elseif (isset($_POST['update'])) {
                 $this->handleUpdate();
             }

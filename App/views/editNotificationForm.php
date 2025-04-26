@@ -21,11 +21,11 @@ if (!$notification) {
 <head>
     <meta charset="UTF-8">
     <title>Edit Notification</title>
-    <link rel="stylesheet" href="../../assets/css/CommunityAdmin_notifications.css">
+    <link rel="stylesheet" href="../../assets/css/Edit_community.css">
 </head>
 <body>
-    <main>
-        <h2>Edit Notification</h2>
+    <main class="notification-form-section">
+        <h2>Update Notification</h2>
         <form action="../controller/CommunitynotificationsController.php?action=update" method="POST" class="notification-form">
             <input type="hidden" name="notification_id" value="<?= $notification['notification_id'] ?>">
 
