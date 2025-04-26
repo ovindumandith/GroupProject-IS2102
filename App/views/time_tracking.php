@@ -49,7 +49,7 @@ if (!isset($_SESSION['user_id'])) {
             <header class="main-header">
                
                 <div class="header-title">
-                    <h2>Activity Tracker</h2>
+                    <h2>TimeTracker</h2>
                 </div>
                 <div class="header-actions">
                     <button id="add-task-btn" class="btn btn-primary">
