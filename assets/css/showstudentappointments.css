@@ -1,99 +1,497 @@
+/* Student Appointments Styles - Matching User Profile Style */
+:root {
+  --primary-color: #009f77;
+  --primary-dark: #007a5c;
+  --primary-light: #e8f1ec;
+  --secondary-color: #fa8128;
+  --secondary-dark: #e87217;
+  --text-dark: #333;
+  --text-light: #666;
+  --white: #fff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --border-radius: 15px;
+  --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+}
+
+/* Page Header */
 .student-appointments {
-  font-size: 2.5rem; /* Increase font size for emphasis */
-  font-weight: 700; /* Make it bold */
-  color: #006d58; /* Darker green tone for better contrast */
-  text-align: center; /* Center align the text */
-
-  margin: 20px 0; /* Add spacing around */
-  letter-spacing: 2px; /* Add spacing between letters for elegance */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  position: relative; /* Position for decorative elements */
+  text-align: center;
+  color: var(--text-dark);
+  font-size: 2.5rem;
+  margin: 40px 0 20px;
+  font-weight: 700;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Decorative line below the heading */
-.student-appointments::after {
+.student-appointments:after {
   content: "";
-  display: block;
-  width: 50px; /* Length of the line */
-  height: 4px; /* Thickness of the line */
-  background-color: #004d40; /* Even darker green for contrast */
-  margin: 10px auto 0; /* Center line below the heading */
-  border-radius: 2px; /* Slightly rounded edges */
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: var(--secondary-color);
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
 }
 
-/* General Table Styling */
+/* Search Container with Matching User Profile Style */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.search-input {
+  width: 350px;
+  height: 50px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  outline: none;
+  transition: var(--transition);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: var(--white);
+  color: var(--text-dark);
+  font-family: "Poppins", sans-serif;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 159, 119, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Add Appointment Button - Matching User Profile Style */
+.add-appointment-btn {
+  display: block;
+  width: fit-content;
+  margin: 30px auto;
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color) 0%,
+    var(--secondary-dark) 100%
+  );
+  color: var(--white);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(250, 129, 40, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-appointment-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(250, 129, 40, 0.3);
+}
+
+.add-appointment-btn i {
+  font-size: 1.1rem;
+}
+
+/* Appointments Table - Matching Card Style from User Profile */
+#appointment-results {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+}
+
+/* Table Container - Using Card Style */
 table {
   width: 100%;
-  max-width: 900px;
-  margin: 20px auto;
-  border-collapse: collapse;
-  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 40px;
+  transition: var(--transition);
+}
+
+table:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header - Like Card Header */
+thead {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: var(--white);
+}
+
+th {
+  padding: 20px 15px;
   text-align: left;
-}
-
-table thead {
-  background-color: #009f77;
-  color: white;
-}
-
-table th,
-table td {
-  padding: 15px;
-  font-size: 1rem;
-  border-bottom: 1px solid #ddd;
-}
-
-table th {
   font-weight: 600;
-  text-transform: uppercase;
+  font-size: 1.1rem;
 }
 
-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+th i {
+  margin-right: 8px;
 }
 
-/* Button Group Styling */
+/* Table Rows and Cells */
+td {
+  padding: 16px 15px;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 1rem;
+}
+
+tbody tr {
+  transition: var(--transition);
+}
+
+tbody tr:hover {
+  background-color: var(--primary-light);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status Cell */
+td:nth-child(4) {
+  font-weight: 600;
+}
+
+/* Status Styling - Using Classes */
+.status-pending {
+  color: #f39c12;
+  position: relative;
+  padding-left: 25px;
+}
+
+.status-accepted {
+  color: #27ae60;
+  position: relative;
+  padding-left: 25px;
+}
+
+.status-rejected {
+  color: #e53935;
+  position: relative;
+  padding-left: 25px;
+}
+
+.status-completed {
+  color: #3498db;
+  position: relative;
+  padding-left: 25px;
+}
+
+.status-pending:before,
+.status-accepted:before,
+.status-rejected:before,
+.status-completed:before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.status-pending:before {
+  background-color: #f39c12;
+}
+
+.status-accepted:before {
+  background-color: #27ae60;
+}
+
+.status-rejected:before {
+  background-color: #e53935;
+}
+
+.status-completed:before {
+  background-color: #3498db;
+}
+
+/* Button Group */
 .button-group {
   display: flex;
-  justify-content: center; /* Center-align buttons */
-  gap: 10px; /* Equal spacing between buttons */
+  gap: 10px;
 }
 
+/* Action Buttons - Matching User Profile Button Styles */
 .btn {
-  padding: 10px 18px;
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: 30px;
+  padding: 8px 15px;
   text-decoration: none;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  text-align: center;
+  border: none;
+  font-family: "Poppins", sans-serif;
 }
 
 .update-btn {
-  background-color: #4caf50;
-  color: white;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-color);
 }
 
 .update-btn:hover {
-  background-color: #43a047;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 159, 119, 0.2);
 }
 
 .delete-btn {
-  background-color: #f44336;
-  color: white;
+  background-color: #ffebee;
+  color: #e53935;
+  border: 1px solid #e53935;
 }
 
 .delete-btn:hover {
   background-color: #e53935;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(229, 57, 53, 0.2);
 }
 
-.delete-btn:active {
-  background-color: #d32f2f;
-  transform: translateY(0);
+/* No Appointments Message */
+p.student-appointments {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  background-color: var(--white);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 30px auto;
+  max-width: 600px;
+  transition: var(--transition);
+}
+
+p.student-appointments:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#appointment-results {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+tbody tr {
+  animation: fadeIn 0.6s ease forwards;
+  animation-delay: calc(var(--row-index, 0) * 0.1s);
+  opacity: 0;
+}
+
+/* No Results Message */
+.no-results-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 30px auto;
+  max-width: 600px;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1200px) {
+  main {
+    padding: 20px 15px 40px;
+  }
+
+  table {
+    margin: 0 20px 40px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .search-input {
+    width: 300px;
+  }
+
+  .student-appointments {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* Stack the table for mobile view */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    margin-bottom: 20px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background-color: var(--white);
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  td:before {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  td:nth-of-type(1):before {
+    content: "Appointment Date";
+  }
+  td:nth-of-type(2):before {
+    content: "Counselor";
+  }
+  td:nth-of-type(3):before {
+    content: "Topic";
+  }
+  td:nth-of-type(4):before {
+    content: "Status";
+  }
+  td:nth-of-type(5):before {
+    content: "Actions";
+  }
+
+  .button-group {
+    justify-content: flex-end;
+  }
+
+  /* Adjust status indicators in mobile view */
+  .status-pending:before,
+  .status-accepted:before,
+  .status-rejected:before,
+  .status-completed:before {
+    left: 130px;
+  }
+
+  .status-pending,
+  .status-accepted,
+  .status-rejected,
+  .status-completed {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .search-input {
+    width: 90%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .student-appointments {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .add-appointment-btn {
+    width: 90%;
+    justify-content: center;
+    padding: 10px 15px;
+  }
+}
+
+/* Additional Styles For Consistency with User Profile */
+.date-column {
+  font-weight: 500;
+  color: var(--primary-dark);
+}
+
+.counselor-column {
+  font-weight: 500;
+}
+
+/* Focus Effect for Search - Consistent with Profile Form */
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 159, 119, 0.1);
 }
