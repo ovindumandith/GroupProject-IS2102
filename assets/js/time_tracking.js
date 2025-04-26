@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll('.content-section');
     fetchTasks()
 
-
     viewBadges()
     links.forEach(link => {
         link.addEventListener('click', function (e) {
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
     async function fetchTasks() {
-
+        viewBadges()
         try {
             // Fetch all events from the backend
             const response = await fetch('../controller/TimeTrackingManagementController.php', {
@@ -191,10 +190,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         <h4 class="card-title">${badge.name}</h4>
                         <p class="card-subtitle mb-2 text-muted">Earned: ${formatDate(badge.earnedAt)}</p>
                         <div class="d-flex align-items-center mt-3">
-                            <div class="badge-icon me-3" style="font-size: 2rem;">${badge.icon}</div>
                             <div>
                                 <p class="card-text">${badge.description}</p>
                             </div>
+                        <div class="badge-icon me-3" style="font-size: 2rem;">${badge.icon}</div>
+                           
                         </div>
                     </div>
                 </div>
@@ -663,24 +663,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Badge definitions
     const badgeDefinitions = [
-        {
-            id: "first_task",
-            name: "First Steps",
-            description: "Created your first task",
-            icon: "🚀",
-            condition: (tasks) => tasks.length >= 1,
-        },
+        
         {
             id: "task_master",
-            name: "Task Master",
-            description: "Completed 5 tasks",
+            name: "Timekeeper Legend",
+            description: "Awarded for consistently planning, organizing, and completing work ahead of time",
             icon: "🏆",
             condition: (tasks) => tasks.filter((task) => task.completed).length >= 5,
         },
         {
             id: "time_keeper",
-            name: "Time Keeper",
-            description: "Tracked a total of 2 hours",
+            name: "Clockwork Achiever",
+            description: "Recognizes as those who function like clockwork — reliable, timely, and precise",
             icon: "⏱️",
             condition: (tasks) => {
                 const totalMinutes = tasks.reduce((total, task) => total + task.time_spent, 0)
@@ -690,14 +684,14 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: "efficiency_expert",
             name: "Efficiency Expert",
-            description: "Completed a task under the estimated time",
+            description: "Recognizes outstanding ability to complete tasks quickly without sacrificing quality",
             icon: "⚡",
             condition: (tasks) => tasks.some((task) => task.completed && task.time_spent < task.time_goal),
         },
         {
             id: "perfect_planner",
             name: "Perfect Planner",
-            description: "Completed a task exactly on time",
+            description: "Celebrating remarkable skills in scheduling and delivering tasks efficiently and effectively",
             icon: "🎯",
             condition: (tasks) => tasks.some((task) => task.completed && task.time_spent === task.time_goal),
         },
