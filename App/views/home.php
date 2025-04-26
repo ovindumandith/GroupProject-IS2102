@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_id'])) {
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+        <button class="signup" onclick="location.href='../controller/UserProfileController.php?action=showProfile'"><b>Profile</b></button>
         <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
