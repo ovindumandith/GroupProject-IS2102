@@ -1,0 +1,770 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    
+}
+
+.dashboard {
+    display: flex;
+    height: 99vh; /* Take full height of the viewport */
+    width: 99%; /* Take full width */
+    margin: 2px; /* Remove margin to fill the screen */
+    border-radius: 15px; /* Remove rounded corners for a full-screen design */
+   
+    overflow: hidden; /* Ensure content doesn’t overflow */
+    position: relative;
+   
+    
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 35px; /* Increase sidebar width for better use of space */
+    background-color: #f2f5f2;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height */
+    justify-content: space-between;
+    border: none;
+  
+    
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 35PX;
+  }
+  
+  .nav-icons .nav-item,
+  .nav-icons a {
+    color: #818080cc;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-icons a:hover,
+  .nav-icons .active {
+    color: #818080cc;
+  }
+  
+  .profile-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: 100%;
+}
+
+.header-content{
+    height: 90px;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding:10px;
+    
+    
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+.header-left h1 {
+    font-size:1.8rem ;
+    font-family: 'Times New Roman', Times, serif;
+    color: hsl(25, 88%, 51%);
+    margin-left: 50px;
+    font-weight: 400;
+}
+/* Header Styling */
+.search-and-add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 67%;
+    padding: 10px;
+    margin-left: 150px;
+}
+.task__options {
+    cursor: pointer;
+    padding: 5px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+  }
+  
+.search-container{
+    width: 50%;
+    display: flex; /* Use flexbox to align the items horizontally */
+    align-items: center; /* Align items vertically */
+    box-sizing: border-box;
+    flex-direction: column;
+    position: relative; 
+    align-items: center;
+   
+   }
+   #search-bar{
+     flex: 1;
+     padding: 8px 10px;
+     border: none;
+     border-right: none;
+     border-radius: 4px 0 0 4px;
+     outline: none;
+     font-size: 1rem;
+     border-radius: 15px;
+     background: transparent;
+   
+   }
+   .search-task{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* 📍 Moved here */
+   
+   }
+   .search-button{
+     width: 40px;
+     height: 40px;
+     background-color: #eeb99e;
+     border: none;
+     border-radius: 50%;
+     color: white;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+   
+   
+   }
+   .search-button i {
+     font-size: 16px;
+   }
+   
+   .results-container {
+    position: absolute;     /* 🔑 Positioned within .search-task now */
+    top: 93%;              /* Below the search bar */
+    width: 43%;            /* Match width of search-task */
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    border: none;
+    align-items: flex-start;
+    max-height: 351px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    background-color: white;
+    z-index: 999;
+    border-radius: 5px;
+   
+   }
+  
+   .results-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+   
+   #search-results {
+     list-style-type: none;
+     padding: 0;
+     margin: 0;
+     width: 100%;
+     
+   }
+   
+   #search-results li {
+     padding: 8px;
+     color: #c8c8c8;
+     margin-bottom: 5px;
+     border-radius: 4px;
+     background-color: transparent;
+     text-align: left;
+     cursor: pointer;
+     display: flex;              /* 🔑 This is required */
+     justify-content: space-between;
+   
+   }
+   
+   .task-text {
+    flex-grow: 1;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .task-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+.add-event-button {
+    background-color:#fc9d4f;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 28px;
+    padding: 10px 10px;
+    font-size: 1.11rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+    width: 140px;
+}
+
+.add-event-button:hover {
+    background-color:#ed8733;
+}
+/* Icon inside Add Task Button */
+.add-icon {
+    width: 20px; /* Adjust icon size as needed */
+    height: 35px;
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 30px;
+  }
+
+
+
+
+
+/* Calendar Section */
+.content-section {
+    display: flex;
+    gap: 30px;
+    height: 85%;
+}
+
+.left-panel{
+    width:22% ;
+}
+
+/* Upcoming Events */
+.upcoming-events {
+    margin-top: 10px;
+    padding: 3px;
+    height: 52%;
+    width: 95%;
+    border-radius: 12px;
+    max-height: 740px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+    background-color: #ffffff;
+    margin-left: 23px;
+}
+
+.upcoming-events:-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+
+.upcoming-events h3 {
+    margin-bottom: 20px;
+    font-size: 17px;
+    color: #a8a8a8;
+    margin-left: 10px;
+
+}
+
+.event-card {
+    background-color: #eef7eb;
+    width: 75%;
+    height: 25%;
+    margin-left: 25px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 6px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.event-card h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #505050;
+}
+
+.event-card p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pinned-icon {
+    color: #ff6347;
+    transform: rotate(45deg);
+    margin-right: 8px;
+  }
+  
+
+/* Calendar Panel */
+.calendar-panel {
+    width:330px;
+    padding: 20px;
+    background-color:#d6e3dc;
+    border-radius: 10px;
+    box-shadow: 10px 15px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 25px;
+    margin-left: 23px;
+    height: 280px; ;
+    
+    
+}
+/* Calendar */
+#calendar {
+    width: 95%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-left: 0;
+}
+.calendar-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-between;
+
+}
+.calendar-navigation h2{
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    color: #999292;
+    
+}
+.calendar-navigation button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem; /* Reduced font size */
+    color: #81807f;
+    padding: 5px;
+    transition: transform 0.2s;
+    
+}
+
+
+
+.event-dot {
+    display: inline-block;
+    width: 5px;
+    height: 6px;
+    background-color: #ff7d2c;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-left: 2px;
+}
+
+.has-event {
+    background-color:#ffffff; /* Optional: highlight cells with events */
+    border-radius: 5px;
+    width: 3px;
+    height: 3px;
+
+}
+
+
+#calendar th {
+    color: #898989;
+    font-size: 1.1rem;
+    padding: 8px 0;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    
+    
+}
+#calendar td {
+    width: 13%;
+    height: 35px;
+    color: #333;
+    font-size: 1.05rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+#calendar td.today {
+    background-color: #2f27b8;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#calendar td.outside {
+    color: #bbb;
+    cursor: default;
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1; /* Allows the schedule to grow within the panel */
+    overflow-y: auto; /* Enables scrolling when content exceeds height */
+    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+    
+}
+
+.schedule::-webkit-progress-bar{
+   display: none;
+}
+
+
+.Schedule-list{
+    background-color: #090808;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Schedule Panel Styling */
+.schedule-panel {
+    flex: 2; /* Make this panel take twice the space */
+    background-color: #d6e3dc;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 19%;
+    margin-top: 20px; /* Adds space between week navigation and schedule */
+    display: flex;
+    flex-direction: column;
+    height: 99%; /* Make the panel take up available height */
+    overflow: hidden; /* Prevent overflow from affecting the overall layout */
+}
+
+
+
+/* Ensure the course-card and other events are styled properly */
+
+
+.card-container{
+    background-color: #fdfbfb;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 97%;
+    margin-top: 12px;
+   
+}
+/* Scrollbar Styling */
+.schedule-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.schedule-panel::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.schedule-panel::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Date Header */
+.date-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    
+    border-radius: 5px;
+}
+
+.date {
+    display: flex;
+    align-items: center;
+}
+
+.date .day {
+    font-size: 27px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: #8a8989;
+
+}
+
+.date .month-year {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: #949292;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.today-button {
+    padding: 10px 20px;
+    background-color:#d6e3dc ;
+    border: none;
+    color: #7f7f7f;
+    border-radius: 18px;
+    cursor: pointer;
+    font-size: 1.0rem;
+    margin-top: 20px;
+    margin-right:20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+/* Week Navigation */
+.week-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #b6b6b6;
+    background-color:white
+}
+
+.week-navigation span {
+    flex: 1;
+    text-align: center;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.week-navigation .active {
+    
+    color: #f0732b;
+    font-weight: 700;
+    border-radius: 5px;
+    width: 5px;
+}
+
+.course-card{
+    background-color: #e5efe6;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 120px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.course-card h5 {
+    margin: 5px 0 5px;
+    font-size: 18px;
+    color: #505050;
+    font-weight: 400;
+
+    
+    
+}
+
+.course-card-container{
+    background-color: white;
+    height:100%;
+    border-radius: 31px;
+    padding: 12px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+
+}
+
+.course-card-container::-webkit-scrollbar{
+    display: none;
+}
+.course-card .course-info{
+    margin-top: 10px;
+    padding-bottom:5px; 
+    text-align:left ;
+
+}
+.course-card .time {
+    font-size: 16px;
+    color: #181717;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.course-card .details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    color: #a19e9e;
+    
+    font-family: 'Times New Roman', Times, serif
+}
+
+.button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    margin-right: 30px;
+}
+
+button.edit-btn, button.delete-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    
+}
+button.edit-btn{
+    color:rgb(235, 121, 34) ;
+    font-size: 15px;
+}
+button.delete-btn{
+    color: rgb(242, 122, 31);
+    font-size: 15px;
+}
+
+
+
+
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .calendar-panel, .schedule-panel {
+        width: 100%;
+        padding: 10px;
+    }
+
+    #monthYear {
+        font-size: 1rem;
+    }
+
+    #calendar td {
+        font-size: 0.8rem;
+    }
+}
+/* popup */
+/* Popup Form Styles */
+/* Ensure that the popup covers the full viewport */
+.popup {
+    position: fixed; /* Use fixed positioning to ensure it's always in view */
+    top: 50%; /* Position vertically at the center */
+    left: 50%; /* Position horizontally at the center */
+    transform: translate(-50%, -50%); /* Offset by 50% of the element's width/height to truly center it */
+    
+    padding: 20px;
+    
+    z-index: 1000; /* Make sure the popup appears above other elements */
+    width: 80%; /* Adjust the width of the popup as needed */
+    max-width: 500px; /* Optional, set a max width for the popup */
+    display: none; /* Initially hide the popup */
+}
+
+/* Make the background darker to highlight the popup */
+.popup::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 999; /* Make sure the background is below the popup */
+    display: none; /* Initially hide the background */
+}
+
+/* Show the popup and background when it's active */
+.popup.show {
+    display: block;
+}
+
+.popup.show::before {
+    display: block;
+}
+
+/* Add some styles for the close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+}
+
+.popup-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-content input,
+.popup-content textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup-content button {
+    background-color: #55a419;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background-color: #347205;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+   

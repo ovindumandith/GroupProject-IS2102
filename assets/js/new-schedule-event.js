@@ -1,11 +1,16 @@
 let events = [];
 window.onload = async function () {
     // Fetch events from the server
+  
+    loadEvent();
+};
+async function loadEvent() {
     const events = await fetchEvents();
     setToday()
     // Generate the calendar with the fetched events
     generateCalendar(events);
-};
+    displayUpcomingSchedule(events);
+}
 function setToday() {
 
     const today = new Date();
@@ -43,7 +48,7 @@ function fetchEventsForDay(date) {
     const formattedDate = `${year}-${month}-${day}`; // Combine components
 
     // API call to fetch events for the given day
-    fetch(`../controller/ScheduleEventController.php?date=${formattedDate}`)
+    fetch(`../controller/new-schedule-event-controller.php?date=${formattedDate}`)
         .then(response => response.text()) // Read response as text first
         .then(data => {
             // Log raw response to see if it's HTML or an error message
@@ -65,7 +70,7 @@ function fetchEventsForDay(date) {
 async function fetchEvents() {
     try {
         // Fetch all events from the backend
-        const response = await fetch('../controller/ScheduleEventController.php', {
+        const response = await fetch('../controller/new-schedule-event-controller.php', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -84,6 +89,59 @@ async function fetchEvents() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const searchBar = document.getElementById('search-bar');
+    const searchResults = document.getElementById('search-results');
+    const searchButton = document.querySelector('.search-button');
+
+    // Function to fetch and display search results
+    function performSearch(query) {
+        // Optional: Show "Searching..." while loading
+        searchResults.innerHTML = '<li>Searching...</li>';
+
+        fetch('../controller/new-schedule-event-controller.php?search=' + encodeURIComponent(query))
+            .then(response => response.json())
+            .then(events => {
+                // Clear previous results
+                searchResults.innerHTML = '';
+
+                if (events.length > 0) {
+                    events.forEach(event => {
+                        const li = document.createElement('li');
+                        li.textContent = event.title + " (" + event.start_time + " to " + event.end_time + ")";
+                        searchResults.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'No results found.';
+                    searchResults.appendChild(li);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+                searchResults.innerHTML = '<li>Error loading results.</li>';
+            });
+    }
+
+    // Live search while typing
+    searchBar.addEventListener('input', function() {
+        const query = searchBar.value.trim();
+        if (query.length > 0) {
+            performSearch(query);
+        } else {
+            searchResults.innerHTML = ''; // Clear if empty
+        }
+    });
+
+    // Search when clicking the search button
+    searchButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent form submit
+        const query = searchBar.value.trim();
+        if (query.length > 0) {
+            performSearch(query);
+        }
+    });
+});
 
 // Assuming `events` is the array of events fetched from your server with 'date' as 'YYYY-MM-DD'
 
@@ -218,9 +276,51 @@ function displayEvents(events) {
         eventCard.classList.add('course-card', 'math'); // Add appropriate classes
 
         eventCard.innerHTML = `
-        <div class="time">${formatTime(event.start_time)} - ${formatTime(event.end_time)}</div>
+        
+        <div class="course-info">
+    <h5>
+        <i class="fas fa-star" style="color: #f4c542; font-size:15px; margin-right: 6px;"></i> 
+        ${event.title}
+    </h5>
+    <div class="time">
+        <i class="fas fa-clock" style="color: #4caf50; font-size:15px; margin-right: 6px;"></i>
+        ${formatTime(event.start_time)} - ${formatTime(event.end_time)}
+    </div>
+    <div class="details">${event.description}</div>
+    <div class="button-container">
+        <button class="edit-btn" onclick="openEditPopup(${event.id})">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="delete-btn" onclick="deleteEvent(${event.id})">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+</div>
+
+    `;
+
+        // Function to format time to HH:MM
+        function formatTime(time) {
+            // If time is a string in HH:MM:SS format (e.g., "12:12:00")
+            return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
+        }
+        scheduleContainer.appendChild(eventCard);
+    });
+}
+
+function displayUpcomingEvents(events) {
+    const scheduleContainer = document.querySelector('.schedule');
+    scheduleContainer.innerHTML = ''; // Clear previous events
+
+    events.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.classList.add('course-card', 'math'); // Add appropriate classes
+
+        eventCard.innerHTML = `
+        
         <div class="course-info">
             <h4>${event.title}</h4>
+            <div class="time">${formatTime(event.start_time)} - ${formatTime(event.end_time)}</div>
             <div class="details">${event.description}</div>
             <div class="button-container">
                 <button class="edit-btn" onclick="openEditPopup(${event.id})">
@@ -232,22 +332,68 @@ function displayEvents(events) {
             </div>
         </div>
     `;
-    
-    // Function to format time to HH:MM
-    function formatTime(time) {
-        // If time is a string in HH:MM:SS format (e.g., "12:12:00")
-        return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
-    }
-    
 
+        // Function to format time to HH:MM
+        function formatTime(time) {
+            // If time is a string in HH:MM:SS format (e.g., "12:12:00")
+            return time.slice(0, 5);  // Extracts "HH:MM" from "HH:MM:SS"
+        }
         scheduleContainer.appendChild(eventCard);
     });
 }
+function displayUpcomingSchedule(events) {
+    const container = document.querySelector('.upcoming-events');
+    const eventsWrapper = document.createElement('div');
+    eventsWrapper.classList.add('events-wrapper');
 
+    // Clear existing events (excluding the title)
+    container.innerHTML = ' <h3><i class="fas fa-thumbtack pinned-icon"></i> Upcoming Events</h3>';
+
+    const now = new Date();
+
+    // Filter and sort future events
+    const upcoming = events
+        .filter(event => new Date(event.date + 'T' + event.start_time) > now)
+        .sort((a, b) => new Date(a.date + 'T' + a.start_time) - new Date(b.date + 'T' + b.start_time));
+
+    upcoming.forEach(event => {
+        const card = document.createElement('div');
+        card.className = 'event-card';
+
+        const startTimeFormatted = formatTo12Hour(event.start_time);
+        const endTimeFormatted = formatTo12Hour(event.end_time);
+        const eventDate = new Date(event.date);
+        const dateFormatted = eventDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+
+        card.innerHTML = `
+           <div class="title-row">
+        <h4>${event.title}</h4>
+        <i class="fas fa-bell" style="color: #f39c12;"></i>
+    </div>
+    <p>${startTimeFormatted} - ${endTimeFormatted}</p>
+    <p>${dateFormatted}</p>
+            
+        `;
+
+        container.appendChild(card);
+    });
+
+    // Helper: Convert HH:MM:SS to 12-hour AM/PM format
+    function formatTo12Hour(timeStr) {
+        const [hour, minute] = timeStr.split(':');
+        const date = new Date();
+        date.setHours(+hour, +minute);
+        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
+}
 
 async function fetchEventDetails(eventId) {
     try {
-        const response = await fetch(`../controller/ScheduleEventController.php?id=${eventId}`);
+        const response = await fetch(`../controller/new-schedule-event-controller.php?id=${eventId}`);
 
         // Check if the response is not an error (i.e., status 2xx)
         if (!response.ok) {
@@ -313,7 +459,7 @@ function deleteEvent(eventId) {
         return; // Exit if the user cancels the confirmation
     }
 
-    fetch('../controller/ScheduleEventController.php', {
+    fetch('../controller/new-schedule-event-controller.php', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -339,7 +485,7 @@ function searchEvents() {
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
     // Construct the URL with query parameters
-    const url = `../controller/ScheduleEventController.php?search=${encodeURIComponent(searchQuery)}`;
+    const url = `../controller/new-schedule-event-controller.php?search=${encodeURIComponent(searchQuery)}`;
 
     // Fetch all events from the backend
     fetch(url, {
@@ -404,7 +550,7 @@ document.getElementById("eventForm").addEventListener("submit", function (event)
         endTime: document.getElementById("endTime").value,
     };
 
-    const url = `../controller/ScheduleEventController.php`;
+    const url = `../controller/new-schedule-event-controller.php`;
 
     fetch(url, {
         method: 'POST',
@@ -422,6 +568,8 @@ document.getElementById("eventForm").addEventListener("submit", function (event)
                 // Only show success alert if there are no errors
                 showAlert(data.message);
                 document.getElementById("eventForm").reset(); // Reset form on success
+                closePopup();
+                loadEvent();
             }
         })
         .catch((error) => {
