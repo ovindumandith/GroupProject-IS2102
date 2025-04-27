@@ -55,13 +55,13 @@ $pendingQuestions = $dashboardData['pending_academic_questions'];
         </div>
         <nav class="navbar">
             <ul>
-                <li><a href="./admin_home.php" class="active">Home</a></li>
+                <li><a href="../views/admin_home.php" class="active">Home</a></li>
                 <li class="services">
                     <a href="#">Services </a>
                     <ul class="dropdown">
                         <li><a href="../controller/AdminStressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
-                        <li><a href="./admin_activities_portal.php">Relaxation Activities</a></li>
-                        <li><a href="./workload.php">Workload Management Tools</a></li>
+                        <li><a href="../views/admin_activities_portal.php">Relaxation Activities</a></li>
+                        <li><a href="../workload.php">Workload Management Tools</a></li>
                     </ul>
                 </li>
                 <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
