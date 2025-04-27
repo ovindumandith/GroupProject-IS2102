@@ -136,7 +136,7 @@ if (!isset($_SESSION['user_id'])) {
                                         <img src="https://avatar.iran.liara.run/public" alt="User">
                                     </div>
                                     <h2 id="username">Hey
-                                        <?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Guest'; ?>
+                                        <?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Guest'; ?> !
                                        
                                     </h2>
                                 </div>
@@ -145,7 +145,7 @@ if (!isset($_SESSION['user_id'])) {
                                     <div class="progress-fill" style="width: 80%;"></div>
                                     <!-- 80% complete, adjust as needed -->
                                 </div>
-                                <p class="progress-status">20 out of 25 tasks are completed</p>
+                                <p class="progress-status">4out of 6 tasks are completed</p>
                             </div>
                             <div class="achievement-image">
 

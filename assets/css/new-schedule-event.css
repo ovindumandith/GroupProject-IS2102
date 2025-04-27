@@ -23,13 +23,16 @@ body {
 /* Sidebar Styling */
 .sidebar {
     width: 35px; /* Increase sidebar width for better use of space */
-    background-color: #d6e3dc;
+    background-color: #f2f5f2;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Full height */
+    height: 100vh; /* Full height */
     justify-content: space-between;
+    border: none;
+  
+    
 }
 
 .logo {
@@ -93,6 +96,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
     color: hsl(25, 88%, 51%);
     margin-left: 50px;
+    font-weight: 400;
 }
 /* Header Styling */
 .search-and-add {

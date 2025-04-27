@@ -33,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
                 </div>
             <nav class="nav-icons">
-                <a href="workload.php"><i class="fas fa-arrow-left"></i></a>
+            <a href="workload.php"><i class="fas fa-power-off"></i> </a>
             </nav>
         </div>
 

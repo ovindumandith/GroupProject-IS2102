@@ -91,19 +91,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'end' => $event['end_time'] // Event end date and time
         ];
     }
-    // // Check if there's a search query in the URL
-    // if (isset($_GET['search'])) {
-    //     $searchQuery = $_GET['search'];
-    //     // Get filtered events based on the search query
-    //     $events = $event->getEventsBySearch($searchQuery);
-    // } elseif (isset($_GET['date'])) {
-    //     $date = $_GET['date'];
-    //     // Get events filtered by date
-    //     $events = $event->getEventsByDate($date);
-    // } else {
-    //     // If no search query or date is provided, fetch all events
+     //Check if there's a search query in the URL
+    if (isset($_GET['search'])) {
+        $searchQuery = $_GET['search'];
+         // Get filtered events based on the search query
+        $events = $event->getEventsBySearch($searchQuery);
+     } elseif (isset($_GET['date'])) {
+     $date = $_GET['date'];
+        // Get events filtered by date
+        $events = $event->getEventsByDate($date);
+    } else {
+    // If no search query or date is provided, fetch all events
        
-    // }
+     }
 
     // Return the events as JSON
     header('Content-Type: application/json');

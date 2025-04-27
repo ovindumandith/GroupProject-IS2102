@@ -16,7 +16,7 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   --white: #ffffff;
-  --sidebar-width: 240px;
+  --sidebar-width: 210px;
   --header-height: 90px;
   --border-radius: 8px;
   --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -46,12 +46,40 @@ body {
   height: 100vh;
   width: 100vw;
 }
+.user-name{
+  font-size: 30px;
+  text-align: center;
+}
+.profile-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%; /* Make it round */
+  background-color: #f0f0f0; /* Light background if needed */
+}
+.profile-icon img {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+
+}
+
+.user-name h1 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #b6b3ac;
+  margin: 0; /* Remove default margin from h1 */
+}
+
 
 /* Sidebar */
 .sidebar {
   width: var(--sidebar-width);
   height: 100%;
-  background-color: #e1e4e2;
+  
   border-right: 1px solid var(--gray-200);
   display: flex;
   flex-direction: column;
@@ -59,15 +87,22 @@ body {
 }
 
 .sidebar-header {
-  padding: 35px;
+  padding: 20px;
   border-bottom: 1px solid var(--gray-200);
   
 }
 
+.sidebar-header-title {
+  display: flex;
+  align-items: center; /* Vertically center the icon and name */
+  gap: 10px; /* Space between the image and the username */
+}
+
+
 .sidebar-header h1 {
-  font-size: 1.02rem;
-  font-weight: 700;
-  color: #b6b3ac;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #f48824;
 }
 
 .sidebar-nav {
@@ -96,12 +131,12 @@ body {
 }
 
 .sidebar-nav a:hover {
-  background-color:#709f71 ;
+  background-color:#efb062 ;
   
 }
 
 .sidebar-nav li.active a {
-  background-color: #cbeacc;
+  background-color: #fe9b23;
   color: var(--white);
 }
 
@@ -121,10 +156,11 @@ body {
 }
 
 #current-date {
-  font-size: 1.02rem;
-  font-weight: bold;
-  margin: 0;
-  color:#d4a04c; 
+  font-size: 0.85rem;
+  margin: 5px;
+ 
+  margin-top: 20px;
+  color:#c8c2b8; 
 }
 
 .month-year {
@@ -149,7 +185,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--white);
+  
   border-bottom: 1px solid var(--gray-200);
 }
 
@@ -302,7 +338,7 @@ scrollbar-width: none; /* Firefox */
 
 
 .task-card {
-  background-color: #daeadd;
+  background-color: #f4f8f2;
   border-radius: var(--border-radius);
   padding: 15px;
   display: flex;
@@ -310,6 +346,7 @@ scrollbar-width: none; /* Firefox */
   gap: 25px;
   cursor: pointer;
   transition: var(--transition);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2) ;
 }
 
 .task-card:hover {

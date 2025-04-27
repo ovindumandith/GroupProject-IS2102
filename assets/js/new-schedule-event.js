@@ -89,6 +89,59 @@ async function fetchEvents() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const searchBar = document.getElementById('search-bar');
+    const searchResults = document.getElementById('search-results');
+    const searchButton = document.querySelector('.search-button');
+
+    // Function to fetch and display search results
+    function performSearch(query) {
+        // Optional: Show "Searching..." while loading
+        searchResults.innerHTML = '<li>Searching...</li>';
+
+        fetch('../controller/new-schedule-event-controller.php?search=' + encodeURIComponent(query))
+            .then(response => response.json())
+            .then(events => {
+                // Clear previous results
+                searchResults.innerHTML = '';
+
+                if (events.length > 0) {
+                    events.forEach(event => {
+                        const li = document.createElement('li');
+                        li.textContent = event.title + " (" + event.start_time + " to " + event.end_time + ")";
+                        searchResults.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'No results found.';
+                    searchResults.appendChild(li);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+                searchResults.innerHTML = '<li>Error loading results.</li>';
+            });
+    }
+
+    // Live search while typing
+    searchBar.addEventListener('input', function() {
+        const query = searchBar.value.trim();
+        if (query.length > 0) {
+            performSearch(query);
+        } else {
+            searchResults.innerHTML = ''; // Clear if empty
+        }
+    });
+
+    // Search when clicking the search button
+    searchButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent form submit
+        const query = searchBar.value.trim();
+        if (query.length > 0) {
+            performSearch(query);
+        }
+    });
+});
 
 // Assuming `events` is the array of events fetched from your server with 'date' as 'YYYY-MM-DD'
 

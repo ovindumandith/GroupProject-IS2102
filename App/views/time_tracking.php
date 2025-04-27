@@ -25,16 +25,31 @@ if (!isset($_SESSION['user_id'])) {
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header" id="sidebarHeader">
-            <div class="header-title">
-                    <p id="current-date">Loading date...</p>
+                <div class="sidebar-header-title">
+                    <div class="profile-icon">
+                        <img src="https://avatar.iran.liara.run/public" alt="User Profile Picture">
+
+                    </div>
+                    <div class="user-name ">
+                        <h1 id="username">
+                            <?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Guest'; ?>
+                        <h1>
+
+                    </div>
+                  
                 </div>
+                <p id="current-date">Loading date...</p>
+
             </div>
 
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="active"><a href="#" data-target="dashboard-content"><span class="material-symbols-rounded">dashboard</span> Dashboard</a></li>
-                    <li><a href="#" data-target="task-content"><span class="material-symbols-rounded">task</span> Tasks</a></li>
-                    <li><a href="#" data-target="achievement-content"><span class="material-symbols-rounded">emoji_events</span> Achievements</a></li>
+                    <li class="active"><a href="#" data-target="dashboard-content"><span
+                                class="material-symbols-rounded">dashboard</span> Dashboard</a></li>
+                    <li><a href="#" data-target="task-content"><span class="material-symbols-rounded">task</span>
+                            Tasks</a></li>
+                    <li><a href="#" data-target="achievement-content"><span
+                                class="material-symbols-rounded">emoji_events</span> Achievements</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -47,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
         <!-- Main Content -->
         <main class="main-content">
             <header class="main-header">
-               
+
                 <div class="header-title">
                     <h2>TimeTracker</h2>
                 </div>
@@ -127,8 +142,8 @@ if (!isset($_SESSION['user_id'])) {
                 <div id="goalsList"></div>
             </div>
             <div class="achievement-content content-section" style="display: flex;">
-    <div id="viewBadgs"></div>
-</div>
+                <div id="viewBadgs"></div>
+            </div>
 
         </main>
     </div>
@@ -240,7 +255,8 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
-    <div id="popupMessage" style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
+    <div id="popupMessage"
+        style="display: none; position: fixed; top: 20px; right: 20px; background: #4caf50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
         <span id="popupText"></span>
     </div>
 

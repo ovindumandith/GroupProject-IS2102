@@ -450,12 +450,12 @@ body {
 .achievement-text h2 {
   color: #da8432; /* purple */
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 
 .achievement-text p {
   margin: 0.3rem 0;
-  color: #4c4c4c;
+  color: #1c1c1c;
 }
 
 .progress-bar {
@@ -498,9 +498,9 @@ body {
 
 
 .tag-progress h2 {
-  font-size: 18px;
+  font-size: 17px;
   margin-bottom: 1rem;
-  color: rgb(226, 181, 167);
+  color: rgb(4, 4, 4);
 }
 
 .tag-progress p {
