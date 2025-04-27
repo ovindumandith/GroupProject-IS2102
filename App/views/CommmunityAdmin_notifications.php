@@ -67,7 +67,7 @@ $result = $notificationModel->fetchAllNotifications();
 <?php endif; ?>
 <main>
   <br>
-    <h2>Admin Sent Notifications</h2>
+    <h2>Notification for Deleting Post</h2>
     <section class="notification-form-section">
   <h3>Send Notification to User</h3>
   <form action="../controller/CommunitynotificationsController.php?action=sendNotification" method="POST" class="notification-form">

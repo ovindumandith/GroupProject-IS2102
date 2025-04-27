@@ -28,7 +28,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
     <link
       rel="stylesheet"
-      href="../../assets/css/admin_home.css"
+      href="../../assets/css/Comadmin_home.css"
       type="text/css">
       
 
@@ -65,32 +65,27 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="overview">
         <div class="card">
+            <h3>Total Users</h3>
+            <p id="total-posts">1050</p>
+        </div>
+        <div class="card">
             <h3>Total Posts</h3>
-            <p id="total-posts">1200</p>
+            <p id="total-comments">2400</p>
+        </div>
+        <div class="card">
+            <h3>Total Likes</h3>
+            <p id="total-users">780</p>
         </div>
         <div class="card">
             <h3>Total Comments</h3>
-            <p id="total-comments">3500</p>
+            <p id="total-users">3050</p>
         </div>
         <div class="card">
-            <h3>Total Users</h3>
-            <p id="total-users">780</p>
+            <h3>Total Events</h3>
+            <p id="total-users">160</p>
         </div>
     </div>
-
-    <!-- Charts Section -->
-    <div class="charts-section">
-        <div class="chart-container">
-            <h3>Top Contributors</h3>
-            <div id="contributors-chart" class="chart"></div>
-        </div>
-        <div class="chart-container">
-            <h3>Posts Over Time</h3>
-            <div id="posts-chart" class="chart"></div>
-        </div>
-    </div>
-
-    <!-- Data Table -->
+    
     <div class="table-container">
         <h3>Recent Activities</h3>
         <table>
@@ -105,19 +100,19 @@ if (!isset($_SESSION['user_id'])) {
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Amanda Lee</td>
+                    <td>Amanda</td>
                     <td>Added a new post</td>
                     <td>Published</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>David Kim</td>
+                    <td>David</td>
                     <td>Commented on a post</td>
                     <td>Approved</td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Emma Brown</td>
+                    <td>Emma</td>
                     <td>Deleted a comment</td>
                     <td>Removed</td>
                 </tr>

@@ -71,6 +71,7 @@ $result = $notificationModel->fetchNotificationsByUser($user_id);
 <br>
 <button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
             
+<h2>Notification for Admin Deleted Post</h2>
 <div class="search-box">
   <input type="text" id="searchInput" placeholder="Search by Title...">
 </div>
