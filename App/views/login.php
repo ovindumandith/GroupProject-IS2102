@@ -10,9 +10,39 @@
     <link rel="stylesheet" href="../../assets/css/loginsignup.css">
     <title>Login</title>
     <script src="../../assets/js/loginsignupvalidation.js"></script>
+        <style>
+      .back-to-home {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: var(--primary-color, #009f77);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        z-index: 10;
+      }
+      
+      .back-to-home:hover {
+        background-color: var(--primary-dark, #007a5c);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    </style>
     
   </head>
   <body>
+
+    <a href="../../public/index.html" class="back-to-home">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
 
     <div class="container" id="container">
       <div class="form-container sign-up">
