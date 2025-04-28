@@ -116,7 +116,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
                 <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
                 <?php if (!empty($post['image_path'])): ?>
-                  <img src="<?= $post['image_path'] ?>" alt="Post image">
+                  <img src="<?= $post['image_path'] ?>" alt="Post image" class="post-image">
                 <?php endif; ?>
                 <p><?= nl2br(htmlspecialchars($post['description'])) ?></p>
                 <br><hr>

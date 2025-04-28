@@ -225,12 +225,12 @@ body {
   color: #555;
 }
 
-.post-img {
-  width: 100%; /* Ensure the image fits within the container */
-  max-height: 300px; /* Limit the height */
-  object-fit: cover; /* Ensure the image is cropped proportionally */
-  border-radius: 8px;
+.post-image {
+  width: 550px; /* Adjust the width */
+  height: 250px; /* Adjust the height */
+  border: 2px solid #009f77;
 }
+
 
 .post p {
   font-size: 14px; /* Smaller text size */

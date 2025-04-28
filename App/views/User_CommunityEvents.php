@@ -18,7 +18,7 @@ $result = $eventModel->fetchAllEvents();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Notifications</title>
-  <link rel="stylesheet" href="../../assets/css/CommunityAdmin_notifications.css" type="text/css"/>
+  <link rel="stylesheet" href="../../assets/css/User_events.css" type="text/css"/>
     <script src="../../assets/js/CommunityAdmin_notifications.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
@@ -65,38 +65,31 @@ $result = $eventModel->fetchAllEvents();
       </div>
     </header>
   
-<main>
-
+    <main>
     <h2 class="page-title">Upcoming Community Events</h2>
-    <br>
-<table id="eventsTable">
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Date & Time</th>
-          <th>Meeting Link</th>
-          <th>Description</th>
-          <th>Category</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="events-container">
         <?php
         if ($result && count($result) > 0) {
-          foreach ($result as $row) {
-            echo "<tr>
-                    <td>" . htmlspecialchars($row['title']) . "</td>
-                    <td>" . htmlspecialchars($row['date']) . "</td>
-                    <td><a href=\"" . htmlspecialchars($row['link']) . "\" target=\"_blank\">Join</a></td>
-                    <td>" . htmlspecialchars($row['description']) . "</td>
-                    <td>" . htmlspecialchars($row['category']) . "</td>
-                  </tr>";
-          }
+            foreach ($result as $row) {
+                echo '<div class="event-card">';
+                echo '  <div class="event-header">';
+                echo '    <h3>' . htmlspecialchars($row['title']) . '</h3>';
+                echo '  </div>';
+                echo '  <div class="event-body">';
+                echo '    <p class="event-description">' . htmlspecialchars($row['description']) . '</p>';
+                echo '    <div class="event-date">';
+                echo '   Date & Time:   <i class="fa fa-calendar"></i> ' . htmlspecialchars($row['date']);
+                echo '    </div>';
+                echo '    <div class="event-category">' . htmlspecialchars($row['category']) . '</div>';
+                echo '    <a href="' . htmlspecialchars($row['link']) . '" class="event-link" target="_blank">Join Event</a>';
+                echo '  </div>';
+                echo '</div>';
+            }
         } else {
-          echo "<tr><td colspan='6' class='no-data'>No events available at this time.</td></tr>";
+            echo '<div class="no-events">No events available at this time.</div>';
         }
         ?>
-      </tbody>
-    </table>
+    </div>
 </main>
 
 

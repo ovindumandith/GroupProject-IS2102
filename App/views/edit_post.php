@@ -46,12 +46,6 @@ if (!$post) {
             <input type="text" class="title-input" id="title" name="title" value="<?= htmlspecialchars($post['title']) ?>" required>
             <br><br>
 
-            <label for="image">Add New Image:</label>
-            <input type="file" id="image" name="image">
-            <?php if ($post['image']): ?>
-                <p>View Current Image: <img src="../views/uploads/<?= htmlspecialchars($post['image']) ?>" alt="Current Image" width="150"></p>
-            <?php endif; ?>
-
             <label for="description">Description:</label>
             <textarea class="description-input" id="description" name="description" rows="5" required><?= htmlspecialchars($post['description']) ?></textarea>
             <br><br>
