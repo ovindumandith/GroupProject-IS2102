@@ -9,32 +9,29 @@ if (!isset($_SESSION['user_id'])) {
 require_once '../models/ViewRelaxationActivityModel.php';
 require_once '../controller/ViewRelaxationActivityController.php';
 
-// Initialize model and controller
-$model = new ViewRelaxationActivityModel();
+$model     = new ViewRelaxationActivityModel();
 $controller = new ViewRelaxationActivityController($model);
+$data      = $controller->handleRequest();
 
-// Handle request and get data
-$data = $controller->handleRequest();
 $highStressActivities = $data['highStressActivities'] ?? [];
-// $activities = $data['activities'] ?? [];
-$role = $data['role'] ?? 'user';
+$role                 = $data['role'] ?? 'user';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RelaxU</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/relaxation_activities.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/relaxation_activities.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body id="body">
     <!-- Header Section -->
     <header class="header">
         <div class="logo">
-            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+            <img src="../../assets/images/logo.jpg" alt="RelaxU Logo">
             <h1>RelaxU</h1>
         </div>
         <nav class="navbar">
@@ -63,7 +60,11 @@ $role = $data['role'] ?? 'user';
             </ul>
         </nav>
         <div class="auth-buttons">
-            <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
+            <?php if ($role === 'admin' || $role === 'superadmin'): ?>
+                <button class="signup" onclick="location.href='../../App/views/admin/admin_profile.php'"><b>Profile</b></button>  
+            <?php elseif ($role === 'student'): ?>
+                <button class="signup" onclick="location.href='../../App/controller/UserProfileController.php?action=showProfile'"><b>Profile</b></button>
+            <?php endif; ?>
             <form action="../../util/logout.php" method="post" style="display: inline">
                 <button type="submit" class="login"><b>Log Out</b></button>
             </form>
@@ -71,49 +72,48 @@ $role = $data['role'] ?? 'user';
     </header>
 
     <!-- Display Success/Error Messages -->
-    <!-- Display Success/Error Messages -->
-<?php if (isset($_SESSION['success'])): ?>
-    <div class="alert success">
-        <?= htmlspecialchars($_SESSION['success']) ?>
-        <button class="close" onclick="this.parentElement.remove()">&times;</button>
-    </div>
-    <?php unset($_SESSION['success']); ?>
-<?php endif; ?>
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert success">
+            <?= htmlspecialchars($_SESSION['success']) ?>
+            <button class="close" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
 
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="alert error">
-        <?= htmlspecialchars($_SESSION['error']) ?>
-        <button class="close" onclick="this.parentElement.remove()">&times;</button>
-    </div>
-    <?php unset($_SESSION['error']); ?>
-<?php endif; ?>
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert error">
+            <?= htmlspecialchars($_SESSION['error']) ?>
+            <button class="close" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
 
     <!-- Content Section -->
-    <div class="content">
+    <div class="content" id="content">
         <?php if (!empty($highStressActivities)): ?>
             <?php foreach ($highStressActivities as $row): 
-                $activityId = htmlspecialchars($row['id']);
-                $name = htmlspecialchars($row['activity_name']);
-                $description = htmlspecialchars($row['description']);
-                $file_name = htmlspecialchars($row['image_url']);
-                $playlist_url = htmlspecialchars($row['playlist_url']);
+                $activityId   = htmlspecialchars($row['id']);
+                $name         = htmlspecialchars($row['activity_name']);
+                $description  = htmlspecialchars($row['description']);
+                $file_name    = htmlspecialchars($row['image_url']);
+                $playlist_url = htmlspecialchars($row['playlist_url'], ENT_QUOTES, 'UTF-8', false);
             ?>
-                <div class="card">
+                <div class="card" id="card">
                     <div class="image-content">
                         <span class="overlay">
                             <?php if ($role === 'admin' || $role === 'superadmin'): ?>
                                 <form action="../views/update_relaxation_activities.php" method="GET">
-                                    <input type="hidden" name="id" value="<?= $activityId ?>">
+                                    <input type="hidden" name="id"           value="<?= $activityId ?>">
                                     <input type="hidden" name="activity_name" value="<?= $name ?>">
-                                    <input type="hidden" name="description" value="<?= $description ?>">
-                                    <input type="hidden" name="image_url" value="<?= $file_name ?>">
+                                    <input type="hidden" name="description"  value="<?= $description ?>">
+                                    <input type="hidden" name="image_url"    value="<?= $file_name ?>">
                                     <input type="hidden" name="playlist_url" value="<?= $playlist_url ?>">
                                     <input type="hidden" name="stress_level" value="<?= htmlspecialchars($row['stress_level']) ?>">     
                                     <button type="submit" class="delete-update-button"><i class="fas fa-edit"></i></button>
                                 </form>
 
-                                <form method="POST" class="delete-form" >
-                                    <input type="hidden" name="delete_id" value="<?= $activityId ?>">
+                                <form method="POST" class="delete-form">
+                                    <input type="hidden" name="delete_id"     value="<?= $activityId ?>">
                                     <input type="hidden" name="redirect_page" value="high_level_relaxation_activities.php">
                                     <button type="submit" class="delete-update-button"><i class="fas fa-trash"></i></button>
                                 </form>
@@ -126,20 +126,18 @@ $role = $data['role'] ?? 'user';
                     <div class="card-content">
                         <h2 class="activity"><?= $name ?></h2>
                         <p class="description"><?= $description ?></p>
-                        <button class="button">
-                            <a href="<?= $playlist_url ?>" target="_blank">View More</a>
-                        </button>
+                        <a href="<?= $playlist_url ?>" class="button" rel="noopener noreferrer">View More</a>
                     </div>
                 </div>
             <?php endforeach; ?>
-            <?php else: ?>
-    <div class="no-activities-container">
-        <div class="no-activities">
-            <i class="fas fa-frown"></i>
-            <p>No relaxation activities found.</p>
-        </div>
-    </div>
-<?php endif; ?>
+        <?php else: ?>
+            <div class="no-activities-container">
+                <div class="no-activities">
+                    <i class="fas fa-frown"></i>
+                    <p>No relaxation activities found.</p>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- Footer Section -->
@@ -148,7 +146,7 @@ $role = $data['role'] ?? 'user';
             <div class="footer-logo">
                 <h1>RelaxU</h1>
                 <p>Relax and Refresh while Excelling in your Studies</p>
-                <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo" />
+                <img id="footer-logo" src="../../assets/images/logo.jpg" alt="RelaxU Logo">
             </div>
             <div class="footer-section">
                 <h3>Services</h3>
@@ -177,18 +175,10 @@ $role = $data['role'] ?? 'user';
         </div>
         <div class="social-media">
             <ul>
-                <li>
-                    <a href="#"><img src="../../assets/images/facebook.png" alt="Facebook" /></a>
-                </li>
-                <li>
-                    <a href="#"><img src="../../assets/images/twitter.png" alt="Twitter" /></a>
-                </li>
-                <li>
-                    <a href="#"><img src="../../assets/images/instagram.png" alt="Instagram" /></a>
-                </li>
-                <li>
-                    <a href="#"><img src="../../assets/images/youtube.png" alt="YouTube" /></a>
-                </li>
+                <li><a href="#"><img src="../../assets/images/facebook.png" alt="Facebook"></a></li>
+                <li><a href="#"><img src="../../assets/images/twitter.png" alt="Twitter"></a></li>
+                <li><a href="#"><img src="../../assets/images/instagram.png" alt="Instagram"></a></li>
+                <li><a href="#"><img src="../../assets/images/youtube.png" alt="YouTube"></a></li>
             </ul>
         </div>
         <div class="footer-bottom">
@@ -197,18 +187,16 @@ $role = $data['role'] ?? 'user';
     </footer>
 
     <!-- Confirmation Modal -->
-<div class="confirmation-modal" id="confirmationModal">
-    <div class="modal-content">
-        <p class="modal-message">Are you sure you want to delete this activity?</p>
-        <div class="modal-buttons">
-            <button type="button" class="modal-button cancel-btn" id="cancelDelete">Cancel</button>
-            <button type="button" class="modal-button confirm-btn" id="confirmDelete">Delete</button>
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="modal-content">
+            <p class="modal-message">Are you sure you want to delete this activity?</p>
+            <div class="modal-buttons">
+                <button type="button" class="modal-button cancel-btn" id="cancelDelete">Cancel</button>
+                <button type="button" class="modal-button confirm-btn" id="confirmDelete">Delete</button>
+            </div>
         </div>
     </div>
-</div>
 
-    
+    <script src="../../assets/js/delete_confirm.js"></script>
 </body>
-
-<script src="../../assets/js/delete_confirm.js"></script>
 </html>

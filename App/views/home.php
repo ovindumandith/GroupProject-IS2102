@@ -75,7 +75,7 @@ if ($latestStressLevel === 'Low') {
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
-              <li><a href="../../assets/html/relaxation_activities_suggester.html">Relaxation Activities</a></li>
+              <li><a href="../views/relaxation_activities_suggester.php">Relaxation Activities</a></li>
               <li><a href="../views/workload.php">Workload Management Tools</a></li>
             </ul>
           </li>

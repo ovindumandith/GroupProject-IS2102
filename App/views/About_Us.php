@@ -37,7 +37,7 @@ if (!isset($_SESSION['user_id'])) {
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="#">Relaxation Activities</a></li>
+              <li><a href="../views/relaxation_activities_suggester.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>

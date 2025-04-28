@@ -47,37 +47,48 @@ if (!isset($_SESSION['user_id'])) {
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
-              <li><a href="../../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
-              <li><a href="../../assets/html/relaxation_activities_suggester.html">Relaxation Activities</a></li>
-              <li><a href="#">Workload Management Tools</a></li>
+              <li><a href="../views/stress_management/stress_management_index.php">Stress Monitoring</a></li>
+              <li><a href="../views/relaxation_activities_suggester.php">Relaxation Activities</a></li>
+              <li><a href="../views/workload.php">Workload Management Tools</a></li>
             </ul>
           </li>
-          <li><a href="../../views/Academic_Help.php">Academic Help</a></li>
-          <li><a href="../../controller/CounselorController.php?action=list">Counseling</a></li>
-          <li><a href="../../controller/CommunityController.php?action=list">Community</a></li>
-          <li><a href="../../views/About_Us.php">About Us</a></li>
+          <li><a href="../views/Academic_Help.php">Academic Help</a></li>
+          <li><a href="../controller/CounselorController.php?action=list">Counseling</a></li>
+          <li><a href="../controller/CommunityController.php?action=list">Community</a></li>
+          <li><a href="../views/About_Us.php">About Us</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <button class="signup" onclick="location.href='profile.php'"><b>Profile</b></button>
-        <form action="../../../util/logout.php" method="post" style="display: inline">
+        <button class="signup" onclick="location.href='../controller/UserProfileController.php?action=showProfile'"><b>Profile</b></button>
+        <form action="../../util/logout.php" method="post" style="display: inline">
           <button type="submit" class="login"><b>Log Out</b></button>
         </form>
       </div>
     </header>
 <div id="stress-management-options">
+<div id="stress-check-popup" style="display: none;">
+      <div class="popup-content">
+        <h3>Important Notice</h3>
+        <p>If you have not checked your stress level, please check first. 
+           If you have already checked, please proceed with the relevant category.</p>
+        <div class="popup-buttons">
+          <button class="popup-btn" id="proceed-btn"><a href="../../App/views/relaxation_activities/relaxation_activities_suggester.php">Proceed Anyway</a></button>
+          <button class="popup-btn" id="check-stress-btn"><a href="">Check Stress Level</a></button>
+        </div>
+      </div>
+    </div>
   <div class="card-container">
-    <div class="card" onclick="window.location.href='../views/low_level_relaxation_activities.php'">
+    <div class="card">
       <h3>Low</h3>
       <p>Maintain your calm with light tips and activities.</p>
       <img src="../../assets/images/Moderate+Stress+Level+(1).png" alt="Low Stress Icon">
     </div>
-    <div class="card" onclick="window.location.href='../views/moderate_level_relaxation_activities.php'">
+    <div class="card">
       <h3>Moderate</h3>
       <p>Try guided breathing and mindfulness techniques.</p>
       <img src="../../assets/images/Moderate+Stress+Level+(3).png" alt="Medium Stress Icon">
     </div>
-    <div class="card" onclick="window.location.href='../views/high_level_relaxation_activities.php'">
+    <div class="card">
       <h3>High</h3>
       <p>Engage in deeper stress relief methods and support.</p>
       <img src="../../assets/images/High+Stress+Level+(2).png" alt="High Stress Icon">

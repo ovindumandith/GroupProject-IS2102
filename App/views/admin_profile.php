@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="#">Services </a>
             <ul class="dropdown">
               <li><a href="#">Stress Monitoring</a></li>
-              <li><a href="#">Relaxation Activities</a></li>
+              <li><a href="../views/admin_activities_portal.php">Relaxation Activities</a></li>
               <li><a href="#">Workload Management Tools</a></li>
             </ul>
           </li>

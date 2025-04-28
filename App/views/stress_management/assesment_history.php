@@ -269,7 +269,7 @@ if (!$records) {
                 <h3>Services</h3>
                 <ul>
                     <li><a href="../../views/stress_assessment/assessment_form.php">Stress Assessment</a></li>
-                    <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
+                    <li><a href="../../views/relaxation_activities_suggester.php">Relaxation Activities</a></li>
                     <li><a href="../../views/Academic_Help.php">Academic Help</a></li>
                     <li><a href="../../controller/CounselorController.php?action=list">Counseling</a></li>
                     <li><a href="../../controller/CommunityController.php?action=list">Community</a></li>

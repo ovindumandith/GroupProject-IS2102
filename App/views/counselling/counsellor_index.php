@@ -748,7 +748,7 @@ body {
           <a href="#">Services</a>
           <ul class="dropdown">
             <li><a href="../../views/stress_managment_form.php">Stress Monitoring</a></li>
-            <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
+            <li><a href="../../views/relaxation_activities_suggester.php">Relaxation Activities</a></li>
             <li><a href="#">Workload Management Tools</a></li>
           </ul>
         </li>
