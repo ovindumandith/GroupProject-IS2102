@@ -19,7 +19,7 @@ $result = $eventModel->fetchAllEvents();
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Notifications</title>
   <link rel="stylesheet" href="../../assets/css/CommunityAdmin_notifications.css" type="text/css"/>
-  <script src="../../assets/js/CommunityAdmin_notifications.js" defer></script>
+  <script src="../../assets/js/CommunityAdmin_events.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../../assets/css/header_footer.css" type="text/css"/>
 </head>
@@ -50,18 +50,6 @@ $result = $eventModel->fetchAllEvents();
   <main>
     <br>
     <h2>Community Events Management</h2>
-
-    <!-- Display Status Message -->
-    <?php if (isset($_GET['status'])): ?>
-      <div class="status-message <?php echo htmlspecialchars($_GET['status']); ?>">
-        <?php
-          if ($_GET['status'] === 'success') echo "Event added successfully.";
-          elseif ($_GET['status'] === 'fail') echo "Error: Failed to add event.";
-          elseif ($_GET['status'] === 'invalid') echo "Please fill in all fields.";
-        ?>
-      </div>
-    <?php endif; ?>
-
     <section class="notification-form-section">
       <h3>Add Community Event Details</h3>
       <form action="../controller/CommunityEventsController.php?action=addEvent" method="POST" class="notification-form">

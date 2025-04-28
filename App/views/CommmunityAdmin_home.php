@@ -66,26 +66,71 @@ if (!isset($_SESSION['user_id'])) {
     <div class="overview">
         <div class="card">
             <h3>Total Users</h3>
-            <p id="total-posts">1050</p>
+            <p id="total-posts">34</p>
         </div>
         <div class="card">
             <h3>Total Posts</h3>
-            <p id="total-comments">2400</p>
+            <p id="total-comments">79</p>
         </div>
         <div class="card">
             <h3>Total Likes</h3>
-            <p id="total-users">780</p>
+            <p id="total-users">121</p>
         </div>
         <div class="card">
             <h3>Total Comments</h3>
-            <p id="total-users">3050</p>
+            <p id="total-users">31</p>
         </div>
         <div class="card">
             <h3>Total Events</h3>
-            <p id="total-users">160</p>
+            <p id="total-users">16</p>
         </div>
     </div>
     
+    <!-- Add Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Canvas for the chart -->
+<div style="width: 80%; margin: auto; padding: 40px 0;">
+    <canvas id="overviewChart"></canvas>
+</div>
+
+<script>
+const ctx = document.getElementById('overviewChart').getContext('2d');
+const overviewChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Total Users', 'Total Posts', 'Total Likes', 'Total Comments', 'Total Events'],
+        datasets: [{
+            label: 'Overview Statistics',
+            data: [34, 79, 121, 31, 16],
+            backgroundColor: [
+                '#4e73df',
+                '#1cc88a',
+                '#36b9cc',
+                '#f6c23e',
+                '#e74a3b'
+            ],
+            borderColor: '#ddd',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+</script>
+
+
     <div class="table-container">
         <h3>Recent Activities</h3>
         <table>
@@ -120,6 +165,7 @@ if (!isset($_SESSION['user_id'])) {
         </table>
     </div>
 </div>
+
 
     <!-- Footer Section -->
     <footer class="footer">
