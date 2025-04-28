@@ -235,7 +235,7 @@ document.querySelectorAll('.forward-btn').forEach(button => {
     formData.append('category', category);
     
     // Send AJAX request to forward the question
-    fetch('../controller/ForwardedQuestionController.php?action=forwardQuestion', {
+    fetch('../../App/controller/ForwardedQuestionController.php?action=forwardQuestion', {
       method: 'POST',
       body: formData
     })

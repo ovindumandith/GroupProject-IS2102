@@ -122,7 +122,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
                                 <th>Category</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -141,11 +141,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'hous') {
                                             <?php echo $question['status']; ?>
                                         </span>
                                     </td>
-                                    <td>
-                                        <a href="../../controller/Academic_QuestionsController.php?action=viewQuestion&id=<?php echo $question['id']; ?>" class="action-btn">
-                                            <i class="fas fa-eye"></i> View
-                                        </a>
-                                    </td>
+
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
