@@ -25,18 +25,26 @@ if (!$notification) {
     <meta charset="UTF-8">
     <title>Edit Notification</title>
     <link rel="stylesheet" href="../../assets/css/Edit_community.css">
+    <link rel="stylesheet" href="../../assets/css/edit_post.css">
 </head>
 <body>
-    <main class="notification-form-section">
-        <h2>Update Notification</h2>
+    <main class="create-whole-container">
+    <div class="header">
+        <div class="header-left">
+            <img src="../../assets/images/editpost.png" alt="Header Image" class="header-image">
+        </div>
+        <div class="header-right">
+            <button class="add-post-btn" onclick="window.location.href='CommmunityAdmin_notifications.php';">Back to Notifications </button>
+            <br><br><h1>Update Notification</h1>
+            <hr>
+        </div>
+    </div>
 
         <form action="../controller/CommunitynotificationsController.php?action=update" method="POST" class="notification-form">
             <!-- Hidden field to pass notification_id -->
             <input type="hidden" name="notification_id" value="<?= htmlspecialchars($notification['notification_id']) ?>">
-
-            <label for="title">Post Title:</label>
-            <input type="text" id="title" name="title" value="<?= htmlspecialchars($notification['title']) ?>" required>
-
+            
+            <input type="hidden" id="title" name="title" value="<?= htmlspecialchars($notification['title']) ?>" required>
             <label for="reason">Reason:</label>
             <textarea id="reason" name="reason" rows="4" required><?= htmlspecialchars($notification['reason']) ?></textarea>
 

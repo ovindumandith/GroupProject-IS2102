@@ -78,7 +78,7 @@ $result = $notificationModel->fetchNotificationsByUser($user_id); // Fetch notif
               echo "<tr>
                       <td>" . htmlspecialchars($row['title']) . "</td>
                       <td>" . htmlspecialchars($row['reason']) . "</td>
-                      <td>" . htmlspecialchars($row['created_at']) . "</td>
+                      <td style='color: red;'>" . htmlspecialchars($row['created_at']) . "</td>
                     </tr>";
           }
       } else {

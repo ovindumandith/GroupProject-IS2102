@@ -12,7 +12,7 @@ body {
 
 .create-whole-container {
   background-color: #d4f6d4;
-  width: 450px; /* Adjusted width for narrow frame */
+  width: 600px; /* Adjusted width for narrow frame */
   height: 750px; /* Adjusted height */
   border-radius: 15px;
   padding: 15px;

@@ -57,10 +57,11 @@ $result = $eventModel->fetchAllEvents();
         <label for="title">Event Title:</label>
         <input type="text" id="title" name="title" required>
 
-        <label for="date">Event Date & Time:</label>
-        <input type="datetime-local" id="date" name="date" required>
 
-        <label for="link">Platform Link:</label>
+        <label for="date">Event Date & Time:</label>
+        <input type="datetime-local" id="date" name="date" required min="<?= date('Y-m-d\TH:i') ?>">
+
+        <label for="link">Meeting Link:</label>
         <input type="url" id="link" name="link" placeholder="https://example.com" required>
 
         <label for="description">Event Description:</label>

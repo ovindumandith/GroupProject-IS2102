@@ -24,7 +24,8 @@ if ($role === 'CommunityAdmin') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Your Post</title>
     <link rel="stylesheet" href="../../assets/css/create_post.css">
-    <!--<script src="../../assets/js/create_post.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <main class="create-whole-container">
@@ -64,6 +65,24 @@ if ($role === 'CommunityAdmin') {
             </form>
 
         </div>
+        <?php if (isset($_GET['status']) && $_GET['status'] === 'success'): ?>
+<script>
+    Swal.fire({
+        title: 'Success!',
+        text: 'Post created successfully!',
+        icon: 'success',
+        confirmButtonColor: '#28a745',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (window.history.replaceState) {
+            const url = window.location.href.split('?')[0];
+            window.history.replaceState(null, null, url);
+        }
+    });
+</script>
+<?php endif; ?>
+
+
     </main>
 </body>
 </html>

@@ -29,7 +29,7 @@ class ManagePostController {
             if ($postId > 0) {
                 $isDeleted = $this->model->deletePost($postId);
                 if ($isDeleted) {
-                    echo "<script>alert('Post deleted successfully.'); window.location = '../views/manage_post.php';</script>";
+                    " window.location = '../views/manage_post.php';";
                 } else {
                     echo "<script>alert('Failed to delete the post. Please try again.');</script>";
                 }
