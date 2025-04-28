@@ -9,8 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$_SESSION['current_post_id'] = $postId;
-
 ?>
 
 <!DOCTYPE html>
@@ -104,9 +102,7 @@ $_SESSION['current_post_id'] = $postId;
             <div class="post">
             <div class="post-header">
                 <h4><strong><img src="../../assets/images/Account.png" alt="Profile" class="profile-picc"></strong> <br>
-                Username: <?= htmlspecialchars($post['username']) ?><br>
-                User ID: <?= htmlspecialchars($post['user_id']) ?><br>
-                Post ID: <?= htmlspecialchars($post['post_id']) ?></h4>
+                <?= htmlspecialchars($post['username']) ?><br>
             </div>
                 <br><h3><?= htmlspecialchars($post['title']) ?></h3><br>
                 <?php if (!empty($post['image_path'])): ?>
@@ -119,6 +115,10 @@ $_SESSION['current_post_id'] = $postId;
                   <a href="/GroupProject-IS2102/App/views/comment_post.php?post_id=<?= $post['post_id'] ?>">
                     <button id="add-comment-button"><img src="../../assets/images/Comment.png" alt="Share" class="profile-picc"></button>
                   </a>
+                  <a href="/GroupProject-IS2102/App/views/CommmunityAdmin_notifications.php?post_id=<?= $post['post_id'] ?>">
+                    <button><img src="../../assets/images/Delete.png" alt="Delete" class="profile-picc"></button>
+                  </a>
+
                 </div>
                 <small>Posted on: <?= htmlspecialchars($post['created_at']) ?></small>
             </div>

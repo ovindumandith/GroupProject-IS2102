@@ -29,7 +29,7 @@ $result = $notificationModel->fetchAllNotifications();
       href="../../assets/css/header_footer.css"
       type="text/css"
     />
-      
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
   </head>
@@ -56,35 +56,17 @@ $result = $notificationModel->fetchAllNotifications();
       </div>
     </header>
   
-<?php if (isset($_GET['status'])): ?>
-  <div class="status-message <?php echo htmlspecialchars($_GET['status']); ?>">
-    <?php
-      if ($_GET['status'] === 'success') echo "Notification sent and post deleted successfully.";
-      elseif ($_GET['status'] === 'fail') echo "Error: Failed to send notification.";
-      elseif ($_GET['status'] === 'invalid') echo "Please fill in all fields.";
-    ?>
-  </div>
-<?php endif; ?>
 <main>
   <br>
     <h2>Notification for Deleting Post</h2>
     <section class="notification-form-section">
   <h3>Send Notification to User</h3>
   <form action="../controller/CommunitynotificationsController.php?action=sendNotification" method="POST" class="notification-form">
-    <label for="user_id">User ID:</label>
-    <input type="text" id="user_id" name="user_id" required>
-
-    <label for="post_id">Post ID:</label>
-    <input type="text" id="post_id" name="post_id" required>
-
-    <label for="title">Post Title:</label>
-    <input type="text" id="title" name="title" required>
-
+    <input type="hidden" name="post_id" value="<?php echo $_GET['post_id']; ?>"> 
     <label for="reason">Reason:</label>
-    <textarea id="reason" name="reason" rows="4" required placeholder="Write the reason for deleting the post..."></textarea>
-
-    <input type="submit" value="Add Notification" class="add-post-btn">
-  </form>
+    <input id="reason" type="text" name="reason" placeholder="Enter the reason for deleting" required>
+    <button type="submit">Send Notification and Delete</button>
+</form>
 </section>
 
 
@@ -96,8 +78,6 @@ $result = $notificationModel->fetchAllNotifications();
   <thead>
     <tr>
       <th>Notification ID</th>
-      <th>User ID</th>
-      <th>Post ID</th>
       <th>Reason</th>
       <th>Deleted At</th>
       <th>Delete</th> 
@@ -110,12 +90,10 @@ $result = $notificationModel->fetchAllNotifications();
     foreach ($result as $row) {
       echo "<tr>
               <td>{$row['notification_id']}</td>
-              <td>{$row['user_id']}</td>
-              <td>{$row['post_id']}</td>
               <td>{$row['reason']}</td>
               <td>{$row['created_at']}</td>
               <td>
-              <form method='POST' action='../controller/CommunitynotificationsController.php' onsubmit=\"return confirm('Are you sure you want to delete this event?');\">
+              <form method='POST' action='../controller/CommunitynotificationsController.php?action=delete' onsubmit=\"return confirm('Are you sure you want to delete this event?');\">
                   <input type='hidden' name='action' value='delete'>
                   <input type='hidden' name='id' value='" . htmlspecialchars($row['notification_id']) . "'>                      
                   <button type='submit' class='delete-btn'>Delete</button>
