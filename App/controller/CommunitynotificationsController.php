@@ -1,62 +1,75 @@
 <?php
 require_once '../models/CommunitynotificationsModel.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'sendNotification') {
-    $userId = $_POST['user_id'] ?? null;
-    $postId = $_POST['post_id'] ?? null;
-    $title = $_POST['title'] ?? null;
-    $reason = $_POST['reason'] ?? null;
+session_start();
 
-    // Send notification and delete post
-    if ($userId && $postId && $title && $reason) {
-        $notification = new Notification();
-        $notificationSent = $notification->sendNotification($userId, $postId, $title, $reason);
+$notificationModel = new Notification();
 
-        if ($notificationSent) {
-            // Redirect with success message
-            header("Location: ../views/CommmunityAdmin_notifications.php?status=success");
-        } else {
-            header("Location: ../views/CommmunityAdmin_notifications.php?status=fail");
+$action = $_GET['action'] ?? '';
+
+switch ($action) {
+    case 'sendNotification':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $postId = $_POST['post_id'] ?? null;
+            $reason = $_POST['reason'] ?? null;
+            
+            if ($postId && $reason) {
+                // Get post info to get the user_id
+                $postInfo = $notificationModel->getPostInfo($postId);
+                
+                if ($postInfo) {
+                    $success = $notificationModel->sendNotification($postInfo['user_id'], $postId, $reason);
+                    
+                    if ($success) {
+                        header("Location: ../views/CommmunityAdmin_notifications.php?status=success");
+                    } else {
+                        header("Location: ../views/CommmunityAdmin_notifications.php?status=fail");
+                    }
+                } else {
+                    header("Location: ../views/CommmunityAdmin_notifications.php?status=fail");
+                }
+            } else {
+                header("Location: ../views/CommmunityAdmin_notifications.php?status=invalid");
+            }
         }
-        exit;
-    } else {
-        header("Location: ../views/CommmunityAdmin_notifications.php?status=invalid");
-        exit;
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
-    $notiId = $_POST['id'] ?? null;
-
-    if ($notiId) {
-        $notification = new Notification();
-        $deleted = $notification->deleteNoti($notiId);
-
-        if ($deleted) {
-            header("Location: ../views/CommmunityAdmin_notifications.php?status=deleted");
-        } else {
-            header("Location: ../views/CommmunityAdmin_notifications.php?status=deletefail");
+        break;
+        
+    case 'delete':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $notificationId = $_POST['id'] ?? null;
+            
+            if ($notificationId) {
+                $success = $notificationModel->deleteNotification($notificationId);
+                
+                if ($success) {
+                    header("Location: ../views/CommmunityAdmin_notifications.php?status=deleted");
+                } else {
+                    header("Location: ../views/CommmunityAdmin_notifications.php?status=deletefail");
+                }
+            }
         }
-        exit;
-    }
+        break;
+        
+        case 'update':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $notificationId = $_POST['notification_id'] ?? null;
+                $reason = $_POST['reason'] ?? null;
+                $title = $_POST['title'] ?? null;
+        
+                if ($notificationId && $reason && $title) {
+                    $success = $notificationModel->updateNotification($notificationId, $reason, $title);
+                    if ($success) {
+                        header("Location: ../views/CommmunityAdmin_notifications.php?status=updated");
+                    } else {
+                        header("Location: ../views/CommmunityAdmin_notifications.php?status=updatefail");
+                    }
+                }
+            }
+            break;
+        
+        
+    default:
+        // No action or invalid action
+        break;
 }
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'update') {
-    $notificationId = $_POST['notification_id'] ?? null;
-    $title = $_POST['title'] ?? null;
-    $reason = $_POST['reason'] ?? null;
-
-    if ($notificationId && $title && $reason) {
-        $notification = new Notification();
-        $updated = $notification->updateNotification($notificationId, $title, $reason);
-
-        if ($updated) {
-            header("Location: ../views/CommmunityAdmin_notifications.php?status=updated");
-        } else {
-            header("Location: ../views/CommmunityAdmin_notifications.php?status=updatefail");
-        }
-        exit;
-    }
-}
-
 ?>

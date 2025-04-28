@@ -9,14 +9,21 @@ class Notification {
         $this->conn = $db->connect();
     }
 
-    public function sendNotification($userId, $postId, $title, $reason) {
+    public function sendNotification($userId, $postId, $reason) {
         try {
+            // First get post title
+            $postStmt = $this->conn->prepare("SELECT title FROM posts WHERE post_id = ?");
+            $postStmt->execute([$postId]);
+            $post = $postStmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$post) return false;
+
             // Begin transaction
             $this->conn->beginTransaction();
 
             // Insert notification
             $stmt = $this->conn->prepare("INSERT INTO notifications (user_id, post_id, title, reason) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$userId, $postId, $title, $reason]);
+            $stmt->execute([$userId, $postId, $post['title'], $reason]);
 
             // Delete post from posts table
             $deleteStmt = $this->conn->prepare("DELETE FROM posts WHERE post_id = ?");
@@ -33,7 +40,12 @@ class Notification {
 
     public function fetchAllNotifications() {
         try {
-            $stmt = $this->conn->query("SELECT * FROM notifications ORDER BY created_at DESC");
+            $stmt = $this->conn->query("
+                SELECT n.*, p.title, p.user_id 
+                FROM notifications n
+                LEFT JOIN posts p ON n.post_id = p.post_id
+                ORDER BY n.created_at DESC
+            ");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Error fetching notifications: " . $e->getMessage());
@@ -41,39 +53,51 @@ class Notification {
         }
     }
 
-    public function fetchNotificationsByUser($user_id) {
-        $query = "SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$user_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function fetchNotificationsByUser($userId) {
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT * FROM notifications 
+                WHERE user_id = ? 
+                ORDER BY created_at DESC
+            ");
+            $stmt->execute([$userId]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching user notifications: " . $e->getMessage());
+            return [];
+        }
     }
     
-    public function deleteNoti($notiId) {
+    public function deleteNotification($notificationId) {
         try {
             $stmt = $this->conn->prepare("DELETE FROM notifications WHERE notification_id = ?");
-            $stmt->execute([$notiId]);
-            return true;
+            return $stmt->execute([$notificationId]);
         } catch (PDOException $e) {
-            error_log("Error deleting event: " . $e->getMessage());
+            error_log("Error deleting notification: " . $e->getMessage());
             return false;
         }
     }
 
-    public function updateNotification($id, $title, $reason) {
+    public function updateNotification($notificationId, $reason, $title) {
         try {
-            $stmt = $this->conn->prepare("UPDATE notifications SET title = ?, reason = ? WHERE notification_id = ?");
-            $stmt->execute([$title, $reason, $id]);
-            return true;
+            $stmt = $this->conn->prepare("UPDATE notifications SET reason = ?, title = ? WHERE notification_id = ?");
+            return $stmt->execute([$reason, $title, $notificationId]);
         } catch (PDOException $e) {
             error_log("Error updating notification: " . $e->getMessage());
             return false;
         }
     }
     
-    public function fetchNotificationById($id) {
+    
+    public function getNotificationById($notificationId) {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM notifications WHERE notification_id = ?");
-            $stmt->execute([$id]);
+            $stmt = $this->conn->prepare("
+                SELECT n.*, p.user_id 
+                FROM notifications n
+                LEFT JOIN posts p ON n.post_id = p.post_id
+                WHERE n.notification_id = ?
+            ");
+            $stmt->execute([$notificationId]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Error fetching notification by ID: " . $e->getMessage());
@@ -81,5 +105,15 @@ class Notification {
         }
     }
     
+    public function getPostInfo($postId) {
+        try {
+            $stmt = $this->conn->prepare("SELECT user_id, title FROM posts WHERE post_id = ?");
+            $stmt->execute([$postId]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching post info: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>

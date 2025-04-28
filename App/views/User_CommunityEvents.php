@@ -65,19 +65,16 @@ $result = $eventModel->fetchAllEvents();
       </div>
     </header>
   
-<main><br>
-<br>
-<button class="add-post-btn" onclick="window.location.href='../controller/CommunityController.php?action=list';">Back to Community</button>
+<main>
 
     <h2 class="page-title">Upcoming Community Events</h2>
     <br>
 <table id="eventsTable">
       <thead>
         <tr>
-          <th>Event ID</th>
-          <th>Title</th>
+          <th>Event</th>
           <th>Date & Time</th>
-          <th>Link</th>
+          <th>Meeting Link</th>
           <th>Description</th>
           <th>Category</th>
         </tr>
@@ -87,7 +84,6 @@ $result = $eventModel->fetchAllEvents();
         if ($result && count($result) > 0) {
           foreach ($result as $row) {
             echo "<tr>
-                    <td>" . htmlspecialchars($row['event_id']) . "</td>
                     <td>" . htmlspecialchars($row['title']) . "</td>
                     <td>" . htmlspecialchars($row['date']) . "</td>
                     <td><a href=\"" . htmlspecialchars($row['link']) . "\" target=\"_blank\">Join</a></td>

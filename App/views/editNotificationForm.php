@@ -1,6 +1,7 @@
 <?php
 require_once '../models/CommunitynotificationsModel.php';
 
+// Validate if ID is set
 if (!isset($_GET['id'])) {
     header('Location: CommmunityAdmin_notifications.php?status=invalid');
     exit();
@@ -8,7 +9,9 @@ if (!isset($_GET['id'])) {
 
 $notificationId = $_GET['id'];
 $model = new Notification();
-$notification = $model->fetchNotificationById($notificationId);
+
+// ❗ FIX: Correct method name
+$notification = $model->getNotificationById($notificationId);
 
 if (!$notification) {
     header('Location: CommmunityAdmin_notifications.php?status=notfound');
@@ -26,8 +29,10 @@ if (!$notification) {
 <body>
     <main class="notification-form-section">
         <h2>Update Notification</h2>
+
         <form action="../controller/CommunitynotificationsController.php?action=update" method="POST" class="notification-form">
-            <input type="hidden" name="notification_id" value="<?= $notification['notification_id'] ?>">
+            <!-- Hidden field to pass notification_id -->
+            <input type="hidden" name="notification_id" value="<?= htmlspecialchars($notification['notification_id']) ?>">
 
             <label for="title">Post Title:</label>
             <input type="text" id="title" name="title" value="<?= htmlspecialchars($notification['title']) ?>" required>
