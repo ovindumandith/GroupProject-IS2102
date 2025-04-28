@@ -13,10 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($model->userOwnsComment($commentId, $userId)) {
             if ($model->updateComment($commentId, $commentText)) {
                 // If update is successful, display success message using JavaScript
-                echo "<script>
-                    alert('Comment updated successfully!');
-                    window.location.href = '../views/comment_post.php?comment_id=$commentId'; // Redirect to edit page or another page
-                </script>";
+                header("Location: ../views/edit_comment.php?comment_id=$commentId&status=success");
                 exit();
             } else {
                 $error = "Failed to update the comment.";

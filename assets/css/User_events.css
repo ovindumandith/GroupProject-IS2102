@@ -62,7 +62,7 @@ main {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  color: #7f8c8d;
+  color: #e74c3c;
 }
 
 .event-date i {
@@ -72,12 +72,12 @@ main {
 
 .event-description {
   margin-bottom: 1.5rem;
-  color: #555;
+  color: #196d83;
 }
 
 .event-category {
   display: inline-block;
-  background: #f1f1f1;
+  background: #ffeb3b;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   font-size: 0.8rem;

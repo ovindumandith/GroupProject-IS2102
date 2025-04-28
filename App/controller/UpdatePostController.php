@@ -63,7 +63,9 @@ class UpdatePostController {
         }
 
         if ($this->model->updatePost($postId, $title, $description, $image)) {
-            echo "<script>alert('Post updated successfully.'); window.location='../views/manage_post.php';</script>";
+            header("Location: ../views/edit_post.php?post_id=$postId&status=success");
+            exit();
+
         } else {
             echo "<script>alert('Failed to update post.'); window.location='../views/manage_post.php';</script>";
         }
