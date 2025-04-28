@@ -59,7 +59,7 @@ if ($latestStressLevel === 'Low') {
 
     <script src="../../assets/js/hero_slider.js" defer></script>
     <script src="../../assets/js/testimonial_slider.js" defer></script>
-    <script src="../../assets/js/counter.js" defer></script>
+    
   </head>
   <body>
     <!-- Header Section -->
@@ -458,5 +458,34 @@ if ($latestStressLevel === 'Low') {
         <p>copyright 2024 @RelaxU all rights reserved</p>
       </div>
     </footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const counter = document.querySelector('.counter');
+    const target = 20;  // Set your target to 20
+    const duration = 1000; // Animation duration in milliseconds (1 second)
+    const steps = 20; // How many steps to take
+    const increment = target / steps;
+    let current = 0;
+    
+    const updateCounter = () => {
+      current += increment;
+      
+      // If we've reached or exceeded the target, set to the exact target
+      if (current >= target) {
+        counter.textContent = target + '+';
+        return; // Stop the animation
+      }
+      
+      // Otherwise update with the current value and continue
+      counter.textContent = Math.round(current) + '+';
+      
+      // Call the function again after a short delay
+      setTimeout(updateCounter, duration / steps);
+    };
+    
+    // Start the counter animation
+    updateCounter();
+  });
+</script>
   </body>
 </html>
