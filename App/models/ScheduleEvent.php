@@ -1,6 +1,5 @@
 <?php
-require_once '../../config/config.php';
-
+require_once __DIR__ . '/../../config/config.php';
 class ScheduleEvent
 {
     private $db;
@@ -13,7 +12,7 @@ class ScheduleEvent
     public function getAllEvents()
     {
         try {
-            $query = "SELECT * FROM schedule_events ORDER BY date, start_time";
+            $query = "SELECT * FROM schedule_events_2";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,24 +27,22 @@ class ScheduleEvent
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    public function saveEvent($title, $description, $date, $startTime, $endTime)
+
+    public function saveEvent($title, $startTime, $endTime)
     {
         try {
-            $query = 'INSERT INTO schedule_events (title, description, date, start_time, end_time) 
-                      VALUES (:title, :description, :date, :start_time, :end_time)';
+            $query = 'INSERT INTO schedule_events (title,start_time, end_time) 
+                      VALUES (:title, :start_time, :end_time)';
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':date', $date);
             $stmt->bindParam(':start_time', $startTime);
             $stmt->bindParam(':end_time', $endTime);
 
             if ($stmt->execute()) {
-               
+
                 return true;
             } else {
-                
+
             }
         } catch (PDOException $e) {
             error_log("Database error: " . $e->getMessage());
@@ -66,21 +63,19 @@ class ScheduleEvent
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC); // Assuming you're using PDO
     }
-    public function updateEvent($id, $title, $description, $date, $startTime, $endTime)
+    public function updateEvent($id, $title, $startTime, $endTime)
     {
         // Prepare the SQL query
-        $query = "UPDATE schedule_events SET title = ?, description = ?, date = ?, start_time = ?, end_time = ? WHERE id = ?";
+        $query = "UPDATE schedule_events SET title = ?, start_time = ?, end_time = ? WHERE id = ?";
 
         // Prepare the statement
         $stmt = $this->db->prepare($query);
 
         // Bind the parameters individually
         $stmt->bindValue(1, $title, PDO::PARAM_STR);
-        $stmt->bindValue(2, $description, PDO::PARAM_STR);
-        $stmt->bindValue(3, $date, PDO::PARAM_STR);
-        $stmt->bindValue(4, $startTime, PDO::PARAM_STR);
-        $stmt->bindValue(5, $endTime, PDO::PARAM_STR);
-        $stmt->bindValue(6, $id, PDO::PARAM_INT);  // id should be an integer
+        $stmt->bindValue(2, $startTime, PDO::PARAM_STR);
+        $stmt->bindValue(3, $endTime, PDO::PARAM_STR);
+        $stmt->bindValue(4, $id, PDO::PARAM_INT);  // id should be an integer
 
         // Execute the query and return the result
         if ($stmt->execute()) {
@@ -110,18 +105,19 @@ class ScheduleEvent
         // Fetch all matching events
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function checkEventOverlap($date, $startTime, $endTime, $title, $eventId = null) {
+    public function checkEventOverlap($date, $startTime, $endTime, $title, $eventId = null)
+    {
         // Assuming you have a database connection in $this->db
         $query = "SELECT * FROM schedule_events WHERE title = ? AND date = ? AND start_time = ? AND end_time = ?";
-    
+
         // If we're updating, exclude the current event from the check
         if ($eventId) {
             $query .= " AND id != ?";
         }
-    
+
         // Prepare and execute the query
         $stmt = $this->db->prepare($query);
-        
+
         if ($eventId) {
             // Binding parameters with proper types
             $stmt->bindParam(1, $title, PDO::PARAM_STR);
@@ -136,11 +132,26 @@ class ScheduleEvent
             $stmt->bindParam(3, $startTime, PDO::PARAM_STR);
             $stmt->bindParam(4, $endTime, PDO::PARAM_STR);
         }
-    
+
         $stmt->execute();
-        
+
         // Check if any rows were returned, meaning the event already exists
         return $stmt->rowCount() > 0;
     }
-    
-}    
+    public function getAllWeeklyEvent()
+    {
+        try {
+            $query = "SELECT * FROM schedule_events
+                      WHERE YEARWEEK(start_time, 1) = YEARWEEK(NOW(), 1) 
+                      ORDER BY start_time";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+
+}

@@ -43,10 +43,12 @@ if (!isset($_SESSION['user_id'])) {
         <li><a href="../views/About_Us.php">About Us</a></li>
       </ul>
     </nav>
-    <div class="auth-buttons">
-      <button class="signup"><b>Profile</b></button>
-      <button class="login"><b>Log Out</b></button>
-    </div>
+      <div class="auth-buttons">
+        <button class="signup" onclick="location.href='../controller/UserProfileController.php?action=showProfile'"><b>Profile</b></button>
+        <form action="../../util/logout.php" method="post" style="display: inline">
+          <button type="submit" class="login"><b>Log Out</b></button>
+        </form>
+      </div>
   </header>
 
   <!-- Hero Section -->

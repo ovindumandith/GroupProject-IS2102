@@ -167,11 +167,6 @@ function generateCalendar(events) {
     }
 }
 
-
-
-
-
-
 // Function to show the popup for adding a new event
 function showPopup() {
     // Reset form to ensure no previous data is carried over

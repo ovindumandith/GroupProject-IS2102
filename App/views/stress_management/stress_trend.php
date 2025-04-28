@@ -266,10 +266,11 @@ if (!$trend || count($trend) < 2) {
                 </div>
             </div>
             
-            <div class="action-buttons">
-                <a href="../../controller/StressAssessmentController.php?action=view_records" class="action-button back-btn">Back to History</a>
-                <a href="../../views/relaxation_activities.php" class="action-button new-assessment-btn">Explore Relaxation Activities</a>
-            </div>
+<div class="action-buttons">
+    <a href="../../controller/StressAssessmentController.php?action=view_records" class="action-button back-btn">Back to History</a>
+    <a href="../../controller/StressAssessmentController.php?action=download_report" class="action-button back-btn">Download Report</a>
+    <a href="../../views/relaxation_activities.php" class="action-button new-assessment-btn">Explore Relaxation Activities</a>
+</div>
         </div>
     </main>
 

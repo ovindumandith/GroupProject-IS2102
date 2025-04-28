@@ -61,6 +61,24 @@ class User {
         return false;
     }
 }
+ /**
+     * Get user details by ID
+     * 
+     * @param int $userId The user's ID
+     * @return array|bool User data or false if not found
+     */
+    public function getUserById($userId) {
+        try {
+            $query = 'SELECT * FROM users WHERE user_id = :user_id';
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logError($e->getMessage());
+            return false;
+        }
+    }
 
 
     private function logError($errorMessage) {

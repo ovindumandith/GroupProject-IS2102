@@ -7,6 +7,30 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
+// Fetch dashboard data
+require_once '../controller/DashboardController.php';
+$dashboardController = new DashboardController();
+$dashboardResult = $dashboardController->getUserDashboardData();
+$dashboardData = $dashboardResult['data'];
+
+// Set default values if data is missing
+$academicQuestions = isset($dashboardData['academic_questions']) ? $dashboardData['academic_questions'] : 0;
+$appointments = isset($dashboardData['appointments']) ? $dashboardData['appointments'] : 0;
+$completedAppointments = isset($dashboardData['completed_appointments']) ? $dashboardData['completed_appointments'] : 0;
+$reviews = isset($dashboardData['reviews']) ? $dashboardData['reviews'] : 0;
+$stressAssessments = isset($dashboardData['stress_assessments']) ? $dashboardData['stress_assessments'] : 0;
+$latestStressLevel = isset($dashboardData['latest_stress_level']) ? $dashboardData['latest_stress_level'] : 'Not assessed';
+
+// Determine stress level color
+$stressLevelColor = '#6c757d'; // Default gray
+if ($latestStressLevel === 'Low') {
+    $stressLevelColor = '#28a745'; // Green
+} elseif ($latestStressLevel === 'Moderate') {
+    $stressLevelColor = '#ffc107'; // Yellow/Amber
+} elseif ($latestStressLevel === 'High') {
+    $stressLevelColor = '#dc3545'; // Red
+}
 ?>
 
 
@@ -26,6 +50,12 @@ if (!isset($_SESSION['user_id'])) {
       type="text/css"
     />
     <link rel="stylesheet" href="../../assets/css/home.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/dashboard.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
+
 
     <script src="../../assets/js/hero_slider.js" defer></script>
     <script src="../../assets/js/testimonial_slider.js" defer></script>
@@ -107,6 +137,99 @@ if (!isset($_SESSION['user_id'])) {
         </div>
       </div>
     </section>
+    <!-- Student Dashboard Section -->
+<section class="student-dashboard">
+    <div class="dashboard-container">
+        <h2>Your Activity Dashboard</h2>
+        <p class="dashboard-subtitle">Track your engagement and progress on RelaxU</p>
+        
+        <div class="dashboard-stats">
+            <!-- Academic Questions Card -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $academicQuestions; ?></h3>
+                    <p>Academic Questions</p>
+                </div>
+                <div class="stat-action">
+                    <a href="../controller/Academic_QuestionsController.php?action=viewUserQuestions">View All</a>
+                </div>
+            </div>
+            
+            <!-- Appointments Card -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $appointments; ?></h3>
+                    <p>Counseling Appointments</p>
+                </div>
+                <div class="stat-action">
+                    <a href="../controller/AppointmentController.php?action=showStudentAppointments">View All</a>
+                </div>
+            </div>
+            
+            <!-- Completed Appointments Card -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $completedAppointments; ?></h3>
+                    <p>Completed Sessions</p>
+                </div>
+                <div class="stat-action">
+                    <a href="../controller/AppointmentController.php?action=showStudentAppointments">View All</a>
+                </div>
+            </div>
+            
+            <!-- Reviews Card -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $reviews; ?></h3>
+                    <p>Reviews Written</p>
+                </div>
+                <div class="stat-action">
+                    <a href="../controller/CounselorController.php?action=list">Write Review</a>
+                </div>
+            </div>
+            
+            <!-- Stress Assessments Card -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $stressAssessments; ?></h3>
+                    <p>Stress Assessments</p>
+                </div>
+                <div class="stat-action">
+                    <a href="../views/stress_management/stress_management_index.php">Take Assessment</a>
+                </div>
+            </div>
+            
+            <!-- Latest Stress Level Card -->
+            <div class="stat-card stress-level">
+                <div class="stat-icon" style="background-color: <?php echo $stressLevelColor; ?>;">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $latestStressLevel; ?></h3>
+                    <p>Current Stress Level</p>
+                </div>
+                <div class="stat-action">
+                    <a href="../views/stress_management/stress_management_index.php">Manage Stress</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section class="why-choose-us">
       <h2>Why Our Stress Monitoring App is the Best Choice</h2>

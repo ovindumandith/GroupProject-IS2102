@@ -68,7 +68,7 @@ if (!isset($_SESSION['user_id'])) {
   <div class="card-container">
     <div class="card" onclick="window.location.href='stress_management_form.php'">
       <h3>Stress Assessment</h3>
-      <p>Complete a comprehensive assessment to monitor your stress levels.</p>
+      <p>Complete an assessment to monitor your stress levels.</p>
       <img src="../../../assets/images/stress_monitoring.jpg" alt="Stress Assessment Icon">
     </div>
     <div class="card" onclick="window.location.href='../../controller/StressAssessmentController.php?action=view_records'">
