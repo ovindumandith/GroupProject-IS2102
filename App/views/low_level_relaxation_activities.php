@@ -39,7 +39,7 @@ $role                = $data['role'] ?? 'user';
         <nav class="navbar">
             <ul>
                 <?php if ($role === 'admin' || $role === 'superadmin'): ?>
-                    <li><a href="./admin_home.php">Home</a></li>
+                    <li><a href="../controller/AdminDashboardController.php?action=loadDashboard">Home</a></li>
                 <?php elseif ($role === 'student'): ?>
                     <li><a href="./home.php">Home</a></li>
                 <?php endif; ?>
@@ -55,9 +55,9 @@ $role                = $data['role'] ?? 'user';
                         <li><a href="#">Workload Management Tools</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Academic Help</a></li>
-                <li><a href="#">Counseling</a></li>
-                <li><a href="#">Community</a></li>
+                <li><a href="../controller/Academic_QuestionsController.php?action=viewAllQuestions">Academic Help</a></li>
+                <li><a href="../controller/AppointmentController.php?action=viewAppointments">Counseling</a></li>
+
                 <li><a href="#">About Us</a></li>
             </ul>
         </nav>

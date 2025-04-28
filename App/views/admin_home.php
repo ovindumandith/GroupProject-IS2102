@@ -55,7 +55,7 @@ $pendingQuestions = $dashboardData['pending_academic_questions'];
         </div>
         <nav class="navbar">
             <ul>
-                <li><a href="../views/admin_home.php" class="active">Home</a></li>
+                <li><a href="../controller/AdminDashboardController.php?action=loadDashboard">Home</a></li>
                 <li class="services">
                     <a href="#">Services </a>
                     <ul class="dropdown">
@@ -156,7 +156,7 @@ $pendingQuestions = $dashboardData['pending_academic_questions'];
                     <i class="fas fa-heart-pulse"></i>
                     <span>Stress Assessments</span>
                 </a>
-                <a href="./admin_activities_portal.php" class="action-btn">
+                <a href="../views/admin_activities_portal.php" class="action-btn">
                     <i class="fas fa-spa"></i>
                     <span>Relaxation Activities</span>
                 </a>

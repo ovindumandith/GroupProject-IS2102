@@ -37,7 +37,7 @@ $assessments = $_SESSION['all_assessments'] ?? [];
                     <a href="#">Services </a>
                     <ul class="dropdown">
                         <li><a href="../controller/StressAssessmentController.php?action=viewAllAssessments">Stress Monitoring</a></li>
-                        <li><a href="../../views/admin_activities_portal.php">Relaxation Activities</a></li>
+                        <li><a href="../../App/views/admin_activities_portal.php">Relaxation Activities</a></li>
                         <li><a href="./workload.php">Workload Management Tools</a></li>
                     </ul>
                 </li>
