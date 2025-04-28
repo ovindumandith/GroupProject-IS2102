@@ -251,7 +251,7 @@ $recommendedTechniques = $model->getRecommendedTechniques($latestAssessment['str
                     <a href="#">Services </a>
                     <ul class="dropdown">
                         <li><a href="../../views/stress_assessment/assessment_form.php">Stress Assessment</a></li>
-                        <li><a href="../../views/relaxation_activities.php">Relaxation Activities</a></li>
+                        <li><a href="../../views/relaxation_activities_suggester.php">Relaxation Activities</a></li>
                         <li><a href="#">Workload Management Tools</a></li>
                     </ul>
                 </li>

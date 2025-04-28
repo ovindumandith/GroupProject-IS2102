@@ -1,5 +1,6 @@
 <?php
-require_once 'C:\xampp\htdocs\GroupProject-IS2102\config\config.php';
+// require_once 'C:\xampp\htdocs\GroupProject-IS2102\config\config.php';
+require_once 'E:\xampp new\htdocs\GroupProject-IS2102\config\config.php';
 
 class ForwardedQuestionModel {
     private $db;
