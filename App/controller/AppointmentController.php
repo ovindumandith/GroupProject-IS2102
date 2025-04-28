@@ -21,6 +21,19 @@ class AppointmentController {
         $email = $_POST['email'];
         $phone = $_POST['phone'];
 
+        // Validate the appointment date (must be at least 2 days in the future)
+        $now = new DateTime();
+        $minDate = new DateTime();
+        $minDate->add(new DateInterval('P2D')); // Add 2 days
+        
+        $selectedDate = new DateTime($appointmentDate);
+        
+        if ($selectedDate < $minDate) {
+            // Appointment date is less than 2 days in the future
+            header('Location: ../views/counselling/schedule_appointments.php?counselor_id=' . $counselorId . '&error=date');
+            exit();
+        }
+
         if ($this->model->createAppointment($studentId, $counselorId, $appointmentDate, $topic, $email, $phone)) {
             header('Location: ../views/counselling/appointment_success.php?success=1'); // Redirect on success with success flag
             exit();
@@ -44,6 +57,122 @@ class AppointmentController {
 
         // Include the view to display the appointments
         include '../views/showStudentAppointments.php'; // Pass the appointments data to the view
+    }
+    
+    // Show form to update an appointment
+    public function updateAppointmentForm() {
+        session_start();
+        
+        // Ensure the student is logged in
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ../views/login.php');
+            exit();
+        }
+        
+        if (!isset($_GET['appointment_id']) || !is_numeric($_GET['appointment_id'])) {
+            $_SESSION['error_message'] = "Invalid appointment ID.";
+            header('Location: ../controller/AppointmentController.php?action=showStudentAppointments');
+            exit();
+        }
+        
+        $appointmentId = (int)$_GET['appointment_id'];
+        $studentId = $_SESSION['user_id'];
+        
+        // Fetch the appointment details
+        $appointment = $this->model->getAppointmentById($appointmentId);
+        
+        // Verify this is the student's appointment
+        if (!$appointment || $appointment['student_id'] != $studentId) {
+            $_SESSION['error_message'] = "Appointment not found or unauthorized access.";
+            header('Location: ../controller/AppointmentController.php?action=showStudentAppointments');
+            exit();
+        }
+        
+        // Get counselor details to display name
+        // Add counselor name to appointment array
+        $counselorDetails = $this->model->getCounselorById($appointment['counselor_id']);
+        $appointment['counselor_name'] = $counselorDetails ? $counselorDetails['name'] : 'Unknown Counselor';
+        
+        // Store appointment in session for the form
+        $_SESSION['appointment_to_update'] = $appointment;
+        
+        // Load the update appointment form
+        include '../views/update_appointment.php';
+    }
+    
+    // Method to update a student's appointment
+    public function updateAppointment() {
+        session_start();
+        
+        // Ensure the student is logged in
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ../views/login.php');
+            exit();
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['appointment_id']) || !isset($_POST['new_appointment_date'])) {
+            $_SESSION['error_message'] = "Invalid request.";
+            header('Location: ../controller/AppointmentController.php?action=showStudentAppointments');
+            exit();
+        }
+        
+        $appointmentId = (int)$_POST['appointment_id'];
+        $newDate = $_POST['new_appointment_date'];
+        $topic = $_POST['topic'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $studentId = $_SESSION['user_id'];
+        
+        // Fetch the current appointment
+        $appointment = $this->model->getAppointmentById($appointmentId);
+        
+        // Verify this is the student's appointment
+        if (!$appointment || $appointment['student_id'] != $studentId) {
+            $_SESSION['error_message'] = "Appointment not found or unauthorized access.";
+            header('Location: ../controller/AppointmentController.php?action=showStudentAppointments');
+            exit();
+        }
+        
+        // Validate the new appointment date (must be at least 2 days in the future)
+        $now = new DateTime();
+        $minDate = new DateTime();
+        $minDate->add(new DateInterval('P2D')); // Add 2 days
+        
+        $selectedDate = new DateTime($newDate);
+        
+        if ($selectedDate < $minDate) {
+            $_SESSION['reschedule_error'] = "Please select a date that is at least 2 days from today.";
+            header('Location: ../controller/AppointmentController.php?action=updateAppointmentForm&appointment_id=' . $appointmentId);
+            exit();
+        }
+        
+        // Update the appointment
+        if ($this->model->updateStudentAppointment($appointmentId, $newDate, $topic, $email, $phone)) {
+            // Reset appointment status to pending if it was already accepted
+            if ($appointment['status'] === 'Accepted') {
+                $this->model->updateAppointmentStatus($appointmentId, 'Pending');
+                
+                // Notify counselor about the rescheduling
+                $counselorDetails = $this->model->getCounselorById($appointment['counselor_id']);
+                if ($counselorDetails && isset($counselorDetails['email'])) {
+                    $this->emailService->sendRescheduleNotificationToCounselor(
+                        $counselorDetails['email'],
+                        $counselorDetails['name'],
+                        $_SESSION['username'],
+                        $appointment,
+                        $newDate
+                    );
+                }
+            }
+            
+            $_SESSION['success_message'] = "Appointment updated successfully! Your appointment has been rescheduled and is pending approval.";
+            header('Location: ../controller/AppointmentController.php?action=showStudentAppointments');
+            exit();
+        } else {
+            $_SESSION['reschedule_error'] = "Failed to update appointment. Please try again.";
+            header('Location: ../controller/AppointmentController.php?action=updateAppointmentForm&appointment_id=' . $appointmentId);
+            exit();
+        }
     }
 
     // Method to fetch pending appointments for a counselor
@@ -101,7 +230,6 @@ class AppointmentController {
     }
 
     // Method to update appointment status
-    
     public function updateAppointmentStatus() {
         session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointment_id'], $_POST['status'])) {
@@ -214,7 +342,7 @@ public function viewStudentStressTrend() {
             $appointmentId = $_POST['appointment_id'];
             
             // Fetch the appointment to check its status
-            $appointment = $this->model->getByStudentId($appointmentId);
+            $appointment = $this->model->getAppointmentById($appointmentId);
 
             if ($appointment['status'] === 'Accepted') {
                 // Optional: Log the cancellation or notify the counselor
@@ -351,9 +479,15 @@ public function viewAppointmentDetails() {
                 exit();
             }
             
-            // Validate the new date is in the future
-            if (strtotime($newDate) <= time()) {
-                $_SESSION['reschedule_error'] = "Please select a future date and time.";
+            // Validate the new date is at least 2 days in the future
+            $now = new DateTime();
+            $minRescheduleDate = new DateTime();
+            $minRescheduleDate->add(new DateInterval('P2D')); // Add 2 days
+            
+            $newAppointmentDate = new DateTime($newDate);
+            
+            if ($newAppointmentDate < $minRescheduleDate) {
+                $_SESSION['reschedule_error'] = "Please select a date that is at least 2 days from today.";
                 header('Location: ../controller/AppointmentController.php?action=showApprovedAppointments');
                 exit();
             }
@@ -423,6 +557,12 @@ if (isset($_GET['action'])) {
             break;  
         case 'viewAppointmentDetails':
             $controller->viewAppointmentDetails();
+            break;
+        case 'updateAppointmentForm':
+            $controller->updateAppointmentForm();
+            break;
+        case 'updateAppointment':
+            $controller->updateAppointment();
             break;      
 
         default:

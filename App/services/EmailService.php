@@ -62,6 +62,115 @@ class EmailService {
         }
     }
     
+    /**
+     * Send notification to counselor when a student reschedules an appointment
+     * 
+     * @param string $counselorEmail The counselor's email
+     * @param string $counselorName The counselor's name
+     * @param string $studentName The student's name
+     * @param array $appointmentData The original appointment data
+     * @param string $newDate The new appointment date and time
+     * @return bool Whether the email was sent successfully
+     */
+    public function sendRescheduleNotificationToCounselor($counselorEmail, $counselorName, $studentName, $appointmentData, $newDate) {
+        try {
+            $this->mailer->clearAddresses();
+            $this->mailer->addAddress($counselorEmail, $counselorName);
+            
+            // Set email subject
+            $this->mailer->Subject = "RelaxU - Student Rescheduled Appointment";
+            
+            // Format dates for display
+            $originalDate = date('F j, Y \a\t g:i a', strtotime($appointmentData['appointment_date']));
+            $newDateFormatted = date('F j, Y \a\t g:i a', strtotime($newDate));
+            
+            // Create email body
+            $body = "
+            <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;'>
+                <div style='text-align: center; margin-bottom: 20px;'>
+                    <h2 style='color: #009f77;'>Appointment Rescheduled by Student</h2>
+                </div>
+                <p>Hello $counselorName,</p>
+                <p>A student has rescheduled their appointment with you. This appointment now requires your approval.</p>
+                <div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;'>
+                    <p><strong>Student:</strong> $studentName</p>
+                    <p><strong>Topic:</strong> {$appointmentData['topic']}</p>
+                    <p><strong>Original Date & Time:</strong> <span style='text-decoration: line-through;'>$originalDate</span></p>
+                    <p><strong>New Date & Time:</strong> <span style='color: #2196F3;'>$newDateFormatted</span></p>
+                    <p><strong>Contact Email:</strong> {$appointmentData['email']}</p>
+                    <p><strong>Contact Phone:</strong> {$appointmentData['phone']}</p>
+                </div>
+                <p>Please review this appointment in your counselor dashboard. You can accept or decline this rescheduled appointment based on your availability.</p>
+                <div style='text-align: center; margin-top: 30px;'>
+                    <a href='http://localhost/GroupProject-IS2102/App/controller/AppointmentController.php?action=showPendingAppointments' style='background-color: #009f77; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>View Pending Appointments</a>
+                </div>
+                <p style='margin-top: 30px;'>Thank you for your commitment to supporting our students.</p>
+                <p>Warm regards,<br>RelaxU System</p>
+            </div>";
+            
+            $this->mailer->isHTML(true);
+            $this->mailer->Body = $body;
+            $this->mailer->AltBody = strip_tags(str_replace('<br>', "\n", $body));
+            
+            return $this->mailer->send();
+        } catch (Exception $e) {
+            // Log the error
+            error_log("Failed to send email to $counselorEmail: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Send notification to student when their appointment is updated by them
+     * 
+     * @param string $studentEmail The student's email
+     * @param string $studentName The student's name
+     * @param array $appointmentData The original appointment data
+     * @param string $newDate The new appointment date and time
+     * @return bool Whether the email was sent successfully
+     */
+    public function sendAppointmentUpdateConfirmation($studentEmail, $studentName, $appointmentData, $newDate) {
+        try {
+            $this->mailer->clearAddresses();
+            $this->mailer->addAddress($studentEmail, $studentName);
+            
+            // Set email subject
+            $this->mailer->Subject = "RelaxU - Your Appointment Update Confirmation";
+            
+            // Format dates for display
+            $originalDate = date('F j, Y \a\t g:i a', strtotime($appointmentData['appointment_date']));
+            $newDateFormatted = date('F j, Y \a\t g:i a', strtotime($newDate));
+            
+            // Create email body
+            $body = "
+            <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;'>
+                <div style='text-align: center; margin-bottom: 20px;'>
+                    <h2 style='color: #009f77;'>Appointment Update Confirmation</h2>
+                </div>
+                <p>Hello $studentName,</p>
+                <p>Your appointment has been successfully updated and is now <span style='color: #FF9800; font-weight: bold;'>PENDING</span> approval from your counselor.</p>
+                <div style='background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0;'>
+                    <p><strong>Topic:</strong> {$appointmentData['topic']}</p>
+                    <p><strong>Original Date & Time:</strong> <span style='text-decoration: line-through;'>$originalDate</span></p>
+                    <p><strong>New Date & Time:</strong> <span style='color: #2196F3;'>$newDateFormatted</span></p>
+                </div>
+                <p>Your counselor will review this change and either accept or deny it based on their availability. You will receive another email once they have made their decision.</p>
+                <p>If you have any questions or need to make further changes, please log in to your RelaxU account or contact our support team.</p>
+                <p>Warm regards,<br>RelaxU Counseling Team</p>
+            </div>";
+            
+            $this->mailer->isHTML(true);
+            $this->mailer->Body = $body;
+            $this->mailer->AltBody = strip_tags(str_replace('<br>', "\n", $body));
+            
+            return $this->mailer->send();
+        } catch (Exception $e) {
+            // Log the error
+            error_log("Failed to send email to $studentEmail: " . $e->getMessage());
+            return false;
+        }
+    }
+    
     // Get template for accepted appointments
     private function getAcceptedEmailTemplate($recipientName, $appointmentData, $appointmentDate) {
         return "

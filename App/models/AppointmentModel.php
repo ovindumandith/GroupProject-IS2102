@@ -28,7 +28,8 @@ class AppointmentModel {
         $query = "SELECT a.*, c.name AS counselor_name 
                   FROM appointments a
                   JOIN counselors c ON a.counselor_id = c.id
-                  WHERE a.student_id = :student_id";
+                  WHERE a.student_id = :student_id
+                  ORDER BY a.appointment_date DESC";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':student_id', $studentId, PDO::PARAM_INT);
         $stmt->execute();
@@ -133,6 +134,49 @@ class AppointmentModel {
         $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Get counselor details by ID
+     *
+     * @param int $counselorId The counselor ID
+     * @return array|bool Counselor details or false if not found
+     */
+    public function getCounselorById($counselorId) {
+        $query = "SELECT id, name, type, email, specialization 
+                FROM counselors 
+                WHERE id = :counselor_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':counselor_id', $counselorId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Update an appointment details by student
+     * 
+     * @param int $appointmentId The appointment ID
+     * @param string $newDate The new appointment date and time
+     * @param string $topic The updated topic
+     * @param string $email The updated email
+     * @param string $phone The updated phone
+     * @return bool Whether the update was successful
+     */
+    public function updateStudentAppointment($appointmentId, $newDate, $topic, $email, $phone) {
+        $query = "UPDATE appointments 
+                SET appointment_date = :new_date, 
+                    topic = :topic,
+                    email = :email,
+                    phone = :phone,
+                    updated_at = NOW() 
+                WHERE id = :appointment_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':new_date', $newDate, PDO::PARAM_STR);
+        $stmt->bindParam(':topic', $topic, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $stmt->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+        return $stmt->execute();
     }
     
     /**
@@ -373,4 +417,3 @@ class AppointmentModel {
         }
     }
 }
-?>

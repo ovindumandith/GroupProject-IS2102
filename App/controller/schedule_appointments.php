@@ -69,8 +69,20 @@ if (isset($_GET['counselor_id'])) {
 <div class="schedule-appointment">
   <h2>Schedule an Appointment</h2>
   <p>Fill in the details below to book your appointment with the counselor.</p>
+  
+  <!-- Add info message about appointment scheduling restrictions -->
+  <div class="info-message">
+    <p><strong>Note:</strong> Appointments must be scheduled at least 2 days in advance to give our counselors enough time to prepare.</p>
+  </div>
+  
+  <!-- Error message display - only shown when there's an error -->
+  <?php if(isset($_GET['error']) && $_GET['error'] == 'date'): ?>
+  <div class="error-message">
+    <p><strong>Error:</strong> Please select a date at least 2 days from today. Past dates and too close dates cannot be scheduled.</p>
+  </div>
+  <?php endif; ?>
 
-  <form class="schedule-form" action="AppointmentController.php?action=scheduleAppointment" method="POST">
+  <form class="schedule-form" action="AppointmentController.php?action=scheduleAppointment" method="POST" id="appointmentForm">
     <!-- Hidden fields for user ID and counselor ID -->
     <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
     <input type="hidden" name="counselor_id" value="<?= $_GET['counselor_id'] ?>">
@@ -79,6 +91,7 @@ if (isset($_GET['counselor_id'])) {
     <div class="form-group">
       <label for="appointment_date">Choose Date and Time:</label>
       <input type="datetime-local" id="appointment_date" name="appointment_date" required>
+      <small id="dateHelp" class="form-text">Earliest available appointment is <span id="earliestDate">calculating...</span></small>
     </div>
 
     <!-- Topic of Interest -->
@@ -100,11 +113,73 @@ if (isset($_GET['counselor_id'])) {
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="submit-btn">📅 Schedule Appointment</button>
+    <button type="submit" class="submit-btn" id="scheduleBtn">📅 Schedule Appointment</button>
   </form>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the date input element
+    const dateInput = document.getElementById('appointment_date');
+    const dateHelp = document.getElementById('earliestDate');
+    const form = document.getElementById('appointmentForm');
+    
+    // Calculate the minimum date (2 days from now)
+    const now = new Date();
+    const minDate = new Date(now);
+    minDate.setDate(now.getDate() + 2); // Add 2 days
+    
+    // Format the date for the datetime-local input
+    // Format: YYYY-MM-DDThh:mm
+    function formatDateForInput(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}T00:00`;
+    }
+    
+    // Set the minimum date attribute
+    dateInput.min = formatDateForInput(minDate);
+    
+    // Display the earliest available date in a user-friendly format
+    dateHelp.textContent = minDate.toDateString();
+    
+    // Form validation
+    form.addEventListener('submit', function(event) {
+        const selectedDate = new Date(dateInput.value);
+        
+        // Check if the selected date is at least 2 days in the future
+        if (selectedDate < minDate) {
+            event.preventDefault();
+            alert('Please select a date that is at least 2 days from today.');
+            dateInput.focus();
+        }
+    });
+});
+</script>
 
+<!-- Add some CSS for the info message -->
+<style>
+.info-message {
+    background-color: #e7f3ff;
+    border-left: 4px solid #2196F3;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
+
+.info-message p {
+    margin: 0;
+    color: #0c5460;
+}
+
+#dateHelp {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+</style>
 
      <footer class="footer">
       <div class="footer-container">
