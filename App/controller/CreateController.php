@@ -27,7 +27,7 @@ class CreateController {
 $imagePath = null;
 
 if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-    $uploadDir = '/Applications/XAMPP/xamppfiles/htdocs/GroupProject-IS2102/App/views/uploads/';
+    $uploadDir = '../../App/views/uploads/';
     
     if (!file_exists($uploadDir)) {
         mkdir($uploadDir, 0755, true);

@@ -41,7 +41,6 @@ if (isset($_GET['counselor_id'])) {
 
             <label for="phone">Your Phone Number:</label>
             <input type="text" id="phone" name="phone" required>
-
             <button type="submit">📅 Schedule Appointment</button>
         </form>
     </div>
