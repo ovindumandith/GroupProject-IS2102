@@ -22,7 +22,7 @@
       <!-- Navigation System -->
       <nav class="navbar">
         <ul>
-          <li><a href="./admin_home.php">Home</a></li>
+          <li><a href="../controller/AdminDashboardController.php?action=loadDashboard">Home</a></li>
           <li class="services">
             <a href="#">Services</a>
             <ul class="dropdown">

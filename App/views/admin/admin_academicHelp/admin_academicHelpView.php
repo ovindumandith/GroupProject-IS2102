@@ -187,7 +187,7 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="./admin_home.php">Home</a></li>
+          <li><a href="../controller/AdminDashboardController.php?action=loadDashboard">Home</a></li>
           <li class="services">
             <a href="#">Services </a>
             <ul class="dropdown">
@@ -242,12 +242,7 @@
                   <td><?= htmlspecialchars($question['updated_at']) ?></td>
                   <td>
                     <div class="button-group">
-                      <button class="action-button reply-btn"
-                              data-question-id="<?= $question['id'] ?>"
-                              data-student-name="<?= htmlspecialchars($question['full_name']) ?>"
-                              data-question-text="<?= htmlspecialchars($question['question']) ?>">
-                        Reply
-                      </button>
+
                       <form action="../controller/Academic_QuestionsController.php?action=deleteQuestion_admin" method="POST" style="display:inline;">
                         <input type="hidden" name="question_id" value="<?= $question['id'] ?>">
                         <button type="submit" class="action-button delete-btn" onclick="return confirm('Are you sure you want to delete this question?');">
